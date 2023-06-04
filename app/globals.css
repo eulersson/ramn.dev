@@ -4,24 +4,57 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 0, 0, 0;
+    --background-rgb: 255, 255, 255;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+.bg-grid {
+  position: absolute;
+}
+
+.bg-grid__screen-clipper {
+  display: flex;
+  width: 100%;
+  border: 1px solid black;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid {
+  display: flex;
+  width: 2000px;
+  min-width: 2000px;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half--left {
+  justify-content: end;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half--right {
+  justify-content: start;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half .bg-grid__box {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+  height: 200px;
+  border: 1px solid black;
 }
