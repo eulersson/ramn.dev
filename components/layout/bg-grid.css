@@ -1,0 +1,53 @@
+.bg-grid {
+  position: absolute;
+  width: 100%;
+  z-index: -20;
+}
+
+.bg-grid__screen-clipper {
+  display: flex;
+  width: 100%;
+  border: 1px solid black;
+  overflow-x: hidden;
+  justify-content: center;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid {
+  display: flex;
+  width: 2000px;
+  min-width: 2000px;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half--left {
+  justify-content: end;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half--right {
+  justify-content: start;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half .bg-grid__box-bg {
+  width: var(--bg-grid-box-size);
+  min-width: var(--bg-grid-box-size);
+  max-width: var(--bg-grid-box-size);
+  height: var(--bg-grid-box-size);
+  background-color: black;
+}
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half .bg-grid__box-bg .bg-grid__box {
+  width: 100%;
+  height:100%;
+  border-radius: 0px;
+  background-color: white;
+  border: 1px solid black;
+  transition: border-radius 0.5s ease;
+}
+
+.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half .bg-grid__box-bg .bg-grid__box:hover {
+  border-radius: 40px;
+}

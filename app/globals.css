@@ -5,56 +5,34 @@
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 255, 255, 255;
+  --bg-grid-box-size: 200px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-rgb: 255, 255, 255;
-  }
-}
-
+/* TODO: Use Tailwind CSS */
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
 }
 
-.bg-grid {
+/* TODO: Use Tailwind CSS */
+.root-layout-container {
   position: absolute;
-}
-
-.bg-grid__screen-clipper {
-  display: flex;
   width: 100%;
-  border: 1px solid black;
-  overflow: hidden;
+  display: flex;
   justify-content: center;
+  /* padding-top: calc(var(--bg-grid-box-size) / 2 + 50px); */
 }
 
-.bg-grid__screen-clipper .bg-grid__grid {
+/* TODO: Use Tailwind CSS */
+.root-layout-container main {
   display: flex;
-  width: 2000px;
-  min-width: 2000px;
+  flex-direction: column;
+  width: calc(var(--bg-grid-box-size) * 4 + 2px);
 }
 
-.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half {
-  display: flex;
-  flex-wrap: wrap;
-  width: 50%;
-}
 
-.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half--left {
-  justify-content: end;
-}
-
-.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half--right {
-  justify-content: start;
-}
-
-.bg-grid__screen-clipper .bg-grid__grid .bg-grid__grid-half .bg-grid__box {
-  width: 200px;
-  min-width: 200px;
-  max-width: 200px;
-  height: 200px;
-  border: 1px solid black;
+@layer components {
+  .border-inside {
+    @apply outline outline-black outline-2 -outline-offset-2;
+  }
 }

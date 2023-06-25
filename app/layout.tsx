@@ -1,11 +1,13 @@
-import "./globals.css";
-
+// Next
 import {
   Fira_Mono,
   Nunito,
   Playfair_Display,
   Urbanist,
 } from "@next/font/google";
+
+// Styles
+import "./globals.css";
 
 export const firaMono = Fira_Mono({
   subsets: ["latin"],
@@ -17,7 +19,7 @@ export const firaMono = Fira_Mono({
 export const nunito = Nunito({
   subsets: ["latin"],
   variable: "--font-nunito",
-  weight: ["200"],
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -46,29 +48,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const copies = 100;
   return (
     <html lang="en">
       <body
         className={`${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable}`}
       >
-        <div className="absolute">{children}</div>
-        <div className="bg-grid">
-          <div className="bg-grid__screen-clipper">
-            <div className="bg-grid__grid">
-              <div className="bg-grid__grid-half bg-grid__grid-half--left">
-                {[...Array(copies)].map((e, i) => (
-                  <div className="bg-grid__box" key={i}></div>
-                ))}
-              </div>
-              <div className="bg-grid__grid-half bg-grid__grid-half--right">
-                {[...Array(copies)].map((e, i) => (
-                  <div className="bg-grid__box" key={i}></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        {children}
       </body>
     </html>
   );

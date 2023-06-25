@@ -1,3 +1,5 @@
+import { Title } from "@/components/title";
+
 import type { MDXComponents } from "mdx/types";
 
 // This file allows you to provide custom React components
@@ -9,18 +11,10 @@ import type { MDXComponents } from "mdx/types";
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // Allows customizing built-in components, e.g. to add styling.
-    h1: ({ children }) => (
-      <h1 className="my-5 text-4xl font-serif">{children}</h1>
-    ),
-    p: ({ children }) => (
-      <p className="my-5 text-lg font-sans">{children}</p>
-    ),
-    pre: ({ children }) => (
-      <pre>{children}</pre>
-    ),
-    code: ({ children }) => (
-      <code className="my-5 font-mono text-sm">{children}</code>
-    ),
-    ...components
+    // h1: ({ children }) => <Title>{children}</Title>,
+    // p: ({ children }) => <p>{children}</p>,
+    // pre: ({ children }) => <pre>{children}</pre>,
+    // code: ({ children }) => <code>{children}</code>,
+    ...components,
   };
 }

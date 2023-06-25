@@ -1,24 +1,69 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './mdx-components.tsx',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./mdx-components.tsx",
   ],
   theme: {
     extend: {
       fontFamily: {
-        title: ['var(--font-urbanist)'],
-        mono: ['var(--font-fira-mono)'],
-        sans: ['var(--font-nunito)'],
-        serif: ['var(--font-playfair-display)']
+        title: ["var(--font-urbanist)"],
+        mono: ["var(--font-fira-mono)"],
+        sans: ["var(--font-nunito)"],
+        serif: ["var(--font-playfair-display)"],
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      boxShadow: {
+        blocky: "10px 10px 0 black",
+        button: "5px 5px 0 black",
+        buttonhover: "3px 3px 0 black",
       },
+      animation: {
+        blinky: "blinky 800ms step-end 10",
+      },
+      keyframes: {
+        blinky: {
+          "0% 100%": { background: "black", color: "white" },
+          "50%": { background: "white", color: "black" },
+        },
+      },
+      spacing: {
+        g1: "calc(var(--bg-grid-box-size) * (1 / 8))",
+        g2: "calc(var(--bg-grid-box-size) * (2 / 8))",
+        g3: "calc(var(--bg-grid-box-size) * (3 / 8))",
+        g4: "calc(var(--bg-grid-box-size) * (4 / 8))",
+        g5: "calc(var(--bg-grid-box-size) * (5 / 8))",
+        g6: "calc(var(--bg-grid-box-size) * (6 / 8))",
+        g7: "calc(var(--bg-grid-box-size) * (7 / 8))",
+        g8: "var(--bg-grid-box-size)",
+        g9: "calc(var(--bg-grid-box-size) * (9 / 8))",
+        g10: "calc(var(--bg-grid-box-size) * (10 / 8))",
+        g11: "calc(var(--bg-grid-box-size) * (11 / 8))",
+        g12: "calc(var(--bg-grid-box-size) * (12 / 8))",
+        g13: "calc(var(--bg-grid-box-size) * (13 / 8))",
+        g14: "calc(var(--bg-grid-box-size) * (14 / 8))",
+        g15: "calc(var(--bg-grid-box-size) * (15 / 8))",
+        g16: "calc(var(--bg-grid-box-size) * 2)",
+      },
+      height: {
+        g1: "calc(var(--bg-grid-box-size) * (1 / 8))",
+        g2: "calc(var(--bg-grid-box-size) * (2 / 8))",
+        g3: "calc(var(--bg-grid-box-size) * (3 / 8))",
+        g4: "calc(var(--bg-grid-box-size) * (4 / 8))",
+        g5: "calc(var(--bg-grid-box-size) * (5 / 8))",
+        g6: "calc(var(--bg-grid-box-size) * (6 / 8))",
+        g7: "calc(var(--bg-grid-box-size) * (7 / 8))",
+        g8: "var(--bg-grid-box-size)",
+        g9: "calc(var(--bg-grid-box-size) * (9 / 8))",
+        g10: "calc(var(--bg-grid-box-size) * (10 / 8))",
+        g11: "calc(var(--bg-grid-box-size) * (11 / 8))",
+        g12: "calc(var(--bg-grid-box-size) * (12 / 8))",
+        g13: "calc(var(--bg-grid-box-size) * (13 / 8))",
+        g14: "calc(var(--bg-grid-box-size) * (14 / 8))",
+        g15: "calc(var(--bg-grid-box-size) * (15 / 8))",
+        g16: "calc(var(--bg-grid-box-size) * 2)",
+      }
     },
-  }
-}
+  },
+};

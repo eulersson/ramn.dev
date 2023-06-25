@@ -1,5 +1,11 @@
+// Components
+import { About } from "@/components/sections/about";
+import { PageWrapper } from "@/app/page-wrapper";
+
 export default function Home() {
   return (
-    <h1>This is Home.</h1>
+    <PageWrapper>
+      <About />
+    </PageWrapper>
   );
 }
