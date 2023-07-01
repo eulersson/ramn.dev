@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 // Components
 import { BGGrid } from "@/components/layout/bg-grid";
-import { Cover } from "@/components/sections/cover";
+import { Cover } from "@/components/layout/cover";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/sections/hero";
 import { Navbar } from "@/components/layout/navbar";
