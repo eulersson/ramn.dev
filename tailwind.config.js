@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        title: ["var(--font-playfair-display)"],
+        title: ["var(--font-urbanist)"],
         mono: ["var(--font-fira-mono)"],
         sans: ["var(--font-nunito)"],
         serif: ["var(--font-playfair-display)"],

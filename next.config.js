@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  optimizeFonts: false
-};
+const nextConfig = {};
 
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
