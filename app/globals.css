@@ -8,6 +8,12 @@
   --bg-grid-box-size: 200px;
 }
 
+@screen lg {
+  :root {
+    --bg-grid-box-size: 250px;
+  }
+}
+
 /* TODO: Use Tailwind CSS */
 body {
   color: rgb(var(--foreground-rgb));

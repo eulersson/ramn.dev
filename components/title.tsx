@@ -7,7 +7,7 @@ export function Title({
 }) {
   return (
     <h1
-      className={`inline m-auto font-serif text-6xl p-[20px] bg-white border-inside shadow-blocky ${className}`}
+      className={`inline m-auto mt-[calc((var(--bg-grid-box-size)-100px)/2)] mb-[calc((var(--bg-grid-box-size)-100px)/2)] font-serif leading-none text-[60px] p-[20px] bg-white border-inside shadow-blocky ${className}`}
     >
       {children}
     </h1>

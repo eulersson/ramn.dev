@@ -148,7 +148,7 @@ export function Cloth() {
      * @property {number} w Width of the canvas (on resize glViewport is called).
      * @property {number} h Height of the canvas (on resize glViewport is called).
      */
-    function ParticleSystem(canvasId) {
+      function ParticleSystem(canvasId) {
       this.NUM_ITERATIONS = 1;
       this.TIMESTEP = 1.0;
 

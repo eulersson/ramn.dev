@@ -1,6 +1,6 @@
 import { Tag, TagProps } from "./tag";
 
-type ClassNameSlot = "main" | "tags";
+type ClassNameSlot = "wrapper" | "main" | "tags";
 
 export interface BlockProps {
   children: React.ReactNode;
@@ -14,12 +14,18 @@ export const Block: React.FC<BlockProps> = ({
   classNames = {},
 }) => {
   return (
-    <div className="bg-white outline border-inside">
-      <div className={`font-sans text-xl p-5 ${classNames.main || ""}`}>
+    <div
+      className={`bg-black ${classNames.wrapper || ""}`}
+    >
+      <div
+        className={`bg-white font-sans text-xl p-5 rounded-[40px] ${
+          classNames.main || ""
+        }`}
+      >
         {children}
       </div>
       {tags.length && (
-        <div className={`bg-black px-4 py-4 ${classNames.tags || ""}`}>
+        <div className={`bg-black px-4 py-4 mb-[-2px] ${classNames.tags || ""}`}>
           {...tags.map((props, i) => <Tag {...props} key={i} />)}
         </div>
       )}

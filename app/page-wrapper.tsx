@@ -31,7 +31,7 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
         <div key="layout-container" className="root-layout-container">
           <div>
             <Header />
-            <main className="mt-g2">{children}</main>
+            <main className="md:mt-[2px] lg:mt-[27px]">{children}</main>
           </div>
         </div>
       )}

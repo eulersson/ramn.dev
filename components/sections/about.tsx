@@ -1,3 +1,6 @@
+// Next.js
+import Image from "next/image";
+
 // Components
 import { Block } from "@/components/block";
 import { TagProps } from "@/components/tag";
@@ -18,13 +21,25 @@ export function About() {
   return (
     <section className="flex flex-col justify-center">
       <Title>Who Am I?</Title>
-      <Terminal className="m-g2 h-g10" command="whoami">
+      <Terminal className="m-g2 mt-0 h-g10" command="whoami">
         <WhoAmI />
       </Terminal>
-      <Block classNames={{ main: "h-g5", tags: "h-g3" }} tags={tags}>
-        <Intention />
-      </Block>
-      <Anthem />
+      <div className="relative grid grid-cols-4 p-[2px] gap-[2px]">
+        <div>
+          <Image
+            className="absolute top-[-61px] left-[-108px] w-[366px]"
+            src="/displaced-me.png"
+            width={707}
+            height={685}
+            alt="Displaced Me"
+          />
+        </div>
+        <div className="col-span-3">
+          <Block classNames={{ main: "h-g5", tags: "h-g3" }} tags={tags}>
+            <Intention />
+          </Block>
+        </div>
+      </div>
     </section>
   );
 }
