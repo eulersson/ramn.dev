@@ -9,21 +9,21 @@ import {
 // Styles
 import "./globals.css";
 
-export const firaMono = Fira_Mono({
+const firaMono = Fira_Mono({
   subsets: ["latin"],
   variable: "--font-fira-mono",
   weight: ["400"],
   display: "swap",
 });
 
-export const nunito = Nunito({
+const nunito = Nunito({
   subsets: ["latin"],
   variable: "--font-nunito",
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-export const playfairDisplay = Playfair_Display({
+const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair-display",
   style: "italic",
@@ -31,7 +31,7 @@ export const playfairDisplay = Playfair_Display({
   display: "swap",
 });
 
-export const urbanist = Urbanist({
+const urbanist = Urbanist({
   subsets: ["latin"],
   variable: "--font-urbanist",
   weight: ["800"],
