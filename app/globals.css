@@ -36,6 +36,21 @@ body {
   width: calc(var(--bg-grid-box-size) * 4 + 2px);
 }
 
+* {
+  cursor: none;
+}
+
+.cursor {
+  background-color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  mix-blend-mode: difference;
+}
 
 @layer components {
   .border-inside {

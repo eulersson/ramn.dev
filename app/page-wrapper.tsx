@@ -20,7 +20,7 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
     setTimeout(() => {
       setShowCover(false);
     }, 2000);
-  });
+  }, []);
 
   return (
     <AnimatePresence>
