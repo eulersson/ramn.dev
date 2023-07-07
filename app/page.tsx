@@ -16,7 +16,7 @@ export default function Home() {
   const cursorY = useMotionValue(-100);
   
   useEffect(() => {
-    const mouseMove = (e) => {
+    const mouseMove = (e: MouseEvent) => {
       console.log(e);
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
