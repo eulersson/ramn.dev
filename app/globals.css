@@ -41,6 +41,7 @@ body {
 }
 
 .cursor {
+  pointer-events: none;
   background-color: white;
   width: 32px;
   height: 32px;

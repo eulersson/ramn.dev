@@ -10,6 +10,7 @@ import { motion, useMotionValue } from "framer-motion";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
 import { PageWrapper } from "@/app/page-wrapper";
+import { Projects } from "@/components/sections/projects";
 
 export default function Home() {
   const cursorX = useMotionValue(-100);
@@ -17,7 +18,6 @@ export default function Home() {
   
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
-      console.log(e);
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
     };
@@ -39,6 +39,7 @@ export default function Home() {
       <div className="flex flex-col">
         <About />
         <Experience />
+        <Projects />
       </div>
     </PageWrapper>
   );
