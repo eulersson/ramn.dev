@@ -1,96 +1,48 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useSection } from "@/context/section";
 
-export function Navbar({
-  activeSection,
-}: {
-  activeSection: "home" | "about" | "experience" | "projects";
-}) {
-  const sections = ["home", "about", "experience", "projects"];
-  const activeIdx = sections.findIndex((s) => s === activeSection);
+export function Navbar() {
+  const [section, setSection, sections, activeIdx] = useSection()
 
-  const variants = {
-    active: {
-      color: "#ffffff",
-      backgroundColor: "#000000",
-    },
-    inactive: {
-      color: "#000000",
-      backgroundColor: "#ffffff",
-    },
-  };
-
-  // TODO: Remove code duplication.
   return (
     <>
-      <motion.div layoutScroll style={{ overflow: "scroll"}}>
-        <nav className="fixed left-0 flex h-full z-30 --font-nunito">
-          {sections
-            .filter((s, i) => i <= activeIdx)
-            .map((s, i) => (
-              <motion.div key={i} layoutId={s} transition={{ duration: 2 }}>
-                <motion.div
-                  className="h-full py-2 px-1 -mr-[2px] border-inside border-black"
-                  animate={s === sections[activeIdx] ? "active" : "inactive"}
-                  variants={variants}
-                  transition={{
-                    color: {
-                      duration: 0.5,
-                      delay: 0.4,
-                    },
-                    backgroundColor: {
-                      duration: 0.5,
-                      delay: 0.4,
-                    },
-                  }}
-                  style={{ writingMode: "vertical-rl" }}
-                  key={s}
-                >
-                  {[...Array(20)].map((e, j) => (
-                    <span
-                      className={`font-sans text-xl mb-2 select-none ${
-                        j === 0 ? "font-bold" : ""
-                      }`}
-                      key={j}
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </motion.div>
-                <div
-                  className={`${s === sections[activeIdx] ? "grow" : ""}`}
-                ></div>
-              </motion.div>
-            ))}
-        </nav>
-        <nav className="fixed right-0 flex h-full z-30 --font-nunito">
-          {sections
-            .filter((s, i) => i > activeIdx)
-            .map((s, i) => (
-              <motion.div key={i} layoutId={s} transition={{ duration: 2 }}>
-                <motion.div
-                  className="h-full py-2 px-1 -mr-[2px] border-inside border-black"
-                  animate={s === sections[activeIdx] ? "active" : "inactive"}
-                  variants={variants}
-                  style={{ writingMode: "vertical-rl" }}
-                  key={s}
-                >
-                  {[...Array(20)].map((e, j) => (
-                    <span
-                      className={`font-sans text-xl mb-2 select-none ${
-                        j === 0 ? "font-bold" : ""
-                      }`}
-                      key={j}
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </motion.div>
-                <div
-                  className={`${s === sections[activeIdx] ? "grow" : ""}`}
-                ></div>
-              </motion.div>
-            ))}
-        </nav></motion.div>
+      {sections.map((s, i) => (
+        <motion.div
+          key={s}
+          className="z-30 fixed h-full w-[30px] border-inside px-[2px] py-[8px]"
+          layout
+          initial={{
+            left: i === 0 ? '-28px' : 'initial',
+            right: i === 0 ? 'initial' : `-${28 * (sections.length - i)}px`,
+            color: i === 0 ? "#ffffff" : "#000000",
+            backgroundColor: i === 0 ? "#000000" : "#ffffff",
+          }}
+          animate={{
+            left:
+              i <= activeIdx ? `${28 * (i)}px` : "initial",
+            right: i > activeIdx ? `${28 * (sections.length - i - 1)}px` : "initial",
+            color: s === sections[activeIdx] ? "#ffffff" : "#000000",
+            backgroundColor: s === sections[activeIdx] ? "#000000" : "#ffffff",
+          }}
+          transition={{ duration: 0.6 }}
+          style={{
+            writingMode: "vertical-lr",
+          }}
+          onClick={() => setSection(s)}
+        >
+          {[...Array(20)].map((e, j) => (
+            <span
+              className={`font-sans text-xl mb-2 select-none ${
+                j === 0 ? "font-bold" : ""
+              }`}
+              key={j}
+            >
+              {s}
+            </span>
+          ))}
+        </motion.div>
+      ))}
     </>
   );
+
 }

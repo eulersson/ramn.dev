@@ -1,10 +1,10 @@
 "use client";
 
 // React
-import { useEffect, useState } from "react";
+import { ForwardedRef, useEffect, useRef, useState } from "react";
 
 // Third-Party
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 // Components
 import { BGGrid } from "@/components/layout/bg-grid";
@@ -13,41 +13,41 @@ import { Header } from "@/components/header";
 import { Hero } from "@/components/sections/hero";
 import { Navbar } from "@/components/layout/navbar";
 
-export function PageWrapper({ children }: { children: React.ReactNode }) {
-  const showCover = false;
-  // const [showCover, setShowCover] = useState(true);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowCover(false);
-  //   }, 2000);
-  // }, []);
-  const [activeSection, setActiveSection] = useState("home");
-  const [numb, setNumb] = useState(0);
+export function PageWrapper({
+  children,
+  heroRef,
+}: {
+  children: React.ReactNode;
+  heroRef: ForwardedRef<HTMLHeadingElement>;
+}) {
+  const [showCover, setShowCover] = useState(true);
+  const [showNavBar, setShowNavBar] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setNumb(numb >= 3 ? 0 : numb + 1);
-      console.log(numb);
+    setTimeout(() => {
+      setShowCover(false);
     }, 2000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [numb]);
+
+    setTimeout(() => {
+      setShowNavBar(true);
+    }, 3000);
+  }, []);
 
   return (
     <AnimatePresence>
       {showCover && <Cover key="cover" />}
-      {!showCover && <Navbar key="navbar" activeSection={["home", "about", "experience", "projects"][numb]} />}
-      <Hero key="hero" />
-      {!showCover && (
-        <div key="layout-container" className="root-layout-container">
-          <div>
-            <Header />
-            <main className="md:mt-[2px] lg:mt-[27px]">{children}</main>
-          </div>
+      {showNavBar && <Navbar key="navbar" />}
+      <Hero key="hero" ref={heroRef} />
+      <div
+        key="layout-container"
+        className="root-layout-container"
+        hidden={showCover}
+      >
+        <div>
+          <Header />
+          <main className="md:mt-[2px] lg:mt-[27px]">{children}</main>
         </div>
-      )}
+      </div>
       {!showCover && <BGGrid key="grid" />}
     </AnimatePresence>
   );

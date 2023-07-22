@@ -1,15 +1,19 @@
+import { forwardRef } from "react";
+
 // TODO: Make interactive: allow moving, minimizing, closing, resizing.
-export function Terminal({
-  command,
-  children,
-  className
-}: {
-  command: string;
-  children: React.ReactNode;
-  className: string;
-}) {
+export const Terminal = forwardRef<
+  HTMLDivElement,
+  {
+    command: string;
+    children: React.ReactNode;
+    className: string;
+  }
+>(function Terminal({ command, children, className }, ref) {
   return (
-    <div className={`flex flex-col border-inside shadow-blocky ${className}`}>
+    <div
+      ref={ref}
+      className={`flex flex-col border-inside shadow-blocky ${className}`}
+    >
       <div className="bg-black p-[10px] flex space-x-[10px]">
         {[...Array(3)].map((_, i) => (
           <div
@@ -24,4 +28,4 @@ export function Terminal({
       </div>
     </div>
   );
-}
+});
