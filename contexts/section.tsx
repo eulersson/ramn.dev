@@ -5,7 +5,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { ContextNotProvidedError } from "@/errors/context-not-provided-error";
+import { ContextNotProvidedError } from "@/errors/context-not-provided";
 
 const SectionContext = createContext<
   [string, Dispatch<SetStateAction<string>>, string[], number] | null
