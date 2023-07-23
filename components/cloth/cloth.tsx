@@ -34,7 +34,6 @@ function Simulation() {
       (clothWidth * (clothHeight - 1) + (clothWidth - 1) * clothHeight) * 3
     ).fill(0)
   );
-  console.log(constraintsData.length);
 
   const particleSystemRef = useRef(new ParticleSystem());
   const particleSystem = particleSystemRef.current;

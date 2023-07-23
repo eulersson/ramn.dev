@@ -37,7 +37,7 @@ function Home() {
     return () => {
       window.removeEventListener("mousemove", mouseMove);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   const [section, setSection, sections, activeIdx] = useSection();
   const [cursorSize, setCursorSize] = useCursor();
@@ -49,11 +49,10 @@ function Home() {
   useEffect(() => {
     if (heroInView) {
       if (section !== "home") {
-        console.log("fire home");
         setSection("home");
       }
     }
-  }, [heroInView]);
+  }, [heroInView, section, setSection]);
 
   const aboutRef = useRef(null);
   // const aboutInView = useInView(aboutRef, { margin: '0px 0px -800px 0px' });
@@ -62,11 +61,10 @@ function Home() {
   useEffect(() => {
     if (aboutInView) {
       if (section !== "about") {
-        console.log("fire about");
         setSection("about");
       }
     }
-  }, [aboutInView]);
+  }, [aboutInView, section, setSection]);
 
   const experienceRef = useRef(null);
   // const experienceInView = useInView(experienceRef, { margin: '0px 0px -800px 0px' });
@@ -77,11 +75,10 @@ function Home() {
   useEffect(() => {
     if (experienceInView) {
       if (section !== "experience") {
-        console.log("fire experience");
         setSection("experience");
       }
     }
-  }, [experienceInView]);
+  }, [experienceInView, section, setSection]);
 
   const projectsRef = useRef(null);
   const projectsInView = useInView(projectsRef, { margin: "0px 0px -50% 0px" });
@@ -89,11 +86,10 @@ function Home() {
   useEffect(() => {
     if (projectsInView) {
       if (section !== "projects") {
-        console.log("fire projects");
         setSection("projects");
       }
     }
-  }, [projectsInView]);
+  }, [projectsInView, section, setSection]);
 
   return (
     <div>
