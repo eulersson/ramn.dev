@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 import { MotionValue, useMotionValue, useSpring } from "framer-motion";
 
 // Project
-import { ContextNotProvidedError } from "@/errors/context-not-provided-error";
+import { ContextNotProvidedError } from "@/errors/context-not-provided";
 
 const CursorContext = createContext<[MotionValue, Function] | null>(null);
 
