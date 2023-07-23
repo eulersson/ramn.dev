@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import { ForwardedRef, forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 
 // Third-Party
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
@@ -9,7 +9,7 @@ import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 // Project
 import { Cloth } from "@/components/cloth/cloth";
 
-const Hero = forwardRef(function Hero({}, forwardedRef: ForwardedRef<HTMLHeadingElement>) {
+const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   const ref = useRef(null);
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
   const [foo, setFoo] = useState(0);

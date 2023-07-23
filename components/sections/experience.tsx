@@ -1,7 +1,7 @@
 import { Title } from "@/components/title";
 import { forwardRef } from "react";
 
-const Experience = forwardRef<HTMLElement>(function Experience(props, ref) {
+const Experience = forwardRef<HTMLElement>(function Experience({}, ref) {
   return (
     <section ref={ref} className="flex flex-col justify-center">
       <Title>Experience</Title>

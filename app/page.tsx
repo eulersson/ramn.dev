@@ -52,7 +52,7 @@ function Home() {
         setSection("home");
       }
     }
-  }, [heroInView, section, setSection]);
+  }, [heroInView]);
 
   const aboutRef = useRef(null);
   // const aboutInView = useInView(aboutRef, { margin: '0px 0px -800px 0px' });
@@ -64,7 +64,7 @@ function Home() {
         setSection("about");
       }
     }
-  }, [aboutInView, section, setSection]);
+  }, [aboutInView]);
 
   const experienceRef = useRef(null);
   // const experienceInView = useInView(experienceRef, { margin: '0px 0px -800px 0px' });
@@ -78,7 +78,7 @@ function Home() {
         setSection("experience");
       }
     }
-  }, [experienceInView, section, setSection]);
+  }, [experienceInView]);
 
   const projectsRef = useRef(null);
   const projectsInView = useInView(projectsRef, { margin: "0px 0px -50% 0px" });
@@ -89,7 +89,7 @@ function Home() {
         setSection("projects");
       }
     }
-  }, [projectsInView, section, setSection]);
+  }, [projectsInView]);
 
   return (
     <div>

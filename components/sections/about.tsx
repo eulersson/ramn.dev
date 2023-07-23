@@ -1,5 +1,5 @@
 // React
-import { ForwardedRef, forwardRef } from "react";
+import { forwardRef } from "react";
 
 // Next.js
 import Image from "next/image";
@@ -14,14 +14,14 @@ import Intention from "@/content/sections/intention.mdx";
 import WhoAmI from "@/content/sections/whoami.mdx";
 import { useCursor } from "@/contexts/cursor";
 
-const About = forwardRef(function About({}, ref: ForwardedRef<HTMLDivElement> ) {
+const About = forwardRef<HTMLDivElement>(function About({}, ref) {
   const tags: TagProps[] = [
     { text: "Python", dotted: false },
     { text: "C++", dotted: false },
     { text: "JavaScript", dotted: false },
   ];
 
-  const [cursorSize, setCursorSize] = useCursor()
+  const [cursorSize, setCursorSize] = useCursor();
 
   return (
     <section className="flex flex-col justify-center">
