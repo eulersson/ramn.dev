@@ -52,13 +52,13 @@ export function Cover() {
             className="absolute w-[2px] bg-black top-0 left-[calc(50%-1px)]"
             initial={{ height: "0%" }}
             animate={{ height: "100%" }}
-            transition={{ duration: 0.4, delay: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
           ></motion.div>
           <motion.div
             className="absolute h-[2px] bg-black top-[calc(50%-1px)] left-0"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
           ></motion.div>
         </div>
       )}
