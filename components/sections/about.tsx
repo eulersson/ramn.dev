@@ -26,10 +26,10 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   return (
     <section className="flex flex-col justify-center">
       <Title ref={ref}>Who Am I?</Title>
-      <Terminal className="m-g2 mt-[2px] h-g10" command="whoami">
+      <Terminal className="m-g2 mt-0 h-g8 mb-g4" command="whoami">
         <WhoAmI />
       </Terminal>
-      <div className="relative grid grid-cols-4 p-[2px] gap-[2px]">
+      <div className="relative grid grid-cols-4">
         <div>
           <Image
             onMouseEnter={() => setCursorSize(4)}

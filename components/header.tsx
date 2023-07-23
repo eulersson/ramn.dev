@@ -11,7 +11,7 @@ export function Header({ large = true }: { large?: boolean }) {
     : "w-[calc(var(--bg-grid-box-size)*2-0px)]";
   // outline outline-2 -outline-offset-2 outline-blue-500
   return (
-    <div className="sticky top-0 w-full flex justify-center z-20">
+    <div className="sticky top-0 h-g3 w-full flex justify-center z-20">
       <header className="flex">
         <div
           className={`${boxWidth} bg-white p-[10px] pt-[13px] border-inside ${

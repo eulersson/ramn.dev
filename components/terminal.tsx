@@ -12,7 +12,7 @@ export const Terminal = forwardRef<
   return (
     <div
       ref={ref}
-      className={`flex flex-col border-inside shadow-blocky ${className}`}
+      className={`flex flex-col border-2 border-black shadow-blocky ${className}`}
     >
       <div className="bg-black p-[10px] flex space-x-[10px]">
         {[...Array(3)].map((_, i) => (

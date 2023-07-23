@@ -16,7 +16,7 @@ const Title = forwardRef<
   return (
     <h1
       ref={ref}
-      className={`inline m-auto mt-[calc((var(--bg-grid-box-size)-100px)/2)] mb-[calc((var(--bg-grid-box-size)-100px)/2)] font-serif font-normal leading-none text-[60px] p-[19px] bg-white border-inside shadow-blocky ${className}`}
+      className={`inline m-auto mt-[calc((var(--bg-grid-box-size)-100px)/2)] mb-[calc((var(--bg-grid-box-size)-100px)/2)] font-serif font-normal leading-none text-[60px] p-[20px] bg-white border-inside shadow-blocky ${className}`}
       onMouseEnter={() => setCursorSize(4)}
       onMouseLeave={() => setCursorSize(1)}
     >

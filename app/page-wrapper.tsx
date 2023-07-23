@@ -45,7 +45,7 @@ export function PageWrapper({
       >
         <div>
           <Header />
-          <main className="md:mt-[2px] lg:mt-[27px]">{children}</main>
+          <main className="mt-g1">{children}</main>
         </div>
       </div>
       {!showCover && <BGGrid key="grid" />}

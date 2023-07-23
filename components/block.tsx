@@ -18,14 +18,14 @@ export const Block: React.FC<BlockProps> = ({
       className={`bg-black ${classNames.wrapper || ""}`}
     >
       <div
-        className={`bg-white font-sans text-xl p-5 rounded-[40px] ${
+        className={`bg-white border-2 border-black font-sans text-xl p-5 rounded-[40px] ${
           classNames.main || ""
         }`}
       >
         {children}
       </div>
       {tags.length && (
-        <div className={`bg-black px-4 py-4 mb-[-2px] ${classNames.tags || ""}`}>
+        <div className={`bg-black px-4 py-4 ${classNames.tags || ""}`}>
           {...tags.map((props, i) => <Tag {...props} key={i} />)}
         </div>
       )}
