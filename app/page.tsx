@@ -43,7 +43,7 @@ function Home() {
   const [cursorSize, setCursorSize] = useCursor();
 
   // TODO: Surely there must be a way to refactor these refs...
-  const heroRef = useRef(null);
+  const heroRef = useRef<HTMLHeadingElement>(null);
   const heroInView = useInView(heroRef);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function Home() {
     }
   }, [heroInView]);
 
-  const aboutRef = useRef(null);
+  const aboutRef = useRef<HTMLHeadingElement>(null);
   // const aboutInView = useInView(aboutRef, { margin: '0px 0px -800px 0px' });
   const aboutInView = useInView(aboutRef, { margin: "0px 0px -50% 0px" });
 
@@ -66,7 +66,7 @@ function Home() {
     }
   }, [aboutInView]);
 
-  const experienceRef = useRef(null);
+  const experienceRef = useRef<HTMLHeadingElement>(null);
   // const experienceInView = useInView(experienceRef, { margin: '0px 0px -800px 0px' });
   const experienceInView = useInView(experienceRef, {
     margin: "0px 0px -50% 0px",
@@ -80,7 +80,7 @@ function Home() {
     }
   }, [experienceInView]);
 
-  const projectsRef = useRef(null);
+  const projectsRef = useRef<HTMLHeadingElement>(null);
   const projectsInView = useInView(projectsRef, { margin: "0px 0px -50% 0px" });
 
   useEffect(() => {
@@ -90,6 +90,35 @@ function Home() {
       }
     }
   }, [projectsInView]);
+
+  useEffect(() => {
+    switch (section) {
+      case "home": {
+        if (!heroInView && heroRef.current) {
+          heroRef.current.scrollIntoView();
+        }
+        break;
+      }
+      case "about": {
+        if (!aboutInView && aboutRef.current) {
+          aboutRef.current.scrollIntoView();
+        }
+        break;
+      }
+      case "experience": {
+        if (!experienceInView && experienceRef.current) {
+          experienceRef.current.scrollIntoView();
+        }
+        break;
+      }
+      case "projects": {
+        if (!projectsInView && projectsRef.current) {
+          projectsRef.current.scrollIntoView();
+        }
+        break;
+      }
+    }
+  }, [section]);
 
   return (
     <div>

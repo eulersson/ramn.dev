@@ -14,7 +14,7 @@ import Intention from "@/content/sections/intention.mdx";
 import WhoAmI from "@/content/sections/whoami.mdx";
 import { useCursor } from "@/contexts/cursor";
 
-const About = forwardRef<HTMLDivElement>(function About({}, ref) {
+const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const tags: TagProps[] = [
     { text: "Python", dotted: false },
     { text: "C++", dotted: false },
@@ -25,8 +25,8 @@ const About = forwardRef<HTMLDivElement>(function About({}, ref) {
 
   return (
     <section className="flex flex-col justify-center">
-      <Title>Who Am I?</Title>
-      <Terminal ref={ref} className="m-g2 mt-[2px] h-g10" command="whoami">
+      <Title ref={ref}>Who Am I?</Title>
+      <Terminal className="m-g2 mt-[2px] h-g10" command="whoami">
         <WhoAmI />
       </Terminal>
       <div className="relative grid grid-cols-4 p-[2px] gap-[2px]">

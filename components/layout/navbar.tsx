@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { useSection } from "@/contexts/section";
 
+import { useState } from "react";
+
+import debounce from "lodash.debounce";
+
 export function Navbar() {
   const [section, setSection, sections, activeIdx] = useSection();
 
