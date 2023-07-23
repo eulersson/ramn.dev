@@ -7,8 +7,8 @@ import { useEffect, useRef } from "react";
 import { motion, useInView, useMotionValue } from "framer-motion";
 
 // Components
-import { CursorProvider, useCursor } from "@/context/cursor";
-import { SectionProvider, useSection } from "@/context/section";
+import { CursorProvider, useCursor } from "@/contexts/cursor";
+import { SectionProvider, useSection } from "@/contexts/section";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
 import { PageWrapper } from "@/app/page-wrapper";

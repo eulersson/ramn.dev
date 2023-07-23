@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { useSection } from "@/context/section";
+import { useSection } from "@/contexts/section";
 
 export function Navbar() {
-  const [section, setSection, sections, activeIdx] = useSection()
+  const [section, setSection, sections, activeIdx] = useSection();
 
   return (
     <>

@@ -12,7 +12,7 @@ import { Title } from "@/components/title";
 // Content
 import Intention from "@/content/sections/intention.mdx";
 import WhoAmI from "@/content/sections/whoami.mdx";
-import { useCursor } from "@/context/cursor";
+import { useCursor } from "@/contexts/cursor";
 
 const About = forwardRef(function About({}, ref: ForwardedRef<HTMLElement> ) {
   const tags: TagProps[] = [

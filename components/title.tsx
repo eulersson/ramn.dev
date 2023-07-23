@@ -1,4 +1,4 @@
-import { useCursor } from "@/context/cursor";
+import { useCursor } from "@/contexts/cursor";
 
 export function Title({
   children,

@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { ContextNotProvidedError } from "@/errors/context-not-provided-error";
 
 const SectionContext = createContext<
   [string, Dispatch<SetStateAction<string>>, string[], number] | null
@@ -24,5 +25,9 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useSection() {
-  return useContext(SectionContext);
+  const context = useContext(SectionContext);
+  if (context === null) {
+    throw new ContextNotProvidedError("SectionContext")
+  }
+  return context
 }

@@ -4,6 +4,9 @@ import { createContext, useContext } from "react";
 // Third-Party
 import { MotionValue, useMotionValue, useSpring } from "framer-motion";
 
+// Project
+import { ContextNotProvidedError } from "@/errors/context-not-provided-error";
+
 const CursorContext = createContext<[MotionValue, Function] | null>(null);
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
@@ -19,5 +22,11 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useCursor() {
-  return useContext(CursorContext);
+  const context = useContext(CursorContext);
+
+  if (context === null) {
+    throw new ContextNotProvidedError("CursorContext")
+  }
+
+  return context
 }
