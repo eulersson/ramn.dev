@@ -1,4 +1,8 @@
+// React
 import { forwardRef } from "react";
+
+// Third-Party
+import { Typewriter } from "./typewriter";
 
 // TODO: Make interactive: allow moving, minimizing, closing, resizing.
 export const Terminal = forwardRef<
@@ -6,9 +10,21 @@ export const Terminal = forwardRef<
   {
     command: string;
     children: React.ReactNode;
+    disableHighlight?: boolean;
+    showCommand?: boolean;
     className: string;
   }
->(function Terminal({ command, children, className }, ref) {
+>(function Terminal(
+  {
+    command,
+    children,
+    showCommand = true,
+    disableHighlight = false,
+    className,
+  },
+  ref
+) {
+  console.log("[Terminal] Rendering")
   return (
     <div
       ref={ref}
@@ -23,7 +39,16 @@ export const Terminal = forwardRef<
         ))}
       </div>
       <div className="grow bg-white p-5 text-xl">
-        <pre>$ {command}</pre>
+        <pre>
+          ${" "}
+          {showCommand && (
+            <Typewriter
+              disableHighlight={disableHighlight}
+              staggerChildren={0.15}
+              sentences={[{ text: `${command} ` }]}
+            />
+          )}
+        </pre>
         <div className="font-mono">{children}</div>
       </div>
     </div>

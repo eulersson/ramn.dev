@@ -13,19 +13,20 @@ export const Block: React.FC<BlockProps> = ({
   tags,
   classNames = {},
 }) => {
+  console.log("[Block] Rendering")
   return (
     <div
       className={`bg-black ${classNames.wrapper || ""}`}
     >
       <div
-        className={`bg-white border-2 border-black font-sans text-xl p-5 rounded-[40px] ${
+        className={`bg-white border-2 border-black font-sans text-xl rounded-[40px] ${
           classNames.main || ""
         }`}
       >
         {children}
       </div>
-      {tags.length && (
-        <div className={`bg-black px-4 py-4 ${classNames.tags || ""}`}>
+      {tags && tags.length >= 1 && (
+        <div className={`bg-black px-4 py-4 space-x-1 space-y-1 ${classNames.tags || ""}`}>
           {...tags.map((props, i) => <Tag {...props} key={i} />)}
         </div>
       )}

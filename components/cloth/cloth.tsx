@@ -59,6 +59,8 @@ function Simulation() {
     }
   });
 
+  console.log("[Cloth] Rendering")
+
   return (
     <>
       <lineSegments>

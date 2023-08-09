@@ -24,8 +24,8 @@ module.exports = {
       },
       keyframes: {
         blinky: {
-          "0% 100%": { background: "black", color: "white" },
-          "50%": { background: "white", color: "black" },
+          "0% 100%": { background: "white", color: "black" },
+          "50%": { background: "black", color: "white" },
         },
       },
       spacing: {

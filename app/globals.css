@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+/*
+NOTE: Since we don't use the Scroll Into View API anymore this shouldn't be needed but
+  I prefer leaving it here in case we need to get back to it.
+*/
+
+/* html {
   scroll-behavior: smooth;
-}
+} */
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -44,6 +49,7 @@ body {
   cursor: none;
 }
 
+/* TODO: Use Tailwind CSS */
 .cursor {
   pointer-events: none;
   background-color: white;

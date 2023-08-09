@@ -2,6 +2,9 @@ import "./bg-grid.css"
 
 export function BGGrid() {
   const numBoxes = 100;
+
+  console.log("[BGGrid] Rendering")
+
   return (
     <div className="bg-grid">
       <div className="bg-grid__screen-clipper">

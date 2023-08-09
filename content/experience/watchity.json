@@ -1,0 +1,41 @@
+{
+  "company": "Watchity",
+  "logo": "/watchity-logo.png",
+  "duration": "Aug 2019 - Jan 2020",
+  "place": "Barcelona",
+  "title": "Full Stack Engineer",
+  "summary": "Live video production suite and virtual event platform.",
+  "points": [
+    "+ Delivered features for governments, banks and clients such as Volkswagen, Generali, MediaMarkt, L’Oréal, BBVA, Banc Sabadell and more.",
+    "+ Lead an external team and provided them code analysis and CI/CD pipelines to deliver work without compromising permission overgranting.",
+    "+ Designed and implemented (delivering DX-friendly Postman documentation) REST API endpoints demanded by technical clients using Django.",
+    "+ Proactively migrated the frontend stack to use Nx and designed an NgRx store for it that could be reused across various apps.",
+    "+ Developed a queue observation solution that cut down AWS costs by XX%",
+    "+ Bootstrapped a Janus client for Unity in C#",
+    "+ Troubleshot WebRTC, specially on corporate restrictive networks.",
+    "+ Containerized apps so new colleagues have an environment ready to work.",
+    "+ Proactively wrote Helm Charts for our apps with secrets management.",
+    "+ Designed the SAML workflow for our clients’ Single Sign On (SSO).",
+    "+ Integrated Twitter, Facebook, YouTube & LinkedIn’s live streaming APIs."
+  ],
+  "skills": [
+    "Python",
+    "TypeScript",
+    "Nx",
+    "WebRTC",
+    "Janus",
+    "WebGL",
+    "Django",
+    "REST",
+    "Celery",
+    "Kubernetes",
+    "Helm",
+    "Angular",
+    "Redis",
+    "RxJS",
+    "Socket.IO",
+    "PostgreSQL",
+    "AWS",
+    "C#"
+  ]
+}

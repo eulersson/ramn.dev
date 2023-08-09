@@ -7,5 +7,6 @@ export function Tag({
   text,
   dotted=false
 }: TagProps) {
-  return <span className="font-mono bg-white rounded-full border-inside px-2 py-1">{text}</span>;
+  console.log("[Tag] Rendering")
+  return <span className="inline-block font-mono bg-white rounded-full border-inside px-2 py-1 select-none">{text}</span>;
 }

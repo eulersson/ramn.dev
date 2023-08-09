@@ -12,7 +12,7 @@ import "./globals.css";
 const firaMono = Fira_Mono({
   subsets: ["latin"],
   variable: "--font-fira-mono",
-  weight: ["400"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -26,8 +26,8 @@ const nunito = Nunito({
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair-display",
-  style: "italic",
-  weight: ["400"],
+  style: ["normal", "italic"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable}`}
+        className={`${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} selection:bg-black selection:text-white`}
       >
         {children}
       </body>

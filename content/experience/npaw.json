@@ -1,0 +1,17 @@
+{
+  "company": "NPAW",
+  "logo": "/npaw.png",
+  "duration": "Apr 2023 - May 2023",
+  "place": "Barcelona",
+  "title": "React Developer",
+  "summary": "End-to-end video intelligence solutions for streaming services.",
+  "points": [
+    "+ Worked under tight schedule to push a product release to be shown at NAB.",
+    "+ Refactored all tables standarizing them into a reusable components based on MUI DataGrid.",
+    "+ Added search, filter and pagination, bulk-deletion logic for those data grids.",
+    "+ Wrote custom cells for DataGrid",
+    "+ Injected custom components across the various slots on the grid.",
+    "+ Fixed bugs and restructured layouts."
+  ],
+  "skills": ["React", "Material UI", "MUI X"]
+}

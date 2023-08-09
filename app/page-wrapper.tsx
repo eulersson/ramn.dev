@@ -33,6 +33,7 @@ export function PageWrapper({
     }, 3000);
   }, []);
 
+  console.log("[PageWrapper] Rendering.")
   return (
     <AnimatePresence>
       {showCover && <Cover key="cover" />}

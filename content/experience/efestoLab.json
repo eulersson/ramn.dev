@@ -1,0 +1,24 @@
+{
+  "company": "Efesto Lab",
+  "logo": "/efesto-lab-logo.png",
+  "duration": "Apr 2015 - Mar 2017",
+  "place": "Barcelona & London",
+  "title": "Junior Software Developer",
+  "summary": "Official FTrack (3D asset management) integrators",
+  "points": [
+    "+ Developed an FFMpeg-based playblast generation tool where you could add slates, timecodes, comments, and create a reviewable assets.",
+    "+ Built a social asset management system. Graph database (Neo4j), Python on the backend. DCC (Maya) integration, desktop, and Angular web app.",
+    "+ Wrote publish pipeline tools for Maya using ftrack."
+  ],
+  "skills": [
+    "Python",
+    "Maya",
+    "Ftrack",
+    "FFMpeg",
+    "PySide",
+    "Qt",
+    "Angular",
+    "JavaScript",
+    "Neo4j"
+  ]
+}

@@ -2,16 +2,17 @@
 import Image from "next/image";
 
 // Components
-import { Button } from '@/components/button';
+import { Button } from "@/components/button";
 
 export function Header({ large = true }: { large?: boolean }) {
   const boxWidth = "w-[calc(var(--bg-grid-box-size)+2px)]";
   const gapWidth = large
     ? "w-[calc(var(--bg-grid-box-size)*2+2px)] -mx-[2px]"
     : "w-[calc(var(--bg-grid-box-size)*2-0px)]";
-  // outline outline-2 -outline-offset-2 outline-blue-500
+
+  console.log("[Header] Rendering");
   return (
-    <div className="sticky top-0 h-g3 w-full flex justify-center z-20">
+    <div className="sticky top-0 h-g3 w-full flex justify-center z-10">
       <header className="flex">
         <div
           className={`${boxWidth} bg-white p-[10px] pt-[13px] border-inside ${
@@ -37,7 +38,7 @@ export function Header({ large = true }: { large?: boolean }) {
           </div>
         )}
         <div
-          className={`${boxWidth} bg-white flex flex-col justify-between border-inside ${
+          className={`${boxWidth} bg-white flex flex-col justify-center border-inside ${
             large ? "" : "-ml-px"
           }`}
         >
@@ -49,18 +50,19 @@ export function Header({ large = true }: { large?: boolean }) {
               width={24}
               height={24}
             />
-            {/* <Image src="/twitter.svg" alt="GitHub Logo" width={24} height={24} /> */}
             <Button className="px-4">
               Resume <span className="text-[10px] align-middle">(CV)</span>
             </Button>
           </div>
-          <div className="p-[10px] leading-[15px] text-[12px]">
+          <div className="p-[10px] leading-[20px] text-[15px]">
             <pre className="inline-block bg-black text-white mb-px">
               from code to deployment;
             </pre>
             <pre className="inline-block bg-black text-white">
               from back to front
-              <span className="inline-block animate-blinky">;</span>
+              <span className="inline-block animate-blinky bg-white text-black">
+                ;
+              </span>
             </pre>
           </div>
         </div>

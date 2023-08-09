@@ -1,0 +1,26 @@
+{
+  "company": "Moving Picture Company",
+  "logo": "/lion-king-logo.png",
+  "duration": "Aug 2017 - Aug 2019",
+  "place": "London",
+  "title": "Houdini (3D) Developer",
+  "summary": "Tools & pipeline to VFX artists for Disney’s Lion King",
+  "points": [
+    "+ Wrote a popular asset to streamline volumetric cache placement and visualization based on foot kicks by analysing joint movement as a signal (CHOPS).",
+    "+ Improved and troubleshot the Houdini pipeline. Built Qt interfaces for speeding out workflows. Integrated PDG to be usable with our farms so artists could compute in the farm while seeing results live on their scene.",
+    "+ Main developer for the HDA (OTL) Management framework.",
+    "+ We overrode hou module to use the HDAs’ Python Module so TDs could write a class and call its methods from the node type’s instances thus leveraging object-oriented programming practices.",
+    "+ Migrated Houdini projects to a new container-based MPC infrastructure.",
+    "+ Wrote Katana C++ Nodes for Houdini geometry ingestion within Katana."
+  ],
+  "skills": [
+    "Houdini",
+    "VEX",
+    "Python",
+    "PySide",
+    "C++",
+    "Katana",
+    "Qt",
+    "Unix"
+  ]
+}

@@ -41,12 +41,14 @@ export function Cover() {
     },
   };
 
+  console.log("[Cover] Rendering")
+
   return (
     <>
       {cross && (
         <div
           key="cross"
-          className="fixed w-full h-full bg-white border-2 border-black z-50"
+          className="fixed w-full h-full bg-white border-2 border-black z-40"
         >
           <motion.div
             className="absolute w-[2px] bg-black top-0 left-[calc(50%-1px)]"
@@ -65,7 +67,7 @@ export function Cover() {
       {!cross && (
         <motion.div
           key="cover-center"
-          className="fixed w-[200px] h-[200px] -m-[98px] inset-1/2 bg-white z-40 border-2 border-black"
+          className="fixed w-[200px] h-[200px] -m-[98px] inset-1/2 bg-white z-30 border-2 border-black"
           initial={{ scale: 0 }}
           animate={{
             scale: 1,
@@ -211,7 +213,7 @@ export function Cover() {
         ].map(([name, classes, x, y, ease], i) => (
           <motion.div
             key={`cover-${name}`}
-            className={`fixed ${classes} w-[calc(50%+1px)] h-[calc(50%+1px)] bg-white z-30 border-2 border-black`}
+            className={`fixed ${classes} w-[calc(50%+1px)] h-[calc(50%+1px)] bg-white z-20 border-2 border-black`}
             initial={{ x: 0, y: 0 }}
             exit={{ x, y }}
             transition={{

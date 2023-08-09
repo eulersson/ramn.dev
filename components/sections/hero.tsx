@@ -8,18 +8,13 @@ import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 
 // Project
 import { Cloth } from "@/components/cloth/cloth";
-import { useSection } from "@/contexts/section";
 
 const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   const ref = useRef(null);
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
-  const [foo, setFoo] = useState(0);
 
-  const [section, setSection, sections, activeIdx] = useSection();
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setFoo(latest);
-  });
+  console.log("[Hero] Rendering")
 
   return (
     <>
