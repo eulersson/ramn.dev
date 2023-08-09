@@ -43,7 +43,7 @@ export const Typewriter: FunctionComponent<{
     },
   };
 
-  console.log("[Typewriter] Rendering")
+  console.log("[Typewriter] Rendering");
   return (
     <motion.div
       className={`${className} inline-block`}
@@ -52,8 +52,12 @@ export const Typewriter: FunctionComponent<{
       animate="show"
     >
       {...[
-        sentences.map((s, i) =>
-          [...s.text].map((c, j) => (
+        sentences.map((s, i) => {
+          const stringCharacters = [];
+          for (let i = 0; i < s.text.length; i++) {
+            stringCharacters.push(s.text[i]);
+          }
+          return stringCharacters.map((c, j) => (
             <>
               {c === "|" ? (
                 <motion.br key={`${i}${j}linebreak`} variants={item} />
@@ -75,8 +79,8 @@ export const Typewriter: FunctionComponent<{
                 ""
               )}
             </>
-          ))
-        ),
+          ));
+        }),
       ]}
       {!disableHighlight && (
         <span className="bg-white mix-blend-difference -ml-[12px]">&nbsp;</span>
