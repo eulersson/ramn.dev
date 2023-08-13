@@ -1,5 +1,5 @@
 // React
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 // Third-Party
 import { BufferAttribute, DynamicDrawUsage } from "three";
@@ -10,11 +10,30 @@ import { Stats } from "@react-three/drei";
 
 function Simulation() {
   const { camera, raycaster, size, viewport } = useThree();
-  camera.position.setX(800);
-  camera.position.setY(350);
+
+  // useEffect(() => {
+  //   window.addEventListener("keydown", (e) => {
+  //     if (e.key === "ArrowLeft") {
+  //       camera.position.setX(camera.position.x - 5);
+  //     } else if (e.key === "ArrowRight") {
+  //       camera.position.setX(camera.position.x + 5);
+  //     } else if (e.key === "ArrowDown") {
+  //       camera.position.setY(camera.position.y - 5);
+  //     } else if (e.key === "ArrowUp") {
+  //       camera.position.setY(camera.position.y + 5);
+  //     } else if (e.key === "o") {
+  //       camera.position.setZ(camera.position.z - 5);
+  //     } else if (e.key === "i") {
+  //       camera.position.setZ(camera.position.z + 5);
+  //     }
+  //   });
+  // }, []);
+
+  camera.position.setX(0);
+  camera.position.setY(0);
   camera.position.setZ(400);
 
-  const i = 15;
+  const i = 10;
   const [clothWidth, clothHeight] = [i, i];
 
   if (raycaster.params.Points) {
@@ -59,7 +78,7 @@ function Simulation() {
     }
   });
 
-  console.log("[Cloth] Rendering")
+  console.log("[Cloth] Rendering");
 
   return (
     <>

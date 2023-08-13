@@ -29,15 +29,15 @@ export class ParticleSystem {
     var cHeight = 20;
     var rows = clothHeight;
     var cols = clothWidth;
-    var startX = windowWidth / 2.0 - (rows * cWidth) / 2.0;
-
-    let foo = 0;
+    // var startX = windowWidth / 2.0 - (rows * cWidth) / 2.0;
+    var startX = 0 - (rows * cWidth) / 2.0;
 
     for (var i = 0; i < rows; i++) {
       for (var j = 0; j < cols; j++) {
         var index = i * rows + j;
         var positionX = startX + j * cWidth;
-        var positionY = windowHeight - i * cHeight;
+        // var positionY = windowHeight - i * cHeight;
+        var positionY = (0 + (rows * cHeight) / 2) - i * cHeight;
 
         this.addParticle(new Particle(positionX, positionY));
 
@@ -51,7 +51,6 @@ export class ParticleSystem {
             this.addConstraint(
               new SpringConstraint(index, index - 1, cWidth - cWidth * 0.2, 1.0)
             );
-            foo += 1;
           }
         } else if (j === 0) {
           // first in the row, dont link left
@@ -62,22 +61,18 @@ export class ParticleSystem {
             this.addConstraint(
               new SpringConstraint(index, index - cols, cHeight, 1.0)
             );
-            foo += 1;
           }
         } else {
           // constraint top and left
           this.addConstraint(
             new SpringConstraint(index, index - cols, cHeight, 1.0)
           );
-          foo += 1;
           this.addConstraint(
             new SpringConstraint(index, index - 1, cWidth - cWidth * 0.2, 0.8)
           );
-          foo += 1;
         }
       }
     }
-    console.log("foo", foo);
   }
 
   addParticle(particle: Particle) {
