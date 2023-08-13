@@ -30,6 +30,8 @@ import { Title } from "@/components/title";
 import { useCursor } from "@/contexts/cursor";
 
 // Project - Content
+import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
+import RecommendationPau from "@/content/recommendations/pau.mdx";
 import jobEfestoLab from "@/content/experience/efestoLab.json";
 import jobMPC from "@/content/experience/mpc.json";
 import jobNpaw from "@/content/experience/npaw.json";
@@ -217,17 +219,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                 <span className="font-serif text-[90px] absolute top-[45px] left-[260px]">
                   “
                 </span>
-                <p className="indent-8 italic">
-                  Working with Ramon is a real wonder. Regarding technical
-                  skills, it is great to have a full stack profile capable of
-                  solving open fronts in any part of the platform (deployments,
-                  frontend, backend, etc). He is definitely the go-to guy you
-                  can always turn to for troubleshooting. Also, interpersonally,
-                  he always has a good word for everyone, eager to help and make
-                  things move forward. Incredibly a perfectionist with details,
-                  he is definitely a co-worker that I would take with me
-                  anywhere.
-                </p>
+                <RecommendationPau /> 
               </div>
             </div>
           </Block>
@@ -252,17 +244,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                   <span className="font-serif text-[90px] absolute top-[34px] left-[32px]">
                     “
                   </span>
-                  <p className="indent-8 italic">
-                    Ramon came on board as Intern on a critical time for our
-                    startup as we didn&apos;t have just a massive amount of code to
-                    review and update, but also to come up with new solutions
-                    for clients and products. In short time, he got up to the
-                    agile and coding standards, managing not just to do its job
-                    but also to propose and provide new solutions. Once asked to
-                    do step off his comfort zone he didn&apos;t pull himself back but
-                    have embraced the challeges with a smile, helping out
-                    delivering some great tools and solutions.
-                  </p>
+                  <RecommendationLorenzo />
                 </div>
                 <div className="overflow-hidden col-span-1">
                   <Image
