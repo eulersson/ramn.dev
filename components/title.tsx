@@ -13,7 +13,7 @@ const Title = forwardRef<
 >(function Title({ children, className = "" }, ref) {
   const [cursorSize, setCursorSize] = useCursor();
 
-  console.log("[Title] Rendering")
+  // console.log("[Title] Rendering")
 
   return (
     <h1

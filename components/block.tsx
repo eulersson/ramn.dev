@@ -8,12 +8,12 @@ export interface BlockProps {
   classNames: { [key in ClassNameSlot]?: string };
 }
 
-export const Block: React.FC<BlockProps> = ({
+export const Block: React.FunctionComponent<BlockProps> = ({
   children,
   tags,
   classNames = {},
 }) => {
-  console.log("[Block] Rendering")
+  // console.log("[Block] Rendering")
   return (
     <div
       className={`bg-black ${classNames.wrapper || ""}`}
