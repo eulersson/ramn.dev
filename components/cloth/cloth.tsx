@@ -1,5 +1,12 @@
 // React
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 // Third-Party
 import { BufferAttribute, DynamicDrawUsage } from "three";
@@ -8,7 +15,11 @@ import { Canvas, Size, useFrame, useThree } from "@react-three/fiber";
 import { ParticleSystem } from "@/components/cloth/particle-system";
 import { Stats } from "@react-three/drei";
 
-function Simulation() {
+function Simulation({
+  particleSystemRef,
+}: {
+  particleSystemRef: MutableRefObject<ParticleSystem>;
+}) {
   const { camera, raycaster, size, viewport } = useThree();
 
   // useEffect(() => {
@@ -33,7 +44,7 @@ function Simulation() {
   camera.position.setY(0);
   camera.position.setZ(400);
 
-  const i = 10;
+  const i = 15;
   const [clothWidth, clothHeight] = [i, i];
 
   if (raycaster.params.Points) {
@@ -54,7 +65,6 @@ function Simulation() {
     ).fill(0)
   );
 
-  const particleSystemRef = useRef(new ParticleSystem());
   const particleSystem = particleSystemRef.current;
 
   useLayoutEffect(() => {
@@ -121,10 +131,25 @@ function Simulation() {
 }
 
 export function Cloth() {
+  const particleSystemRef = useRef(new ParticleSystem());
+  const particleSystem = particleSystemRef.current;
+
   return (
-    <Canvas>
+    <Canvas
+      onMouseDown={(e) =>
+        particleSystem.onMouseDown(e.clientX, e.clientY, e.button)
+      }
+      onMouseMove={(e) => 
+        particleSystem.onMouseMove(
+          (e as MouseEvent).clientX, // TODO: Should be offsetX
+          (e as MouseEvent).clientY, // TODO: Should be offsetX
+          (e as MouseEvent).button
+        )
+      }
+      onMouseUp={() => particleSystem.onMouseUp()}
+    >
       <Stats />
-      <Simulation />
+      <Simulation particleSystemRef={particleSystemRef} />
     </Canvas>
   );
 }

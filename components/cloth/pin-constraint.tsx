@@ -1,3 +1,5 @@
+import { Particle } from "./particle";
+
 /** The pin constraint hard pins a particle to a specific position in space. */
 export class PinConstraint {
   /**
@@ -27,5 +29,10 @@ export class PinConstraint {
     this.particleIndex = particleIdx;
     this.x = x;
     this.y = y;
+  }
+
+  project(curPositions: Particle[]) {
+    curPositions[this.particleIndex] = { x: this.x, y: this.y };
+    return true;
   }
 }
