@@ -14,6 +14,9 @@ import { Experience } from "@/components/sections/experience";
 import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
 
+// Environment
+import environment from "@/environment";
+
 export default function Page() {
   return (
     <SectionProvider>
@@ -169,7 +172,9 @@ function Home() {
 
   // TODO: Home is rendering too many times. Isolate the parts that are dynamic, such
   //   as the cursor.
-  console.log("[Home] Rendering.");
+  if (environment.printComponentRendering) {
+    console.log("[Home] Rendering.");
+  }
 
   return (
     <div>

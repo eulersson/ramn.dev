@@ -13,6 +13,9 @@ import { Header } from "@/components/header";
 import { Hero } from "@/components/sections/hero";
 import { Navbar } from "@/components/layout/navbar";
 
+// Environment
+import environment from "@/environment";
+
 export function PageWrapper({
   children,
   heroRef,
@@ -33,12 +36,15 @@ export function PageWrapper({
     }, 3000);
   }, []);
 
-  console.log("[PageWrapper] Rendering.")
+  if (environment.printComponentRendering) {
+    console.log("[PageWrapper] Rendering.");
+  }
+
   return (
     <AnimatePresence>
-      {showCover && <Cover key="cover" />}
+      {!environment.disableCover && showCover && <Cover key="cover" />}
       {showNavBar && <Navbar key="navbar" />}
-      <Hero key="hero" ref={heroRef} />
+      {!environment.disableHero && <Hero key="hero" ref={heroRef} />}
       <div
         key="layout-container"
         className="root-layout-container"

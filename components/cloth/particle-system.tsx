@@ -17,6 +17,7 @@ export class ParticleSystem {
   oldPositions: Particle[] = [];
 
   gravity = { x: 0, y: -3.0 };
+
   forceAccumulators: Array<{ x: number; y: number }> = [];
   NUM_ITERATIONS = 1;
   TIMESTEP = 1.0;
@@ -61,33 +62,32 @@ export class ParticleSystem {
     var cHeight = 20;
     var rows = clothHeight;
     var cols = clothWidth;
-    // var startX = windowWidth / 2.0 - (rows * cWidth) / 2.0;
-    var startX = 0 - (rows * cWidth) / 2.0;
+    var startX = 0;
+    // -6
 
     for (var i = 0; i < rows; i++) {
       for (var j = 0; j < cols; j++) {
-        var index = i * rows + j;
+        var index = i * cols + j;
         var positionX = startX + j * cWidth;
-        // var positionY = windowHeight - i * cHeight;
-        var positionY = 0 + (rows * cHeight) / 2 - i * cHeight;
+        var positionY = -i * cHeight;
 
         this.addParticle(new Particle(positionX, positionY));
 
         if (i === 0) {
-          // first in the colum, dont link up, pin constrain
+          // Top-most particle; don't link up, pin constrain.
           this.addConstraint(new PinConstraint(index, positionX, positionY));
           if (j === 0) {
-            // do nothing
+            // Do nothing; has nothing on the left.
           } else {
-            // constraint just to left
+            // Constraint just to left; has nothing on top.
             this.addConstraint(
               new SpringConstraint(index, index - 1, cWidth - cWidth * 0.2, 1.0)
             );
           }
         } else if (j === 0) {
-          // first in the row, dont link left
+          // Left-most particle; don't link left.
           if (i === 0) {
-            // do nothing
+            // Do nothing; has nothing on top
           } else {
             // constraint just to top
             this.addConstraint(
@@ -182,6 +182,14 @@ export class ParticleSystem {
     }
   }
 
+  incrementGravity() {
+    this.gravity.y -= 0.1;
+  }
+
+  decrementGravity() {
+    this.gravity.y += 0.1;
+  }
+
   step() {
     this.accumulateForces();
     this.verlet();
@@ -190,7 +198,7 @@ export class ParticleSystem {
 
   onMouseDown(mouseClientX: number, mouseClientY: number, mouseButton: number) {
     const localMouseX = mouseClientX - this.windowWidthHalf;
-    const localMouseY = - (mouseClientY - this.windowHeightHalf);
+    const localMouseY = -(mouseClientY - this.windowHeightHalf);
 
     this.clickCon.active = true;
     this.clickCon.x = localMouseX;
@@ -225,7 +233,9 @@ export class ParticleSystem {
       this.clickCon.y = localMouseY;
 
       for (var i = 0; i < this.clickCon.constrained.length; i++) {
-        var c = this.constraints[this.constraints.length - 1 - i] as PinConstraint;
+        var c = this.constraints[
+          this.constraints.length - 1 - i
+        ] as PinConstraint;
         c.x = this.clickCon.x;
         c.y = this.clickCon.y;
       }

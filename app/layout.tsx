@@ -9,6 +9,9 @@ import {
 // Styles
 import "./globals.css";
 
+// Environment
+import environment from "@/environment"
+
 const firaMono = Fira_Mono({
   subsets: ["latin"],
   variable: "--font-fira-mono",
@@ -48,6 +51,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  if (environment.printComponentRendering) {
+    console.log("[RootLayout] Rendering.")
+  }
   return (
     <html lang="en">
       <body
