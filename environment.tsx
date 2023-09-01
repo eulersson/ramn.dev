@@ -7,7 +7,7 @@ type Environment = {
 
 const environments: { [key: string]: Environment } = {
   production: {
-    disableCover: true,
+    disableCover: false,
     disableGraphics: false,
     disableHero: false,
     printComponentRendering: false
