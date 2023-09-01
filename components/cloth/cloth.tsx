@@ -246,7 +246,7 @@ export function Cloth() {
         }}
       >
         <DreiOrthographicCamera ref={cameraRef} makeDefault />
-        <Stats />
+        {environment.debug && <Stats />}
         <Simulation
           clothWidth={clothWidth}
           clothHeight={clothHeight}

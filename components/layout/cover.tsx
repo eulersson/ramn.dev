@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 // Third-Party
 import { motion } from "framer-motion";
 
+// Project
+import { useCursor } from "@/contexts/cursor";
+
+// Environment
+import environment from "@/environment";
+
 export function Cover() {
   const [cross, setCross] = useState(true);
 
@@ -41,7 +47,11 @@ export function Cover() {
     },
   };
 
-  console.log("[Cover] Rendering")
+  if (environment.printComponentRendering) {
+    console.log("[Cover] Rendering");
+  }
+
+  const [cursorSize, setCursorSize] = useCursor();
 
   return (
     <>
@@ -77,6 +87,8 @@ export function Cover() {
             scale: [1, 1.4, 0],
             transition: { delay: 0.7, duration: 0.4 },
           }}
+          onMouseEnter={() => setCursorSize(12)}
+          onMouseLeave={() => setCursorSize(1)}
         >
           <motion.svg
             width="200"
@@ -219,7 +231,7 @@ export function Cover() {
             transition={{
               delay: 1,
               duration: 0.8,
-              ease: "backOut"
+              ease: "backOut",
             }}
           ></motion.div>
         ))}
