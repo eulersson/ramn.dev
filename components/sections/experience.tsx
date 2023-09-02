@@ -37,6 +37,9 @@ import jobMPC from "@/content/experience/mpc.json";
 import jobNpaw from "@/content/experience/npaw.json";
 import jobWatchity from "@/content/experience/watchity.json";
 
+// Environment
+import environment from "@/environment";
+
 type LogoRef = {
   spin: Function;
 };
@@ -130,7 +133,9 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
     [job]
   );
 
+  if (environment.printComponentRendering) {
   console.log("[Experience] Rendering")
+  }
 
   return (
     <>

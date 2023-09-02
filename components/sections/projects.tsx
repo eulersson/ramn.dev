@@ -4,9 +4,13 @@ import { ForwardedRef, forwardRef } from "react";
 // Project
 import { Title } from "@/components/title";
 
-const Projects = forwardRef<HTMLHeadingElement>(function Projects({}, ref) {
+// Environment
+import environment from "@/environment";
 
-  console.log("[Projects] Rendering")
+const Projects = forwardRef<HTMLHeadingElement>(function Projects({}, ref) {
+  if (environment.printComponentRendering) {
+    console.log("[Projects] Rendering");
+  }
 
   return (
     <section className="flex flex-col justify-center -mt-[2px]">

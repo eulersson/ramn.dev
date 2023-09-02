@@ -14,10 +14,14 @@ import { Block } from "@/components/block";
 import { TagProps } from "@/components/tag";
 import { Terminal } from "@/components/terminal";
 import { Title } from "@/components/title";
+import { useCursor } from "@/contexts/cursor";
+
 // Content
 import Intention from "@/content/sections/intention.mdx";
 import WhoAmI from "@/content/sections/whoami.mdx";
-import { useCursor } from "@/contexts/cursor";
+
+// Environment
+import environment from "@/environment";
 
 const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -92,7 +96,9 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "leveraging cloud computing when possible." },
   ];
 
-  console.log("[About] Rendering")
+  if (environment.printComponentRendering) {
+    console.log("[About] Rendering")
+  }
 
   return (
     <section className="flex flex-col justify-center">

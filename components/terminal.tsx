@@ -4,6 +4,9 @@ import { forwardRef } from "react";
 // Third-Party
 import { Typewriter } from "./typewriter";
 
+// Environment
+import environment from "@/environment";
+
 // TODO: Make interactive: allow moving, minimizing, closing, resizing.
 export const Terminal = forwardRef<
   HTMLDivElement,
@@ -24,7 +27,10 @@ export const Terminal = forwardRef<
   },
   ref
 ) {
-  console.log("[Terminal] Rendering")
+  if (environment.printComponentRendering) {
+    console.log("[Terminal] Rendering");
+  }
+
   return (
     <div
       ref={ref}

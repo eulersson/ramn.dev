@@ -1,9 +1,15 @@
-import "./bg-grid.css"
+// Styles
+import "./bg-grid.css";
+
+// Environment
+import environment from "@/environment";
 
 export function BGGrid() {
   const numBoxes = 100;
 
-  console.log("[BGGrid] Rendering")
+  if (environment.printComponentRendering) {
+    console.log("[BGGrid] Rendering");
+  }
 
   return (
     <div className="bg-grid">

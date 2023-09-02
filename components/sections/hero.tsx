@@ -37,8 +37,8 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 >
                   Ramon Blanquer
                 </h1>
-                <div className="grow">
-                  {environment.disableGraphics ? "" : <Cloth />}
+                <div className="grow overflow-hidden">
+                  {environment.disableGraphics ? "" : <Cloth scrollYProgress={scrollYProgress} />}
                 </div>
               </div>
             </section>

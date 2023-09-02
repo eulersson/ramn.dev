@@ -4,11 +4,16 @@ import { motion } from "framer-motion";
 // Project
 import { useSection } from "@/contexts/section";
 
+// Environment
+import environment from "@/environment";
+
 export function Navbar() {
   const { setSection, sections, activeSectionIdx, navigationRunning } =
     useSection();
 
-  console.log("[Navbar] Rendering");
+  if (environment.printComponentRendering) {
+    console.log("[Navbar] Rendering");
+  }
 
   return (
     <>

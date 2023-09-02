@@ -3,6 +3,7 @@ import Image from "next/image";
 
 // Components
 import { Button } from "@/components/button";
+import environment from "@/environment";
 
 export function Header({ large = true }: { large?: boolean }) {
   const boxWidth = "w-[calc(var(--bg-grid-box-size)+2px)]";
@@ -10,7 +11,10 @@ export function Header({ large = true }: { large?: boolean }) {
     ? "w-[calc(var(--bg-grid-box-size)*2+2px)] -mx-[2px]"
     : "w-[calc(var(--bg-grid-box-size)*2-0px)]";
 
-  console.log("[Header] Rendering");
+  if (environment.printComponentRendering) {
+    console.log("[Header] Rendering");
+  }
+
   return (
     <div className="sticky top-0 h-g3 w-full flex justify-center z-10">
       <header className="flex">
