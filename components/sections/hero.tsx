@@ -43,8 +43,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                     visible: {
                       opacity: 1,
                       transition: {
+                        delay: 2.62,
                         duration: 0.001,
-                        delayChildren: 0,
+                        delayChildren: 2.62,
                         staggerChildren: 0.05,
                       },
                     },
@@ -72,8 +73,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                     visible: {
                       opacity: 1,
                       transition: {
+                        delay: 2.62,
                         duration: 0.001,
-                        delayChildren: 0,
+                        delayChildren: 2.62,
                         staggerChildren: 0.1,
                       },
                     },
@@ -137,7 +139,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                     visible: {
                       opacity: 1,
                       transition: {
+                        delay: 2.62,
                         duration: 0.001,
+                        delayChildren: 2.62,
                         staggerChildren: 0.05,
                         staggerDirection: -1,
                       },
