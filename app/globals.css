@@ -62,6 +62,17 @@ body {
   z-index: 30;
   mix-blend-mode: difference;
 }
+/* https://stackoverflow.com/questions/4191260/drawing-a-grid-using-css */
+/* .css-bg-grid {
+  box-sizing: border-box;
+  margin:0;
+  background-position: center center;
+  background-size: calc(var(--bg-grid-box-size)/2) calc(var(--bg-grid-box-size)/2);
+
+  background-image:
+  repeating-linear-gradient(#000000 0 2px, transparent 2px 100%),
+  repeating-linear-gradient(90deg, #000000 0 2px, transparent 2px 100%);
+} */
 
 @layer components {
   .border-inside {
