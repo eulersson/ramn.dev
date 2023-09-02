@@ -59,6 +59,7 @@ export class ParticleSystem {
    * All particles are subject to a general force of gravity.
    */
   gravity = { x: 0, y: -3.0 };
+  extraGravity = { x: 0, y: 0 };
 
   /**
    * The forces that need to be applied are placed in this array before the verlet step
@@ -201,7 +202,10 @@ export class ParticleSystem {
 
   accumulateForces() {
     for (var i = 0; i < this.curPositions.length; i++) {
-      this.forceAccumulators[i] = this.gravity;
+      this.forceAccumulators[i] = {
+        x: this.gravity.x + this.extraGravity.x,
+        y: this.gravity.y + this.extraGravity.y,
+      };
     }
   }
 
@@ -224,9 +228,9 @@ export class ParticleSystem {
   satisfyConstraints() {
     for (var it = 0; it < this.NUM_ITERATIONS; it++) {
       for (var i = 0; i < this.curPositions.length; i++) {
-        // Make sure any particle goes below the ground.
+        // Make sure any particle goes below the ground or above ceiling.
         var pos = this.curPositions[i];
-        pos.y = Math.max(pos.y, this.groundPosition);
+        pos.y = Math.min(0, Math.max(pos.y, this.groundPosition));
       }
 
       // Satisfy rest of the constraints (pin or spring).
@@ -252,6 +256,10 @@ export class ParticleSystem {
 
   setGravity(gravity: { x: number; y: number }) {
     this.gravity = gravity;
+  }
+
+  setExtraGravity(extraGravity: { x: number; y: number }) {
+    this.extraGravity = extraGravity;
   }
 
   step() {
@@ -302,7 +310,7 @@ export class ParticleSystem {
       x: mouseOffsetX - this.windowHalfSize.w,
       y: -(mouseOffsetY - this.windowHalfSize.h),
     };
-    
+
     this.clickCon.x = localMouse.x;
     this.clickCon.y = localMouse.y;
 

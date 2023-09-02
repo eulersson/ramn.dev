@@ -173,21 +173,22 @@ export const Cloth: FunctionComponent<{
 
   // Gravity based on scroll.
   const baseGravity = particleSystem.gravity;
+  scrollYProgress.on("change", (v) => {
+    particleSystem.setExtraGravity({ x: 0, y: 5 * (1 - v - 0.5) });
+  });
+
   const scrollVelocity = useVelocity(scrollYProgress);
   const scrollScaledVelocity = useTransform(scrollVelocity, (mv) =>
     Math.max(-Math.abs(mv) * 5, -8)
   );
-  scrollScaledVelocity.on("change", (v) => {
-    console.log(v);
-  });
   const scrollSpring = useSpring(scrollScaledVelocity, {
     damping: 6,
-    stiffness: 200,
-    mass: 2,
+    stiffness: 100,
+    mass: 4,
   });
   const gravityYDelta = scrollSpring;
   gravityYDelta.on("change", (delta) => {
-    particleSystem.setGravity({ x: 0, y: baseGravity + delta });
+    particleSystem.setGravity({ x: 0, y: baseGravity.y + delta });
   });
 
   // Needed width and height deltas on resize for mouse collision calculation.
