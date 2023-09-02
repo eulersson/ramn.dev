@@ -1,50 +1,47 @@
 // React
 import {
+  FunctionComponent,
   MutableRefObject,
   useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
-  useState,
 } from "react";
 
 // Third-Party
 import { BufferAttribute, DynamicDrawUsage, OrthographicCamera } from "three";
-import { Canvas, Size, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   OrthographicCamera as DreiOrthographicCamera,
   Stats,
 } from "@react-three/drei";
+import {
+  MotionValue,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from "framer-motion";
 
 // Project
+import { GridDimensions, Size } from "@/types";
 import { ParticleSystem } from "@/components/cloth/particle-system";
 
 // Environment
 import environment from "@/environment";
 import { useCursor } from "@/contexts/cursor";
 
-function Simulation({
-  particleSystemRef,
-  clothWidth,
-  clothHeight,
-}: {
+export const Simulation: FunctionComponent<{
   particleSystemRef: MutableRefObject<ParticleSystem>;
-  clothWidth: number;
-  clothHeight: number;
-}) {
-  const { camera, raycaster, size, viewport, gl } = useThree();
+}> = ({ particleSystemRef }) => {
+  const { camera, raycaster, size } = useThree();
 
   camera.position.setX(0);
   camera.position.setY(0);
   camera.position.setZ(500);
 
   useEffect(() => {
-    const aproximateClothWidth = clothWidth * 20; // TODO: Read the 20 from particleSystem.cWidth;
-    const aproximateClothHeight = clothHeight * 20; // TODO: Read the 20 from particleSystem.cWidth;
-    const sizeWidth = size.width;
-    const sizeHeight = size.height;
-    camera.position.setX(aproximateClothWidth / 2);
-    camera.position.setY(-aproximateClothHeight / 2);
+    camera.position.setX(particleSystem.approximateHalfClothWidth);
+    camera.position.setY(-size.height / 2);
   }, [camera, size]);
 
   useEffect(() => {
@@ -77,12 +74,18 @@ function Simulation({
   const linesIndicesRef = useRef<BufferAttribute>(null);
   const pointsPositionsRef = useRef<BufferAttribute>(null);
 
+  const clothGridDimensions: GridDimensions = useMemo(
+    () => ({ rows: 20, cols: 40 }),
+    []
+  );
+
   const pointsData = new Float32Array(
-    Array(clothWidth * clothHeight * 3).fill(0)
+    Array(clothGridDimensions.rows * clothGridDimensions.cols * 3).fill(0)
   );
 
   const numLineConstraints =
-    clothWidth * (clothHeight - 1) + (clothWidth - 1) * clothHeight;
+    clothGridDimensions.cols * (clothGridDimensions.rows - 1) +
+    (clothGridDimensions.cols - 1) * clothGridDimensions.rows;
   const constraintsData = new Uint16Array(
     Array(numLineConstraints * 2).fill(0)
   );
@@ -91,9 +94,12 @@ function Simulation({
 
   useLayoutEffect(() => {
     if (particleSystem.empty) {
-      particleSystem.populate(size.width, size.height, clothWidth, clothHeight);
+      particleSystem.populate(
+        { w: size.width, h: size.height },
+        clothGridDimensions
+      );
     }
-  }, [particleSystem, size, clothWidth, clothHeight]);
+  }, [particleSystem, size, clothGridDimensions]);
 
   useFrame((state, delta) => {
     particleSystem.step();
@@ -111,7 +117,9 @@ function Simulation({
     }
   });
 
-  console.log("[Cloth] Rendering");
+  if (environment.printComponentRendering) {
+    console.log("[Cloth] Rendering");
+  }
 
   return (
     <>
@@ -129,7 +137,7 @@ function Simulation({
             ref={linesPositionsRef}
             attach="attributes-position"
             array={pointsData}
-            count={clothWidth * clothHeight}
+            count={clothGridDimensions.rows * clothGridDimensions.cols}
             itemSize={3}
             usage={DynamicDrawUsage}
           />
@@ -142,7 +150,7 @@ function Simulation({
             ref={pointsPositionsRef}
             attach="attributes-position"
             array={pointsData}
-            count={clothWidth * clothHeight}
+            count={clothGridDimensions.rows * clothGridDimensions.cols}
             itemSize={3}
             usage={DynamicDrawUsage}
           />
@@ -151,45 +159,71 @@ function Simulation({
       </points>
     </>
   );
-}
+};
 
-export function Cloth() {
-  const canvasWrapperRef = useRef<HTMLDivElement>(null);
-
-  const [clothWidth, clothHeight] = [40, 25];
-
+export const Cloth: FunctionComponent<{
+  scrollYProgress: MotionValue<number>;
+}> = ({ scrollYProgress }) => {
+  // Particle system references.
   const particleSystemRef = useRef(new ParticleSystem());
   const particleSystem = particleSystemRef.current;
+
+  // Cursor.
+  const [cursorSize, setCursorSize] = useCursor();
+
+  // Gravity based on scroll.
+  const baseGravity = particleSystem.gravity;
+  const scrollVelocity = useVelocity(scrollYProgress);
+  const scrollScaledVelocity = useTransform(scrollVelocity, (mv) =>
+    Math.max(-Math.abs(mv) * 5, -8)
+  );
+  scrollScaledVelocity.on("change", (v) => {
+    console.log(v);
+  });
+  const scrollSpring = useSpring(scrollScaledVelocity, {
+    damping: 6,
+    stiffness: 200,
+    mass: 2,
+  });
+  const gravityYDelta = scrollSpring;
+  gravityYDelta.on("change", (delta) => {
+    particleSystem.setGravity({ x: 0, y: baseGravity + delta });
+  });
+
+  // Needed width and height deltas on resize for mouse collision calculation.
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
+
+  const cameraRef = useRef<OrthographicCamera>(null);
+  const initialWrapperSize = useRef<Size>({
+    w: 0,
+    h: 0,
+  });
+
+  useEffect(() => {
+    if (canvasWrapperRef.current) {
+      initialWrapperSize.current = {
+        w: canvasWrapperRef.current.clientWidth,
+        h: canvasWrapperRef.current.clientHeight,
+      };
+    }
+  }, []);
 
   if (environment.printComponentRendering) {
     console.log("[Cloth] Rendering");
   }
 
-  const cameraRef = useRef<OrthographicCamera>(null);
-
-  // Todo: Refactor into a size class or interface?
-  const initialWrapperWidth = useRef<number>(0);
-  const initialWrapperHeight = useRef<number>(0);
-
-  useEffect(() => {
-    if (canvasWrapperRef.current) {
-      initialWrapperWidth.current = canvasWrapperRef.current.clientWidth;
-      initialWrapperHeight.current = canvasWrapperRef.current.clientHeight;
-    }
-  }, []);
-
   useEffect(() => {
     const onResize = (e: UIEvent) => {
-      console.log(
-        canvasWrapperRef.current?.clientWidth,
-        canvasWrapperRef.current?.clientHeight
-      );
+      if (canvasWrapperRef.current) {
+        particleSystem.onWindowResize({
+          w: canvasWrapperRef.current.clientWidth,
+          h: canvasWrapperRef.current.clientHeight,
+        });
+      }
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-
-  const [cursorSize, setCursorSize] = useCursor();
 
   return (
     <div className="w-full h-full" ref={canvasWrapperRef}>
@@ -199,43 +233,39 @@ export function Cloth() {
 
           let x = e.nativeEvent.offsetX;
           let y = e.nativeEvent.offsetY;
-          // TODO read from particle system instead of explicit 20
-          // TODO: Avoid division
-          x += (clothWidth * 20) / 2;
-          y += (clothHeight * 20) / 2;
+
+          if (cameraRef.current) {
+            x += cameraRef.current.position.x;
+            y -= cameraRef.current.position.y;
+          }
 
           // Factor this out, it's beign repeated in onMouseDown
-          if (initialWrapperWidth.current && canvasWrapperRef.current) {
+          if (initialWrapperSize.current && canvasWrapperRef.current) {
             x -=
               (canvasWrapperRef.current.clientWidth -
-                initialWrapperWidth.current) /
-              2;
-
-            y -=
-              (canvasWrapperRef.current.clientHeight -
-                initialWrapperHeight.current) /
+                initialWrapperSize.current.w) /
               2;
           }
           particleSystem.onMouseDown(x, y, e.button);
         }}
         onMouseMove={(e) => {
+          if (!particleSystem.clickCon.active) {
+            return;
+          }
+
           let x = e.nativeEvent.offsetX;
           let y = e.nativeEvent.offsetY;
-          // TODO read from particle system instead of explicit 20
-          // TODO: Avoid division
-          x += (clothWidth * 20) / 2;
-          y += (clothHeight * 20) / 2;
+
+          if (cameraRef.current) {
+            x += cameraRef.current.position.x;
+            y -= cameraRef.current.position.y;
+          }
 
           // Factor this out, it's beign repeated in onMouseDown
-          if (initialWrapperWidth.current && canvasWrapperRef.current) {
+          if (initialWrapperSize.current && canvasWrapperRef.current) {
             x -=
               (canvasWrapperRef.current.clientWidth -
-                initialWrapperWidth.current) /
-              2;
-
-            y -=
-              (canvasWrapperRef.current.clientHeight -
-                initialWrapperHeight.current) /
+                initialWrapperSize.current.w) /
               2;
           }
           particleSystem.onMouseMove(x, y);
@@ -247,12 +277,8 @@ export function Cloth() {
       >
         <DreiOrthographicCamera ref={cameraRef} makeDefault />
         {environment.debug && <Stats />}
-        <Simulation
-          clothWidth={clothWidth}
-          clothHeight={clothHeight}
-          particleSystemRef={particleSystemRef}
-        />
+        <Simulation particleSystemRef={particleSystemRef} />
       </Canvas>
     </div>
   );
-}
+};

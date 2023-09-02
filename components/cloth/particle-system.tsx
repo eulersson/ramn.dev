@@ -1,3 +1,4 @@
+import { GridDimensions, Position, Size } from "@/types";
 import { Particle } from "@/components/cloth/particle";
 import { PinConstraint } from "@/components/cloth/pin-constraint";
 import { SpringConstraint } from "@/components/cloth/spring-constraint";
@@ -12,21 +13,63 @@ type ClickCon = {
 };
 
 export class ParticleSystem {
-  constraints: Array<PinConstraint | SpringConstraint> = [];
+  // --- Particles ---------------------------------------------------------------------
   curPositions: Particle[] = [];
   oldPositions: Particle[] = [];
 
-  gravity = { x: 0, y: -3.0 };
-
-  forceAccumulators: Array<{ x: number; y: number }> = [];
+  // --- Verlet Settings ---------------------------------------------------------------
+  /**
+   * More iterations would produce a more stable result but would be more expensive.
+   */
   NUM_ITERATIONS = 1;
+
+  /**
+   * If you increase the number of iterations it's worth adjusting to time step, usually
+   * inversely proportional.
+   */
   TIMESTEP = 1.0;
 
-  windowWidth!: number;
-  windowWidthHalf!: number; // to prevent division on render loop
-  windowHeight!: number;
-  windowHeightHalf!: number; // to prevent division on render loop
+  /**
+   * The grid resolution of the cloth. Will determine how many particles to play with.
+   */
+  gridDimensions: GridDimensions = { rows: 20, cols: 40 };
 
+  /**
+   * The size of a facet, that is, the area comprised by four neighbouring points.
+   */
+  cellSize: Size = { w: 20, h: 20 };
+
+  /**
+   * Precalculated half-size (division is expensive) of the whole cloth width.
+   */
+  approximateHalfClothWidth = (this.gridDimensions.cols * this.cellSize.w) / 2;
+
+  windowSize!: Size;
+  windowHalfSize!: Size; // to prevent division on render loop
+  groundPosition = 0;
+
+  // --- Forces and Constraints --------------------------------------------------------
+
+  /**
+   * Defines what constraints are in place affecting the physics of the system.
+   */
+  constraints: Array<PinConstraint | SpringConstraint> = [];
+
+  /**
+   * All particles are subject to a general force of gravity.
+   */
+  gravity = { x: 0, y: -3.0 };
+
+  /**
+   * The forces that need to be applied are placed in this array before the verlet step
+   * applies them and removes them from the list.
+   */
+  forceAccumulators: Array<{ x: number; y: number }> = [];
+
+  /**
+   * A global constraint that will end up placing {@link PinConstraint} on the particles
+   * surrounding the click area.
+   */
   clickCon: ClickCon = {
     active: false,
     breakable: false,
@@ -40,36 +83,50 @@ export class ParticleSystem {
     return this.curPositions.length === 0;
   }
 
-  onWindowResize(width: number, height: number) {
-    console.log("onWindowResize");
+  get aproximateClothSize(): Size {
+    const verticalStretchCausedByGravity = 2;
+    const heightFactor = this.windowHalfSize.h * 0.05;
+    console.log("hf", heightFactor);
+    return {
+      w: this.gridDimensions.cols * this.cellSize.w,
+      h:
+        this.gridDimensions.rows *
+          this.cellSize.h *
+          verticalStretchCausedByGravity +
+        heightFactor,
+    };
   }
 
-  populate(
-    windowWidth: number,
-    windowHeight: number,
-    clothWidth: number,
-    clothHeight: number
-  ) {
-    this.windowWidth = windowWidth;
-    this.windowWidthHalf = windowWidth / 2;
-    this.windowHeight = windowHeight;
-    this.windowHeightHalf = windowHeight / 2;
+  onWindowResize(size: Size) {
+    console.log("onWindowResize");
+    this.windowSize = size;
+    this.windowHalfSize = {
+      w: size.w / 2,
+      h: size.h / 2,
+    };
+    this.groundPosition = -this.windowSize.h;
+    console.log("ground", this.groundPosition);
+  }
+
+  populate(windowSize: Size, gridDimensions: GridDimensions) {
+    this.windowSize = windowSize;
+    this.windowHalfSize = { w: windowSize.w / 2, h: windowSize.h / 2 };
+    this.groundPosition = -this.windowSize.h;
+
     // This creates a grid of particles connected following the rule:
     //   1. If it is in the first row just connect to LEFT.
     //   2. If it is in the first column DON'T' connect to LEFT.
     //   3. If it is not in either first row or last row connect to LEFT and UP.
-    var cWidth = 20;
-    var cHeight = 20;
-    var rows = clothHeight;
-    var cols = clothWidth;
+    var { rows, cols } = gridDimensions;
+    this.approximateHalfClothWidth = (this.cellSize.w * cols) / 2;
+
     var startX = 0;
-    // -6
 
     for (var i = 0; i < rows; i++) {
       for (var j = 0; j < cols; j++) {
         var index = i * cols + j;
-        var positionX = startX + j * cWidth;
-        var positionY = -i * cHeight;
+        var positionX = startX + j * this.cellSize.w;
+        var positionY = -i * this.cellSize.h;
 
         this.addParticle(new Particle(positionX, positionY));
 
@@ -81,7 +138,12 @@ export class ParticleSystem {
           } else {
             // Constraint just to left; has nothing on top.
             this.addConstraint(
-              new SpringConstraint(index, index - 1, cWidth - cWidth * 0.2, 1.0)
+              new SpringConstraint(
+                index,
+                index - 1,
+                this.cellSize.w - this.cellSize.w * 0.2,
+                1.0
+              )
             );
           }
         } else if (j === 0) {
@@ -91,16 +153,21 @@ export class ParticleSystem {
           } else {
             // constraint just to top
             this.addConstraint(
-              new SpringConstraint(index, index - cols, cHeight, 1.0)
+              new SpringConstraint(index, index - cols, this.cellSize.h, 1.0)
             );
           }
         } else {
           // constraint top and left
           this.addConstraint(
-            new SpringConstraint(index, index - cols, cHeight, 1.0)
+            new SpringConstraint(index, index - cols, this.cellSize.h, 1.0)
           );
           this.addConstraint(
-            new SpringConstraint(index, index - 1, cWidth - cWidth * 0.2, 0.8)
+            new SpringConstraint(
+              index,
+              index - 1,
+              this.cellSize.w - this.cellSize.w * 0.2,
+              0.8
+            )
           );
         }
       }
@@ -156,20 +223,13 @@ export class ParticleSystem {
 
   satisfyConstraints() {
     for (var it = 0; it < this.NUM_ITERATIONS; it++) {
-      // Satisfy first constraint (box bounds)
       for (var i = 0; i < this.curPositions.length; i++) {
+        // Make sure any particle goes below the ground.
         var pos = this.curPositions[i];
-        pos.x = Math.min(
-          Math.max(pos.x, -this.windowWidthHalf),
-          this.windowWidthHalf
-        );
-        pos.y = Math.min(
-          Math.max(pos.y, -this.windowHeightHalf),
-          this.windowHeightHalf
-        );
+        pos.y = Math.max(pos.y, this.groundPosition);
       }
 
-      // Satisfy rest of the constraints (pin or spring)
+      // Satisfy rest of the constraints (pin or spring).
       for (var i = 0; i < this.constraints.length; i++) {
         var alive = this.constraints[i].project(this.curPositions);
         if (!alive && this.clickCon.breakable) {
@@ -190,6 +250,10 @@ export class ParticleSystem {
     this.gravity.y += 0.1;
   }
 
+  setGravity(gravity: { x: number; y: number }) {
+    this.gravity = gravity;
+  }
+
   step() {
     this.accumulateForces();
     this.verlet();
@@ -197,12 +261,15 @@ export class ParticleSystem {
   }
 
   onMouseDown(mouseClientX: number, mouseClientY: number, mouseButton: number) {
-    const localMouseX = mouseClientX - this.windowWidthHalf;
-    const localMouseY = -(mouseClientY - this.windowHeightHalf);
-
     this.clickCon.active = true;
-    this.clickCon.x = localMouseX;
-    this.clickCon.y = localMouseY;
+
+    const localMouse: Position = {
+      x: mouseClientX - this.windowHalfSize.w,
+      y: -(mouseClientY - this.windowHalfSize.h),
+    };
+
+    this.clickCon.x = localMouse.x;
+    this.clickCon.y = localMouse.y;
 
     const that = this;
 
@@ -225,28 +292,36 @@ export class ParticleSystem {
   }
 
   onMouseMove(mouseOffsetX: number, mouseOffsetY: number) {
-    const localMouseX = mouseOffsetX - this.windowWidthHalf;
-    const localMouseY = -(mouseOffsetY - this.windowHeightHalf);
-    // console.log(localMouseX, localMouseY);
-    if (this.clickCon.active) {
-      this.clickCon.x = localMouseX;
-      this.clickCon.y = localMouseY;
+    // Do not waste time on computing if the user has not clicked first.
+    if (!this.clickCon.active) {
+      console.log("retuuurn");
+      return;
+    }
 
-      for (var i = 0; i < this.clickCon.constrained.length; i++) {
-        var c = this.constraints[
-          this.constraints.length - 1 - i
-        ] as PinConstraint;
-        c.x = this.clickCon.x;
-        c.y = this.clickCon.y;
-      }
+    const localMouse = {
+      x: mouseOffsetX - this.windowHalfSize.w,
+      y: -(mouseOffsetY - this.windowHalfSize.h),
+    };
+    
+    this.clickCon.x = localMouse.x;
+    this.clickCon.y = localMouse.y;
+
+    for (var i = 0; i < this.clickCon.constrained.length; i++) {
+      var c = this.constraints[
+        this.constraints.length - 1 - i
+      ] as PinConstraint;
+      c.x = this.clickCon.x;
+      c.y = this.clickCon.y;
     }
   }
 
   onMouseUp() {
     this.clickCon.active = false;
+
     for (var i = 0; i < this.clickCon.constrained.length; i++) {
       this.constraints.pop();
     }
+
     this.clickCon.constrained = [];
   }
 }
