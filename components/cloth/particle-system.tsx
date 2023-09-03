@@ -99,14 +99,12 @@ export class ParticleSystem {
   }
 
   onWindowResize(size: Size) {
-    console.log("onWindowResize");
     this.windowSize = size;
     this.windowHalfSize = {
       w: size.w / 2,
       h: size.h / 2,
     };
     this.groundPosition = -this.windowSize.h;
-    console.log("ground", this.groundPosition);
   }
 
   populate(windowSize: Size, gridDimensions: GridDimensions) {
