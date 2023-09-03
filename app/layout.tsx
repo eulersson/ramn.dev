@@ -4,13 +4,13 @@ import {
   Nunito,
   Playfair_Display,
   Urbanist,
-} from "@next/font/google";
+} from "next/font/google";
 
 // Styles
 import "./globals.css";
 
 // Environment
-import environment from "@/environment"
+import environment from "@/environment";
 
 const firaMono = Fira_Mono({
   subsets: ["latin"],
@@ -35,6 +35,7 @@ const playfairDisplay = Playfair_Display({
 });
 
 const urbanist = Urbanist({
+  style: ["normal"],
   subsets: ["latin"],
   variable: "--font-urbanist",
   weight: ["800"],
@@ -52,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   if (environment.printComponentRendering) {
-    console.log("[RootLayout] Rendering.")
+    console.log("[RootLayout] Rendering.");
   }
   return (
     <html lang="en">
