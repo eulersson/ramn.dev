@@ -18,6 +18,7 @@ import {
 import {
   MotionValue,
   useSpring,
+  useTime,
   useTransform,
   useVelocity,
 } from "framer-motion";
@@ -172,14 +173,32 @@ export const Cloth: FunctionComponent<{
   const [cursorSize, setCursorSize] = useCursor();
 
   // Gravity based on scroll.
+  const time = useTime();
   const baseGravity = particleSystem.gravity;
+
+  time.on("change", (t) => {
+    if (t > 8000) {
+      // Destroy and clean up subscribers.
+      time.destroy();
+    }
+    const amplitude = (5 * Math.max(7000 - t, 0)) / 7000;
+    const frequency = 1 / 500;
+
+    // Some lateral wind.
+    particleSystem.setExtraGravity({
+      x: amplitude * Math.sin(frequency * t),
+      y: 0,
+    });
+  });
+
   scrollYProgress.on("change", (v) => {
     particleSystem.setExtraGravity({ x: 0, y: 5 * (1 - v - 0.5) });
   });
 
   const scrollVelocity = useVelocity(scrollYProgress);
-  const scrollScaledVelocity = useTransform(scrollVelocity, (mv) =>
-    Math.max(-Math.abs(mv) * 5, -8)
+  const scrollScaledVelocity = useTransform(
+    scrollVelocity,
+    (mv) => Math.max(-Math.abs(mv) * 5, -8) + 3
   );
   const scrollSpring = useSpring(scrollScaledVelocity, {
     damping: 6,
