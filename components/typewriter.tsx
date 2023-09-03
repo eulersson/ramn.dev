@@ -4,6 +4,9 @@ import { FunctionComponent } from "react";
 // Third-Party
 import { motion } from "framer-motion";
 
+// Environment
+import environment from "@/environment";
+
 export type Sentence = {
   text: string;
   className?: string;
@@ -43,7 +46,10 @@ export const Typewriter: FunctionComponent<{
     },
   };
 
-  console.log("[Typewriter] Rendering");
+  if (environment.printComponentRendering) {
+    console.log("[Typewriter] Rendering");
+  }
+
   return (
     <motion.div
       className={`${className} inline-block`}
@@ -58,13 +64,17 @@ export const Typewriter: FunctionComponent<{
             stringCharacters.push(s.text[i]);
           }
           return stringCharacters.map((c, j) => (
-            <>
+            <span key={`i${i}j${j}div`}>
               {c === "|" ? (
-                <motion.br key={`${i}${j}linebreak`} variants={item} />
+                <motion.br
+                  className={`i${i}j${j}linebreak`}
+                  key={`i${i}j${j}linebreak`}
+                  variants={item}
+                />
               ) : (
                 <motion.span
-                  className={s.className}
-                  key={`${i}${j}`}
+                  className={`i${i}j${j} ${s.className || ""}`}
+                  key={`i${i}j${j}`}
                   variants={item}
                 >
                   {c}
@@ -72,19 +82,23 @@ export const Typewriter: FunctionComponent<{
               )}
 
               {j === s.text.length - 1 && i !== sentences.length - 1 ? (
-                <motion.span key={`${i}${j}space`} variants={item}>
+                <motion.span
+                  className={`i${i}j${j}space`}
+                  key={`i${i}j${j}space`}
+                  variants={item}
+                >
                   &nbsp;
                 </motion.span>
               ) : (
                 ""
               )}
-            </>
+            </span>
           ));
         }),
       ]}
       {!disableHighlight && (
-        <span className="bg-white mix-blend-difference -ml-[12px]">&nbsp;</span>
-      )}
+        <span key={`dh`} className="bg-white mix-blend-difference -ml-[12px]">&nbsp;</span>
+      ) || ""}
     </motion.div>
   );
 };

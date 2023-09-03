@@ -17,10 +17,7 @@ import {
   motion,
   useInView,
   useMotionValue,
-  useScroll,
   useSpring,
-  useTransform,
-  useVelocity,
 } from "framer-motion";
 
 // Project
@@ -109,6 +106,7 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(function Logo(
   );
 });
 
+// TODO: Break into separate components.
 const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
   const [cursorSize, setCursorSize] = useCursor();
 
@@ -139,6 +137,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
 
   return (
     <>
+      {/* --- Experience ----------------------------------------------------------- */}
       <section className="flex flex-col justify-center">
         <Title ref={ref}>Experience</Title>
         <div
@@ -185,21 +184,20 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
               {job["summary"]}
             </div>
             <ul
-              className={`font-sans py-3 px/6) space-y-3 px-6 grow ${
-                activeEmployer === 1 ? "pb-[20px]" : ""
-              }`}
+              className={`font-sans py-3 px/6) space-y-3 px-6 grow`}
             >
               {job["points"].map((p, i) => (
                 <li key={i}>{p}</li>
               ))}
             </ul>
-            <div className="bg-black px-4 py-4 flex-1 space-x-1 space-y-1 flex flex-wrap items-center justify-center">
+            <div className={`bg-black px-4 py-4 flex-1 space-x-1 space-y-1 flex flex-wrap items-center justify-center`}>
               {...job["skills"].map((text, i) => <Tag key={i} text={text} />)}
             </div>
           </div>
         </div>
       </section>
-      <section className="flex flex-col justify-center">
+      {/* --- Recommendations ------------------------------------------------------ */}
+      <section className="flex flex-col justify-center mt-[2px]">
         <Title ref={ref}>Recommendations</Title>
         <div className="relative">
           <Block

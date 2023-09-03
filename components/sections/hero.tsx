@@ -4,7 +4,7 @@
 import { forwardRef, useRef } from "react";
 
 // Third-Party
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 // Project
 import { Cloth } from "@/components/cloth/cloth";
@@ -14,6 +14,9 @@ import environment from "@/environment";
 
 const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   const ref = useRef(null);
+
+  const clothWrapperRef = useRef<HTMLDivElement>(null);
+  const clothWrapperInView = useInView(clothWrapperRef);
 
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
 
@@ -25,7 +28,10 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
 
   return (
     <>
-      <div className={`w-full h-screen bg-white overflow-y-scroll`} ref={ref}>
+      <div
+        className={`w-full h-screen bg-white overflow-y-scroll -mb-[2px]`}
+        ref={ref}
+      >
         <div className="h-[500vh]">
           <section className="sticky top-0 h-screen bg-white">
             <div className="w-full h-full flex flex-col">
@@ -124,8 +130,8 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 ))}
               </motion.div>
 
-              <div className="grow overflow-hidden">
-                {environment.disableGraphics ? (
+              <div className="grow overflow-hidden" ref={clothWrapperRef}>
+                {environment.disableGraphics || clothWrapperInView === false ? (
                   ""
                 ) : (
                   <Cloth scrollYProgress={scrollYProgress} />
