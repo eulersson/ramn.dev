@@ -77,7 +77,7 @@ export class ParticleSystem {
     constrained: [],
     x: 0,
     y: 0,
-    radius: 20,
+    radius: 34,
   };
 
   get empty() {
@@ -300,7 +300,6 @@ export class ParticleSystem {
   onMouseMove(mouseOffsetX: number, mouseOffsetY: number) {
     // Do not waste time on computing if the user has not clicked first.
     if (!this.clickCon.active) {
-      console.log("retuuurn");
       return;
     }
 

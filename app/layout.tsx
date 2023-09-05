@@ -1,4 +1,4 @@
-// Next
+// Next.js
 import {
   Fira_Mono,
   Nunito,

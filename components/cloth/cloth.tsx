@@ -2,11 +2,15 @@
 import {
   FunctionComponent,
   MutableRefObject,
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
 } from "react";
+
+// Next.js
+import Image from "next/image";
 
 // Third-Party
 import { BufferAttribute, DynamicDrawUsage, OrthographicCamera } from "three";
@@ -17,6 +21,7 @@ import {
 } from "@react-three/drei";
 import {
   MotionValue,
+  motion,
   useSpring,
   useTime,
   useTransform,
@@ -26,6 +31,7 @@ import {
 // Project
 import { GridDimensions, Size } from "@/types";
 import { ParticleSystem } from "@/components/cloth/particle-system";
+import cursorIcon from "@/public/cursor.svg";
 
 // Environment
 import environment from "@/environment";
@@ -245,55 +251,144 @@ export const Cloth: FunctionComponent<{
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  const cursorIconRef = useRef<HTMLDivElement>(null);
+
+  const clothInstructionPlaying = useRef(true);
+
+  useEffect(() => {
+    const offsetX = 23;
+    const offsetY = -197;
+    const timeout = setTimeout(
+      () => {
+        let i = 0;
+
+        onMouseDown(
+          cursorIconRef.current!.getBoundingClientRect().x + offsetX,
+          cursorIconRef.current!.getBoundingClientRect().y + offsetY,
+          0
+        );
+
+        const interval = setInterval(() => {
+          if (i > 80) {
+            clothInstructionPlaying.current = false;
+            clearInterval(interval);
+            onMouseUp();
+          }
+          console.log(
+            cursorIconRef.current!.getBoundingClientRect().x + offsetX,
+            cursorIconRef.current!.getBoundingClientRect().y + offsetY
+          );
+          onMouseMove(
+            cursorIconRef.current!.getBoundingClientRect().x + offsetX,
+            cursorIconRef.current!.getBoundingClientRect().y + offsetY
+          );
+          i = i + 1;
+        }, 20);
+      },
+      environment.coverDisabled ? 2800 : 4800
+    );
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const onMouseDown = (offsetX: number, offsetY: number, button: number) => {
+    setCursorSize(0.6);
+
+    let x = offsetX;
+    let y = offsetY;
+
+    console.log("onMouseDown xy", x, y);
+
+    if (cameraRef.current) {
+      x += cameraRef.current.position.x;
+      y -= cameraRef.current.position.y;
+    }
+
+    // Factor this out, it's beign repeated in onMouseDown
+    if (initialWrapperSize.current && canvasWrapperRef.current) {
+      x -=
+        (canvasWrapperRef.current.clientWidth - initialWrapperSize.current.w) /
+        2;
+    }
+    particleSystem.onMouseDown(x, y, button);
+  };
+
+  const onMouseMove = (offsetX: number, offsetY: number) => {
+    if (!particleSystem.clickCon.active) {
+      return;
+    }
+
+    let x = offsetX;
+    let y = offsetY;
+
+    if (cameraRef.current) {
+      x += cameraRef.current.position.x;
+      y -= cameraRef.current.position.y;
+    }
+
+    // Factor this out, it's beign repeated in onMouseDown
+    if (initialWrapperSize.current && canvasWrapperRef.current) {
+      x -=
+        (canvasWrapperRef.current.clientWidth - initialWrapperSize.current.w) /
+        2;
+    }
+    particleSystem.onMouseMove(x, y);
+  };
+
+  const onMouseUp = () => {
+    setCursorSize(1);
+    particleSystem.onMouseUp();
+  };
+
   return (
-    <div className="w-full h-full" ref={canvasWrapperRef}>
+    <div className="relative w-full h-full" ref={canvasWrapperRef}>
+      {/* https://blog.noelcserepy.com/creatin  g-keyframe-animations-with-framer-motion */}
+      <motion.div
+        ref={cursorIconRef}
+        className="absolute select-none z-10 top-1/2 left-1/2"
+        animate="pickPoint"
+        variants={{
+          pickPoint: {
+            x: [600, 0, 0, 0, -120, 300, 0, 240],
+            y: [600, 0, 0, 0, -33, -50, 0, 240],
+            opacity: [1, 1, 1, 1, 1, 1, 1, 0],
+            scale: [1.2, 1.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
+            rotateZ: [-88, -40, -40, -40, -40, -40, -40, -68],
+            transition: {
+              delay: environment.disableCover ? 1 : 3,
+              duration: 4.5,
+              times: [0, 0.38, 0.4, 0.47, 0.67, 0.68, 0.9, 1],
+              ease: [
+                "easeInOut",
+                "easeInOut",
+                "easeInOut",
+                "easeInOut",
+                "linear",
+                "linear",
+                "easeInOut",
+                "easeInOut",
+              ],
+            },
+          },
+        }}
+      >
+        <Image width={100} src={cursorIcon} alt="Cursor" />
+      </motion.div>
       <Canvas
-        onMouseDown={(e) => {
-          setCursorSize(0.6);
-
-          let x = e.nativeEvent.offsetX;
-          let y = e.nativeEvent.offsetY;
-
-          if (cameraRef.current) {
-            x += cameraRef.current.position.x;
-            y -= cameraRef.current.position.y;
-          }
-
-          // Factor this out, it's beign repeated in onMouseDown
-          if (initialWrapperSize.current && canvasWrapperRef.current) {
-            x -=
-              (canvasWrapperRef.current.clientWidth -
-                initialWrapperSize.current.w) /
-              2;
-          }
-          particleSystem.onMouseDown(x, y, e.button);
-        }}
-        onMouseMove={(e) => {
-          if (!particleSystem.clickCon.active) {
-            return;
-          }
-
-          let x = e.nativeEvent.offsetX;
-          let y = e.nativeEvent.offsetY;
-
-          if (cameraRef.current) {
-            x += cameraRef.current.position.x;
-            y -= cameraRef.current.position.y;
-          }
-
-          // Factor this out, it's beign repeated in onMouseDown
-          if (initialWrapperSize.current && canvasWrapperRef.current) {
-            x -=
-              (canvasWrapperRef.current.clientWidth -
-                initialWrapperSize.current.w) /
-              2;
-          }
-          particleSystem.onMouseMove(x, y);
-        }}
-        onMouseUp={() => {
-          setCursorSize(1);
-          particleSystem.onMouseUp();
-        }}
+        onMouseDown={(e) =>
+          clothInstructionPlaying.current === false &&
+          onMouseDown(
+            e.nativeEvent.offsetX,
+            e.nativeEvent.offsetY,
+            e.nativeEvent.button
+          )
+        }
+        onMouseMove={(e) =>
+          clothInstructionPlaying.current === false &&
+          onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+        }
+        onMouseUp={(e) =>
+          clothInstructionPlaying.current === false && onMouseUp()
+        }
       >
         <DreiOrthographicCamera ref={cameraRef} makeDefault />
         {environment.debug && <Stats />}

@@ -38,7 +38,10 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
               <motion.div
                 initial={{ y: 0, scaleX: 0 }}
                 animate={{ y: 0, scaleX: 1 }}
-                transition={{ delay: 3.22, duration: 1.5 }}
+                transition={{
+                  delay: environment.disableCover ? 0 : 3.22,
+                  duration: 1.5,
+                }}
                 className="h-[20px] bg-black"
                 style={{ scaleX: progressBar }}
               />
@@ -50,9 +53,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: 2.62,
+                      delay: environment.disableCover ? 0 : 2.62,
                       duration: 0.001,
-                      delayChildren: 2.62,
+                      delayChildren: environment.disableCover ? 0 : 2.62,
                       staggerChildren: 0.05,
                     },
                   },
@@ -80,9 +83,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: 2.62,
+                      delay: environment.disableCover ? 0 : 2.62,
                       duration: 0.001,
-                      delayChildren: 2.62,
+                      delayChildren: environment.disableCover ? 0 : 2.62,
                       staggerChildren: 0.1,
                     },
                   },
@@ -146,9 +149,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: 2.62,
+                      delay: environment.disableCover ? 0 : 2.62,
                       duration: 0.001,
-                      delayChildren: 2.62,
+                      delayChildren: environment.disableCover ? 0 : 2.62,
                       staggerChildren: 0.05,
                       staggerDirection: -1,
                     },
