@@ -4,6 +4,9 @@ import { forwardRef } from "react";
 // Project
 import { useCursor } from "@/contexts/cursor";
 
+// Environment
+import environment from "@/environment";
+
 const Title = forwardRef<
   HTMLHeadingElement,
   {
@@ -13,7 +16,9 @@ const Title = forwardRef<
 >(function Title({ children, className = "" }, ref) {
   const [cursorSize, setCursorSize] = useCursor();
 
-  // console.log("[Title] Rendering")
+  if (environment.printComponentRendering) {
+  console.log("[Title] Rendering")
+  }
 
   return (
     <h1

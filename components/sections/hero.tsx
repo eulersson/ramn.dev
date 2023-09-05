@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import { forwardRef, useRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
 
 // Third-Party
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
@@ -11,9 +11,10 @@ import { Cloth } from "@/components/cloth/cloth";
 
 // Environment
 import environment from "@/environment";
+import { useSection } from "@/contexts/section";
 
 const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const clothWrapperRef = useRef<HTMLDivElement>(null);
   const clothWrapperInView = useInView(clothWrapperRef);
@@ -26,6 +27,17 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
 
   const progressBar = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
+  const { section } = useSection();
+
+  const previousSectionRef = useRef<string>("home");
+
+  useEffect(() => {
+    if (section === "home" && previousSectionRef.current !== "home") {
+      ref.current?.scroll({ top: 0 });
+    }
+    previousSectionRef.current = section;
+  }, [section]);
+
   return (
     <>
       <div
@@ -36,6 +48,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
           <section className="sticky top-0 h-screen bg-white">
             <div className="w-full h-full flex flex-col">
               <motion.div
+                ref={forwardedRef}
                 initial={{ y: 0, scaleX: 0 }}
                 animate={{ y: 0, scaleX: 1 }}
                 transition={{
@@ -111,10 +124,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                     hidden: { opacity: 0, y: -40 },
                   }}
                 >
-                  <h1
-                    ref={forwardedRef}
-                    className="text-center text-[80px] sm:text-[70px] leading-none font-title font-extrabold"
-                  >
+                  <h1 className="text-center text-[80px] sm:text-[70px] leading-none font-title font-extrabold">
                     Ramon Blanquer
                   </h1>
                   <h2 className="text-center text-[28px] sm:text-[20px] leading-none font-mono">

@@ -73,8 +73,7 @@ function Home() {
   }, [heroInView]);
 
   const aboutRef = useRef<HTMLHeadingElement>(null);
-  // const aboutInView = useInView(aboutRef, { margin: '0px 0px -800px 0px' });
-  const aboutInView = useInView(aboutRef, { margin: "0px 0px -50% 0px" });
+  const aboutInView = useInView(aboutRef);
 
   useEffect(() => {
     if (aboutInView && !navigationRunning.current) {
@@ -86,10 +85,7 @@ function Home() {
   }, [aboutInView]);
 
   const experienceRef = useRef<HTMLHeadingElement>(null);
-  // const experienceInView = useInView(experienceRef, { margin: '0px 0px -800px 0px' });
-  const experienceInView = useInView(experienceRef, {
-    // margin: "0px 0px -50% 0px",
-  });
+  const experienceInView = useInView(experienceRef);
 
   useEffect(() => {
     if (experienceInView && !navigationRunning.current) {
@@ -101,7 +97,7 @@ function Home() {
   }, [experienceInView]);
 
   const projectsRef = useRef<HTMLHeadingElement>(null);
-  const projectsInView = useInView(projectsRef, { margin: "0px 0px -50% 0px" });
+  const projectsInView = useInView(projectsRef);
 
   useEffect(() => {
     if (projectsInView && !navigationRunning.current) {
@@ -115,6 +111,8 @@ function Home() {
   const windowSpring = useMotionValue(0);
   useEffect(() => {
     if (navigationRunning.current) {
+      const headerHeightOffset = 155;
+
       let positionToScrollTo: number | undefined;
       const windowScrollY = window.scrollY;
       windowSpring.jump(windowScrollY);
@@ -130,26 +128,30 @@ function Home() {
         case "about": {
           if (!aboutInView && aboutRef.current) {
             positionToScrollTo =
-              windowScrollY + aboutRef.current.getBoundingClientRect().top;
+              windowScrollY +
+              aboutRef.current.getBoundingClientRect().top -
+              headerHeightOffset;
           }
           break;
         }
         case "experience": {
           if (!experienceInView && experienceRef.current) {
             positionToScrollTo =
-              windowScrollY + experienceRef.current.getBoundingClientRect().top;
+            windowScrollY + experienceRef.current.getBoundingClientRect().top;
           }
           break;
         }
         case "projects": {
           if (!projectsInView && projectsRef.current) {
             positionToScrollTo =
-              windowScrollY + projectsRef.current.getBoundingClientRect().top;
+              windowScrollY +
+              projectsRef.current.getBoundingClientRect().top -
+              headerHeightOffset;
           }
           break;
         }
       }
-      if (positionToScrollTo) {
+      if (positionToScrollTo !== undefined) {
         const scrollUnsubscribe = windowSpring.on("change", (v) => {
           window.scrollTo(window.scrollX, v);
         });

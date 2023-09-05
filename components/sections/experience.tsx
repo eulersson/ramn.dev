@@ -198,7 +198,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
       </section>
       {/* --- Recommendations ------------------------------------------------------ */}
       <section className="flex flex-col justify-center mt-[2px]">
-        <Title ref={ref}>Recommendations</Title>
+        <Title>Recommendations</Title>
         <div className="relative">
           <Block
             classNames={{
