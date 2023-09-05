@@ -2,7 +2,6 @@
 import {
   FunctionComponent,
   MutableRefObject,
-  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -285,7 +284,7 @@ export const Cloth: FunctionComponent<{
           i = i + 1;
         }, 20);
       },
-      environment.coverDisabled ? 2800 : 4800
+      environment.disableCover ? 2800 : 4800
     );
     return () => clearTimeout(timeout);
   }, []);
@@ -344,7 +343,7 @@ export const Cloth: FunctionComponent<{
       {/* https://blog.noelcserepy.com/creatin  g-keyframe-animations-with-framer-motion */}
       <motion.div
         ref={cursorIconRef}
-        className="absolute select-none z-10 top-1/2 left-1/2"
+        className="absolute z-10 top-1/2 left-1/2"
         animate="pickPoint"
         variants={{
           pickPoint: {
@@ -371,7 +370,7 @@ export const Cloth: FunctionComponent<{
           },
         }}
       >
-        <Image width={100} src={cursorIcon} alt="Cursor" />
+        <Image className="select-none" width={100} src={cursorIcon} alt="Cursor" />
       </motion.div>
       <Canvas
         onMouseDown={(e) =>
