@@ -138,14 +138,14 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
   return (
     <>
       {/* --- Experience ----------------------------------------------------------- */}
-      <section className="flex flex-col justify-center">
+      <section className="flex flex-col justify-center drill-mouse-hover">
         <Title ref={ref}>Experience</Title>
         <div
           className={`bg-blacks gap-[2px] p-[2px] pb-[0px] flex h-[calc(var(--bg-grid-box-size)*${
             isBigJob ? "3" : "2"
-          })] `}
+          })] drill-mouse-hover`}
         >
-          <div className="min-w-[calc(var(--bg-grid-box-size)-2px)] flex flex-col gap-[2px]">
+          <div className="min-w-[calc(var(--bg-grid-box-size)-2px)] flex flex-col gap-[2px] drill-mouse-hover">
             <div
               className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col"
               onMouseEnter={() => setCursorSize(0.4)}
@@ -197,7 +197,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
         </div>
       </section>
       {/* --- Recommendations ------------------------------------------------------ */}
-      <section className="flex flex-col justify-center mt-[2px]">
+      <section className="flex flex-col justify-center drill-mouse-hover">
         <Title>Recommendations</Title>
         <div className="relative">
           <Block

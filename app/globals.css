@@ -38,6 +38,15 @@ body {
   /* padding-top: calc(var(--bg-grid-box-size) / 2 + 50px); */
 }
 
+.drill-mouse-hover {
+  pointer-events: none !important;
+}
+
+.drill-mouse-hover > * {
+  pointer-events: auto;
+}
+
+
 /* TODO: Use Tailwind CSS */
 .root-layout-container main {
   display: flex;

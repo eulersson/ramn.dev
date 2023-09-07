@@ -1,10 +1,10 @@
 // Styles
-import "./bg-grid.css";
+import "./background-grid.css";
 
 // Environment
 import environment from "@/environment";
 
-export function BGGrid() {
+export function BackgroundGrid() {
   const numBoxes = 100;
 
   if (environment.printComponentRendering) {

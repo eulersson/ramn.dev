@@ -50,7 +50,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     };
   }, [terminalInView]);
 
-  const terminalSpinnerInterval = useRef<NodeJS.Timer | null>(null);
+  const terminalSpinnerInterval = useRef<NodeJS.Timeout | null>(null);
   
   useEffect(() => {
     const clearSpinnerInterval = () => {
@@ -101,7 +101,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   }
 
   return (
-    <section className="flex flex-col justify-center">
+    <section className="flex flex-col justify-center drill-mouse-hover">
       <Title ref={ref}>Who Am I?</Title>
       <Terminal
         ref={terminalRef}
@@ -121,12 +121,12 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             ""
           ))}
       </Terminal>
-      <div className="relative grid grid-cols-4">
-        <div>
+      <div className="relative grid grid-cols-4 drill-mouse-hover">
+        <div className="drill-mouse-hover">
           <Image
             onMouseEnter={() => setCursorSize(4)}
             onMouseLeave={() => setCursorSize(1)}
-            className="absolute top-[-61px] left-[-108px] w-[366px]"
+            className="absolute top-[-61px] left-[-108px] w-[366px] drill-mouse-hover"
             src="/displaced-me.png"
             width={707}
             height={685}

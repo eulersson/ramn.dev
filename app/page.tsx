@@ -4,10 +4,9 @@
 import { useEffect, useRef } from "react";
 
 // Third-Party
-import { animate, motion, useInView, useMotionValue } from "framer-motion";
+import { animate, useInView, useMotionValue } from "framer-motion";
 
 // Components
-import { CursorProvider, useCursor } from "@/contexts/cursor";
 import { SectionProvider, useSection } from "@/contexts/section";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
@@ -20,39 +19,8 @@ import environment from "@/environment";
 export default function Page() {
   return (
     <SectionProvider>
-      <CursorProvider>
-        <Home></Home>
-      </CursorProvider>
+      <Home></Home>
     </SectionProvider>
-  );
-}
-
-function Cursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-
-  const [cursorSize, setCursorSize] = useCursor();
-
-  useEffect(() => {
-    const mouseMove = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 16);
-      cursorY.set(e.clientY - 16);
-    };
-    window.addEventListener("mousemove", mouseMove);
-    return () => {
-      window.removeEventListener("mousemove", mouseMove);
-    };
-  }, [cursorX, cursorY]);
-
-  return (
-    <motion.div
-      className="cursor z-50"
-      style={{
-        x: cursorX,
-        y: cursorY,
-        scale: cursorSize,
-      }}
-    ></motion.div>
   );
 }
 
@@ -137,7 +105,7 @@ function Home() {
         case "experience": {
           if (!experienceInView && experienceRef.current) {
             positionToScrollTo =
-            windowScrollY + experienceRef.current.getBoundingClientRect().top;
+              windowScrollY + experienceRef.current.getBoundingClientRect().top;
           }
           break;
         }
@@ -181,8 +149,7 @@ function Home() {
   return (
     <div>
       <PageWrapper heroRef={heroRef}>
-        <Cursor />
-        <div className="flex flex-col">
+        <div className="flex flex-col drill-mouse-hover">
           <About ref={aboutRef} />
           <Experience ref={experienceRef} />
           <Projects ref={projectsRef} />

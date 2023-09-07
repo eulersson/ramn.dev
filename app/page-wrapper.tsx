@@ -7,7 +7,7 @@ import { ForwardedRef, useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // Components
-import { BGGrid } from "@/components/layout/bg-grid";
+import { BackgroundGrid } from "@/components/layout/background-grid";
 import { Cover } from "@/components/layout/cover";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/sections/hero";
@@ -37,7 +37,7 @@ export function PageWrapper({
   }, []);
 
   if (environment.printComponentRendering) {
-    console.log("[PageWrapper] Rendering.");
+    console.log("[PageWrapper] Rendering");
   }
 
   return (
@@ -47,15 +47,15 @@ export function PageWrapper({
       {!environment.disableHero && <Hero key="hero" ref={heroRef} />}
       <div
         key="layout-container"
-        className="root-layout-container"
+        className="root-layout-container drill-mouse-hover"
         hidden={showCover}
       >
-        <div>
+        <div className="drill-mouse-hover">
           <Header />
-          <main className="mt-g1">{children}</main>
+          <main className="mt-g1 drill-mouse-hover">{children}</main>
         </div>
       </div>
-      {!showCover && <BGGrid key="grid" />}
+      {!showCover && <BackgroundGrid key="grid" />}
     </AnimatePresence>
   );
 }

@@ -18,10 +18,10 @@ const environments: { [key: string]: Environment } = {
     debug: true,
     disableCover: true,
     disableGraphics: true,
-    disableHero: true,
+    disableHero: false,
     printComponentRendering: true,
   },
 };
 
 // TODO: Make this dynamic with an environment variable?
-export default environments.production;
+export default environments.development;

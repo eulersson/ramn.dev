@@ -9,6 +9,10 @@ import {
 // Styles
 import "./globals.css";
 
+// Project
+import { Cursor } from "@/components/cursor";
+import { CursorProvider } from "@/contexts/cursor";
+
 // Environment
 import environment from "@/environment";
 
@@ -53,14 +57,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   if (environment.printComponentRendering) {
-    console.log("[RootLayout] Rendering.");
+    console.log("[RootLayout] Rendering");
   }
   return (
     <html lang="en">
       <body
         className={`${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} selection:bg-black selection:text-white`}
       >
-        {children}
+        <CursorProvider>
+          <Cursor />
+          {children}
+        </CursorProvider>
       </body>
     </html>
   );

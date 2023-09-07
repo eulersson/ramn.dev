@@ -343,7 +343,7 @@ export const Cloth: FunctionComponent<{
       {/* https://blog.noelcserepy.com/creatin  g-keyframe-animations-with-framer-motion */}
       <motion.div
         ref={cursorIconRef}
-        className="absolute z-10 top-1/2 left-1/2"
+        className="absolute z-10 top-1/2 left-1/2 pointer-events-none	"
         animate="pickPoint"
         variants={{
           pickPoint: {
@@ -370,7 +370,7 @@ export const Cloth: FunctionComponent<{
           },
         }}
       >
-        <Image className="select-none" width={100} src={cursorIcon} alt="Cursor" />
+        <Image width={100} src={cursorIcon} alt="Cursor" />
       </motion.div>
       <Canvas
         onMouseDown={(e) =>
