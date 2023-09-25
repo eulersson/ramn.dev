@@ -52,7 +52,7 @@ export function Header() {
         <div className="bg-back row-start-2 col-start-2 col-span-2 flex items-center justify-center">
           <a
             className="font-mono text-[18px] underline hover:font-bold"
-            href="mailto:test@email.com"
+            href="mailto:blanquer.ramon@gmail.com"
             onMouseEnter={() => setCursorSize(0.4)}
             onMouseLeave={() => setCursorSize(1)}
           >
