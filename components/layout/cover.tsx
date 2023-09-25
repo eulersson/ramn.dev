@@ -17,7 +17,7 @@ export function Cover() {
     setTimeout(() => {
       setCross(false);
     }, 500);
-  });
+  }, []);
 
   const drawCircles = {
     hidden: { scale: 0 },
@@ -51,23 +51,23 @@ export function Cover() {
     console.log("[Cover] Rendering");
   }
 
-  const [cursorSize, setCursorSize] = useCursor();
+  const {cursorSize, setCursorSize} = useCursor();
 
   return (
     <>
       {cross && (
         <div
           key="cross"
-          className="fixed w-full h-full bg-white border-2 border-black z-40"
+          className="fixed w-full h-full bg-back border-2-fore z-40"
         >
           <motion.div
-            className="absolute w-[2px] bg-black top-0 left-[calc(50%-1px)]"
+            className="absolute w-[2px] bg-fore top-0 left-[calc(50%-1px)]"
             initial={{ height: "0%" }}
             animate={{ height: "100%" }}
             transition={{ duration: 0.4, delay: 0.2 }}
           ></motion.div>
           <motion.div
-            className="absolute h-[2px] bg-black top-[calc(50%-1px)] left-0"
+            className="absolute h-[2px] bg-fore top-[calc(50%-1px)] left-0"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 0.4, delay: 0.4 }}
@@ -77,7 +77,7 @@ export function Cover() {
       {!cross && (
         <motion.div
           key="cover-center"
-          className="fixed w-[200px] h-[200px] -m-[98px] inset-1/2 bg-white z-30 border-2 border-black"
+          className="fixed w-[200px] h-[200px] -m-[98px] inset-1/2 bg-back z-30 border-2-fore"
           initial={{ scale: 0 }}
           animate={{
             scale: 1,
@@ -93,7 +93,7 @@ export function Cover() {
           <motion.svg
             width="200"
             height="200"
-            stroke="black"
+            stroke="var(--col-fore)"
             strokeWidth="2"
             strokeLinecap="round"
             viewBox="0 0 200 200"
@@ -191,6 +191,7 @@ export function Cover() {
               key="c1"
               variants={drawCircles}
               custom={0}
+              fill="var(--col-fore)"
               cx="80"
               cy="90"
               r="7"
@@ -199,6 +200,7 @@ export function Cover() {
               key="c2"
               variants={drawCircles}
               custom={1}
+              fill="var(--col-fore)"
               cx="100"
               cy="122"
               r="7"
@@ -208,6 +210,7 @@ export function Cover() {
               key="c3"
               variants={drawCircles}
               custom={2}
+              fill="var(--col-fore)"
               cx="120"
               cy="90"
               r="7"
@@ -225,7 +228,7 @@ export function Cover() {
         ].map(([name, classes, x, y, ease], i) => (
           <motion.div
             key={`cover-${name}`}
-            className={`fixed ${classes} w-[calc(50%+1px)] h-[calc(50%+1px)] bg-white z-20 border-2 border-black`}
+            className={`fixed ${classes} w-[calc(50%+1px)] h-[calc(50%+1px)] bg-back z-20 border-2-fore`}
             initial={{ x: 0, y: 0 }}
             exit={{ x, y }}
             transition={{

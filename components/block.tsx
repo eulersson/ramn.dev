@@ -1,4 +1,8 @@
-import { Tag, TagProps } from "./tag";
+// Project
+import { Tag, TagProps } from "@/components/tag";
+
+// Environment
+import environment from "@/environment";
 
 type ClassNameSlot = "wrapper" | "main" | "tags";
 
@@ -13,20 +17,25 @@ export const Block: React.FunctionComponent<BlockProps> = ({
   tags,
   classNames = {},
 }) => {
-  // console.log("[Block] Rendering")
+  if (environment.printComponentRendering) {
+    console.log("[Block] Rendering");
+  }
+
   return (
-    <div
-      className={`bg-black ${classNames.wrapper || ""}`}
-    >
+    <div className={`bg-fore ${classNames.wrapper || ""}`}>
       <div
-        className={`bg-white border-2 border-black font-sans text-xl rounded-[40px] ${
+        className={`bg-back  border-2-fore font-sans text-xl rounded-[40px] ${
           classNames.main || ""
         }`}
       >
         {children}
       </div>
       {tags && tags.length >= 1 && (
-        <div className={`bg-black px-4 py-4 space-x-1 space-y-1 ${classNames.tags || ""}`}>
+        <div
+          className={`bg-fore px-4 py-4 space-x-1 space-y-1 ${
+            classNames.tags || ""
+          }`}
+        >
           {...tags.map((props, i) => <Tag {...props} key={i} />)}
         </div>
       )}

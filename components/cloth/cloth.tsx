@@ -26,19 +26,23 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
+import { useTheme } from "next-themes";
 
 // Project
 import { GridDimensions, Size } from "@/types";
 import { ParticleSystem } from "@/components/cloth/particle-system";
+
 import cursorIcon from "@/public/cursor.svg";
+import cursorIconDark from "@/public/cursor-dark.svg";
 
 // Environment
 import environment from "@/environment";
 import { useCursor } from "@/contexts/cursor";
 
-export const Simulation: FunctionComponent<{
+const Simulation: FunctionComponent<{
   particleSystemRef: MutableRefObject<ParticleSystem>;
-}> = ({ particleSystemRef }) => {
+  delayOffset?: number;
+}> = ({ particleSystemRef, delayOffset }) => {
   const { camera, raycaster, size } = useThree();
 
   camera.position.setX(0);
@@ -127,6 +131,9 @@ export const Simulation: FunctionComponent<{
     console.log("[Cloth] Rendering");
   }
 
+  const { theme, setTheme } = useTheme();
+  const col = theme === "dark" ? 0x94a3b8 : 0x111827;
+
   return (
     <>
       <lineSegments>
@@ -148,7 +155,7 @@ export const Simulation: FunctionComponent<{
             usage={DynamicDrawUsage}
           />
         </bufferGeometry>
-        <lineBasicMaterial color={0x000000} linewidth={1} />
+        <lineBasicMaterial color={col} linewidth={1} />
       </lineSegments>
       <points>
         <bufferGeometry>
@@ -161,7 +168,7 @@ export const Simulation: FunctionComponent<{
             usage={DynamicDrawUsage}
           />
         </bufferGeometry>
-        <pointsMaterial color={0x00000} size={5} sizeAttenuation={false} />
+        <pointsMaterial color={col} size={5} sizeAttenuation={false} />
       </points>
     </>
   );
@@ -169,13 +176,17 @@ export const Simulation: FunctionComponent<{
 
 export const Cloth: FunctionComponent<{
   scrollYProgress: MotionValue<number>;
-}> = ({ scrollYProgress }) => {
+  delayOffset?: number;
+}> = ({ scrollYProgress, delayOffset = 0 }) => {
   // Particle system references.
   const particleSystemRef = useRef(new ParticleSystem());
   const particleSystem = particleSystemRef.current;
 
   // Cursor.
-  const [cursorSize, setCursorSize] = useCursor();
+  const {cursorSize, setCursorSize} = useCursor();
+
+  // Theme.
+  const { theme, setTheme } = useTheme();
 
   // Gravity based on scroll.
   const time = useTime();
@@ -257,35 +268,28 @@ export const Cloth: FunctionComponent<{
   useEffect(() => {
     const offsetX = 23;
     const offsetY = -197;
-    const timeout = setTimeout(
-      () => {
-        let i = 0;
+    const timeout = setTimeout(() => {
+      let i = 0;
 
-        onMouseDown(
+      onMouseDown(
+        cursorIconRef.current!.getBoundingClientRect().x + offsetX,
+        cursorIconRef.current!.getBoundingClientRect().y + offsetY,
+        0
+      );
+
+      const interval = setInterval(() => {
+        if (i > 80) {
+          clothInstructionPlaying.current = false;
+          clearInterval(interval);
+          onMouseUp();
+        }
+        onMouseMove(
           cursorIconRef.current!.getBoundingClientRect().x + offsetX,
-          cursorIconRef.current!.getBoundingClientRect().y + offsetY,
-          0
+          cursorIconRef.current!.getBoundingClientRect().y + offsetY
         );
-
-        const interval = setInterval(() => {
-          if (i > 80) {
-            clothInstructionPlaying.current = false;
-            clearInterval(interval);
-            onMouseUp();
-          }
-          console.log(
-            cursorIconRef.current!.getBoundingClientRect().x + offsetX,
-            cursorIconRef.current!.getBoundingClientRect().y + offsetY
-          );
-          onMouseMove(
-            cursorIconRef.current!.getBoundingClientRect().x + offsetX,
-            cursorIconRef.current!.getBoundingClientRect().y + offsetY
-          );
-          i = i + 1;
-        }, 20);
-      },
-      environment.disableCover ? 2800 : 4800
-    );
+        i = i + 1;
+      }, 20);
+    }, (environment.disableCover ? 2800 : 4800) + delayOffset * 1000);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -344,33 +348,34 @@ export const Cloth: FunctionComponent<{
       <motion.div
         ref={cursorIconRef}
         className="absolute z-10 top-1/2 left-1/2 pointer-events-none	"
-        animate="pickPoint"
-        variants={{
-          pickPoint: {
-            x: [600, 0, 0, 0, -120, 300, 0, 240],
-            y: [600, 0, 0, 0, -33, -50, 0, 240],
-            opacity: [1, 1, 1, 1, 1, 1, 1, 0],
-            scale: [1.2, 1.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
-            rotateZ: [-88, -40, -40, -40, -40, -40, -40, -68],
-            transition: {
-              delay: environment.disableCover ? 1 : 3,
-              duration: 4.5,
-              times: [0, 0.38, 0.4, 0.47, 0.67, 0.68, 0.9, 1],
-              ease: [
-                "easeInOut",
-                "easeInOut",
-                "easeInOut",
-                "easeInOut",
-                "linear",
-                "linear",
-                "easeInOut",
-                "easeInOut",
-              ],
-            },
-          },
+        animate={{
+          x: [600, 0, 0, 0, -120, 300, 0, 240],
+          y: [600, 0, 0, 0, -33, -50, 0, 240],
+          opacity: [1, 1, 1, 1, 1, 1, 1, 0],
+          scale: [1.2, 1.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
+          rotateZ: [-88, -40, -40, -40, -40, -40, -40, -68],
+        }}
+        transition={{
+          delay: (environment.disableCover ? 1 : 3) + delayOffset,
+          duration: 4.5,
+          times: [0, 0.38, 0.4, 0.47, 0.67, 0.68, 0.9, 1],
+          ease: [
+            "easeInOut",
+            "easeInOut",
+            "easeInOut",
+            "easeInOut",
+            "linear",
+            "linear",
+            "easeInOut",
+            "easeInOut",
+          ],
         }}
       >
-        <Image width={100} src={cursorIcon} alt="Cursor" />
+        {theme === "dark" ? (
+          <Image width={100} src={cursorIconDark} alt="Cursor" />
+        ) : (
+          <Image width={100} src={cursorIcon} alt="Cursor" />
+        )}
       </motion.div>
       <Canvas
         onMouseDown={(e) =>
@@ -391,7 +396,10 @@ export const Cloth: FunctionComponent<{
       >
         <DreiOrthographicCamera ref={cameraRef} makeDefault />
         {environment.debug && <Stats />}
-        <Simulation particleSystemRef={particleSystemRef} />
+        <Simulation
+          particleSystemRef={particleSystemRef}
+          delayOffset={delayOffset}
+        />
       </Canvas>
     </div>
   );

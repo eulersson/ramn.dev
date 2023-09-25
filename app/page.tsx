@@ -10,6 +10,7 @@ import { animate, useInView, useMotionValue } from "framer-motion";
 import { SectionProvider, useSection } from "@/contexts/section";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
+import { Header } from "@/components/header";
 import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
 
@@ -105,7 +106,9 @@ function Home() {
         case "experience": {
           if (!experienceInView && experienceRef.current) {
             positionToScrollTo =
-              windowScrollY + experienceRef.current.getBoundingClientRect().top;
+              windowScrollY +
+              experienceRef.current.getBoundingClientRect().top -
+              headerHeightOffset;
           }
           break;
         }

@@ -25,8 +25,8 @@ export function Navbar() {
           initial={{
             left: i === 0 ? "-28px" : "initial",
             right: i === 0 ? "initial" : `-${28 * (sections.length - i)}px`,
-            color: i === 0 ? "#ffffff" : "#000000",
-            backgroundColor: i === 0 ? "#000000" : "#ffffff",
+            color: i === 0 ? "var(--col-back)" : "var(--col-fore)",
+            backgroundColor: i === 0 ? "var(--col-fore)" : "var(--col-back)",
           }}
           animate={{
             left: i <= activeSectionIdx ? `${28 * i}px` : "initial",
@@ -34,9 +34,9 @@ export function Navbar() {
               i > activeSectionIdx
                 ? `${28 * (sections.length - i - 1)}px`
                 : "initial",
-            color: s === sections[activeSectionIdx] ? "#ffffff" : "#000000",
+            color: s === sections[activeSectionIdx] ? "var(--col-back)" : "var(--col-fore)",
             backgroundColor:
-              s === sections[activeSectionIdx] ? "#000000" : "#ffffff",
+              s === sections[activeSectionIdx] ? "var(--col-fore)" : "var(--col-back)",
           }}
           transition={{ duration: 0.6 }}
           style={{

@@ -1,10 +1,13 @@
 // Styles
 import "./background-grid.css";
 
+// React
+import { memo } from "react";
+
 // Environment
 import environment from "@/environment";
 
-export function BackgroundGrid() {
+export const BackgroundGrid = memo(function BackgroundGrid() {
   const numBoxes = 100;
 
   if (environment.printComponentRendering) {
@@ -13,19 +16,19 @@ export function BackgroundGrid() {
 
   return (
     <div className="bg-grid">
-      <div className="bg-grid__screen-clipper">
+      <div className="bg-grid__screen-clipper border border-back">
         <div className="bg-grid__grid">
           <div className="bg-grid__grid-half bg-grid__grid-half--left">
             {[...Array(numBoxes)].map((e, i) => (
-              <div className="bg-grid__box-bg" key={i}>
-                <div className="bg-grid__box"></div>
+              <div className="bg-grid__box-bg bg-fore" key={i}>
+                <div className="bg-grid__box bg-back border border-fore"></div>
               </div>
             ))}
           </div>
           <div className="bg-grid__grid-half bg-grid__grid-half--right">
             {[...Array(numBoxes)].map((e, i) => (
-              <div className="bg-grid__box-bg" key={i}>
-                <div className="bg-grid__box"></div>
+              <div className="bg-grid__box-bg bg-fore" key={i}>
+                <div className="bg-grid__box bg-back border border-fore"></div>
               </div>
             ))}
           </div>
@@ -33,4 +36,4 @@ export function BackgroundGrid() {
       </div>
     </div>
   );
-}
+});

@@ -27,13 +27,20 @@ export function PageWrapper({
   const [showNavBar, setShowNavBar] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const setCoverTimeout = setTimeout(() => {
+      console.log("[PageWrapper] Setting cover to off (timeout 2000).")
       setShowCover(false);
     }, 2000);
 
-    setTimeout(() => {
+    const setShowNavBarTimeout = setTimeout(() => {
+      console.log("[PageWrapper] Setting show nav bar to on (timeout 3000).")
       setShowNavBar(true);
     }, 3000);
+
+    return () => {
+      clearTimeout(setCoverTimeout);
+      clearTimeout(setShowNavBarTimeout);
+    }
   }, []);
 
   if (environment.printComponentRendering) {

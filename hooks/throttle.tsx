@@ -29,7 +29,6 @@ export const useThrottle = (callback: Function, amount: number) => {
 
   const throttledCallback = useMemo(() => {
     const func = (s: string) => {
-      console.log("qrqrqr [throttle.tsx]", s)
       ref.current?.(s);
     };
     return throttle(func, amount, { leading: true, trailing: true });

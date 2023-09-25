@@ -12,8 +12,16 @@ NOTE: Since we don't use the Scroll Into View API anymore this shouldn't be need
 } */
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --col-fore: #000000;
+  --col-back: #ffffff;
+}
+
+[data-theme='dark'] {
+  --col-fore: #94a3b8;
+  --col-back: #111827;
+}
+
+:root {
   --bg-grid-box-size: 200px;
 }
 
@@ -21,12 +29,6 @@ NOTE: Since we don't use the Scroll Into View API anymore this shouldn't be need
   :root {
     --bg-grid-box-size: 250px;
   }
-}
-
-/* TODO: Use Tailwind CSS */
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
 }
 
 /* TODO: Use Tailwind CSS */
@@ -71,6 +73,7 @@ body {
   z-index: 30;
   mix-blend-mode: difference;
 }
+
 /* https://stackoverflow.com/questions/4191260/drawing-a-grid-using-css */
 /* .css-bg-grid {
   box-sizing: border-box;
@@ -84,7 +87,10 @@ body {
 } */
 
 @layer components {
+  .border-2-fore {
+    @apply border-2 border-fore;
+  }
   .border-inside {
-    @apply outline outline-black outline-2 -outline-offset-2;
+    @apply outline outline-fore outline-2 -outline-offset-2;
   }
 }

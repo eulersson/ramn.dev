@@ -1,13 +1,14 @@
 "use client";
 
 // React
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 
 // Third-Party
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 // Project
 import { Cloth } from "@/components/cloth/cloth";
+import { ThemeSwitch } from "../theme-switch";
 
 // Environment
 import environment from "@/environment";
@@ -41,11 +42,11 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   return (
     <>
       <div
-        className={`w-full h-screen bg-white overflow-y-scroll -mb-[2px]`}
+        className={`w-full h-screen bg-back overflow-y-scroll overflow-x-hidden -mb-[2px]`}
         ref={ref}
       >
         <div className="h-[500vh]">
-          <section className="sticky top-0 h-screen bg-white">
+          <section className="sticky top-0 h-screen bg-back">
             <div className="w-full h-full flex flex-col">
               <motion.div
                 ref={forwardedRef}
@@ -55,7 +56,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   delay: environment.disableCover ? 0 : 3.22,
                   duration: 1.5,
                 }}
-                className="h-[20px] bg-black"
+                className="h-[20px] bg-fore"
                 style={{ scaleX: progressBar }}
               />
               <motion.div
@@ -80,7 +81,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(40)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g2 bg-white border-2 border-black -mr-[2px]"
+                    className="min-w-g2 bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, x: 0, y: 0 },
                       hidden: { opacity: 0, x: -40, y: -40 },
@@ -110,7 +111,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(8)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g5 bg-white border-2 border-black -mr-[2px]"
+                    className="min-w-g5 bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
@@ -118,23 +119,29 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   ></motion.div>
                 ))}
                 <motion.div
-                  className="min-w-[666px] border-2 border-black -mr-[2px] flex flex-col items-center justify-center"
+                  className="min-w-[666px] bg-back border-2-fore -mx-[1px] flex flex-col items-center justify-center"
                   variants={{
                     visible: { opacity: 1, y: 0 },
                     hidden: { opacity: 0, y: -40 },
                   }}
                 >
-                  <h1 className="text-center text-[80px] sm:text-[70px] leading-none font-title font-extrabold">
+                  <h1 className="text-center text-[80px] sm:text-[70px] leading-none font-title font-extrabold ">
                     Ramon Blanquer
                   </h1>
-                  <h2 className="text-center text-[28px] sm:text-[20px] leading-none font-mono">
-                    from code to deployment; from back&nbsp;&nbsp;to front;
+                  <h2 className="text-center text-[28px] sm:text-[20px] leading-none font-mono ">
+                    <span className="mr-[10px] bg-fore text-back">
+                      from code to deployment;
+                    </span>
+                    <span className="bg-fore text-back mr-[28px]">
+                      from back
+                    </span>
+                    <span className="bg-fore text-back">to front;</span>
                   </h2>
                 </motion.div>
                 {[...Array(8)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g5 border-2 border-black -mr-[2px]"
+                    className="min-w-g5 bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
@@ -147,7 +154,14 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {environment.disableGraphics || clothWrapperInView === false ? (
                   ""
                 ) : (
-                  <Cloth scrollYProgress={scrollYProgress} />
+                  <Cloth
+                    scrollYProgress={scrollYProgress}
+                    delayOffset={
+                      localStorage.getItem("hasPlayedThemeSwitcherAnimation")
+                        ? 0
+                        : 3
+                    }
+                  />
                 )}
               </div>
 
@@ -174,7 +188,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(40)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g3 bg-white border-2 border-black -mr-[2px]"
+                    className="min-w-g3 bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, x: 0, y: 0 },
                       hidden: { opacity: 0, x: -40, y: -40 },
@@ -182,6 +196,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   ></motion.div>
                 ))}
               </motion.div>
+              <ThemeSwitch className="absolute" />
             </div>
           </section>
         </div>

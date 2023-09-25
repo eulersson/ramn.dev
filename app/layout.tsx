@@ -10,8 +10,7 @@ import {
 import "./globals.css";
 
 // Project
-import { Cursor } from "@/components/cursor";
-import { CursorProvider } from "@/contexts/cursor";
+import { Providers } from "@/app/providers";
 
 // Environment
 import environment from "@/environment";
@@ -60,14 +59,18 @@ export default function RootLayout({
     console.log("[RootLayout] Rendering");
   }
   return (
-    <html lang="en">
+    // suppressHydrationWarning reason:
+    // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#with-app
+    // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} selection:bg-black selection:text-white`}
+        className={
+          `${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} ` +
+          "selection:bg-fore selection:text-back " +
+          "bg-back text-fore"
+        }
       >
-        <CursorProvider>
-          <Cursor />
-          {children}
-        </CursorProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

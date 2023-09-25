@@ -1,4 +1,3 @@
-
 // React
 import { forwardRef, useEffect, useRef, useState } from "react";
 
@@ -22,6 +21,7 @@ import WhoAmI from "@/content/sections/whoami.mdx";
 
 // Environment
 import environment from "@/environment";
+import { useTheme } from "next-themes";
 
 const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   }, [terminalInView]);
 
   const terminalSpinnerInterval = useRef<NodeJS.Timeout | null>(null);
-  
+
   useEffect(() => {
     const clearSpinnerInterval = () => {
       if (terminalSpinnerInterval.current) {
@@ -80,7 +80,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "React", dotted: false },
   ];
 
-  const [cursorSize, setCursorSize] = useCursor();
+  const {cursorSize, setCursorSize} = useCursor();
 
   const sentences: Sentence[] = [
     {
@@ -96,8 +96,10 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "leveraging cloud computing when possible." },
   ];
 
+  const { theme, setTheme } = useTheme();
+
   if (environment.printComponentRendering) {
-    console.log("[About] Rendering")
+    console.log("[About] Rendering");
   }
 
   return (
@@ -123,15 +125,27 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
       </Terminal>
       <div className="relative grid grid-cols-4 drill-mouse-hover">
         <div className="drill-mouse-hover">
-          <Image
-            onMouseEnter={() => setCursorSize(4)}
-            onMouseLeave={() => setCursorSize(1)}
-            className="absolute top-[-61px] left-[-108px] w-[366px] drill-mouse-hover"
-            src="/displaced-me.png"
-            width={707}
-            height={685}
-            alt="Displaced Me"
-          />
+          {theme === "dark" ? (
+            <Image
+              onMouseEnter={() => setCursorSize(4)}
+              onMouseLeave={() => setCursorSize(1)}
+              className="absolute top-[-61px] left-[-108px] w-[366px]"
+              src="/displaced-me-dark.png"
+              width={707}
+              height={685}
+              alt="Displaced Me"
+            />
+          ) : (
+            <Image
+              onMouseEnter={() => setCursorSize(4)}
+              onMouseLeave={() => setCursorSize(1)}
+              className="absolute top-[-61px] left-[-108px] w-[366px]"
+              src="/displaced-me.png"
+              width={707}
+              height={685}
+              alt="Displaced Me"
+            />
+          )}
         </div>
         <div className="col-span-3">
           <Block

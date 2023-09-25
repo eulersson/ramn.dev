@@ -15,7 +15,7 @@ const Projects = forwardRef<HTMLHeadingElement>(function Projects({}, ref) {
   return (
     <section className="flex flex-col justify-center -mt-[2px] drill-mouse-hover">
       <Title ref={ref}>Projects</Title>
-      <div className="h-[1002px] bg-white border-2 border-black"></div>
+      <div className="h-[1002px] bg-back border-2-fore"></div>
     </section>
   );
 });

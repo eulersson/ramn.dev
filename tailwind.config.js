@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        fore: "var(--col-fore)",
+        back: "var(--col-back)",
+      },
       fontFamily: {
         title: ["var(--font-urbanist)"],
         mono: ["var(--font-fira-mono)"],
@@ -15,17 +19,20 @@ module.exports = {
         serif: ["var(--font-playfair-display)"],
       },
       boxShadow: {
-        blocky: "10px 10px 0 black",
-        button: "5px 5px 0 black",
-        buttonhover: "3px 3px 0 black",
+        blocky: "10px 10px 0 var(--col-fore)",
+        button: "5px 5px 0 var(--col-fore)",
+        buttonhover: "3px 3px 0 var(--col-fore)",
       },
       animation: {
         blinky: "blinky 800ms step-end 10",
       },
       keyframes: {
         blinky: {
-          "0% 100%": { background: "white", color: "black" },
-          "50%": { background: "black", color: "white" },
+          "0%, 100%": {
+            background: "var(--col-fore)",
+            color: "var(--col-back)",
+          },
+          "50%": { background: "var(--col-back)", color: "var(--col-fore)" },
         },
       },
       spacing: {

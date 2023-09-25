@@ -13,12 +13,7 @@ import {
 import Image from "next/image";
 
 // Third-Party
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 
 // Project
 import { Block } from "@/components/block";
@@ -45,7 +40,7 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(function Logo(
   props,
   ref
 ) {
-  const [cursorSize, setCursorSize] = useCursor();
+  const {cursorSize, setCursorSize} = useCursor();
 
   // Logo animations.
   const logoRef = useRef(null);
@@ -108,7 +103,7 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(function Logo(
 
 // TODO: Break into separate components.
 const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
-  const [cursorSize, setCursorSize] = useCursor();
+  const {cursorSize, setCursorSize} = useCursor();
 
   const logoRef = useRef<LogoRef>(null);
 
@@ -132,7 +127,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
   );
 
   if (environment.printComponentRendering) {
-  console.log("[Experience] Rendering")
+    console.log("[Experience] Rendering");
   }
 
   return (
@@ -141,7 +136,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
       <section className="flex flex-col justify-center drill-mouse-hover">
         <Title ref={ref}>Experience</Title>
         <div
-          className={`bg-blacks gap-[2px] p-[2px] pb-[0px] flex h-[calc(var(--bg-grid-box-size)*${
+          className={`gap-[2px] p-[2px] pb-[0px] flex h-[calc(var(--bg-grid-box-size)*${
             isBigJob ? "3" : "2"
           })] drill-mouse-hover`}
         >
@@ -153,10 +148,10 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             >
               {jobs.map((job, i) => (
                 <div
-                  className={`grow font-mono green border-black underline flex items-center justify-end px-2 ${
+                  className={`grow font-mono green border-fore underline flex items-center justify-end px-2 ${
                     i === activeEmployer
-                      ? "bg-black text-white hover:bg-black hover:text-white"
-                      : "bg-white text-black hover:bg-black hover:text-white "
+                      ? "bg-fore text-back hover:font-extrabold"
+                      : "bg-back text-fore hover:bg-fore hover:text-back"
                   } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
                   key={i}
                   onClick={() => setActiveEmployerAnimated(i)}
@@ -169,7 +164,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
           </div>
 
           <div
-            className={`min-w-[calc(var(--bg-grid-box-size)*3-2px)] bg-white flex flex-col`}
+            className={`min-w-[calc(var(--bg-grid-box-size)*3-2px)] bg-back flex flex-col`}
           >
             <div className="font-mono text-center text-sm mt-3">
               {job["duration"]}
@@ -180,17 +175,17 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                 @ {job["company"].replace("Moving Picture Company", "MPC")}
               </span>
             </div>
-            <div className="h-[calc(var(--bg-grid-box-size)/6)] font-mono text-center text-lg text-white bg-black py-2 my-2">
+            <div className="h-[calc(var(--bg-grid-box-size)/6)] font-mono text-center text-lg text-back bg-fore py-2 my-2">
               {job["summary"]}
             </div>
-            <ul
-              className={`font-sans py-3 px/6) space-y-3 px-6 grow`}
-            >
+            <ul className={`font-sans py-3 px/6) space-y-3 px-6 grow`}>
               {job["points"].map((p, i) => (
                 <li key={i}>{p}</li>
               ))}
             </ul>
-            <div className={`bg-black px-4 py-4 flex-1 space-x-1 space-y-1 flex flex-wrap items-center justify-center`}>
+            <div
+              className={`bg-fore px-4 py-4 flex-1 space-x-1 space-y-1 flex flex-wrap items-center justify-center`}
+            >
               {...job["skills"].map((text, i) => <Tag key={i} text={text} />)}
             </div>
           </div>
@@ -222,13 +217,11 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                 <span className="font-serif text-[90px] absolute top-[45px] left-[260px]">
                   “
                 </span>
-                <RecommendationPau /> 
+                <RecommendationPau />
               </div>
             </div>
           </Block>
-          <motion.div
-            className="absolute text-white bg-black rounded-[40px] px-5 pb-1 -left-[60px] bottom-[40px] flex flex-col items-center"
-          >
+          <motion.div className="absolute text-back bg-fore rounded-[40px] px-5 pb-1 -left-[60px] bottom-[40px] flex flex-col items-center">
             <p className="font-sans -mb-[5px]">Pau Navarro</p>
             <p className="font-sans text-xs">PM @ Watchity</p>
           </motion.div>
@@ -262,9 +255,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
               </div>
             </Block>
 
-            <motion.div
-              className="absolute text-black bg-white border-2 border-black rounded-[40px] px-5 pb-1 -right-[100px] bottom-[40px] flex flex-col items-center"
-            >
+            <motion.div className="absolute bg-back border-2-fore rounded-[40px] px-5 pb-1 -right-[100px] bottom-[40px] flex flex-col items-center">
               <p className="font-sans -mb-[5px]">Lorenzo Angeli</p>
               <p className="font-sans text-xs">CEO @ Efesto Lab</p>
             </motion.div>

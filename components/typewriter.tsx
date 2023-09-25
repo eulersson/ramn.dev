@@ -64,7 +64,14 @@ export const Typewriter: FunctionComponent<{
             stringCharacters.push(s.text[i]);
           }
           return stringCharacters.map((c, j) => (
-            <span key={`i${i}j${j}div`}>
+            <span
+              key={`i${i}j${j}div`}
+              className={`relative ${
+                i === sentences.length - 1 && j === stringCharacters.length - 1
+                  ? "text-back z-10"
+                  : ""
+              }`}
+            >
               {c === "|" ? (
                 <motion.br
                   className={`i${i}j${j}linebreak`}
@@ -83,7 +90,7 @@ export const Typewriter: FunctionComponent<{
 
               {j === s.text.length - 1 && i !== sentences.length - 1 ? (
                 <motion.span
-                  className={`i${i}j${j}space`}
+                  className={`i${i}j${j}space relative`}
                   key={`i${i}j${j}space`}
                   variants={item}
                 >
@@ -96,9 +103,12 @@ export const Typewriter: FunctionComponent<{
           ));
         }),
       ]}
-      {!disableHighlight && (
-        <span key={`dh`} className="bg-white mix-blend-difference -ml-[12px]">&nbsp;</span>
-      ) || ""}
+      {(!disableHighlight && (
+        <span key={`dh`} className="bg-fore -left-[12px] relative">
+          &nbsp;
+        </span>
+      )) ||
+        ""}
     </motion.div>
   );
 };
