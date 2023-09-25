@@ -24,4 +24,4 @@ const environments: { [key: string]: Environment } = {
 };
 
 // TODO: Make this dynamic with an environment variable?
-export default environments.development;
+export default environments.production;
