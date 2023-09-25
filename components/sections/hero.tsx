@@ -128,11 +128,11 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   <h1 className="text-center text-[80px] sm:text-[70px] leading-none font-title font-extrabold ">
                     Ramon Blanquer
                   </h1>
-                  <h2 className="text-center text-[28px] sm:text-[20px] leading-none font-mono ">
+                  <h2 className="text-center text-[28px] sm:text-[20px] leading-none font-mono translate-x-[0.75px]">
                     <span className="mr-[10px] bg-fore text-back">
                       from code to deployment;
                     </span>
-                    <span className="bg-fore text-back mr-[28px]">
+                    <span className="bg-fore text-back mr-[24px]">
                       from back
                     </span>
                     <span className="bg-fore text-back">to front;</span>
