@@ -17,9 +17,9 @@ import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 
 // Project
 import { Block } from "@/components/block";
+import { CursorSize } from "@/components/cursor-size";
 import { Tag } from "@/components/tag";
 import { Title } from "@/components/title";
-import { useCursor } from "@/contexts/cursor";
 
 // Project - Content
 import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
@@ -40,8 +40,6 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(function Logo(
   props,
   ref
 ) {
-  const {cursorSize, setCursorSize} = useCursor();
-
   // Logo animations.
   const logoRef = useRef(null);
   const logoInView = useInView(logoRef);
@@ -77,34 +75,32 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(function Logo(
   }, [logoInView]);
 
   return (
-    <div
-      className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col items-center justify-center"
-      ref={logoRef}
-      onMouseEnter={() => {
-        spinLogo();
-        setCursorSize(7);
-      }}
-      onMouseLeave={() => {
-        spinLogo();
-        setCursorSize(1);
-      }}
-    >
-      <motion.div style={{ rotateY: logoRotateYSpring }}>
-        <Image
-          src={props.logoUrl}
-          alt="Watchity Logo"
-          width={200}
-          height={200}
-        />
-      </motion.div>
-    </div>
+    <CursorSize sizeOnHover={4}>
+      <div
+        className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col items-center justify-center"
+        ref={logoRef}
+        onMouseEnter={() => {
+          spinLogo();
+        }}
+        onMouseLeave={() => {
+          spinLogo();
+        }}
+      >
+        <motion.div style={{ rotateY: logoRotateYSpring }}>
+          <Image
+            src={props.logoUrl}
+            alt="Watchity Logo"
+            width={200}
+            height={200}
+          />
+        </motion.div>
+      </div>
+    </CursorSize>
   );
 });
 
 // TODO: Break into separate components.
 const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
-  const {cursorSize, setCursorSize} = useCursor();
-
   const logoRef = useRef<LogoRef>(null);
 
   // Sets the current job to read. When the job is changed spin the job's company logo.
@@ -141,25 +137,23 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
           })] drill-mouse-hover`}
         >
           <div className="min-w-[calc(var(--bg-grid-box-size)-2px)] flex flex-col gap-[2px] drill-mouse-hover">
-            <div
-              className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col"
-              onMouseEnter={() => setCursorSize(0.4)}
-              onMouseLeave={() => setCursorSize(1)}
-            >
-              {jobs.map((job, i) => (
-                <div
-                  className={`grow font-mono green border-fore underline flex items-center justify-end px-2 ${
-                    i === activeEmployer
-                      ? "bg-fore text-back hover:font-extrabold"
-                      : "bg-back text-fore hover:bg-fore hover:text-back"
-                  } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
-                  key={i}
-                  onClick={() => setActiveEmployerAnimated(i)}
-                >
-                  {job["company"]}
-                </div>
-              ))}
-            </div>
+            <CursorSize sizeOnHover={0.4}>
+              <div className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col">
+                {jobs.map((job, i) => (
+                  <div
+                    className={`grow font-mono green border-fore underline flex items-center justify-end px-2 ${
+                      i === activeEmployer
+                        ? "bg-fore text-back hover:font-extrabold"
+                        : "bg-back text-fore hover:bg-fore hover:text-back"
+                    } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
+                    key={i}
+                    onClick={() => setActiveEmployerAnimated(i)}
+                  >
+                    {job["company"]}
+                  </div>
+                ))}
+              </div>
+            </CursorSize>
             <Logo logoUrl={job["logo"]} ref={logoRef} />
           </div>
 
@@ -204,14 +198,14 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
           >
             <div className="grid grid-cols-4 h-full">
               <div className="overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
-                <Image
-                  src="/pnavarro.png"
-                  alt="Pau Navarro"
-                  width={250}
-                  height={250}
-                  onMouseEnter={() => setCursorSize(4)}
-                  onMouseLeave={() => setCursorSize(1)}
-                />
+                <CursorSize sizeOnHover={4}>
+                  <Image
+                    src="/pnavarro.png"
+                    alt="Pau Navarro"
+                    width={250}
+                    height={250}
+                  />
+                </CursorSize>
               </div>
               <div className="col-span-3 p-5 text-lg flex items-center">
                 <span className="font-serif text-[90px] absolute top-[45px] left-[260px]">
@@ -243,14 +237,14 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                   <RecommendationLorenzo />
                 </div>
                 <div className="overflow-hidden col-span-1">
-                  <Image
-                    src="/langeli.jpeg"
-                    alt="Lorenzo Angeli"
-                    width={250}
-                    height={250}
-                    onMouseEnter={() => setCursorSize(4)}
-                    onMouseLeave={() => setCursorSize(1)}
-                  />
+                  <CursorSize sizeOnHover={4}>
+                    <Image
+                      src="/langeli.jpeg"
+                      alt="Lorenzo Angeli"
+                      width={250}
+                      height={250}
+                    />
+                  </CursorSize>
                 </div>
               </div>
             </Block>

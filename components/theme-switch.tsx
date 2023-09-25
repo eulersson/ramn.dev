@@ -8,7 +8,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useTheme } from "next-themes";
 
 // Project
-import { useCursor } from "@/contexts/cursor";
+import { CursorSize } from "@/components/cursor-size";
 
 // Environment
 import environment from "@/environment";
@@ -25,7 +25,6 @@ export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
   const { theme, resolvedTheme, setTheme } = useTheme();
   const isDark = theme === "dark";
 
-  const {cursorSize, setCursorSize} = useCursor();
   const [showSwitcher, setShowSwitcher] = useState(false);
 
   // useEffect only runs on the client, so now we can safely show the UI
@@ -175,27 +174,27 @@ export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
         style={{ x: "calc(50vw - 35px)" }}
         transition={{ type: "spring" }}
       >
-        <motion.label
-          className="relative inline-block w-[70px] h-[34px]"
-          onMouseEnter={() => {
-            setCursorSize(0.4);
-            scale.set(1.2);
-          }}
-          onMouseLeave={() => {
-            setCursorSize(1);
-            scale.set(1);
-          }}
-          style={{ scale: scaleSpring }}
-        >
-          <input
-            type="checkbox"
-            className="opacity-0 w-0 h-0"
-            checked={isDark}
-            onChange={() => setTheme(isDark ? "light" : "dark")}
-          />
-          <span className={`${slider} ${beforeSliderPseudoElement}`} />
-          {isDark ? moon : sun}
-        </motion.label>
+        <CursorSize sizeOnHover={0.4}>
+          <motion.label
+            className="relative inline-block w-[70px] h-[34px]"
+            onMouseEnter={() => {
+              scale.set(1.2);
+            }}
+            onMouseLeave={() => {
+              scale.set(1);
+            }}
+            style={{ scale: scaleSpring }}
+          >
+            <input
+              type="checkbox"
+              className="opacity-0 w-0 h-0"
+              checked={isDark}
+              onChange={() => setTheme(isDark ? "light" : "dark")}
+            />
+            <span className={`${slider} ${beforeSliderPseudoElement}`} />
+            {isDark ? moon : sun}
+          </motion.label>
+        </CursorSize>
       </motion.div>
     )
   );

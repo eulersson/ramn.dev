@@ -10,14 +10,13 @@ import { useInView } from "framer-motion";
 // Project
 import { Sentence, Typewriter } from "@/components/typewriter";
 import { Block } from "@/components/block";
+import { CursorSize } from "@/components/cursor-size";
 import { TagProps } from "@/components/tag";
 import { Terminal } from "@/components/terminal";
 import { Title } from "@/components/title";
-import { useCursor } from "@/contexts/cursor";
 
 // Content
 import Intention from "@/content/sections/intention.mdx";
-import WhoAmI from "@/content/sections/whoami.mdx";
 
 // Environment
 import environment from "@/environment";
@@ -80,8 +79,6 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "React", dotted: false },
   ];
 
-  const {cursorSize, setCursorSize} = useCursor();
-
   const sentences: Sentence[] = [
     {
       text: "Full Stack Software Engineer",
@@ -126,25 +123,25 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
       <div className="relative grid grid-cols-4 drill-mouse-hover">
         <div className="drill-mouse-hover">
           {theme === "dark" ? (
-            <Image
-              onMouseEnter={() => setCursorSize(4)}
-              onMouseLeave={() => setCursorSize(1)}
-              className="absolute top-[-61px] left-[-108px] w-[366px]"
-              src="/displaced-me-dark.png"
-              width={707}
-              height={685}
-              alt="Displaced Me"
-            />
+            <CursorSize sizeOnHover={4}>
+              <Image
+                className="absolute top-[-61px] left-[-108px] w-[366px]"
+                src="/displaced-me-dark.png"
+                width={707}
+                height={685}
+                alt="Displaced Me"
+              />
+            </CursorSize>
           ) : (
-            <Image
-              onMouseEnter={() => setCursorSize(4)}
-              onMouseLeave={() => setCursorSize(1)}
-              className="absolute top-[-61px] left-[-108px] w-[366px]"
-              src="/displaced-me.png"
-              width={707}
-              height={685}
-              alt="Displaced Me"
-            />
+            <CursorSize sizeOnHover={4}>
+              <Image
+                className="absolute top-[-61px] left-[-108px] w-[366px]"
+                src="/displaced-me.png"
+                width={707}
+                height={685}
+                alt="Displaced Me"
+              />
+            </CursorSize>
           )}
         </div>
         <div className="col-span-3">

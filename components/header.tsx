@@ -4,14 +4,11 @@
 import { Button } from "@/components/button";
 import { CursorSize } from "@/components/cursor-size";
 import { ThemedImage } from "@/components/themed-image";
-import { useCursor } from "@/contexts/cursor";
 
 // Environment
 import environment from "@/environment";
 
 export function Header() {
-  const { cursorSize, setCursorSize } = useCursor();
-
   if (environment.printComponentRendering) {
     console.log("[Header] Rendering");
   }
@@ -26,7 +23,7 @@ export function Header() {
         </div>
         <div className="bg-back col-span-1 flex gap-2 items-center justify-center">
           {/* https://github.com/pacocoursey/next-themes#images */}
-          <CursorSize>
+          <CursorSize sizeOnHover={0.4}>
             <ThemedImage
               src="/github.svg"
               alt="GitHub Logo"
@@ -34,7 +31,7 @@ export function Header() {
               height={24}
             />
           </CursorSize>
-          <CursorSize>
+          <CursorSize sizeOnHover={0.4}>
             <ThemedImage
               src="/linkedin.svg"
               alt="LinkedIn Logo"
@@ -42,7 +39,7 @@ export function Header() {
               height={24}
             />
           </CursorSize>
-          <CursorSize>
+          <CursorSize sizeOnHover={0.4}>
             <ThemedImage src="/x.svg" alt="X Logo" width={24} height={24} />
           </CursorSize>
         </div>
@@ -50,14 +47,14 @@ export function Header() {
           <Button className="px-4">Resume / CV</Button>
         </div>
         <div className="bg-back row-start-2 col-start-2 col-span-2 flex items-center justify-center">
-          <a
-            className="font-mono text-[18px] underline hover:font-bold"
-            href="mailto:blanquer.ramon@gmail.com"
-            onMouseEnter={() => setCursorSize(0.4)}
-            onMouseLeave={() => setCursorSize(1)}
-          >
-            blanquer.ramon@gmail.com
-          </a>
+          <CursorSize sizeOnHover={0.4}>
+            <a
+              className="font-mono text-[18px] underline hover:font-bold"
+              href="mailto:blanquer.ramon@gmail.com"
+            >
+              blanquer.ramon@gmail.com
+            </a>
+          </CursorSize>
         </div>
         <div className="bg-back row-start-1 col-start-4 row-span-2 col-span-1 flex items-center">
           <div className="leading-[20px] text-[15px] flex flex-col gap-[2px]">
