@@ -14,19 +14,20 @@ export const ThemedImage: FunctionComponent<{
   height: number;
   src: string;
   alt: string;
-}> = ({ width, height, src, alt }) => {
+  className?: string;
+}> = ({ width, height, src, alt, className = "" }) => {
   const { resolvedTheme } = useTheme();
 
   const [fileName, extension] = src.split(".");
 
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
-    return null
+    return null;
   }
 
   let srcThemed: string;
@@ -43,9 +44,15 @@ export const ThemedImage: FunctionComponent<{
       break;
   }
 
-  console.log("srcThemed", srcThemed);
-
-  return <Image src={srcThemed} width={width} height={height} alt={alt} />;
+  return (
+    <Image
+      className={className}
+      src={srcThemed}
+      width={width}
+      height={height}
+      alt={alt}
+    />
+  );
 };
 
 export default ThemedImage;

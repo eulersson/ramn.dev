@@ -13,6 +13,7 @@ import { Block } from "@/components/block";
 import { CursorSize } from "@/components/cursor-size";
 import { TagProps } from "@/components/tag";
 import { Terminal } from "@/components/terminal";
+import { ThemedImage } from "@/components/themed-image";
 import { Title } from "@/components/title";
 
 // Content
@@ -122,27 +123,15 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
       </Terminal>
       <div className="relative grid grid-cols-4 drill-mouse-hover">
         <div className="drill-mouse-hover">
-          {theme === "dark" ? (
-            <CursorSize sizeOnHover={4}>
-              <Image
-                className="absolute top-[-61px] left-[-108px] w-[366px]"
-                src="/displaced-me-dark.png"
-                width={707}
-                height={685}
-                alt="Displaced Me"
-              />
-            </CursorSize>
-          ) : (
-            <CursorSize sizeOnHover={4}>
-              <Image
-                className="absolute top-[-61px] left-[-108px] w-[366px]"
-                src="/displaced-me.png"
-                width={707}
-                height={685}
-                alt="Displaced Me"
-              />
-            </CursorSize>
-          )}
+          <CursorSize sizeOnHover={4}>
+            <ThemedImage
+              className="absolute top-[-61px] left-[-108px] w-[366px]"
+              src="/displaced-me.png"
+              width={707}
+              height={685}
+              alt="Displaced Me"
+            />
+          </CursorSize>
         </div>
         <div className="col-span-3">
           <Block
