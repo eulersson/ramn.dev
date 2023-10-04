@@ -9,9 +9,6 @@ import {
   useState,
 } from "react";
 
-// Next.js
-import Image from "next/image";
-
 // Third-Party
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 
@@ -19,6 +16,7 @@ import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Block } from "@/components/block";
 import { CursorSize } from "@/components/cursor-size";
 import { Tag } from "@/components/tag";
+import ThemedImage from "@/components/themed-image";
 import { Title } from "@/components/title";
 
 // Project - Content
@@ -31,6 +29,7 @@ import jobWatchity from "@/content/experience/watchity.json";
 
 // Environment
 import environment from "@/environment";
+import { useTheme } from "next-themes";
 
 type LogoRef = {
   spin: Function;
@@ -87,7 +86,7 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(function Logo(
         }}
       >
         <motion.div style={{ rotateY: logoRotateYSpring }}>
-          <Image
+          <ThemedImage
             src={props.logoUrl}
             alt="Watchity Logo"
             width={200}
@@ -197,9 +196,9 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             tags={[]}
           >
             <div className="grid grid-cols-4 h-full">
-              <div className="overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
+              <div className="dark:bg-fore overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
                 <CursorSize sizeOnHover={4}>
-                  <Image
+                  <ThemedImage
                     src="/pnavarro.png"
                     alt="Pau Navarro"
                     width={250}
@@ -215,7 +214,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
               </div>
             </div>
           </Block>
-          <motion.div className="absolute text-back bg-fore rounded-[40px] px-5 pb-1 -left-[60px] bottom-[40px] flex flex-col items-center">
+          <motion.div className="absolute text-back bg-fore dark:bg-back dark:text-fore dark:border-2-fore rounded-[40px] px-5 pb-1 -left-[60px] bottom-[40px] flex flex-col items-center">
             <p className="font-sans -mb-[5px]">Pau Navarro</p>
             <p className="font-sans text-xs">PM @ Watchity</p>
           </motion.div>
@@ -238,8 +237,8 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                 </div>
                 <div className="overflow-hidden col-span-1">
                   <CursorSize sizeOnHover={4}>
-                    <Image
-                      src="/langeli.jpeg"
+                    <ThemedImage
+                      src="/langeli.png"
                       alt="Lorenzo Angeli"
                       width={250}
                       height={250}
@@ -249,7 +248,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
               </div>
             </Block>
 
-            <motion.div className="absolute bg-back border-2-fore rounded-[40px] px-5 pb-1 -right-[100px] bottom-[40px] flex flex-col items-center">
+            <motion.div className="absolute bg-back border-2-fore dark:border-none dark:bg-fore dark:text-back rounded-[40px] px-5 pb-1 -right-[100px] bottom-[40px] flex flex-col items-center">
               <p className="font-sans -mb-[5px]">Lorenzo Angeli</p>
               <p className="font-sans text-xs">CEO @ Efesto Lab</p>
             </motion.div>

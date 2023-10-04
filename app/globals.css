@@ -90,6 +90,11 @@ NOTE: Since we don't use the Scroll Into View API anymore this shouldn't be need
   .border-2-fore {
     @apply border-2 border-fore;
   }
+
+  .border-2-back {
+    @apply border-2 border-fore;
+  }
+
   .border-inside {
     @apply outline outline-fore outline-2 -outline-offset-2;
   }

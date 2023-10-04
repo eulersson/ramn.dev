@@ -36,7 +36,7 @@ export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
     let timeouts: Array<NodeJS.Timeout> = [];
     if (mounted) {
       if (theme) {
-        const offset = 3000;
+        const offset = 4000;
         timeouts = [
           setTimeout(() => setShowSwitcher(true), offset),
           ...(localStorage.getItem("hasPlayedThemeSwitcherAnimation")

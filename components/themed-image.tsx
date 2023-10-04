@@ -47,3 +47,5 @@ export const ThemedImage: FunctionComponent<{
 
   return <Image src={srcThemed} width={width} height={height} alt={alt} />;
 };
+
+export default ThemedImage;

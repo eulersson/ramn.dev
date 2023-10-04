@@ -91,7 +91,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 ))}
               </motion.div>
               <motion.div
-                className="h-g5 flex justify-center overflow-visible  -mt-[2px]"
+                className="h-g5 flex justify-center overflow-visible -mt-[2px]"
                 initial="hidden"
                 animate="visible"
                 variants={{
