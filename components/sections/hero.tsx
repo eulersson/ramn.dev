@@ -162,7 +162,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                     delayOffset={
                       localStorage.getItem("hasPlayedThemeSwitcherAnimation")
                         ? 0
-                        : 3
+                        : 3000
                     }
                   />
                 )}

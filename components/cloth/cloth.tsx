@@ -31,9 +31,11 @@ import { useTheme } from "next-themes";
 // Project
 import { GridDimensions, Size } from "@/types";
 import { ParticleSystem } from "@/components/cloth/particle-system";
-
 import cursorIcon from "@/public/cursor.svg";
 import cursorIconDark from "@/public/cursor-dark.svg";
+
+// Project - Local
+import { cursorAnimationConfig } from "./cursor-animation";
 
 // Environment
 import environment from "@/environment";
@@ -183,7 +185,7 @@ export const Cloth: FunctionComponent<{
   const particleSystem = particleSystemRef.current;
 
   // Cursor.
-  const {cursorSize, setCursorSize} = useCursor();
+  const { setCursorSize } = useCursor();
 
   // Theme.
   const { theme, setTheme } = useTheme();
@@ -193,6 +195,13 @@ export const Cloth: FunctionComponent<{
   const baseGravity = particleSystem.gravity;
 
   time.on("change", (t) => {
+    const offset = environment.disableCover ? 0 : 2000;
+    t -= offset;
+
+    if (t < 0) {
+      return;
+    }
+
     if (t > 8000) {
       // Destroy and clean up subscribers.
       time.destroy();
@@ -207,19 +216,22 @@ export const Cloth: FunctionComponent<{
     });
   });
 
+  // Vertical gravity.
   scrollYProgress.on("change", (v) => {
-    particleSystem.setExtraGravity({ x: 0, y: 5 * (1 - v - 0.5) });
+    particleSystem.setExtraGravity({ x: 0, y: 4 * (1 - v - 0.5) });
   });
 
   const scrollVelocity = useVelocity(scrollYProgress);
-  const scrollScaledVelocity = useTransform(
-    scrollVelocity,
-    (mv) => Math.max(-Math.abs(mv) * 5, -8) + 3
-  );
+  const scrollScaledVelocity = useTransform(scrollVelocity, (mv) => {
+    const result = Math.abs(mv) > 0.3 ? Math.min(Math.max(mv * 2, -4), 4) : 0;
+    console.log(result);
+    return result;
+  });
   const scrollSpring = useSpring(scrollScaledVelocity, {
-    damping: 6,
-    stiffness: 100,
-    mass: 4,
+    damping: 4,
+    stiffness: 200,
+    mass: 1,
+    restDelta: 0.001,
   });
   const gravityYDelta = scrollSpring;
   gravityYDelta.on("change", (delta) => {
@@ -278,7 +290,7 @@ export const Cloth: FunctionComponent<{
       );
 
       const interval = setInterval(() => {
-        if (i > 80) {
+        if (i > cursorAnimationConfig.pressingCycles) {
           clothInstructionPlaying.current = false;
           clearInterval(interval);
           onMouseUp();
@@ -288,8 +300,8 @@ export const Cloth: FunctionComponent<{
           cursorIconRef.current!.getBoundingClientRect().y + offsetY
         );
         i = i + 1;
-      }, 20);
-    }, (environment.disableCover ? 2800 : 4800) + delayOffset * 1000);
+      }, cursorAnimationConfig.pressingIntervalSize);
+    }, cursorAnimationConfig.pressingStart + delayOffset);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -298,8 +310,6 @@ export const Cloth: FunctionComponent<{
 
     let x = offsetX;
     let y = offsetY;
-
-    console.log("onMouseDown xy", x, y);
 
     if (cameraRef.current) {
       x += cameraRef.current.position.x;
@@ -347,28 +357,11 @@ export const Cloth: FunctionComponent<{
       {/* https://blog.noelcserepy.com/creatin  g-keyframe-animations-with-framer-motion */}
       <motion.div
         ref={cursorIconRef}
-        className="absolute z-10 top-1/2 left-1/2 pointer-events-none	"
-        animate={{
-          x: [600, 0, 0, 0, -120, 300, 0, 240],
-          y: [600, 0, 0, 0, -33, -50, 0, 240],
-          opacity: [1, 1, 1, 1, 1, 1, 1, 0],
-          scale: [1.2, 1.2, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
-          rotateZ: [-88, -40, -40, -40, -40, -40, -40, -68],
-        }}
+        className="absolute z-20 top-1/2 left-1/2 pointer-events-none"
+        animate={{ ...cursorAnimationConfig.animate }}
         transition={{
-          delay: (environment.disableCover ? 1 : 3) + delayOffset,
-          duration: 4.5,
-          times: [0, 0.38, 0.4, 0.47, 0.67, 0.68, 0.9, 1],
-          ease: [
-            "easeInOut",
-            "easeInOut",
-            "easeInOut",
-            "easeInOut",
-            "linear",
-            "linear",
-            "easeInOut",
-            "easeInOut",
-          ],
+          ...cursorAnimationConfig.transition,
+          delay: cursorAnimationConfig.transition.delay + delayOffset,
         }}
       >
         {theme === "dark" ? (
