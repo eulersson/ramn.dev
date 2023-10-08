@@ -121,7 +121,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 ))}
                 <CursorSize sizeOnHover={4}>
                   <motion.div
-                    className="h-full min-w-[666px] bg-back border-2-fore -mx-[1px] flex flex-col items-center justify-center"
+                    className="h-full min-w-[661px] bg-back border-2-fore -mx-[1px] flex flex-col items-center justify-center"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
