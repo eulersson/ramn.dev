@@ -1,11 +1,13 @@
 // React
 import {
   FunctionComponent,
+  MouseEventHandler,
   MutableRefObject,
   useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 
 // Next.js
@@ -21,6 +23,7 @@ import {
 import {
   MotionValue,
   motion,
+  useInView,
   useSpring,
   useTime,
   useTransform,
@@ -30,16 +33,77 @@ import { useTheme } from "next-themes";
 
 // Project
 import { GridDimensions, Size } from "@/types";
+import { CursorSize } from "@/components/cursor-size";
 import { ParticleSystem } from "@/components/cloth/particle-system";
 import cursorIcon from "@/public/cursor.svg";
 import cursorIconDark from "@/public/cursor-dark.svg";
+import { useCursor } from "@/contexts/cursor";
 
 // Project - Local
 import { cursorAnimationConfig } from "./cursor-animation";
 
 // Environment
 import environment from "@/environment";
-import { useCursor } from "@/contexts/cursor";
+
+const Replay: FunctionComponent<{
+  onClick: MouseEventHandler;
+}> = ({ onClick }) => {
+  const { theme } = useTheme();
+  return (
+    <div className="bg-fore text-back w-full h-full flex items-center justify-center">
+      <CursorSize sizeOnHover={8}>
+        <div
+          onClick={onClick}
+          className="relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90 hover:scale-50"
+        >
+          {/* Grid */}
+          <div
+            className="w-[300px] h-[300px]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(var(--col-back) 0 2px, transparent 1px 100%), repeating-linear-gradient(90deg, var(--col-back) 0 1px, transparent 2px 100%)",
+              backgroundSize: "59.75px 59.75px",
+            }}
+          ></div>
+          {/* Dots */}
+          <div
+            className="absolute inset-0"
+            style={{
+              display: "grid",
+              gridTemplateRows: "repeat(6, 10px)",
+              gridTemplateColumns: "repeat(6, 10px)",
+              justifyContent: "space-between",
+              alignContent: "space-between",
+            }}
+          >
+            {[...Array(36)].map((_, i) => (
+              <div key={i} className="bg-back"></div>
+            ))}
+          </div>
+        </div>
+      </CursorSize>
+      {/* Cursor */}
+      <div className="absolute pointer-events-none rotate-180 translate-x-3 translate-y-14">
+        <div className="animate-bounce">
+          <div className="rotate-180">
+            {theme === "dark" ? (
+              <Image width={40} src={cursorIconDark} alt="Cursor" />
+            ) : (
+              <Image width={80} src={cursorIcon} alt="Cursor" />
+            )}
+          </div>
+        </div>
+      </div>
+      {/* Pinging Sphere */}
+      <motion.div className="absolute pointer-events-none">
+        <div className="absolute -ml-[8px] -mt-[8px]">
+          <div className="absolute rounded-full w-[16px] h-[16px] bg-back"></div>
+          <div className="absolute animate-ping rounded-full w-[16px] h-[16px] bg-back"></div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
 
 const Simulation: FunctionComponent<{
   particleSystemRef: MutableRefObject<ParticleSystem>;
@@ -222,11 +286,9 @@ export const Cloth: FunctionComponent<{
   });
 
   const scrollVelocity = useVelocity(scrollYProgress);
-  const scrollScaledVelocity = useTransform(scrollVelocity, (mv) => {
-    const result = Math.abs(mv) > 0.3 ? Math.min(Math.max(mv * 2, -4), 4) : 0;
-    console.log(result);
-    return result;
-  });
+  const scrollScaledVelocity = useTransform(scrollVelocity, (mv) =>
+    Math.abs(mv) > 0.3 ? Math.min(Math.max(mv * 2, -4), 4) : 0
+  );
   const scrollSpring = useSpring(scrollScaledVelocity, {
     damping: 4,
     stiffness: 200,
@@ -240,6 +302,17 @@ export const Cloth: FunctionComponent<{
 
   // Needed width and height deltas on resize for mouse collision calculation.
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
+
+  const inView = useInView(canvasWrapperRef);
+  const previousInView = useRef<boolean>(inView);
+  const [navigatedAway, setNavigatedAway] = useState(false);
+
+  useEffect(() => {
+    if (inView === false && previousInView.current === true) {
+      setNavigatedAway(true);
+    }
+    previousInView.current = inView;
+  }, [inView]);
 
   const cameraRef = useRef<OrthographicCamera>(null);
   const initialWrapperSize = useRef<Size>({
@@ -351,7 +424,6 @@ export const Cloth: FunctionComponent<{
     setCursorSize(1);
     particleSystem.onMouseUp();
   };
-
   return (
     <div className="relative w-full h-full" ref={canvasWrapperRef}>
       {/* https://blog.noelcserepy.com/creatin  g-keyframe-animations-with-framer-motion */}
@@ -370,30 +442,34 @@ export const Cloth: FunctionComponent<{
           <Image width={100} src={cursorIcon} alt="Cursor" />
         )}
       </motion.div>
-      <Canvas
-        onMouseDown={(e) =>
-          clothInstructionPlaying.current === false &&
-          onMouseDown(
-            e.nativeEvent.offsetX,
-            e.nativeEvent.offsetY,
-            e.nativeEvent.button
-          )
-        }
-        onMouseMove={(e) =>
-          clothInstructionPlaying.current === false &&
-          onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
-        }
-        onMouseUp={(e) =>
-          clothInstructionPlaying.current === false && onMouseUp()
-        }
-      >
-        <DreiOrthographicCamera ref={cameraRef} makeDefault />
-        {environment.debug && <Stats />}
-        <Simulation
-          particleSystemRef={particleSystemRef}
-          delayOffset={delayOffset}
-        />
-      </Canvas>
+      {navigatedAway ? (
+        <Replay onClick={() => setNavigatedAway(false)} />
+      ) : (
+        <Canvas
+          onMouseDown={(e) =>
+            clothInstructionPlaying.current === false &&
+            onMouseDown(
+              e.nativeEvent.offsetX,
+              e.nativeEvent.offsetY,
+              e.nativeEvent.button
+            )
+          }
+          onMouseMove={(e) =>
+            clothInstructionPlaying.current === false &&
+            onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+          }
+          onMouseUp={(e) =>
+            clothInstructionPlaying.current === false && onMouseUp()
+          }
+        >
+          <DreiOrthographicCamera ref={cameraRef} makeDefault />
+          {environment.debug && <Stats />}
+          <Simulation
+            particleSystemRef={particleSystemRef}
+            delayOffset={delayOffset}
+          />
+        </Canvas>
+      )}
     </div>
   );
 };

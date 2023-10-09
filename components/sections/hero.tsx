@@ -4,7 +4,7 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 
 // Third-Party
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 // Project
 import { Cloth } from "@/components/cloth/cloth";
@@ -17,9 +17,6 @@ import environment from "@/environment";
 
 const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   const ref = useRef<HTMLDivElement>(null);
-
-  const clothWrapperRef = useRef<HTMLDivElement>(null);
-  const clothWrapperInView = useInView(clothWrapperRef);
 
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
 
@@ -39,6 +36,14 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
     }
     previousSectionRef.current = section;
   }, [section]);
+
+  // The `localStorage` can only be accessed on client.
+  let hasPlayedThemeSwitcherAnimation = false;
+  if (typeof window !== "undefined") {
+    hasPlayedThemeSwitcherAnimation = !!localStorage.getItem(
+      "hasPlayedThemeSwitcherAnimation"
+    );
+  }
 
   return (
     <>
@@ -153,17 +158,13 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 ))}
               </motion.div>
 
-              <div className="grow overflow-hidden" ref={clothWrapperRef}>
-                {environment.disableGraphics || clothWrapperInView === false ? (
+              <div className="grow overflow-hidden">
+                {environment.disableGraphics ? (
                   ""
                 ) : (
                   <Cloth
                     scrollYProgress={scrollYProgress}
-                    delayOffset={
-                      localStorage.getItem("hasPlayedThemeSwitcherAnimation")
-                        ? 0
-                        : 3000
-                    }
+                    delayOffset={hasPlayedThemeSwitcherAnimation ? 0 : 3000}
                   />
                 )}
               </div>
