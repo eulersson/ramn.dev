@@ -3,6 +3,7 @@ import {
   FunctionComponent,
   MouseEventHandler,
   MutableRefObject,
+  Suspense,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -287,7 +288,7 @@ export const Cloth: FunctionComponent<{
 
   const scrollVelocity = useVelocity(scrollYProgress);
   const scrollScaledVelocity = useTransform(scrollVelocity, (mv) =>
-    Math.abs(mv) > 0.3 ? Math.min(Math.max(mv * 2, -4), 4) : 0
+    Math.abs(mv) > 1.2 ? Math.min(Math.max(mv * 2, -4), 4) : 0
   );
   const scrollSpring = useSpring(scrollScaledVelocity, {
     damping: 4,
@@ -310,6 +311,7 @@ export const Cloth: FunctionComponent<{
   useEffect(() => {
     if (inView === false && previousInView.current === true) {
       setNavigatedAway(true);
+      particleSystem.destroy();
     }
     previousInView.current = inView;
   }, [inView]);
@@ -445,30 +447,40 @@ export const Cloth: FunctionComponent<{
       {navigatedAway ? (
         <Replay onClick={() => setNavigatedAway(false)} />
       ) : (
-        <Canvas
-          onMouseDown={(e) =>
-            clothInstructionPlaying.current === false &&
-            onMouseDown(
-              e.nativeEvent.offsetX,
-              e.nativeEvent.offsetY,
-              e.nativeEvent.button
-            )
-          }
-          onMouseMove={(e) =>
-            clothInstructionPlaying.current === false &&
-            onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
-          }
-          onMouseUp={(e) =>
-            clothInstructionPlaying.current === false && onMouseUp()
-          }
-        >
-          <DreiOrthographicCamera ref={cameraRef} makeDefault />
-          {environment.debug && <Stats />}
-          <Simulation
-            particleSystemRef={particleSystemRef}
-            delayOffset={delayOffset}
-          />
-        </Canvas>
+        <>
+          <CursorSize sizeOnHover={1}>
+            <motion.div
+              className="absolute w-full h-full bg-fore z-10"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 0, transitionEnd: { display: "none" } }}
+              transition={{ delay: 1, duration: 1 }}
+            ></motion.div>
+          </CursorSize>
+          <Canvas
+            onMouseDown={(e) =>
+              clothInstructionPlaying.current === false &&
+              onMouseDown(
+                e.nativeEvent.offsetX,
+                e.nativeEvent.offsetY,
+                e.nativeEvent.button
+              )
+            }
+            onMouseMove={(e) =>
+              clothInstructionPlaying.current === false &&
+              onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+            }
+            onMouseUp={(e) =>
+              clothInstructionPlaying.current === false && onMouseUp()
+            }
+          >
+            <DreiOrthographicCamera ref={cameraRef} makeDefault />
+            {environment.debug && <Stats />}
+            <Simulation
+              particleSystemRef={particleSystemRef}
+              delayOffset={delayOffset}
+            />
+          </Canvas>
+        </>
       )}
     </div>
   );

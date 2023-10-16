@@ -329,4 +329,10 @@ export class ParticleSystem {
 
     this.clickCon.constrained = [];
   }
+
+  destroy() {
+    this.curPositions = [];
+    this.oldPositions = [];
+    this.constraints = [];
+  }
 }
