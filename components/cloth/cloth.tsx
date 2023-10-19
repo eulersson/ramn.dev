@@ -361,7 +361,7 @@ export const Cloth: FunctionComponent<{
         );
         i = i + 1;
       }, cursorAnimationConfig.pressingIntervalSize);
-    }, cursorAnimationConfig.pressingStart + delayOffset);
+    }, cursorAnimationConfig.pressingStart + delayOffset * 1000);
     return () => clearTimeout(timeout);
   }, []);
 

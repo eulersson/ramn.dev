@@ -164,7 +164,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 ) : (
                   <Cloth
                     scrollYProgress={scrollYProgress}
-                    delayOffset={hasPlayedThemeSwitcherAnimation ? 0 : 3000}
+                    delayOffset={hasPlayedThemeSwitcherAnimation ? 0 : 3}
                   />
                 )}
               </div>

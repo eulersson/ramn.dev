@@ -22,7 +22,8 @@ export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
 
   const [mounted, setMounted] = useState(false);
 
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
   const isDark = theme === "dark";
 
   const [showSwitcher, setShowSwitcher] = useState(false);
