@@ -19,14 +19,16 @@ const Title = forwardRef<
   }
 
   return (
-    <CursorSize className="flex" sizeOnHover={4}>
-      <h1
-        ref={ref}
-        className={`italic inline m-auto mt-[calc((var(--bg-grid-box-size)-100px)/2)] mb-[calc((var(--bg-grid-box-size)-100px)/2)] font-serif font-normal leading-none text-[60px] p-[20px] bg-back border-inside shadow-blocky ${className}`}
-      >
-        {children}
-      </h1>
-    </CursorSize>
+    <div className="m-auto mt-[calc((var(--bg-grid-box-size)-100px)/2)] mb-[calc((var(--bg-grid-box-size)-100px)/2)]">
+      <CursorSize sizeOnHover={4}>
+        <h1
+          ref={ref}
+          className={`italic font-serif font-normal leading-none text-[60px] p-[20px] bg-back border-inside shadow-blocky ${className}`}
+        >
+          {children}
+        </h1>
+      </CursorSize>
+    </div>
   );
 });
 
