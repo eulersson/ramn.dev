@@ -13,8 +13,8 @@ import { useCursor } from "@/contexts/cursor";
 import environment from "@/environment";
 
 export function Cursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  const cursorX = useMotionValue(-500);
+  const cursorY = useMotionValue(-500);
 
   const {cursorSize, setCursorSize} = useCursor();
 

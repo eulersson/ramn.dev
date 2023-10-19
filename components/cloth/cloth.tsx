@@ -46,7 +46,7 @@ import { cursorAnimationConfig } from "./cursor-animation";
 // Environment
 import environment from "@/environment";
 
-const Replay: FunctionComponent<{
+const PlayPrompt: FunctionComponent<{
   onClick: MouseEventHandler;
 }> = ({ onClick }) => {
   const { theme } = useTheme();
@@ -88,7 +88,7 @@ const Replay: FunctionComponent<{
         <div className="animate-bounce">
           <div className="rotate-180">
             {theme === "dark" ? (
-              <Image width={40} src={cursorIconDark} alt="Cursor" />
+              <Image width={80} src={cursorIconDark} alt="Cursor" />
             ) : (
               <Image width={80} src={cursorIcon} alt="Cursor" />
             )}
@@ -253,7 +253,7 @@ export const Cloth: FunctionComponent<{
   const { setCursorSize } = useCursor();
 
   // Theme.
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   // Gravity based on scroll.
   const time = useTime();
@@ -300,21 +300,6 @@ export const Cloth: FunctionComponent<{
   gravityYDelta.on("change", (delta) => {
     particleSystem.setGravity({ x: 0, y: baseGravity.y + delta });
   });
-
-  // Needed width and height deltas on resize for mouse collision calculation.
-  const canvasWrapperRef = useRef<HTMLDivElement>(null);
-
-  const inView = useInView(canvasWrapperRef);
-  const previousInView = useRef<boolean>(inView);
-  const [navigatedAway, setNavigatedAway] = useState(false);
-
-  useEffect(() => {
-    if (inView === false && previousInView.current === true) {
-      setNavigatedAway(true);
-      particleSystem.destroy();
-    }
-    previousInView.current = inView;
-  }, [inView]);
 
   const cameraRef = useRef<OrthographicCamera>(null);
   const initialWrapperSize = useRef<Size>({
@@ -426,6 +411,28 @@ export const Cloth: FunctionComponent<{
     setCursorSize(1);
     particleSystem.onMouseUp();
   };
+
+  // -- Logic to kill WebGL to save up resources when not in view.
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(canvasWrapperRef);
+  const previousInView = useRef<boolean | null>(null);
+  const hasNavigatedAway = useRef(false);
+  const [showPlayPrompt, setShowPlayPrompt] = useState(false);
+
+  useEffect(() => {
+    if (inView === false && previousInView.current === true) {
+      hasNavigatedAway.current = true;
+    }
+    if (
+      inView === false &&
+      hasNavigatedAway.current === true &&
+      showPlayPrompt === false
+    ) {
+      setShowPlayPrompt(true);
+    }
+    previousInView.current = inView;
+  }, [inView]);
+
   return (
     <div className="relative w-full h-full" ref={canvasWrapperRef}>
       {/* https://blog.noelcserepy.com/creatin  g-keyframe-animations-with-framer-motion */}
@@ -444,8 +451,8 @@ export const Cloth: FunctionComponent<{
           <Image width={100} src={cursorIcon} alt="Cursor" />
         )}
       </motion.div>
-      {navigatedAway ? (
-        <Replay onClick={() => setNavigatedAway(false)} />
+      {showPlayPrompt ? (
+        <PlayPrompt onClick={() => setShowPlayPrompt(false)} />
       ) : (
         <>
           <CursorSize sizeOnHover={1}>
