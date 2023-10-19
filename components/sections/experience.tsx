@@ -196,7 +196,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             tags={[]}
           >
             <div className="grid grid-cols-4 h-full">
-              <div className="dark:bg-fore overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
+              <div className="bg-back dark:bg-fore overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
                 <CursorSize sizeOnHover={4}>
                   <ThemedImage
                     src="/pnavarro.png"

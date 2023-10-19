@@ -9,7 +9,7 @@ import { CursorProvider } from "@/contexts/cursor";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider defaultTheme="light" enableSystem={false}>
+    <ThemeProvider defaultTheme="light" enableSystem={false} attribute="class">
       <CursorProvider>
         <Cursor />
         {children}

@@ -16,7 +16,7 @@ NOTE: Since we don't use the Scroll Into View API anymore this shouldn't be need
   --col-back: #ffffff;
 }
 
-[data-theme='dark'] {
+.dark {
   --col-fore: #94a3b8;
   --col-back: #111827;
 }

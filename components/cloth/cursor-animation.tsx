@@ -2,7 +2,7 @@ import environment from "@/environment";
 
 const pressingStart = environment.disableCover ? 2200 : 4200;
 const pressingIntervalSize = 20;
-const pressingDuration = 2100;
+const pressingDuration = 2500;
 const pressingCycles = Math.floor(pressingDuration / pressingIntervalSize);
 
 export const cursorAnimationConfig = {
