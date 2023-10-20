@@ -457,10 +457,16 @@ export const Cloth: FunctionComponent<{
         <>
           <CursorSize sizeOnHover={1}>
             <motion.div
-              className="absolute w-full h-full bg-fore z-10"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 0, transitionEnd: { display: "none" } }}
-              transition={{ delay: 1, duration: 1 }}
+              className="absolute left-0 w-1/2 h-full bg-fore z-10"
+              initial={{ x: 0 }}
+              animate={{ x: '-100%', transitionEnd: { display: "none" } }}
+              transition={{ delay: environment.disableCover ? 1.2 : 2.9, duration: 1 }}
+            ></motion.div>
+            <motion.div
+              className="absolute right-0 w-1/2 h-full bg-fore z-10"
+              initial={{ x: 0 }}
+              animate={{ x: '100%', transitionEnd: { display: "none" } }}
+              transition={{ delay: environment.disableCover ? 1.2 : 2.9, duration: 1 }}
             ></motion.div>
           </CursorSize>
           <Canvas

@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 // Third-Party
 import { motion } from "framer-motion";
 
-// Project
-import { CursorSize } from "@/components/cursor-size";
-
 // Environment
 import environment from "@/environment";
 
@@ -16,7 +13,7 @@ export function Cover() {
   useEffect(() => {
     setTimeout(() => {
       setCross(false);
-    }, 500);
+    }, 900);
   }, []);
 
   const drawCircles = {
@@ -53,6 +50,7 @@ export function Cover() {
 
   return (
     <>
+      {/* Drawing of the initial cross, that will be replaced by 4 divs later on. */}
       {cross && (
         <div
           key="cross"
@@ -68,155 +66,154 @@ export function Cover() {
             className="absolute h-[2px] bg-fore top-[calc(50%-1px)] left-0"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 0.4, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           ></motion.div>
         </div>
       )}
+      {/* Logo animation. */}
       {!cross && (
-        <CursorSize sizeOnHover={12}>
-          <motion.div
-            key="cover-center"
-            className="fixed w-[200px] h-[200px] -m-[98px] inset-1/2 bg-back z-30 border-2-fore"
-            initial={{ scale: 0 }}
-            animate={{
-              scale: 1,
-              transition: { type: "spring", stiffness: 200, damping: 10 },
-            }}
-            exit={{
-              scale: [1, 1.4, 0],
-              transition: { delay: 0.7, duration: 0.4 },
-            }}
+        <motion.div
+          key="cover-center"
+          className="fixed w-[200px] h-[200px] -m-[98px] inset-1/2 bg-back z-30 border-2-fore"
+          initial={{ scale: 0 }}
+          animate={{
+            scale: 1,
+            transition: { type: "spring", stiffness: 200, damping: 10 },
+          }}
+          exit={{
+            scale: [1, 1.4, 0],
+            transition: { delay: 0.7, duration: 0.4 },
+          }}
+        >
+          <motion.svg
+            width="200"
+            height="200"
+            stroke="var(--col-fore)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            viewBox="0 0 200 200"
+            initial="hidden"
+            animate="visible"
           >
-            <motion.svg
-              width="200"
-              height="200"
-              stroke="var(--col-fore)"
-              strokeWidth="2"
-              strokeLinecap="round"
-              viewBox="0 0 200 200"
-              initial="hidden"
-              animate="visible"
-            >
-              {/* Arrow Top */}
-              <motion.line
-                key="1a"
-                variants={drawArrows}
-                custom={0}
-                x1="100"
-                y1="100"
-                x2="100"
-                y2="46"
-              />
-              <motion.line
-                key="1b"
-                variants={drawArrows}
-                custom={0.5}
-                x1="100"
-                y1="46"
-                x2="110"
-                y2="55"
-              />
-              <motion.line
-                key="1c"
-                variants={drawArrows}
-                custom={0.5}
-                x1="100"
-                y1="46"
-                x2="90"
-                y2="55"
-              />
+            {/* Arrow Top */}
+            <motion.line
+              key="1a"
+              variants={drawArrows}
+              custom={0}
+              x1="100"
+              y1="100"
+              x2="100"
+              y2="46"
+            />
+            <motion.line
+              key="1b"
+              variants={drawArrows}
+              custom={0.5}
+              x1="100"
+              y1="46"
+              x2="110"
+              y2="55"
+            />
+            <motion.line
+              key="1c"
+              variants={drawArrows}
+              custom={0.5}
+              x1="100"
+              y1="46"
+              x2="90"
+              y2="55"
+            />
 
-              {/* Arrow Bottom-Left */}
-              <motion.line
-                key="2a"
-                variants={drawArrows}
-                custom={1}
-                x1="100"
-                y1="100"
-                x2="50"
-                y2="135"
-              />
-              <motion.line
-                key="2b"
-                variants={drawArrows}
-                custom={1.5}
-                x1="50"
-                y1="135"
-                x2="52"
-                y2="122"
-              />
-              <motion.line
-                key="2c"
-                variants={drawArrows}
-                custom={1.5}
-                x1="50"
-                y1="135"
-                x2="63"
-                y2="138"
-              />
+            {/* Arrow Bottom-Left */}
+            <motion.line
+              key="2a"
+              variants={drawArrows}
+              custom={1}
+              x1="100"
+              y1="100"
+              x2="50"
+              y2="135"
+            />
+            <motion.line
+              key="2b"
+              variants={drawArrows}
+              custom={1.5}
+              x1="50"
+              y1="135"
+              x2="52"
+              y2="122"
+            />
+            <motion.line
+              key="2c"
+              variants={drawArrows}
+              custom={1.5}
+              x1="50"
+              y1="135"
+              x2="63"
+              y2="138"
+            />
 
-              {/* Arrow Bottom-Right */}
-              <motion.line
-                key="3a"
-                variants={drawArrows}
-                custom={2}
-                x1="100"
-                y1="100"
-                x2="150"
-                y2="135"
-              />
-              <motion.line
-                key="3b"
-                variants={drawArrows}
-                custom={2.5}
-                x1="150"
-                y1="135"
-                x2="150"
-                y2="123"
-              />
-              <motion.line
-                key="3c"
-                variants={drawArrows}
-                custom={2.5}
-                x1="150"
-                y1="135"
-                x2="138"
-                y2="138"
-              />
+            {/* Arrow Bottom-Right */}
+            <motion.line
+              key="3a"
+              variants={drawArrows}
+              custom={2}
+              x1="100"
+              y1="100"
+              x2="150"
+              y2="135"
+            />
+            <motion.line
+              key="3b"
+              variants={drawArrows}
+              custom={2.5}
+              x1="150"
+              y1="135"
+              x2="150"
+              y2="123"
+            />
+            <motion.line
+              key="3c"
+              variants={drawArrows}
+              custom={2.5}
+              x1="150"
+              y1="135"
+              x2="138"
+              y2="138"
+            />
 
-              <motion.circle
-                key="c1"
-                variants={drawCircles}
-                custom={0}
-                fill="var(--col-fore)"
-                cx="80"
-                cy="90"
-                r="7"
-              />
-              <motion.circle
-                key="c2"
-                variants={drawCircles}
-                custom={1}
-                fill="var(--col-fore)"
-                cx="100"
-                cy="122"
-                r="7"
-              />
-              {/* Circles */}
-              <motion.circle
-                key="c3"
-                variants={drawCircles}
-                custom={2}
-                fill="var(--col-fore)"
-                cx="120"
-                cy="90"
-                r="7"
-              />
-            </motion.svg>
-          </motion.div>
-        </CursorSize>
+            <motion.circle
+              key="c1"
+              variants={drawCircles}
+              custom={0}
+              fill="var(--col-fore)"
+              cx="80"
+              cy="90"
+              r="7"
+            />
+            <motion.circle
+              key="c2"
+              variants={drawCircles}
+              custom={1}
+              fill="var(--col-fore)"
+              cx="100"
+              cy="122"
+              r="7"
+            />
+            {/* Circles */}
+            <motion.circle
+              key="c3"
+              variants={drawCircles}
+              custom={2}
+              fill="var(--col-fore)"
+              cx="120"
+              cy="90"
+              r="7"
+            />
+          </motion.svg>
+        </motion.div>
       )}
-
+      {/* The 4 divs that give the illusion that is the same cross we draw initially. */}
       {!cross &&
         [
           ["top-left", "left-0 top-0", "-100%", "-100%"],

@@ -48,23 +48,27 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   return (
     <>
       <div
-        className={`w-full h-screen bg-back overflow-y-scroll overflow-x-hidden -mb-[2px]`}
+        className={`w-full h-screen bg-fore overflow-y-scroll overflow-x-hidden -mb-[2px]`}
         ref={ref}
       >
         <div className="h-[500vh]">
-          <section className="sticky top-0 h-screen bg-back">
+          <section className="sticky top-0 h-screen bg-fore">
             <div className="w-full h-full flex flex-col">
-              <motion.div
-                ref={forwardedRef}
-                initial={{ y: 0, scaleX: 0 }}
-                animate={{ y: 0, scaleX: 1 }}
-                transition={{
-                  delay: environment.disableCover ? 0 : 3.22,
-                  duration: 1.5,
-                }}
-                className="h-[20px] bg-fore"
-                style={{ scaleX: progressBar }}
-              />
+              {/* Progress bar. */}
+              <div className="bg-back">
+                <motion.div
+                  ref={forwardedRef}
+                  initial={{ y: 0, scaleX: 0 }}
+                  animate={{ y: 0, scaleX: 1 }}
+                  transition={{
+                    delay: environment.disableCover ? 0 : 2.22,
+                    duration: 1.5,
+                  }}
+                  className="h-[20px] bg-fore"
+                  style={{ scaleX: progressBar }}
+                />
+              </div>
+              {/* Upper small box stripe. */}
               <motion.div
                 className="h-g2 flex justify-center overflow-visible"
                 initial="hidden"
@@ -73,9 +77,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: environment.disableCover ? 0 : 2.62,
+                      delay: environment.disableCover ? 0 : 1.12,
                       duration: 0.001,
-                      delayChildren: environment.disableCover ? 0 : 2.62,
+                      delayChildren: environment.disableCover ? 0 : 1.12,
                       staggerChildren: 0.05,
                     },
                   },
@@ -95,6 +99,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   ></motion.div>
                 ))}
               </motion.div>
+              {/* Upper big box stripe (the one with the hero title). */}
               <motion.div
                 className="h-g5 flex justify-center overflow-visible -mt-[2px]"
                 initial="hidden"
@@ -103,9 +108,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: environment.disableCover ? 0 : 2.62,
+                      delay: environment.disableCover ? 0 : 1.12,
                       duration: 0.001,
-                      delayChildren: environment.disableCover ? 0 : 2.62,
+                      delayChildren: environment.disableCover ? 0 : 1.12,
                       staggerChildren: 0.1,
                     },
                   },
@@ -157,8 +162,8 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   ></motion.div>
                 ))}
               </motion.div>
-
-              <div className="grow overflow-hidden">
+              {/* The WebGL cloth animation. */}
+              <div className="grow overflow-hidden bg-back">
                 {environment.disableGraphics ? (
                   ""
                 ) : (
@@ -168,7 +173,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   />
                 )}
               </div>
-
+              {/* Lower small box stripe. */}
               <motion.div
                 className="h-g3 flex justify-center overflow-visible"
                 initial="hidden"
@@ -177,9 +182,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: environment.disableCover ? 0 : 2.62,
+                      delay: environment.disableCover ? 0 : 1.12,
                       duration: 0.001,
-                      delayChildren: environment.disableCover ? 0 : 2.62,
+                      delayChildren: environment.disableCover ? 0 : 1.12,
                       staggerChildren: 0.05,
                       staggerDirection: -1,
                     },

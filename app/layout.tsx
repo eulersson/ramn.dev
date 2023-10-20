@@ -10,6 +10,7 @@ import {
 import "./globals.css";
 
 // Project
+import { CoverWrapper } from "@/components/layout/cover-wrapper";
 import { Providers } from "@/app/providers";
 
 // Environment
@@ -70,7 +71,9 @@ export default function RootLayout({
           "bg-back text-fore"
         }
       >
-        <Providers>{children}</Providers>
+        <CoverWrapper>
+          <Providers>{children}</Providers>
+        </CoverWrapper>
       </body>
     </html>
   );
