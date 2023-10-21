@@ -4,13 +4,18 @@
 import { useEffect, useRef } from "react";
 
 // Third-Party
-import { animate, useInView, useMotionValue } from "framer-motion";
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useScroll,
+} from "framer-motion";
 
 // Components
 import { SectionProvider, useSection } from "@/contexts/section";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
-import { Header } from "@/components/header";
 import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
 
@@ -27,6 +32,8 @@ export default function Page() {
 
 function Home() {
   const { section, setSection, navigationRunning } = useSection();
+
+  const { scrollYProgress } = useScroll();
 
   // TODO: Surely there must be a way to refactor these refs...
   const heroRef = useRef<HTMLHeadingElement>(null);
@@ -156,6 +163,15 @@ function Home() {
           <About ref={aboutRef} />
           <Experience ref={experienceRef} />
           <Projects ref={projectsRef} />
+          {/* Progress bar. */}
+          <div className="sticky bottom-0 w-full border-2-fore bg-back">
+            <motion.div
+              initial={{ y: 0, scaleX: 0 }}
+              animate={{ y: 0, scaleX: 1 }}
+              className="h-[20px] bg-fore"
+              style={{ scaleX: scrollYProgress }}
+            />
+          </div>
         </div>
       </PageWrapper>
     </div>
