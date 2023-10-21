@@ -2,14 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-NOTE: Since we don't use the Scroll Into View API anymore this shouldn't be needed but
-  I prefer leaving it here in case we need to get back to it.
-*/
-
-/* html {
+/* Hide scrollbar for Chrome, Safari and Opera */
+html {
   scroll-behavior: smooth;
-} */
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.invisible-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 :root {
   --col-fore: #000000;
@@ -60,7 +66,6 @@ NOTE: Since we don't use the Scroll Into View API anymore this shouldn't be need
   cursor: none;
 }
 
-/* TODO: Use Tailwind CSS */
 .cursor {
   pointer-events: none;
   background-color: white;

@@ -48,7 +48,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   return (
     <>
       <div
-        className={`w-full h-screen bg-fore overflow-y-scroll overflow-x-hidden -mb-[2px]`}
+        className={`w-full h-screen bg-fore overflow-y-scroll overflow-x-hidden invisible-scrollbar -mb-[2px]`}
         ref={ref}
       >
         <div className="h-[500vh]">

@@ -63,7 +63,7 @@ export default function RootLayout({
     // suppressHydrationWarning reason:
     // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#with-app
     // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
-    <html lang="en" suppressHydrationWarning>
+    <html className="invisible-scrollbar" lang="en" suppressHydrationWarning>
       <body
         className={
           `${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} ` +
