@@ -57,7 +57,7 @@ const PlayPrompt: FunctionComponent<{
           onClick={onClick}
           className="relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90 hover:scale-50"
         >
-          {/* Grid */}
+          {/* Grid. */}
           <div
             className="w-[300px] h-[300px]"
             style={{
@@ -66,7 +66,8 @@ const PlayPrompt: FunctionComponent<{
               backgroundSize: "59.75px 59.75px",
             }}
           ></div>
-          {/* Dots */}
+
+          {/* Dots. */}
           <div
             className="absolute inset-0"
             style={{
@@ -83,7 +84,8 @@ const PlayPrompt: FunctionComponent<{
           </div>
         </div>
       </CursorSize>
-      {/* Cursor */}
+
+      {/* Cursor. */}
       <div className="absolute pointer-events-none rotate-180 translate-x-3 translate-y-14">
         <div className="animate-bounce">
           <div className="rotate-180">
@@ -95,7 +97,8 @@ const PlayPrompt: FunctionComponent<{
           </div>
         </div>
       </div>
-      {/* Pinging Sphere */}
+
+      {/* Pinging sphere. */}
       <motion.div className="absolute pointer-events-none">
         <div className="absolute -ml-[8px] -mt-[8px]">
           <div className="absolute rounded-full w-[16px] h-[16px] bg-back"></div>
@@ -120,28 +123,6 @@ const Simulation: FunctionComponent<{
     camera.position.setX(particleSystem.approximateHalfClothWidth);
     camera.position.setY(-size.height / 2);
   }, [camera, size]);
-
-  useEffect(() => {
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") {
-        camera.position.setX(camera.position.x - 5);
-      } else if (e.key === "ArrowRight") {
-        camera.position.setX(camera.position.x + 5);
-      } else if (e.key === "ArrowDown") {
-        camera.position.setY(camera.position.y - 5);
-      } else if (e.key === "ArrowUp") {
-        camera.position.setY(camera.position.y + 5);
-      } else if (e.key === "o") {
-        camera.position.setZ(camera.position.z - 5);
-      } else if (e.key === "i") {
-        camera.position.setZ(camera.position.z + 5);
-      } else if (e.key === "j") {
-        particleSystem.decrementGravity();
-      } else if (e.key === "k") {
-        particleSystem.incrementGravity();
-      }
-    });
-  }, []);
 
   if (raycaster.params.Points) {
     raycaster.params.Points.threshold = 5;
@@ -198,7 +179,7 @@ const Simulation: FunctionComponent<{
     console.log("[Cloth] Rendering");
   }
 
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const col = theme === "dark" ? 0x94a3b8 : 0x111827;
 
   return (
@@ -418,6 +399,7 @@ export const Cloth: FunctionComponent<{
   const previousInView = useRef<boolean | null>(null);
   const hasNavigatedAway = useRef(false);
   const [showPlayPrompt, setShowPlayPrompt] = useState(false);
+  const playPromptClicked = useRef(false);
 
   useEffect(() => {
     if (inView === false && previousInView.current === true) {
@@ -428,7 +410,9 @@ export const Cloth: FunctionComponent<{
       hasNavigatedAway.current === true &&
       showPlayPrompt === false
     ) {
+      playPromptClicked.current = true;
       setShowPlayPrompt(true);
+      particleSystemRef.current.destroy();
     }
     previousInView.current = inView;
   }, [inView]);
@@ -459,14 +443,28 @@ export const Cloth: FunctionComponent<{
             <motion.div
               className="absolute left-0 w-1/2 h-full bg-fore z-10"
               initial={{ x: 0 }}
-              animate={{ x: '-100%', transitionEnd: { display: "none" } }}
-              transition={{ delay: environment.disableCover ? 1.2 : 2.9, duration: 1 }}
+              animate={{ x: "-100%", transitionEnd: { display: "none" } }}
+              transition={{
+                delay: environment.disableCover
+                  ? 1.2
+                  : playPromptClicked.current
+                  ? 1
+                  : 2.9,
+                duration: 1,
+              }}
             ></motion.div>
             <motion.div
               className="absolute right-0 w-1/2 h-full bg-fore z-10"
               initial={{ x: 0 }}
-              animate={{ x: '100%', transitionEnd: { display: "none" } }}
-              transition={{ delay: environment.disableCover ? 1.2 : 2.9, duration: 1 }}
+              animate={{ x: "100%", transitionEnd: { display: "none" } }}
+              transition={{
+                delay: environment.disableCover
+                  ? 1.2
+                  : playPromptClicked.current
+                  ? 1
+                  : 2.9,
+                duration: 1,
+              }}
             ></motion.div>
           </CursorSize>
           <Canvas

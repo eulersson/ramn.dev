@@ -54,6 +54,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
         <div className="h-[500vh]">
           <section className="sticky top-0 h-screen bg-fore">
             <div className="w-full h-full flex flex-col">
+
               {/* Progress bar. */}
               <div className="bg-back">
                 <motion.div
@@ -68,6 +69,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   style={{ scaleX: progressBar }}
                 />
               </div>
+
               {/* Upper small box stripe. */}
               <motion.div
                 className="h-g2 flex justify-center overflow-visible"
@@ -99,6 +101,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   ></motion.div>
                 ))}
               </motion.div>
+
               {/* Upper big box stripe (the one with the hero title). */}
               <motion.div
                 className="h-g5 flex justify-center overflow-visible -mt-[2px]"
@@ -162,6 +165,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   ></motion.div>
                 ))}
               </motion.div>
+
               {/* The WebGL cloth animation. */}
               <div className="grow overflow-hidden bg-back">
                 {environment.disableGraphics ? (
@@ -173,6 +177,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   />
                 )}
               </div>
+
               {/* Lower small box stripe. */}
               <motion.div
                 className="h-g3 flex justify-center overflow-visible"
