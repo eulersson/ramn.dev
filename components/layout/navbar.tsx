@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import { useSection } from "@/contexts/section";
 
 // Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 export function Navbar() {
   const { setSection, sections, activeSectionIdx, navigationRunning } =
     useSection();
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Navbar] Rendering");
   }
 
@@ -34,9 +34,14 @@ export function Navbar() {
               i > activeSectionIdx
                 ? `${28 * (sections.length - i - 1)}px`
                 : "initial",
-            color: s === sections[activeSectionIdx] ? "var(--col-back)" : "var(--col-fore)",
+            color:
+              s === sections[activeSectionIdx]
+                ? "var(--col-back)"
+                : "var(--col-fore)",
             backgroundColor:
-              s === sections[activeSectionIdx] ? "var(--col-fore)" : "var(--col-back)",
+              s === sections[activeSectionIdx]
+                ? "var(--col-fore)"
+                : "var(--col-back)",
           }}
           transition={{ duration: 0.6 }}
           style={{

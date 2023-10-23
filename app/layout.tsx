@@ -6,15 +6,13 @@ import {
   Urbanist,
 } from "next/font/google";
 
-// Styles
-import "./globals.css";
-
 // Project
 import { CoverWrapper } from "@/components/layout/cover-wrapper";
 import { Providers } from "@/app/providers";
+import { toBool } from "@/utils";
 
-// Environment
-import environment from "@/environment";
+// Styles
+import "./globals.css";
 
 const firaMono = Fira_Mono({
   subsets: ["latin"],
@@ -56,7 +54,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[RootLayout] Rendering");
   }
   return (

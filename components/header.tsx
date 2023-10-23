@@ -4,12 +4,10 @@
 import { Button } from "@/components/button";
 import { CursorSize } from "@/components/cursor-size";
 import { ThemedImage } from "@/components/themed-image";
-
-// Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 export function Header() {
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Header] Rendering");
   }
 

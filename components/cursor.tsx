@@ -7,10 +7,8 @@ import { useEffect } from "react";
 import { motion, useMotionValue } from "framer-motion";
 
 // Project
+import { toBool } from "@/utils";
 import { useCursor } from "@/contexts/cursor";
-
-// Environment
-import environment from "@/environment";
 
 export function Cursor() {
   const cursorX = useMotionValue(-500);
@@ -29,7 +27,7 @@ export function Cursor() {
     };
   }, [cursorX, cursorY]);
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Cursor] Rendering");
   }
 

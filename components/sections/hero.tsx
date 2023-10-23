@@ -10,17 +10,15 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Cloth } from "@/components/cloth/cloth";
 import { CursorSize } from "@/components/cursor-size";
 import { ThemeSwitch } from "@/components/theme-switch";
+import { toBool } from "@/utils";
 import { useSection } from "@/contexts/section";
-
-// Environment
-import environment from "@/environment";
 
 const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { scrollY, scrollYProgress } = useScroll({ container: ref });
+  const { scrollYProgress } = useScroll({ container: ref });
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Hero] Rendering");
   }
 
@@ -62,7 +60,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   initial={{ y: 0, scaleX: 0 }}
                   animate={{ y: 0, scaleX: 1 }}
                   transition={{
-                    delay: environment.disableCover ? 0 : 2.22,
+                    delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 2.22,
                     duration: 1.5,
                   }}
                   className="h-[20px] bg-fore"
@@ -79,9 +77,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: environment.disableCover ? 0 : 1.12,
+                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
                       duration: 0.001,
-                      delayChildren: environment.disableCover ? 0 : 1.12,
+                      delayChildren: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
                       staggerChildren: 0.05,
                     },
                   },
@@ -111,9 +109,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: environment.disableCover ? 0 : 1.12,
+                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
                       duration: 0.001,
-                      delayChildren: environment.disableCover ? 0 : 1.12,
+                      delayChildren: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
                       staggerChildren: 0.1,
                     },
                   },
@@ -168,7 +166,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
 
               {/* The WebGL cloth animation. */}
               <div className="grow overflow-hidden bg-back">
-                {environment.disableGraphics ? (
+                {toBool(process.env.NEXT_PUBLIC_DISABLE_GRAPHICS) ? (
                   ""
                 ) : (
                   <Cloth
@@ -187,9 +185,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: environment.disableCover ? 0 : 1.12,
+                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
                       duration: 0.001,
-                      delayChildren: environment.disableCover ? 0 : 1.12,
+                      delayChildren: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
                       staggerChildren: 0.05,
                       staggerDirection: -1,
                     },

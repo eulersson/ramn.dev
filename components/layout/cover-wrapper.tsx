@@ -9,9 +9,7 @@ import { AnimatePresence } from "framer-motion";
 // Project
 import { Cover } from "@/components/layout/cover";
 import { Spinner } from "@/components/layout/spinner";
-import environment from "@/environment";
-
-type Stage = "spinner" | "cover" | "page";
+import { toBool } from "@/utils";
 
 export const CoverWrapper: FunctionComponent<{ children: React.ReactNode }> = ({
   children,
@@ -20,7 +18,7 @@ export const CoverWrapper: FunctionComponent<{ children: React.ReactNode }> = ({
   const [showPage, setShowPage] = useState(false);
 
   useEffect(() => {
-    if (environment.disableCover) {
+    if (toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)) {
       setShowPage(true);
       return;
     }

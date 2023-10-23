@@ -8,13 +8,10 @@ import { AnimatePresence } from "framer-motion";
 
 // Components
 import { BackgroundGrid } from "@/components/layout/background-grid";
-import { Cover } from "@/components/layout/cover";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/sections/hero";
 import { Navbar } from "@/components/layout/navbar";
-
-// Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 export function PageWrapper({
   children,
@@ -38,14 +35,16 @@ export function PageWrapper({
     };
   }, []);
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[PageWrapper] Rendering");
   }
 
   return (
     <AnimatePresence>
       {showNavBar && <Navbar key="navbar" />}
-      {!environment.disableHero && <Hero key="hero" ref={heroRef} />}
+      {!toBool(process.env.NEXT_PUBLIC_DISABLE_HERO) && (
+        <Hero key="hero" ref={heroRef} />
+      )}
       <div
         key="layout-container"
         className="root-layout-container drill-mouse-hover"

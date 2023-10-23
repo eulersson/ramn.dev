@@ -3,7 +3,6 @@ import {
   FunctionComponent,
   MouseEventHandler,
   MutableRefObject,
-  Suspense,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -38,13 +37,11 @@ import { CursorSize } from "@/components/cursor-size";
 import { ParticleSystem } from "@/components/cloth/particle-system";
 import cursorIcon from "@/public/cursor.svg";
 import cursorIconDark from "@/public/cursor-dark.svg";
+import { toBool } from "@/utils";
 import { useCursor } from "@/contexts/cursor";
 
-// Project - Local
+// Local
 import { cursorAnimationConfig } from "./cursor-animation";
-
-// Environment
-import environment from "@/environment";
 
 const PlayPrompt: FunctionComponent<{
   onClick: MouseEventHandler;
@@ -175,7 +172,7 @@ const Simulation: FunctionComponent<{
     }
   });
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Cloth] Rendering");
   }
 
@@ -241,7 +238,7 @@ export const Cloth: FunctionComponent<{
   const baseGravity = particleSystem.gravity;
 
   time.on("change", (t) => {
-    const offset = environment.disableCover ? 0 : 2000;
+    const offset = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 2000;
     t -= offset;
 
     if (t < 0) {
@@ -297,7 +294,7 @@ export const Cloth: FunctionComponent<{
     }
   }, []);
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Cloth] Rendering");
   }
 
@@ -445,7 +442,7 @@ export const Cloth: FunctionComponent<{
               initial={{ x: 0 }}
               animate={{ x: "-100%", transitionEnd: { display: "none" } }}
               transition={{
-                delay: environment.disableCover
+                delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
                   ? 1.2
                   : playPromptClicked.current
                   ? 1
@@ -458,7 +455,7 @@ export const Cloth: FunctionComponent<{
               initial={{ x: 0 }}
               animate={{ x: "100%", transitionEnd: { display: "none" } }}
               transition={{
-                delay: environment.disableCover
+                delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
                   ? 1.2
                   : playPromptClicked.current
                   ? 1
@@ -485,7 +482,7 @@ export const Cloth: FunctionComponent<{
             }
           >
             <DreiOrthographicCamera ref={cameraRef} makeDefault />
-            {environment.debug && <Stats />}
+            {toBool(process.env.NEXT_PUBLIC_DEBUG) && <Stats />}
             <Simulation
               particleSystemRef={particleSystemRef}
               delayOffset={delayOffset}

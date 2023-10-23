@@ -9,9 +9,7 @@ import { useTheme } from "next-themes";
 
 // Project
 import { CursorSize } from "@/components/cursor-size";
-
-// Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
 export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
@@ -74,7 +72,7 @@ export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
     return null;
   }
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[ThemeSwitch] Rendering.");
   }
 

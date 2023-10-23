@@ -18,9 +18,7 @@ import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
 import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
-
-// Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 export default function Page() {
   return (
@@ -152,7 +150,7 @@ function Home() {
 
   // TODO: Home is rendering too many times. Isolate the parts that are dynamic, such
   //   as the cursor.
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Home] Rendering.");
   }
 

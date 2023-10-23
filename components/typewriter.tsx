@@ -4,8 +4,8 @@ import { FunctionComponent } from "react";
 // Third-Party
 import { motion } from "framer-motion";
 
-// Environment
-import environment from "@/environment";
+// Project
+import { toBool } from "@/utils";
 
 export type Sentence = {
   text: string;
@@ -46,7 +46,7 @@ export const Typewriter: FunctionComponent<{
     },
   };
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Typewriter] Rendering");
   }
 

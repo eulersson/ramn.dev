@@ -1,4 +1,4 @@
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 export interface TagProps {
   text: string;
@@ -7,7 +7,7 @@ export interface TagProps {
 }
 
 export function Tag({ text, dotted = false, border = false }: TagProps) {
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Tag] Rendering");
   }
   return (

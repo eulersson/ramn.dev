@@ -3,9 +3,7 @@ import { forwardRef } from "react";
 
 // Project
 import { CursorSize } from "@/components/cursor-size";
-
-// Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 const Title = forwardRef<
   HTMLHeadingElement,
@@ -14,7 +12,7 @@ const Title = forwardRef<
     className?: string;
   }
 >(function Title({ children, className = "" }, ref) {
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Title] Rendering");
   }
 

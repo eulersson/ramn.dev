@@ -1,16 +1,16 @@
-// Styles
-import "./background-grid.css";
-
 // React
 import { memo } from "react";
 
-// Environment
-import environment from "@/environment";
+// Project
+import { toBool } from "@/utils";
+
+// Styles
+import "./background-grid.css";
 
 export const BackgroundGrid = memo(function BackgroundGrid() {
   const numBoxes = 100;
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[BGGrid] Rendering");
   }
 

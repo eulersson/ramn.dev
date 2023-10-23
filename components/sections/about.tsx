@@ -1,11 +1,9 @@
 // React
 import { forwardRef, useEffect, useRef, useState } from "react";
 
-// Next.js
-import Image from "next/image";
-
 // Third-Party
 import { useInView } from "framer-motion";
+import { useTheme } from "next-themes";
 
 // Project
 import { Sentence, Typewriter } from "@/components/typewriter";
@@ -15,13 +13,10 @@ import { TagProps } from "@/components/tag";
 import { Terminal } from "@/components/terminal";
 import { ThemedImage } from "@/components/themed-image";
 import { Title } from "@/components/title";
+import { toBool } from "@/utils";
 
 // Content
 import Intention from "@/content/sections/intention.mdx";
-
-// Environment
-import environment from "@/environment";
-import { useTheme } from "next-themes";
 
 const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -96,7 +91,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
 
   const { theme, setTheme } = useTheme();
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[About] Rendering");
   }
 

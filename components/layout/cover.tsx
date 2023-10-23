@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 // Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 export function Cover() {
   const [cross, setCross] = useState(true);
@@ -44,7 +44,7 @@ export function Cover() {
     },
   };
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Cover] Rendering");
   }
 

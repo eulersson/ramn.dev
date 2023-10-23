@@ -18,6 +18,7 @@ import { CursorSize } from "@/components/cursor-size";
 import { Tag } from "@/components/tag";
 import ThemedImage from "@/components/themed-image";
 import { Title } from "@/components/title";
+import { toBool } from "@/utils";
 
 // Project - Content
 import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
@@ -26,10 +27,6 @@ import jobEfestoLab from "@/content/experience/efestoLab.json";
 import jobMPC from "@/content/experience/mpc.json";
 import jobNpaw from "@/content/experience/npaw.json";
 import jobWatchity from "@/content/experience/watchity.json";
-
-// Environment
-import environment from "@/environment";
-import { useTheme } from "next-themes";
 
 type LogoRef = {
   spin: Function;
@@ -121,7 +118,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
     [job]
   );
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Experience] Rendering");
   }
 

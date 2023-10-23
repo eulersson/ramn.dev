@@ -4,8 +4,8 @@ import { forwardRef } from "react";
 // Third-Party
 import { Typewriter } from "./typewriter";
 
-// Environment
-import environment from "@/environment";
+// Project
+import { toBool } from "@/utils";
 
 // TODO: Make interactive: allow moving, minimizing, closing, resizing.
 export const Terminal = forwardRef<
@@ -27,7 +27,7 @@ export const Terminal = forwardRef<
   },
   ref
 ) {
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Terminal] Rendering");
   }
 

@@ -4,7 +4,9 @@ import path from "path";
 
 // Next.js
 import dynamic from "next/dynamic";
-import environment from "@/environment";
+
+// Project
+import { toBool } from "@/utils";
 
 const projectsPath = path.join(process.cwd(), "content", "projects");
 
@@ -15,10 +17,14 @@ export function generateStaticParams() {
   return projects.map((name) => ({ slug: name.replace(".mdx", "") }));
 }
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
+export default async function ProjectPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[ProjectPage] Rendering app/work/[slug]/page.ts", slug);
   }
   const Project = dynamic(() => import(`@/content/projects/${slug}.mdx`));

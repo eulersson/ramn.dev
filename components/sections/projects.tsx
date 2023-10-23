@@ -3,12 +3,10 @@ import { ForwardedRef, forwardRef } from "react";
 
 // Project
 import { Title } from "@/components/title";
-
-// Environment
-import environment from "@/environment";
+import { toBool } from "@/utils";
 
 const Projects = forwardRef<HTMLHeadingElement>(function Projects({}, ref) {
-  if (environment.printComponentRendering) {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Projects] Rendering");
   }
 
