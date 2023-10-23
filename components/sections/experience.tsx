@@ -1,4 +1,4 @@
-// React
+// Third-Party
 import {
   forwardRef,
   useCallback,
@@ -8,13 +8,11 @@ import {
   useRef,
   useState,
 } from "react";
-
-// Third-Party
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 
 // Project
 import { Block } from "@/components/block";
-import { CursorSize } from "@/components/cursor-size";
+import { CursorSize } from "@/components/cursor";
 import { Tag } from "@/components/tag";
 import ThemedImage from "@/components/themed-image";
 import { Title } from "@/components/title";

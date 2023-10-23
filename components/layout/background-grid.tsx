@@ -1,4 +1,4 @@
-// React
+// Third-Party
 import { memo } from "react";
 
 // Project

@@ -1,4 +1,3 @@
-// Project
 import { BackgroundGrid } from "@/components/layout/background-grid";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -1,8 +1,5 @@
 "use client";
 
-// React
-import { useEffect, useRef } from "react";
-
 // Third-Party
 import {
   animate,
@@ -11,8 +8,9 @@ import {
   useMotionValue,
   useScroll,
 } from "framer-motion";
+import { useEffect, useRef } from "react";
 
-// Components
+// Project
 import { SectionProvider, useSection } from "@/contexts/section";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";

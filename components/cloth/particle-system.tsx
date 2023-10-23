@@ -1,7 +1,10 @@
+// Project
 import { GridDimensions, Position, Size } from "@/types";
-import { Particle } from "@/components/cloth/particle";
-import { PinConstraint } from "@/components/cloth/pin-constraint";
-import { SpringConstraint } from "@/components/cloth/spring-constraint";
+
+// Local
+import { Particle } from "./particle";
+import { PinConstraint } from "./pin-constraint";
+import { SpringConstraint } from "./spring-constraint";
 
 type ClickCon = {
   active: boolean;

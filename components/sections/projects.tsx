@@ -1,5 +1,5 @@
-// React
-import { ForwardedRef, forwardRef } from "react";
+// Third-Party
+import { forwardRef } from "react";
 
 // Project
 import { Title } from "@/components/title";

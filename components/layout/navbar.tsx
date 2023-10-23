@@ -2,10 +2,8 @@
 import { motion } from "framer-motion";
 
 // Project
-import { useSection } from "@/contexts/section";
-
-// Environment
 import { toBool } from "@/utils";
+import { useSection } from "@/contexts/section";
 
 export function Navbar() {
   const { setSection, sections, activeSectionIdx, navigationRunning } =

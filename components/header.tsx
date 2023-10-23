@@ -2,7 +2,7 @@
 
 // Project
 import { Button } from "@/components/button";
-import { CursorSize } from "@/components/cursor-size";
+import { CursorSize } from "@/components/cursor";
 import { ThemedImage } from "@/components/themed-image";
 import { toBool } from "@/utils";
 

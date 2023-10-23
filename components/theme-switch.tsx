@@ -8,7 +8,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useTheme } from "next-themes";
 
 // Project
-import { CursorSize } from "@/components/cursor-size";
+import { CursorSize } from "@/components/cursor";
 import { toBool } from "@/utils";
 
 // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch

@@ -1,4 +1,4 @@
-// Next.js
+// Third-Party
 import {
   Fira_Mono,
   Nunito,

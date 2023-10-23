@@ -1,11 +1,10 @@
 "use client";
 
+import { Cursor, CursorProvider } from "@/components/cursor";
 // Third-Party
 import { ThemeProvider } from "next-themes";
 
 // Project
-import { Cursor } from "@/components/cursor";
-import { CursorProvider } from "@/contexts/cursor";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

@@ -1,14 +1,12 @@
-// React
-import { forwardRef, useEffect, useRef, useState } from "react";
-
 // Third-Party
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { useTheme } from "next-themes";
 
 // Project
 import { Sentence, Typewriter } from "@/components/typewriter";
 import { Block } from "@/components/block";
-import { CursorSize } from "@/components/cursor-size";
+import { CursorSize } from "@/components/cursor";
 import { TagProps } from "@/components/tag";
 import { Terminal } from "@/components/terminal";
 import { ThemedImage } from "@/components/themed-image";

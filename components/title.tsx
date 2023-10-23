@@ -2,7 +2,7 @@
 import { forwardRef } from "react";
 
 // Project
-import { CursorSize } from "@/components/cursor-size";
+import { CursorSize } from "@/components/cursor";
 import { toBool } from "@/utils";
 
 const Title = forwardRef<

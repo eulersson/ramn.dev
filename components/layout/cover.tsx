@@ -1,10 +1,8 @@
-// React
-import { useEffect, useState } from "react";
-
 // Third-Party
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-// Environment
+// Project
 import { toBool } from "@/utils";
 
 export function Cover() {

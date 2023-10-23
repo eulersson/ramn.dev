@@ -1,9 +1,7 @@
 "use client";
 
-// React
-import { ForwardedRef, useEffect, useRef, useState } from "react";
-
 // Third-Party
+import { ForwardedRef, useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // Components

@@ -1,9 +1,7 @@
 "use client";
 
-// React
-import { FunctionComponent, useEffect, useState } from "react";
-
 // Third-Party
+import { FunctionComponent, useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // Project

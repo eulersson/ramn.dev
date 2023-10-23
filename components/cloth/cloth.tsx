@@ -1,4 +1,4 @@
-// React
+// Third-Party
 import {
   FunctionComponent,
   MouseEventHandler,
@@ -9,17 +9,6 @@ import {
   useRef,
   useState,
 } from "react";
-
-// Next.js
-import Image from "next/image";
-
-// Third-Party
-import { BufferAttribute, DynamicDrawUsage, OrthographicCamera } from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  OrthographicCamera as DreiOrthographicCamera,
-  Stats,
-} from "@react-three/drei";
 import {
   MotionValue,
   motion,
@@ -29,16 +18,24 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 
+// Third-Party - 3D
+import { BufferAttribute, DynamicDrawUsage, OrthographicCamera } from "three";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import {
+  OrthographicCamera as DreiOrthographicCamera,
+  Stats,
+} from "@react-three/drei";
+
 // Project
+import { CursorSize, useCursor } from "@/components/cursor";
 import { GridDimensions, Size } from "@/types";
-import { CursorSize } from "@/components/cursor-size";
 import { ParticleSystem } from "@/components/cloth/particle-system";
 import cursorIcon from "@/public/cursor.svg";
 import cursorIconDark from "@/public/cursor-dark.svg";
 import { toBool } from "@/utils";
-import { useCursor } from "@/contexts/cursor";
 
 // Local
 import { cursorAnimationConfig } from "./cursor-animation";
