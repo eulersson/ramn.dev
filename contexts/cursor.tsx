@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 
 // Third-Party
 import { MotionValue, useMotionValue, useSpring } from "framer-motion";
@@ -15,9 +15,13 @@ const CursorContext = createContext<{
 } | null>(null);
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
-  const cursorSize = useMotionValue(1);
+  const cursorSize = useMotionValue(0);
   const cursorSizeAnimated = useSpring(cursorSize, { damping: 10 });
   const setCursorSize = (value: number) => cursorSize.set(value);
+
+  useEffect(() => {
+    cursorSize.set(1);
+  }, []);
 
   return (
     <CursorContext.Provider

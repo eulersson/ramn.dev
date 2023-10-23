@@ -16,7 +16,7 @@ export function Cursor() {
   const cursorX = useMotionValue(-500);
   const cursorY = useMotionValue(-500);
 
-  const {cursorSize, setCursorSize} = useCursor();
+  const { cursorSize } = useCursor();
 
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
