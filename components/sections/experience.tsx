@@ -121,10 +121,10 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
   }
 
   return (
-    <>
+    <div ref={ref}>
       {/* --- Experience ----------------------------------------------------------- */}
       <section className="flex flex-col justify-center drill-mouse-hover">
-        <Title ref={ref}>Experience</Title>
+        <Title>Experience</Title>
         <div
           className={`gap-[2px] p-[2px] pb-[0px] flex h-[calc(var(--bg-grid-box-size)*${
             isBigJob ? "3" : "2"
@@ -250,7 +250,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 });
 

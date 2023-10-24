@@ -1,7 +1,6 @@
 // Third-Party
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
-import { useTheme } from "next-themes";
 
 // Project
 import { Sentence, Typewriter } from "@/components/typewriter";
@@ -87,15 +86,16 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "leveraging cloud computing when possible." },
   ];
 
-  const { theme, setTheme } = useTheme();
-
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[About] Rendering");
   }
 
   return (
-    <section className="flex flex-col justify-center drill-mouse-hover">
-      <Title ref={ref}>Who Am I?</Title>
+    <section
+      ref={ref}
+      className="flex flex-col justify-center drill-mouse-hover"
+    >
+      <Title>Who Am I?</Title>
       <Terminal
         ref={terminalRef}
         disableHighlight={terminalState !== null}

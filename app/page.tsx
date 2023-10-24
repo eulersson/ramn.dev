@@ -8,7 +8,8 @@ import {
   useMotionValue,
   useScroll,
 } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { debug } from "debug";
 
 // Project
 import { SectionProvider, useSection } from "@/contexts/section";
@@ -17,6 +18,11 @@ import { Experience } from "@/components/sections/experience";
 import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
 import { toBool } from "@/utils";
+import { usePrevious } from "@/hooks/previous";
+
+// Loggers
+const log = debug("page");
+const sectionsLog = debug("sections");
 
 export default function Page() {
   return (
@@ -28,57 +34,71 @@ export default function Page() {
 
 function Home() {
   const { section, setSection, navigationRunning } = useSection();
+  const previousSection = usePrevious(section);
 
   const { scrollYProgress } = useScroll();
 
-  // TODO: Surely there must be a way to refactor these refs...
   const heroRef = useRef<HTMLHeadingElement>(null);
   const heroInView = useInView(heroRef);
 
   useEffect(() => {
-    if (heroInView && !navigationRunning.current) {
-      if (section !== "home") {
-        console.log("[page.tsx] heroInView", "home");
-        setSection("home");
-      }
-    }
+    handleSectionInViewChange("home", heroInView);
   }, [heroInView]);
 
   const aboutRef = useRef<HTMLHeadingElement>(null);
   const aboutInView = useInView(aboutRef);
 
   useEffect(() => {
-    if (aboutInView && !navigationRunning.current) {
-      if (section !== "about") {
-        console.log("[page.tsx] aboutInView", "about");
-        setSection("about");
-      }
-    }
+    handleSectionInViewChange("about", aboutInView);
   }, [aboutInView]);
 
   const experienceRef = useRef<HTMLHeadingElement>(null);
   const experienceInView = useInView(experienceRef);
 
   useEffect(() => {
-    if (experienceInView && !navigationRunning.current) {
-      if (section !== "experience") {
-        console.log("[page.tsx] experienceInView", "experience");
-        setSection("experience");
-      }
-    }
+    handleSectionInViewChange("experience", experienceInView);
   }, [experienceInView]);
 
   const projectsRef = useRef<HTMLHeadingElement>(null);
   const projectsInView = useInView(projectsRef);
 
   useEffect(() => {
-    if (projectsInView && !navigationRunning.current) {
-      if (section !== "projects") {
-        console.log("[page.tsx] projectsInView", "projects");
-        setSection("projects");
-      }
-    }
+    handleSectionInViewChange("projects", projectsInView);
   }, [projectsInView]);
+
+  /**
+   * Changes the current section depending on whether the container from a section has
+   * come into view or left the viewport.
+   * @param sectionChange New section that has either come into view or left from view.
+   * @param inView Whether it came into view or left.
+   */
+  const handleSectionInViewChange = useCallback(
+    (sectionChange: string, inView: boolean) => {
+      sectionsLog(
+        `[inView] [${sectionChange}] navigationRunning: ${navigationRunning.current} ` +
+          `inView: ${inView}`
+      );
+      if (navigationRunning.current) {
+        sectionsLog(
+          "Returning because an animation resulting from a nav item click is running."
+        );
+        return;
+      }
+
+      if (inView && section !== sectionChange) {
+        sectionsLog(
+          `[inView] [${sectionChange}:ON] setting section to new '${sectionChange}'.`
+        );
+        setSection(sectionChange);
+      } else if (!inView && previousSection && section === sectionChange) {
+        sectionsLog(
+          `[inView] [${sectionChange}:OFF] setting section to previous '${previousSection}'.`
+        );
+        setSection(previousSection);
+      }
+    },
+    [section, heroInView, aboutInView, experienceInView, projectsInView]
+  );
 
   const windowSpring = useMotionValue(0);
   useEffect(() => {
@@ -149,7 +169,7 @@ function Home() {
   // TODO: Home is rendering too many times. Isolate the parts that are dynamic, such
   //   as the cursor.
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
-    console.log("[Home] Rendering.");
+    log("[Home] Rendering.");
   }
 
   return (
