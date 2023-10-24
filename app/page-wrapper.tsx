@@ -20,7 +20,7 @@ export function PageWrapper({
 }) {
   const [showNavBar, setShowNavBar] = useState(false);
 
-  const navBarTimeoutMillis = process.env.NEXT_PUBLIC_DISABLE_COVER ? 0 : 4800;
+  const navBarTimeoutMillis = process.env.NEXT_PUBLIC_DISABLE_COVER ? 1000 : 4800;
 
   useEffect(() => {
     const setShowNavBarTimeout = setTimeout(() => {
