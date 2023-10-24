@@ -4,17 +4,15 @@ import { toBool } from "@/utils";
 
 type ClassNameSlot = "wrapper" | "main" | "tags";
 
-export interface BlockProps {
-  children: React.ReactNode;
-  tags: TagProps[];
-  classNames: { [key in ClassNameSlot]?: string };
-}
-
-export const Block: React.FunctionComponent<BlockProps> = ({
+export function Block({
   children,
   tags,
   classNames = {},
-}) => {
+}: {
+  children: React.ReactNode;
+  tags: TagProps[];
+  classNames: { [key in ClassNameSlot]?: string };
+}) {
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Block] Rendering");
   }
@@ -39,4 +37,4 @@ export const Block: React.FunctionComponent<BlockProps> = ({
       )}
     </div>
   );
-};
+}

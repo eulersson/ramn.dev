@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Third-Party
 import { motion, useMotionValue, useSpring } from "framer-motion";
@@ -12,9 +12,7 @@ import { CursorSize } from "@/components/cursor";
 import { toBool } from "@/utils";
 
 // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
-export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
-  className = "",
-}) => {
+export function ThemeSwitch({ className }: { className?: string }) {
   const scale = useMotionValue(1);
   const scaleSpring = useSpring(scale, { stiffness: 200, damping: 12 });
 
@@ -197,4 +195,4 @@ export const ThemeSwitch: FunctionComponent<{ className?: string }> = ({
       </motion.div>
     )
   );
-};
+}

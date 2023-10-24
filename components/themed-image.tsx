@@ -4,18 +4,24 @@
 import Image from "next/image";
 
 // React
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Third-Party
 import { useTheme } from "next-themes";
 
-export const ThemedImage: FunctionComponent<{
+export function ThemedImage({
+  width,
+  height,
+  src,
+  alt,
+  className = "",
+}: {
   width: number;
   height: number;
   src: string;
   alt: string;
   className?: string;
-}> = ({ width, height, src, alt, className = "" }) => {
+}) {
   const { resolvedTheme } = useTheme();
 
   const [fileName, extension] = src.split(".");
@@ -53,6 +59,6 @@ export const ThemedImage: FunctionComponent<{
       alt={alt}
     />
   );
-};
+}
 
 export default ThemedImage;

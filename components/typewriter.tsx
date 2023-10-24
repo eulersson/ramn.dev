@@ -1,6 +1,3 @@
-// React
-import { FunctionComponent } from "react";
-
 // Third-Party
 import { motion } from "framer-motion";
 
@@ -12,17 +9,17 @@ export type Sentence = {
   className?: string;
 };
 
-export const Typewriter: FunctionComponent<{
-  sentences: Sentence[];
-  disableHighlight?: boolean;
-  staggerChildren?: number;
-  className?: string;
-}> = ({
+export function Typewriter({
   sentences,
   disableHighlight = false,
   staggerChildren = 0.025,
   className,
-}) => {
+}: {
+  sentences: Sentence[];
+  disableHighlight?: boolean;
+  staggerChildren?: number;
+  className?: string;
+}) {
   const container = {
     hidden: {
       opacity: 0,
@@ -111,4 +108,4 @@ export const Typewriter: FunctionComponent<{
         ""}
     </motion.div>
   );
-};
+}

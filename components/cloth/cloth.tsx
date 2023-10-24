@@ -1,15 +1,5 @@
 // Third-Party
 import {
-  FunctionComponent,
-  MouseEventHandler,
-  MutableRefObject,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
   MotionValue,
   motion,
   useInView,
@@ -18,6 +8,15 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
+import {
+  MouseEventHandler,
+  MutableRefObject,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 
@@ -40,9 +39,7 @@ import { toBool } from "@/utils";
 // Local
 import { cursorAnimationConfig } from "./cursor-animation";
 
-const PlayPrompt: FunctionComponent<{
-  onClick: MouseEventHandler;
-}> = ({ onClick }) => {
+function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
   const { theme } = useTheme();
   return (
     <div className="bg-fore text-back w-full h-full flex items-center justify-center">
@@ -101,12 +98,15 @@ const PlayPrompt: FunctionComponent<{
       </motion.div>
     </div>
   );
-};
+}
 
-const Simulation: FunctionComponent<{
+function Simulation({
+  particleSystemRef,
+  delayOffset,
+}: {
   particleSystemRef: MutableRefObject<ParticleSystem>;
   delayOffset?: number;
-}> = ({ particleSystemRef, delayOffset }) => {
+}) {
   const { camera, raycaster, size } = useThree();
 
   camera.position.setX(0);
@@ -214,12 +214,15 @@ const Simulation: FunctionComponent<{
       </points>
     </>
   );
-};
+}
 
-export const Cloth: FunctionComponent<{
+export function Cloth({
+  scrollYProgress,
+  delayOffset = 0,
+}: {
   scrollYProgress: MotionValue<number>;
   delayOffset?: number;
-}> = ({ scrollYProgress, delayOffset = 0 }) => {
+}) {
   // Particle system references.
   const particleSystemRef = useRef(new ParticleSystem());
   const particleSystem = particleSystemRef.current;
@@ -489,4 +492,4 @@ export const Cloth: FunctionComponent<{
       )}
     </div>
   );
-};
+}

@@ -1,7 +1,7 @@
 "use client";
 
 // Third-Party
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // Project
@@ -9,9 +9,7 @@ import { Cover } from "@/components/layout/cover";
 import { Spinner } from "@/components/layout/spinner";
 import { toBool } from "@/utils";
 
-export const CoverWrapper: FunctionComponent<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export function CoverWrapper({ children }: { children: React.ReactNode }) {
   const [showCover, setShowCover] = useState(false);
   const [showPage, setShowPage] = useState(false);
 
@@ -42,4 +40,4 @@ export const CoverWrapper: FunctionComponent<{ children: React.ReactNode }> = ({
       {showPage && <div key="page">{children}</div>}
     </AnimatePresence>
   );
-};
+}
