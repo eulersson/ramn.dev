@@ -44,7 +44,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   return (
     <>
       <div
-        className={`w-full h-screen bg-fore overflow-y-scroll overflow-x-hidden invisible-scrollbar -mb-[2px]`}
+        className={`w-full h-screen bg-fore overflow-y-scroll overflow-x-hidden invisible-scrollbar -mb-ggpn`}
         ref={ref}
       >
         <div className="h-[500vh]">
@@ -68,7 +68,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
 
               {/* Upper small box stripe. */}
               <motion.div
-                className="h-g2 flex justify-center overflow-visible"
+                className="h-g02n flex justify-center overflow-visible"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -89,7 +89,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(40)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g2 bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g02n bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, x: 0, y: 0 },
                       hidden: { opacity: 0, x: -40, y: -40 },
@@ -100,7 +100,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
 
               {/* Upper big box stripe (the one with the hero title). */}
               <motion.div
-                className="h-g5 flex justify-center overflow-visible -mt-[2px]"
+                className="h-g05n flex justify-center overflow-visible -mt-ggpn"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -121,7 +121,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(8)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g5 bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g05n bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
@@ -153,7 +153,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(8)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g5 bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g05n bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
@@ -176,7 +176,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
 
               {/* Lower small box stripe. */}
               <motion.div
-                className="h-g3 flex justify-center overflow-visible"
+                className="h-g03n flex justify-center overflow-visible"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -198,7 +198,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(40)].map((e, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g3 bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g03n bg-back border-2-fore -mx-[1px]"
                     variants={{
                       visible: { opacity: 1, x: 0, y: 0 },
                       hidden: { opacity: 0, x: -40, y: -40 },

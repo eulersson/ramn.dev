@@ -20,7 +20,7 @@ export function Block({
   return (
     <div className={`bg-fore ${classNames.wrapper || ""}`}>
       <div
-        className={`bg-back  border-2-fore font-sans text-xl rounded-[40px] ${
+        className={`bg-back font-sans text-xl rounded-[40px] ${
           classNames.main || ""
         }`}
       >
@@ -28,11 +28,11 @@ export function Block({
       </div>
       {tags && tags.length >= 1 && (
         <div
-          className={`bg-fore px-4 py-4 space-x-1 space-y-1 ${
+          className={`bg-fore p-2 flex items-center justify-center gap-2 ${
             classNames.tags || ""
           }`}
         >
-          {...tags.map((props, i) => <Tag {...props} key={i} />)}
+          {...tags.map((props, i) =><div key={i}> <Tag {...props} key={i} /></div>)}
         </div>
       )}
     </div>

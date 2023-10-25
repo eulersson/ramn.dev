@@ -55,13 +55,13 @@ export function Cover() {
           className="fixed w-full h-full bg-back border-2-fore z-40"
         >
           <motion.div
-            className="absolute w-[2px] bg-fore top-0 left-[calc(50%-1px)]"
+            className="absolute w-ggpn bg-fore top-0 left-[calc(50%-1px)]"
             initial={{ height: "0%" }}
             animate={{ height: "100%" }}
             transition={{ duration: 0.4, delay: 0.2 }}
           ></motion.div>
           <motion.div
-            className="absolute h-[2px] bg-fore top-[calc(50%-1px)] left-0"
+            className="absolute h-ggpn bg-fore top-[calc(50%-1px)] left-0"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 0.6, delay: 0.4 }}

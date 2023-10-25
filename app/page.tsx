@@ -179,6 +179,7 @@ function Home() {
           <About ref={aboutRef} />
           <Experience ref={experienceRef} />
           <Projects ref={projectsRef} />
+          <div className="-mb-[24px]"></div>
           {/* Progress bar. */}
           <div className="sticky bottom-0 w-full border-2-fore bg-back">
             <motion.div

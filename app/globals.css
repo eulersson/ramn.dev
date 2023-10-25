@@ -30,11 +30,20 @@
 
 :root {
   --bg-grid-box-size: 200px;
+  --bg-grid-gap: 2px;
+}
+
+@screen md {
+  :root {
+    --bg-grid-box-size: 225px;
+    --bg-grid-gap: 2px;
+  }
 }
 
 @screen lg {
   :root {
     --bg-grid-box-size: 250px;
+    --bg-grid-gap: 2px;
   }
 }
 
@@ -85,7 +94,7 @@
     @apply border-2 border-fore;
   }
 
-  .border-inside {
+  .border-2-fore-inside {
     @apply outline outline-fore outline-2 -outline-offset-2;
   }
 }

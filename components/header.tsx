@@ -12,8 +12,8 @@ export function Header() {
   }
 
   return (
-    <div className="sticky top-0 h-g3 w-full flex justify-center z-10">
-      <header className="w-[calc(4*var(--bg-grid-box-size)+2px)] border-2-fore bg-fore grid grid-cols-4 grid-rows-2 bg-back border-fore gap-[2px]">
+    <div className="sticky top-0 h-g03n w-full flex justify-center z-10">
+      <header className="w-g40y border-2-fore bg-fore grid grid-cols-4 grid-rows-2 bg-back border-fore gap-ggpn">
         <div className="bg-back row-span-2 pt-[6px] pl-[14px]">
           <h1 className="font-title inline text-[44px] leading-[30px] select-none">
             Ramon Blanquer
@@ -55,7 +55,7 @@ export function Header() {
           </CursorSize>
         </div>
         <div className="bg-back row-start-1 col-start-4 row-span-2 col-span-1 flex items-center">
-          <div className="leading-[20px] text-[15px] flex flex-col gap-[2px]">
+          <div className="leading-[20px] text-[15px] flex flex-col gap-ggpn">
             <div className="flex">
               <pre className="font-mono inline-block bg-fore text-back">
                 from code to deployment;

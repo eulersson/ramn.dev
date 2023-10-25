@@ -18,7 +18,7 @@ export function Navbar() {
       {sections.map((s, i) => (
         <motion.div
           key={s}
-          className="z-20 fixed h-full w-[30px] border-inside px-[2px] py-[8px]"
+          className="z-20 fixed h-full w-[30px] border-2-fore-inside px-gppn py-[8px]"
           layout
           initial={{
             left: i === 0 ? "-28px" : "initial",

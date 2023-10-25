@@ -49,9 +49,9 @@ export function PageWrapper({
         key="layout-container"
         className="absolute w-full flex justify-center drill-mouse-hover"
       >
-        <div className="w-[calc(var(--bg-grid-box-size)*4+2px)] drill-mouse-hover">
+        <div className="w-g40y drill-mouse-hover">
           <Header />
-          <main className="mt-g1 drill-mouse-hover">{children}</main>
+          <main className="mt-g01y pt-ggpn drill-mouse-hover">{children}</main>
         </div>
       </div>
       <BackgroundGrid key="grid" />

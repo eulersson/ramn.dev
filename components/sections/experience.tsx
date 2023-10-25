@@ -126,13 +126,13 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
       <section className="flex flex-col justify-center drill-mouse-hover">
         <Title>Experience</Title>
         <div
-          className={`gap-[2px] p-[2px] pb-[0px] flex h-[calc(var(--bg-grid-box-size)*${
-            isBigJob ? "3" : "2"
-          })] drill-mouse-hover`}
+          className={`grid p-ggpn grid-cols-4 gap-ggpn flex drill-mouse-hover ${
+            isBigJob ? "h-g30y" : "h-20n"
+          }`}
         >
-          <div className="min-w-[calc(var(--bg-grid-box-size)-2px)] flex flex-col gap-[2px] drill-mouse-hover">
+          <div className="col-span-1 flex flex-col gap-ggpn drill-mouse-hover">
             <CursorSize sizeOnHover={0.4}>
-              <div className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col">
+              <div className="border-2-fore border-x-0 h-g10t flex flex-col">
                 {jobs.map((job, i) => (
                   <div
                     className={`grow font-mono green border-fore underline flex items-center justify-end px-2 ${
@@ -151,9 +151,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             <Logo logoUrl={job["logo"]} ref={logoRef} />
           </div>
 
-          <div
-            className={`min-w-[calc(var(--bg-grid-box-size)*3-2px)] bg-back flex flex-col`}
-          >
+          <div className="col-span-3 bg-back flex flex-col">
             <div className="font-mono text-center text-sm mt-3">
               {job["duration"]}
             </div>
@@ -182,22 +180,22 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
       {/* --- Recommendations ------------------------------------------------------ */}
       <section className="flex flex-col justify-center drill-mouse-hover">
         <Title>Recommendations</Title>
-        <div className="relative">
+        <div className="p-ggpn relative">
           <Block
             classNames={{
-              wrapper: "h-[calc(var(--bg-grid-box-size)+2px)] -mt-[2px]",
-              main: "h-[calc(var(--bg-grid-box-size)+2px)]",
+              wrapper: "h-g10n",
+              main: "h-g10n",
             }}
             tags={[]}
           >
             <div className="grid grid-cols-4 h-full">
-              <div className="bg-back dark:bg-fore overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
+              <div className="bg-back dark:bg-fore h-full overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
                 <CursorSize sizeOnHover={4}>
                   <ThemedImage
                     src="/pnavarro.png"
                     alt="Pau Navarro"
-                    width={250}
-                    height={250}
+                    width={252}
+                    height={252}
                   />
                 </CursorSize>
               </div>
@@ -215,11 +213,11 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
           </motion.div>
         </div>
         <div>
-          <div className="relative">
+          <div className="p-ggpn pt-0 mb-ggpn relative">
             <Block
               classNames={{
-                wrapper: "h-[calc(var(--bg-grid-box-size)+2px)] -mt-[2px]",
-                main: "h-[calc(var(--bg-grid-box-size)+2px)]",
+                wrapper: "h-g10n",
+                main: "h-g10n",
               }}
               tags={[]}
             >
@@ -235,8 +233,8 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                     <ThemedImage
                       src="/langeli.png"
                       alt="Lorenzo Angeli"
-                      width={250}
-                      height={250}
+                      width={252}
+                      height={252}
                     />
                   </CursorSize>
                 </div>

@@ -70,6 +70,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "Django", dotted: false },
     { text: "Angular", dotted: false },
     { text: "React", dotted: false },
+    { text: "Next.js", dotted: false },
   ];
 
   const sentences: Sentence[] = [
@@ -100,7 +101,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
         ref={terminalRef}
         disableHighlight={terminalState !== null}
         showCommand={terminalInView}
-        className="m-g2 mt-0 h-g8 mb-g4"
+        className="m-g02n mt-0 h-g10t mb-g04n"
         command="whoami"
       >
         {terminalState &&
@@ -114,7 +115,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             ""
           ))}
       </Terminal>
-      <div className="relative grid grid-cols-4 drill-mouse-hover">
+      <div className="relative p-ggpn grid grid-cols-4 gap-ggpn drill-mouse-hover">
         <div className="drill-mouse-hover">
           <CursorSize sizeOnHover={4}>
             <ThemedImage
@@ -126,11 +127,11 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             />
           </CursorSize>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-3  bg-yellow-500">
           <Block
             classNames={{
-              main: "h-g5 py-5 px-9 flex items-center justify-center",
-              tags: "h-g3",
+              main: "h-g06n py-5 px-9 flex items-center justify-center",
+              tags: "h-g02n",
             }}
             tags={tags}
           >
