@@ -16,7 +16,7 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
 
   return (
     <div className="bg-grid">
-      <div className="bg-grid__screen-clipper border border-back">
+      <div className="bg-grid__screen-clipper border border-fore">
         <div className="bg-grid__grid">
           <div className="bg-grid__grid-half bg-grid__grid-half--left">
             {[...Array(numBoxes)].map((e, i) => (

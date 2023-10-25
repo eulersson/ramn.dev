@@ -47,20 +47,19 @@
   /* padding-top: calc(var(--bg-grid-box-size) / 2 + 50px); */
 }
 
+/* TODO: Use Tailwind CSS */
+.root-layout-container main {
+  display: flex;
+  flex-direction: column;
+  width: calc(var(--bg-grid-box-size) * 4 + 2px);
+}
+
 .drill-mouse-hover {
   pointer-events: none !important;
 }
 
 .drill-mouse-hover > * {
   pointer-events: auto;
-}
-
-
-/* TODO: Use Tailwind CSS */
-.root-layout-container main {
-  display: flex;
-  flex-direction: column;
-  width: calc(var(--bg-grid-box-size) * 4 + 2px);
 }
 
 * {
