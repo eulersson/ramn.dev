@@ -175,7 +175,7 @@ function Home() {
   return (
     <div>
       <PageWrapper heroRef={heroRef}>
-        <div className="flex flex-col drill-mouse-hover">
+        <div className="drill-mouse-hover">
           <About ref={aboutRef} />
           <Experience ref={experienceRef} />
           <Projects ref={projectsRef} />
