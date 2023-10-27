@@ -24,6 +24,10 @@ export function PageWrapper({
 
   useEffect(() => {
     const setShowNavBarTimeout = setTimeout(() => {
+      if (toBool(process.env.NEXT_PUBLIC_DISABLE_NAVBAR)) {
+        return
+      }
+
       console.log(
         `[PageWrapper] Setting show nav bar to 'true' (timeout ${navBarTimeoutMillis}).`
       );
