@@ -1,18 +1,24 @@
 "use client";
 
-import { Cursor, CursorProvider } from "@/components/cursor";
 // Third-Party
+import { Cursor, CursorProvider } from "@/components/cursor";
 import { ThemeProvider } from "next-themes";
 
 // Project
+import { useTouchDevice } from "@/hooks/touch-device";
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const isTouchDevice = useTouchDevice();
   return (
     <ThemeProvider defaultTheme="light" enableSystem={false} attribute="class">
-      <CursorProvider>
-        <Cursor />
-        {children}
-      </CursorProvider>
+      {isTouchDevice ? (
+        children
+      ) : (
+        <CursorProvider>
+          <Cursor />
+          {children}
+        </CursorProvider>
+      )}
     </ThemeProvider>
   );
 }

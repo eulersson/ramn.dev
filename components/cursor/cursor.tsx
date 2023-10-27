@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 // Third-Party
 import { MotionValue, motion, useMotionValue, useSpring } from "framer-motion";
@@ -9,6 +9,7 @@ import { MotionValue, motion, useMotionValue, useSpring } from "framer-motion";
 // Project
 import { ContextNotProvidedError } from "@/errors/context-not-provided";
 import { toBool } from "@/utils";
+import { useTouchDevice } from "@/hooks/touch-device";
 
 // -- Cursor Context & Provider --------------------------------------------------------
 const CursorContext = createContext<{
@@ -37,9 +38,11 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
 
 // -- Cursor Hook ----------------------------------------------------------------------
 export function useCursor() {
+  const isTouchDevice = useTouchDevice();
+
   const context = useContext(CursorContext);
 
-  if (context === null) {
+  if (isTouchDevice === false && context === null) {
     throw new ContextNotProvidedError("CursorContext");
   }
 
@@ -54,7 +57,7 @@ export function Cursor() {
   const cursorX = useMotionValue(-500);
   const cursorY = useMotionValue(-500);
 
-  const { cursorSize } = useCursor();
+  const cursorContext = useCursor();
 
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
@@ -65,7 +68,7 @@ export function Cursor() {
     return () => {
       window.removeEventListener("mousemove", mouseMove);
     };
-  }, [cursorX, cursorY]);
+  }, []);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Cursor] Rendering");
@@ -77,7 +80,7 @@ export function Cursor() {
       style={{
         x: cursorX,
         y: cursorY,
-        scale: cursorSize,
+        ...(cursorContext && { scale: cursorContext.cursorSize }),
       }}
     ></motion.div>
   );
@@ -97,14 +100,19 @@ export function CursorSize({
   children: React.ReactNode;
   sizeOnHover: number;
 }) {
-  const { setCursorSize } = useCursor();
-  return (
-    <div
-      className={className}
-      onMouseEnter={() => setCursorSize(sizeOnHover)}
-      onMouseLeave={() => setCursorSize(1)}
-    >
-      {children}
-    </div>
-  );
+  const isTouchDevice = useTouchDevice();
+  const context = useCursor();
+  if (isTouchDevice || context === null) {
+    return children;
+  } else {
+    return (
+      <div
+        className={className}
+        onMouseEnter={() => context.setCursorSize(sizeOnHover)}
+        onMouseLeave={() => context.setCursorSize(1)}
+      >
+        {children}
+      </div>
+    );
+  }
 }
