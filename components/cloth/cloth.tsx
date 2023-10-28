@@ -228,7 +228,7 @@ export function Cloth({
   const particleSystem = particleSystemRef.current;
 
   // Cursor.
-  const { setCursorSize } = useCursor();
+  const cursorContext = useCursor();
 
   // Theme.
   const { theme } = useTheme();
@@ -344,7 +344,7 @@ export function Cloth({
   }, []);
 
   const onMouseDown = (offsetX: number, offsetY: number, button: number) => {
-    setCursorSize(0.6);
+    cursorContext?.setCursorSize(0.6);
 
     let x = offsetX;
     let y = offsetY;
@@ -386,7 +386,7 @@ export function Cloth({
   };
 
   const onMouseUp = () => {
-    setCursorSize(1);
+    cursorContext?.setCursorSize(1);
     particleSystem.onMouseUp();
   };
 

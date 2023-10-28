@@ -20,12 +20,14 @@ export function PageWrapper({
 }) {
   const [showNavBar, setShowNavBar] = useState(false);
 
-  const navBarTimeoutMillis = process.env.NEXT_PUBLIC_DISABLE_COVER ? 1000 : 4800;
+  const navBarTimeoutMillis = process.env.NEXT_PUBLIC_DISABLE_COVER
+    ? 1000
+    : 4800;
 
   useEffect(() => {
     const setShowNavBarTimeout = setTimeout(() => {
       if (toBool(process.env.NEXT_PUBLIC_DISABLE_NAVBAR)) {
-        return
+        return;
       }
 
       console.log(
@@ -55,7 +57,9 @@ export function PageWrapper({
       >
         <div className="w-g40y drill-mouse-hover">
           <Header />
-          <main className="mt-g01y pt-ggpn drill-mouse-hover">{children}</main>
+          <main className="mt-g01y pt-ggpn drill-mouse-hover overflow-x-hidden">
+            {children}
+          </main>
         </div>
       </div>
       <BackgroundGrid key="grid" />

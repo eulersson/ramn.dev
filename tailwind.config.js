@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
@@ -8,6 +10,10 @@ module.exports = {
     "./mdx-components.tsx",
   ],
   theme: {
+    screens: {
+      xs: "475px",
+      ...defaultTheme.screens,
+    },
     extend: {
       colors: {
         fore: "var(--col-fore)",

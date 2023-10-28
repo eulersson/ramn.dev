@@ -36,8 +36,6 @@ function Home() {
   const { section, setSection, navigationRunning } = useSection();
   const previousSection = usePrevious(section);
 
-  const { scrollYProgress } = useScroll();
-
   const heroRef = useRef<HTMLHeadingElement>(null);
   const heroInView = useInView(heroRef);
 
@@ -171,6 +169,7 @@ function Home() {
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     log("[Home] Rendering.");
   }
+  const { scrollYProgress } = useScroll();
 
   return (
     <div>

@@ -2,6 +2,8 @@
   width: 50%;
   padding: 2px;
 
+  overflow-x: hidden;
+
   display: grid;
   row-gap: var(--bg-grid-gap);
   column-gap: var(--bg-grid-gap);

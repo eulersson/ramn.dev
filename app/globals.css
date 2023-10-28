@@ -29,13 +29,27 @@
 }
 
 :root {
-  --bg-grid-box-size: 200px;
+  --bg-grid-box-size: 80px;
   --bg-grid-gap: 2px;
+}
+
+@screen xs {
+  :root {
+    --bg-grid-box-size: 120px;
+    --bg-grid-gap: 2px;
+  }
+}
+
+@screen sm {
+  :root {
+    --bg-grid-box-size: 160px;
+    --bg-grid-gap: 2px;
+  }
 }
 
 @screen md {
   :root {
-    --bg-grid-box-size: 225px;
+    --bg-grid-box-size: 190px;
     --bg-grid-gap: 2px;
   }
 }
@@ -55,6 +69,7 @@
   pointer-events: auto;
 }
 
+/* We show our own default cursor. */
 * {
   cursor: none;
 }
