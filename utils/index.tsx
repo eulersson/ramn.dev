@@ -1,3 +1,1 @@
-import { toBool } from "./to-bool";
-
-export { toBool };
+export { toBool } from "./to-bool";

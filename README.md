@@ -1,4 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+> [!WARNING]
+> The development of the project is on hold, so it's in a WIP state.
+
+> keep track of the process check its [GitHub Project](https://github.com/users/eulersson/projects/6/views/5).This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 

@@ -57,7 +57,7 @@ export function PageWrapper({
       >
         <div className="w-g40y drill-mouse-hover">
           <Header />
-          <main className="mt-g01y pt-ggpn drill-mouse-hover overflow-x-hidden">
+          <main className="mt-g01y pt-ggpn drill-mouse-hover">
             {children}
           </main>
         </div>

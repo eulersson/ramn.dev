@@ -186,7 +186,7 @@ function Home() {
               animate={{ y: 0, scaleX: 1 }}
               className="h-[20px] bg-fore"
               style={{ scaleX: scrollYProgress }}
-            />
+              />
           </div>
         </div>
       </PageWrapper>
