@@ -20,7 +20,7 @@ export function CoverWrapper({ children }: { children: React.ReactNode }) {
     }
     const timeouts: Array<NodeJS.Timeout> = [
       setTimeout(() => {
-        setShowCover(true);
+        setShowCover(false);
       }, 1000),
       setTimeout(() => {
         setShowPage(true);
