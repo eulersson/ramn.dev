@@ -51,9 +51,9 @@ export function ThemeSwitch({ className }: { className?: string }) {
                   () =>
                     localStorage.setItem(
                       "hasPlayedThemeSwitcherAnimation",
-                      "true"
+                      "true",
                     ),
-                  offset + 3000
+                  offset + 3000,
                 ),
               ]),
         ];
@@ -145,7 +145,12 @@ export function ThemeSwitch({ className }: { className?: string }) {
           y1="12"
           x2="23"
           y2="12"
-          style={{ rotateZ: 360 * (i / 6), originX: "12px", originY: "12px" }}
+          style={{
+            rotateZ: 360 * (i / 6),
+            originX: "12px",
+            originY: "12px",
+            transformBox: "view-box",
+          }}
           variants={{
             hidden: { scale: 0 },
             visible: {

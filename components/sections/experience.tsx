@@ -30,68 +30,63 @@ type LogoRef = {
   spin: Function;
 };
 
-const Logo = forwardRef<LogoRef, { logoUrl: string }>(function Logo(
-  props,
-  ref
-) {
-  // Logo animations.
-  const logoRef = useRef(null);
-  const logoInView = useInView(logoRef);
-  const logoRotateY = useMotionValue(0);
-  const logoRotateYSpring = useSpring(logoRotateY, {
-    mass: 3,
-    stiffness: 100,
-    damping: 8,
-  });
+const Logo = forwardRef<LogoRef, { logoUrl: string }>(
+  function Logo(props, ref) {
+    // Logo animations.
+    const logoRef = useRef(null);
+    const logoInView = useInView(logoRef);
+    const logoRotateY = useMotionValue(0);
+    const logoRotateYSpring = useSpring(logoRotateY, {
+      mass: 3,
+      stiffness: 100,
+      damping: 8,
+    });
 
-  // Call this function every time you want the job's company logo to spin.
-  const spinLogo = useCallback(() => {
-    logoRotateY.set(logoRotateY.get() === 360 ? 0 : 360);
-  }, []);
+    // Call this function every time you want the job's company logo to spin.
+    const spinLogo = useCallback(() => {
+      logoRotateY.set(logoRotateY.get() === 360 ? 0 : 360);
+    }, []);
 
-  useImperativeHandle(
-    ref,
-    () => {
+    useImperativeHandle(ref, () => {
       return {
         spin() {
           spinLogo();
         },
       };
-    },
-    []
-  );
+    }, []);
 
-  // Spin the logo when it shows on screen.
-  useEffect(() => {
-    if (logoInView) {
-      spinLogo();
-    }
-  }, [logoInView]);
+    // Spin the logo when it shows on screen.
+    useEffect(() => {
+      if (logoInView) {
+        spinLogo();
+      }
+    }, [logoInView]);
 
-  return (
-    <CursorSize sizeOnHover={4}>
-      <div
-        className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col items-center justify-center"
-        ref={logoRef}
-        onMouseEnter={() => {
-          spinLogo();
-        }}
-        onMouseLeave={() => {
-          spinLogo();
-        }}
-      >
-        <motion.div style={{ rotateY: logoRotateYSpring }}>
-          <ThemedImage
-            src={props.logoUrl}
-            alt="Watchity Logo"
-            width={200}
-            height={200}
-          />
-        </motion.div>
-      </div>
-    </CursorSize>
-  );
-});
+    return (
+      <CursorSize sizeOnHover={4}>
+        <div
+          className="min-h-[calc(var(--bg-grid-box-size)-2px)] flex flex-col items-center justify-center"
+          ref={logoRef}
+          onMouseEnter={() => {
+            spinLogo();
+          }}
+          onMouseLeave={() => {
+            spinLogo();
+          }}
+        >
+          <motion.div style={{ rotateY: logoRotateYSpring }}>
+            <ThemedImage
+              src={props.logoUrl}
+              alt="Watchity Logo"
+              width={200}
+              height={200}
+            />
+          </motion.div>
+        </div>
+      </CursorSize>
+    );
+  },
+);
 
 // TODO: Break into separate components.
 const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
@@ -113,7 +108,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
       job.points.reduce((sum, curr) => {
         return sum + curr.length;
       }, 0) > 100,
-    [job]
+    [job],
   );
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
@@ -135,7 +130,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
               <div className="border-2-fore border-x-0 h-g10t flex flex-col">
                 {jobs.map((job, i) => (
                   <div
-                    className={`grow font-mono green border-fore underline flex items-center justify-end px-2 ${
+                    className={`grow font-mono green border-2-fore underline flex items-center justify-end px-2 ${
                       i === activeEmployer
                         ? "bg-fore text-back hover:font-extrabold"
                         : "bg-back text-fore hover:bg-fore hover:text-back"

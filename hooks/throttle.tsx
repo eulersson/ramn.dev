@@ -21,7 +21,7 @@ import throttle from "lodash.throttle";
  * @see {@link https://www.developerway.com/posts/debouncing-in-react | Debouncing in React}
  */
 export const useThrottle = (callback: Function, amount: number) => {
-  const ref = useRef<Function>();
+  const ref = useRef<Function>(undefined);
 
   useEffect(() => {
     ref.current = callback;

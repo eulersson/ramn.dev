@@ -17,11 +17,12 @@ export function generateStaticParams() {
   return projects.map((name) => ({ slug: name.replace(".mdx", "") }));
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProjectPage(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
   const { slug } = params;
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
