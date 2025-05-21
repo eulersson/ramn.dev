@@ -128,18 +128,18 @@ function Simulation({
 
   const clothGridDimensions: GridDimensions = useMemo(
     () => ({ rows: 20, cols: 40 }),
-    []
+    [],
   );
 
   const pointsData = new Float32Array(
-    Array(clothGridDimensions.rows * clothGridDimensions.cols * 3).fill(0)
+    Array(clothGridDimensions.rows * clothGridDimensions.cols * 3).fill(0),
   );
 
   const numLineConstraints =
     clothGridDimensions.cols * (clothGridDimensions.rows - 1) +
     (clothGridDimensions.cols - 1) * clothGridDimensions.rows;
   const constraintsData = new Uint16Array(
-    Array(numLineConstraints * 2).fill(0)
+    Array(numLineConstraints * 2).fill(0),
   );
 
   const particleSystem = particleSystemRef.current;
@@ -148,7 +148,7 @@ function Simulation({
     if (particleSystem.empty) {
       particleSystem.populate(
         { w: size.width, h: size.height },
-        clothGridDimensions
+        clothGridDimensions,
       );
     }
   }, [particleSystem, size, clothGridDimensions]);
@@ -182,19 +182,17 @@ function Simulation({
         <bufferGeometry>
           <bufferAttribute
             ref={linesIndicesRef}
-            array={constraintsData}
             attach="index"
             count={constraintsData.length}
-            itemSize={1}
             usage={DynamicDrawUsage}
+            args={[constraintsData, 1]}
           />
           <bufferAttribute
             ref={linesPositionsRef}
             attach="attributes-position"
-            array={pointsData}
             count={clothGridDimensions.rows * clothGridDimensions.cols}
-            itemSize={3}
             usage={DynamicDrawUsage}
+            args={[pointsData, 3]}
           />
         </bufferGeometry>
         <lineBasicMaterial color={col} linewidth={1} />
@@ -204,10 +202,9 @@ function Simulation({
           <bufferAttribute
             ref={pointsPositionsRef}
             attach="attributes-position"
-            array={pointsData}
             count={clothGridDimensions.rows * clothGridDimensions.cols}
-            itemSize={3}
             usage={DynamicDrawUsage}
+            args={[pointsData, 3]}
           />
         </bufferGeometry>
         <pointsMaterial color={col} size={5} sizeAttenuation={false} />
@@ -266,7 +263,7 @@ export function Cloth({
 
   const scrollVelocity = useVelocity(scrollYProgress);
   const scrollScaledVelocity = useTransform(scrollVelocity, (mv) =>
-    Math.abs(mv) > 1.2 ? Math.min(Math.max(mv * 2, -4), 4) : 0
+    Math.abs(mv) > 1.2 ? Math.min(Math.max(mv * 2, -4), 4) : 0,
   );
   const scrollSpring = useSpring(scrollScaledVelocity, {
     damping: 4,
@@ -318,28 +315,31 @@ export function Cloth({
   useEffect(() => {
     const offsetX = 23;
     const offsetY = -197;
-    const timeout = setTimeout(() => {
-      let i = 0;
+    const timeout = setTimeout(
+      () => {
+        let i = 0;
 
-      onMouseDown(
-        cursorIconRef.current!.getBoundingClientRect().x + offsetX,
-        cursorIconRef.current!.getBoundingClientRect().y + offsetY,
-        0
-      );
-
-      const interval = setInterval(() => {
-        if (i > cursorAnimationConfig.pressingCycles) {
-          clothInstructionPlaying.current = false;
-          clearInterval(interval);
-          onMouseUp();
-        }
-        onMouseMove(
+        onMouseDown(
           cursorIconRef.current!.getBoundingClientRect().x + offsetX,
-          cursorIconRef.current!.getBoundingClientRect().y + offsetY
+          cursorIconRef.current!.getBoundingClientRect().y + offsetY,
+          0,
         );
-        i = i + 1;
-      }, cursorAnimationConfig.pressingIntervalSize);
-    }, cursorAnimationConfig.pressingStart + delayOffset * 1000);
+
+        const interval = setInterval(() => {
+          if (i > cursorAnimationConfig.pressingCycles) {
+            clothInstructionPlaying.current = false;
+            clearInterval(interval);
+            onMouseUp();
+          }
+          onMouseMove(
+            cursorIconRef.current!.getBoundingClientRect().x + offsetX,
+            cursorIconRef.current!.getBoundingClientRect().y + offsetY,
+          );
+          i = i + 1;
+        }, cursorAnimationConfig.pressingIntervalSize);
+      },
+      cursorAnimationConfig.pressingStart + delayOffset * 1000,
+    );
     return () => clearTimeout(timeout);
   }, []);
 
@@ -445,8 +445,8 @@ export function Cloth({
                 delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
                   ? 1.2
                   : playPromptClicked.current
-                  ? 1
-                  : 2.9,
+                    ? 1
+                    : 2.9,
                 duration: 1,
               }}
             ></motion.div>
@@ -458,8 +458,8 @@ export function Cloth({
                 delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
                   ? 1.2
                   : playPromptClicked.current
-                  ? 1
-                  : 2.9,
+                    ? 1
+                    : 2.9,
                 duration: 1,
               }}
             ></motion.div>
@@ -470,7 +470,7 @@ export function Cloth({
               onMouseDown(
                 e.nativeEvent.offsetX,
                 e.nativeEvent.offsetY,
-                e.nativeEvent.button
+                e.nativeEvent.button,
               )
             }
             onMouseMove={(e) =>
