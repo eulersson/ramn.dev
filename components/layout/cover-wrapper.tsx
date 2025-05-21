@@ -10,7 +10,7 @@ import { Spinner } from "@/components/layout/spinner";
 import { toBool } from "@/utils";
 
 export function CoverWrapper({ children }: { children: React.ReactNode }) {
-  const [showCover, setShowCover] = useState(false);
+  const [showCover, setShowCover] = useState(true);
   const [showPage, setShowPage] = useState(false);
 
   useEffect(() => {
@@ -19,9 +19,6 @@ export function CoverWrapper({ children }: { children: React.ReactNode }) {
       return;
     }
     const timeouts: Array<NodeJS.Timeout> = [
-      setTimeout(() => {
-        setShowCover(false);
-      }, 1000),
       setTimeout(() => {
         setShowPage(true);
       }, 3500),
