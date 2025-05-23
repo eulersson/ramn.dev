@@ -37,7 +37,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   let hasPlayedThemeSwitcherAnimation = false;
   if (typeof window !== "undefined") {
     hasPlayedThemeSwitcherAnimation = !!localStorage.getItem(
-      "hasPlayedThemeSwitcherAnimation"
+      "hasPlayedThemeSwitcherAnimation",
     );
   }
 
@@ -50,7 +50,6 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
         <div className="h-[500vh]">
           <section className="sticky top-0 h-screen bg-fore">
             <div className="w-full h-full flex flex-col">
-
               {/* Progress bar. */}
               <div className="bg-back">
                 <motion.div
@@ -58,7 +57,9 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   initial={{ y: 0, scaleX: 0 }}
                   animate={{ y: 0, scaleX: 1 }}
                   transition={{
-                    delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 2.22,
+                    delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+                      ? 0
+                      : 2.22,
                     duration: 1.5,
                   }}
                   className="h-[20px] bg-fore"
@@ -66,7 +67,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 />
               </div>
 
-              {/* Upper small box stripe. */}
+              {/* Upper small box stripe */}
               <motion.div
                 className="h-g02n flex justify-center overflow-visible"
                 initial="hidden"
@@ -75,9 +76,15 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
+                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+                        ? 0
+                        : 1.12,
                       duration: 0.001,
-                      delayChildren: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
+                      delayChildren: toBool(
+                        process.env.NEXT_PUBLIC_DISABLE_COVER,
+                      )
+                        ? 0
+                        : 1.12,
                       staggerChildren: 0.05,
                     },
                   },
@@ -86,7 +93,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   },
                 }}
               >
-                {[...Array(40)].map((e, i) => (
+                {[...Array(40)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="min-w-g02n bg-back border-2-fore -mx-[1px]"
@@ -107,9 +114,15 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
+                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+                        ? 0
+                        : 1.12,
                       duration: 0.001,
-                      delayChildren: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
+                      delayChildren: toBool(
+                        process.env.NEXT_PUBLIC_DISABLE_COVER,
+                      )
+                        ? 0
+                        : 1.12,
                       staggerChildren: 0.1,
                     },
                   },
@@ -118,7 +131,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   },
                 }}
               >
-                {[...Array(8)].map((e, i) => (
+                {[...Array(8)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="min-w-g05n bg-back border-2-fore -mx-[1px]"
@@ -150,7 +163,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                     </h2>
                   </motion.div>
                 </CursorSize>
-                {[...Array(8)].map((e, i) => (
+                {[...Array(8)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="min-w-g05n bg-back border-2-fore -mx-[1px]"
@@ -183,9 +196,15 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   visible: {
                     opacity: 1,
                     transition: {
-                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
+                      delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+                        ? 0
+                        : 1.12,
                       duration: 0.001,
-                      delayChildren: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 1.12,
+                      delayChildren: toBool(
+                        process.env.NEXT_PUBLIC_DISABLE_COVER,
+                      )
+                        ? 0
+                        : 1.12,
                       staggerChildren: 0.05,
                       staggerDirection: -1,
                     },
@@ -195,7 +214,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                   },
                 }}
               >
-                {[...Array(40)].map((e, i) => (
+                {[...Array(40)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="min-w-g03n bg-back border-2-fore -mx-[1px]"
