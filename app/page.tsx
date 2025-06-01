@@ -1,25 +1,25 @@
 "use client";
 
 // Third-Party
+import { debug } from "debug";
 import {
   animate,
   motion,
   useInView,
   useMotionValue,
   useScroll,
-} from "framer-motion";
+} from "motion/react";
 import { useCallback, useEffect, useRef } from "react";
-import { debug } from "debug";
 
 // Project
-import { SectionProvider, useSection } from "@/contexts/section";
+import { PageWrapper } from "@/app/page-wrapper";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
-import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
-import { toBool } from "@/utils";
-import { usePrevious } from "@/hooks/previous";
+import { SectionProvider, useSection } from "@/contexts/section";
 import { useDebounce } from "@/hooks/debounce";
+import { usePrevious } from "@/hooks/previous";
+import { toBool } from "@/utils";
 
 // Loggers
 const log = debug("page");

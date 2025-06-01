@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 
 // Third-Party
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "motion/react";
 import { useTheme } from "next-themes";
 
 // Project

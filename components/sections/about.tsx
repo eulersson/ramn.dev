@@ -1,15 +1,15 @@
 // Third-Party
+import { useInView } from "motion/react";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 
 // Project
-import { Sentence, Typewriter } from "@/components/typewriter";
 import { Block } from "@/components/block";
 import { CursorSize } from "@/components/cursor";
 import { TagProps } from "@/components/tag";
 import { Terminal } from "@/components/terminal";
 import { ThemedImage } from "@/components/themed-image";
 import { Title } from "@/components/title";
+import { Sentence, Typewriter } from "@/components/typewriter";
 import { toBool } from "@/utils";
 
 // Content

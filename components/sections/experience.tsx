@@ -1,4 +1,6 @@
 // Third-Party
+import { debug } from "debug";
+import { motion, useInView, useMotionValue, useSpring } from "motion/react";
 import {
   forwardRef,
   useCallback,
@@ -8,8 +10,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { debug } from "debug";
 
 // Project
 import { Block } from "@/components/block";
@@ -20,13 +20,13 @@ import { Title } from "@/components/title";
 import { toBool } from "@/utils";
 
 // Project - Content
-import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
-import RecommendationPau from "@/content/recommendations/pau.mdx";
 import jobEfestoLab from "@/content/experience/efesto-lab.json";
 import jobMPC from "@/content/experience/mpc.json";
 import jobNpaw from "@/content/experience/npaw.json";
-import jobWatchity from "@/content/experience/watchity.json";
 import jobSecretStartup from "@/content/experience/secret-startup.json";
+import jobWatchity from "@/content/experience/watchity.json";
+import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
+import RecommendationPau from "@/content/recommendations/pau.mdx";
 
 // Loggers
 const log = debug("experience")

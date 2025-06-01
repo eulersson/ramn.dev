@@ -1,9 +1,9 @@
 // Third-Party
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 // Project
-import { toBool } from "@/utils";
 import { useSection } from "@/contexts/section";
+import { toBool } from "@/utils";
 
 export function Navbar() {
   const { setSection, sections, activeSectionIdx, navigationRunning } =

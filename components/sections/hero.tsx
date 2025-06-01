@@ -1,15 +1,15 @@
 "use client";
 
 // Third-Party
+import { motion, useScroll, useTransform } from "motion/react";
 import { forwardRef, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 
 // Project
 import { Cloth } from "@/components/cloth/cloth";
 import { CursorSize } from "@/components/cursor";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { toBool } from "@/utils";
 import { useSection } from "@/contexts/section";
+import { toBool } from "@/utils";
 
 const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   const ref = useRef<HTMLDivElement>(null);

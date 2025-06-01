@@ -9,15 +9,15 @@ import {
   useScroll,
   useSpring,
   useVelocity,
-} from "framer-motion";
+} from "motion/react";
 import { useRef } from "react";
 
 // Project
 import { Button } from "@/components/button";
 import { CursorSize } from "@/components/cursor";
 import { ThemedImage } from "@/components/themed-image";
-import { toBool } from "@/utils";
 import { useTouchDevice } from "@/hooks/touch-device";
+import { toBool } from "@/utils";
 
 const SCROLL_THRESHOLD = 900;
 

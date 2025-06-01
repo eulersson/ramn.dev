@@ -3,13 +3,13 @@
 // React
 import { createContext, useContext, useEffect, useState } from "react";
 
-// Third-Party
-import { MotionValue, motion, useMotionValue, useSpring } from "framer-motion";
+// Third-Part
+import { MotionValue, motion, useMotionValue, useSpring } from "motion/react";
 
 // Project
 import { ContextNotProvidedError } from "@/errors/context-not-provided";
-import { toBool } from "@/utils";
 import { useTouchDevice } from "@/hooks/touch-device";
+import { toBool } from "@/utils";
 
 // -- Cursor Context & Provider --------------------------------------------------------
 const CursorContext = createContext<{

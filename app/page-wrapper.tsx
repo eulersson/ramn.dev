@@ -1,14 +1,14 @@
 "use client";
 
 // Third-Party
-import { ForwardedRef, useEffect, useRef, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
+import { ForwardedRef, useEffect, useState } from "react";
 
 // Components
-import { BackgroundGrid } from "@/components/layout/background-grid";
 import { Header } from "@/components/header";
-import { Hero } from "@/components/sections/hero";
+import { BackgroundGrid } from "@/components/layout/background-grid";
 import { Navbar } from "@/components/layout/navbar";
+import { Hero } from "@/components/sections/hero";
 import { toBool } from "@/utils";
 
 export function PageWrapper({
