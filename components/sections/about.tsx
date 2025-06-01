@@ -65,7 +65,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const tags: TagProps[] = [
     { text: "Python", dotted: false },
     { text: "C++", dotted: false },
-    { text: "JavaScript", dotted: false },
+    { text: "TypeScript", dotted: false },
     { text: "Go", dotted: false },
     { text: "Django", dotted: false },
     { text: "Angular", dotted: false },

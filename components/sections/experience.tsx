@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { debug } from "debug";
 
 // Project
 import { Block } from "@/components/block";
@@ -21,10 +22,14 @@ import { toBool } from "@/utils";
 // Project - Content
 import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
 import RecommendationPau from "@/content/recommendations/pau.mdx";
-import jobEfestoLab from "@/content/experience/efestoLab.json";
+import jobEfestoLab from "@/content/experience/efesto-lab.json";
 import jobMPC from "@/content/experience/mpc.json";
 import jobNpaw from "@/content/experience/npaw.json";
 import jobWatchity from "@/content/experience/watchity.json";
+import jobSecretStartup from "@/content/experience/secret-startup.json";
+
+// Loggers
+const log = debug("experience")
 
 type LogoRef = {
   spin: Function;
@@ -89,7 +94,7 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(
 );
 
 // TODO: Break into separate components.
-const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
+const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) {
   const logoRef = useRef<LogoRef>(null);
 
   // Sets the current job to read. When the job is changed spin the job's company logo.
@@ -101,15 +106,8 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
     }
   };
 
-  const jobs = [jobWatchity, jobMPC, jobEfestoLab, jobNpaw];
+  const jobs = [jobWatchity, jobMPC, jobEfestoLab, jobNpaw, jobSecretStartup];
   const job = jobs[activeEmployer];
-  const isBigJob = useMemo(
-    () =>
-      job.points.reduce((sum, curr) => {
-        return sum + curr.length;
-      }, 0) > 100,
-    [job],
-  );
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Experience] Rendering");
@@ -121,24 +119,22 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
       <section className="flex flex-col justify-center drill-mouse-hover">
         <Title>Experience</Title>
         <div
-          className={`grid p-ggpn grid-cols-4 gap-ggpn flex drill-mouse-hover ${
-            isBigJob ? "h-g30y" : "h-20n"
-          }`}
+          className={`grid p-ggpn grid-cols-4 gap-ggpn flex drill-mouse-hover ${job['lengthy'] ? "h-g30y" : "h-20n"
+            }`}
         >
           <div className="col-span-1 flex flex-col gap-ggpn drill-mouse-hover">
             <CursorSize sizeOnHover={0.4}>
-              <div className="border-2-fore border-x-0 h-g10t flex flex-col">
+              <div className="border-x-0 h-g10t flex flex-col">
                 {jobs.map((job, i) => (
                   <div
-                    className={`grow font-mono green border-2-fore underline flex items-center justify-end px-2 ${
-                      i === activeEmployer
+                    className={`grow font-mono green border-b-2 border-fore underline flex items-center justify-end px-2 ${i === activeEmployer
                         ? "bg-fore text-back hover:font-extrabold"
                         : "bg-back text-fore hover:bg-fore hover:text-back"
-                    } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
+                      } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
                     key={i}
                     onClick={() => setActiveEmployerAnimated(i)}
                   >
-                    {job["company"]}
+                    <span className={`text-back bg-fore`}>{job["company"]}</span>
                   </div>
                 ))}
               </div>
@@ -146,7 +142,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             <Logo logoUrl={job["logo"]} ref={logoRef} />
           </div>
 
-          <div className="col-span-3 bg-back flex flex-col">
+          <div className={`col-span-3 bg-back flex flex-col`}>
             <div className="font-mono text-center text-sm mt-3">
               {job["duration"]}
             </div>
@@ -172,6 +168,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
           </div>
         </div>
       </section>
+
       {/* --- Recommendations ------------------------------------------------------ */}
       <section className="flex flex-col justify-center drill-mouse-hover">
         <Title>Recommendations</Title>
