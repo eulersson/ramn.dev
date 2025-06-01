@@ -189,18 +189,18 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
                 className="absolute origin-top-left left-6 top-1 w-full"
               >
                 <motion.span
-                  className="absolute top-0 left-0 font-title uppercase origin-top-left"
+                  className="absolute top-0 left-0 font-title uppercase origin-top-left text-fore bg-back"
                   initial={{ rotate: 90, y: 100 }}
-                  whileInView={{y: 0}}
-                  transition={{delay: 0.25, duration: 0.5}}
+                  whileInView={{ y: 0 }}
+                  transition={{ delay: 0.25, duration: 0.5 }}
                 >
                   Pau Navarro
                 </motion.span>
                 <motion.span
-                  className="absolute top-0 -left-6 font-sans origin-top-left  text-sm text-back bg-fore"
+                  className="absolute top-0 -left-6 font-sans origin-top-left text-sm text-back bg-fore"
                   initial={{ rotate: 90, y: -200 }}
-                  whileInView={{y: 0}}
-                  transition={{delay: 0.25, duration: 0.5}}
+                  whileInView={{ y: 0 }}
+                  transition={{ delay: 0.25, duration: 0.5 }}
                 >
                   &nbsp;PM @ Watchity&nbsp;
                 </motion.span>
