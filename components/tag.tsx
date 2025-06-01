@@ -16,7 +16,7 @@ export function Tag({ text, dotted = false, border = false }: TagProps) {
         border ? "border-2" : ""
       }`}
     >
-      {text}
+      <span className="hover:text-back hover:bg-fore">{text}</span>
     </span>
   );
 }
