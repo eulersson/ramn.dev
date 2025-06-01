@@ -1,5 +1,5 @@
 // Third-Party
-import { useInView } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 
 // Project
@@ -15,7 +15,7 @@ import { toBool } from "@/utils";
 // Content
 import Intention from "@/content/sections/intention.mdx";
 
-const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
+const About = forwardRef<HTMLHeadingElement>(function About({ }, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
 
   const [terminalState, setTerminalState] = useState<
@@ -135,7 +135,13 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             }}
             tags={tags}
           >
-            <Intention />
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <Intention />
+            </motion.div>
+
           </Block>
         </div>
       </div>
