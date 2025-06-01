@@ -354,7 +354,7 @@ export function Cloth({
       y -= cameraRef.current.position.y;
     }
 
-    // Factor this out, it's beign repeated in onMouseDown
+    // Factor this out, it's being repeated in onMouseDown
     if (initialWrapperSize.current && canvasWrapperRef.current) {
       x -=
         (canvasWrapperRef.current.clientWidth - initialWrapperSize.current.w) /
