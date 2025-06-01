@@ -128,8 +128,8 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
                 {jobs.map((job, i) => (
                   <div
                     className={`grow font-mono green border-b-2 border-fore underline flex items-center justify-end px-2 ${i === activeEmployer
-                        ? "bg-fore text-back hover:font-extrabold"
-                        : "bg-back text-fore hover:bg-fore hover:text-back"
+                      ? "bg-fore text-back hover:font-extrabold"
+                      : "bg-back text-fore hover:bg-fore hover:text-back"
                       } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
                     key={i}
                     onClick={() => setActiveEmployerAnimated(i)}
@@ -185,6 +185,26 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
             tags={[]}
           >
             <div className="grid grid-cols-4 h-full">
+              <div
+                className="absolute origin-top-left left-6 top-1 w-full"
+              >
+                <motion.span
+                  className="absolute top-0 left-0 font-title uppercase origin-top-left"
+                  initial={{ rotate: 90, y: 100 }}
+                  whileInView={{y: 0}}
+                  transition={{delay: 0.25, duration: 0.5}}
+                >
+                  Pau Navarro
+                </motion.span>
+                <motion.span
+                  className="absolute top-0 -left-6 font-sans origin-top-left  text-sm text-back bg-fore"
+                  initial={{ rotate: 90, y: -200 }}
+                  whileInView={{y: 0}}
+                  transition={{delay: 0.25, duration: 0.5}}
+                >
+                  &nbsp;PM @ Watchity&nbsp;
+                </motion.span>
+              </div>
               <div className="bg-back dark:bg-fore h-full overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
                 <CursorSize sizeOnHover={4}>
                   <ThemedImage
@@ -203,10 +223,6 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
               </div>
             </div>
           </Block>
-          <motion.div className="absolute text-back bg-fore dark:bg-back dark:text-fore dark:border-2-fore rounded-[40px] px-5 pb-1 -left-[60px] bottom-[40px] flex flex-col items-center">
-            <p className="font-sans -mb-[5px]">Pau Navarro</p>
-            <p className="font-sans text-xs">PM @ Watchity</p>
-          </motion.div>
         </div>
         <div>
           <div className="p-ggpn pt-0 mb-ggpn relative">
@@ -218,6 +234,25 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
               tags={[]}
             >
               <div className="grid grid-cols-4 h-full">
+                <div className="absolute origin-top-right right-6 h-full w-full">
+                  <motion.span
+                    className="absolute top-0 right-0 font-title uppercase origin-top-right text-fore bg-back"
+                    initial={{ rotate: -90, y: 100 }}
+                    whileInView={{ y: 0 }}
+                    transition={{ delay: 0.75, duration: 0.5 }}
+                  >
+                    &nbsp;Lorenzo Angeli&nbsp;
+                  </motion.span>
+
+                  <motion.span
+                    className="absolute top-0 -right-6 font-sans origin-top-right text-sm text-back bg-fore"
+                    initial={{ rotate: -90, y: -100 }}
+                    whileInView={{ y: 0 }}
+                    transition={{ delay: 0.75, duration: 0.5 }}
+                  >
+                    &nbsp;CEO @ Efesto Lab&nbsp;
+                  </motion.span>
+                </div>
                 <div className="col-span-3 p-5 pl-10 text-lg flex items-center">
                   <span className="font-serif text-[90px] absolute top-[34px] left-[32px]">
                     “
@@ -236,11 +271,6 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
                 </div>
               </div>
             </Block>
-
-            <motion.div className="absolute bg-back border-2-fore dark:border-none dark:bg-fore dark:text-back rounded-[40px] px-5 pb-1 -right-[100px] bottom-[40px] flex flex-col items-center">
-              <p className="font-sans -mb-[5px]">Lorenzo Angeli</p>
-              <p className="font-sans text-xs">CEO @ Efesto Lab</p>
-            </motion.div>
           </div>
         </div>
       </section>
