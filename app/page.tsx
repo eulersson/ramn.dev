@@ -19,6 +19,7 @@ import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
 import { toBool } from "@/utils";
 import { usePrevious } from "@/hooks/previous";
+import { useDebounce } from "@/hooks/debounce";
 
 // Loggers
 const log = debug("page");
@@ -35,6 +36,9 @@ export default function Page() {
 function Home() {
   const { section, setSection, navigationRunning } = useSection();
   const previousSection = usePrevious(section);
+  
+  // Create a debounced setSection that matches the navbar animation duration
+  const debouncedSetSection = useDebounce(setSection, 600);
 
   const heroRef = useRef<HTMLHeadingElement>(null);
   const heroInView = useInView(heroRef);
@@ -69,8 +73,7 @@ function Home() {
    * come into view or left the viewport.
    * @param sectionChange New section that has either come into view or left from view.
    * @param inView Whether it came into view or left.
-   */
-  const handleSectionInViewChange = useCallback(
+   */    const handleSectionInViewChange = useCallback(
     (sectionChange: string, inView: boolean) => {
       sectionsLog(
         `[inView] [${sectionChange}] navigationRunning: ${navigationRunning.current} ` +
@@ -87,15 +90,15 @@ function Home() {
         sectionsLog(
           `[inView] [${sectionChange}:ON] setting section to new '${sectionChange}'.`
         );
-        setSection(sectionChange);
+        debouncedSetSection(sectionChange);
       } else if (!inView && previousSection && section === sectionChange) {
         sectionsLog(
           `[inView] [${sectionChange}:OFF] setting section to previous '${previousSection}'.`
         );
-        setSection(previousSection);
+        debouncedSetSection(previousSection);
       }
     },
-    [section, heroInView, aboutInView, experienceInView, projectsInView]
+    [section, previousSection, debouncedSetSection, navigationRunning]
   );
 
   const windowSpring = useMotionValue(0);
