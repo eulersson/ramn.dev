@@ -157,7 +157,11 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
             </div>
             <ul className={`font-sans py-3 px/6) space-y-3 px-6 grow`}>
               {job["points"].map((p, i) => (
-                <li key={i}>{p}</li>
+                <motion.li
+                  key={i}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                >{p}</motion.li>
               ))}
             </ul>
             <div
