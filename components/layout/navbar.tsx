@@ -41,7 +41,7 @@ export function Navbar() {
                 ? "var(--col-fore)"
                 : "var(--col-back)",
           }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6 }} // make it no smaller than the setSection debounce amounts
           style={{
             writingMode: "vertical-lr",
           }}

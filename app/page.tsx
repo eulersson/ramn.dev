@@ -37,8 +37,9 @@ function Home() {
   const { section, setSection, navigationRunning } = useSection();
   const previousSection = usePrevious(section);
   
-  // Create a debounced setSection that matches the navbar animation duration
-  const debouncedSetSection = useDebounce(setSection, 600);
+  // Handle a user scrolling so fast between sections. It's important for this value to
+  // not exceed the time of the animation in the Navbar.
+  const debouncedSetSection = useDebounce(setSection, 500);
 
   const heroRef = useRef<HTMLHeadingElement>(null);
   const heroInView = useInView(heroRef);
