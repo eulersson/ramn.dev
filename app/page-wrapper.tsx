@@ -10,6 +10,7 @@ import { BackgroundGrid } from "@/components/layout/background-grid";
 import { Navbar } from "@/components/layout/navbar";
 import { Hero } from "@/components/sections/hero";
 import { toBool } from "@/utils";
+import { useBreakpoint } from "@/hooks/breakpoint";
 
 export function PageWrapper({
   children,
@@ -19,6 +20,8 @@ export function PageWrapper({
   heroRef: ForwardedRef<HTMLHeadingElement>;
 }) {
   const [showNavBar, setShowNavBar] = useState(false);
+  const { isSmaller } = useBreakpoint('lg')
+  const isSmallerThanLg = isSmaller
 
   const navBarTimeoutMillis = process.env.NEXT_PUBLIC_DISABLE_COVER
     ? 1000
@@ -47,7 +50,7 @@ export function PageWrapper({
 
   return (
     <AnimatePresence>
-      {showNavBar && <Navbar key="navbar" />}
+      {showNavBar && <Navbar key="navbar" vertical={isSmallerThanLg} />}
       {!toBool(process.env.NEXT_PUBLIC_DISABLE_HERO) && (
         <Hero key="hero" ref={heroRef} />
       )}

@@ -52,7 +52,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
             <div className="w-full h-full flex flex-col">
 
               {/* Progress bar. */}
-              <div className="bg-back">
+              <div className="bg-back mt-7 lg:mt-0">
                 <motion.div
                   ref={forwardedRef}
                   initial={{ y: 0, scaleX: 0 }}
