@@ -1,5 +1,5 @@
 // Third-Party
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 // Project
 import { toBool } from "@/utils";

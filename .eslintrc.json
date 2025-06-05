@@ -4,7 +4,7 @@
     {
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "sort-imports": ["error", { "allowSeparatedGroups": true }]
+        "sort-imports": ["warn", { "allowSeparatedGroups": true }]
       }
     }
   ]

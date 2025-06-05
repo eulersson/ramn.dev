@@ -6,11 +6,11 @@
   "title": "Houdini (3D) Developer",
   "summary": "Tools & pipeline to VFX artists for Disney’s Lion King",
   "points": [
-    "+ Wrote a popular asset to streamline volumetric cache placement and visualization based on foot kicks by analysing joint movement as a signal (CHOPS).",
-    "+ Improved and troubleshot the Houdini pipeline. Built Qt interfaces. Integrated PDG to be usable with our farms so artists could compute in the farm while seeing results live on their scene.",
-    "+ Main developer for the HDA (OTL) Management framework.",
-    "+ Overrode hou module to use the HDAs’ Python Module so TDs could write a class and call its methods from NodeType instances leveraging object-oriented programming practices.",
-    "+ Wrote Katana C++ Nodes for Houdini geometry ingestion within Katana."
+    "◎ Wrote a popular asset to streamline volumetric cache placement and visualization based on foot kicks by analysing joint movement as a signal (CHOPS).",
+    "◎ Improved and troubleshot the Houdini pipeline. Built Qt interfaces. Integrated PDG to be usable with our farms so artists could compute in the farm while seeing results live on their scene.",
+    "◎ Main developer for the HDA (OTL) Management framework.",
+    "◎ Overrode hou module to use the HDAs' Python Module so TDs could write a class and call its methods from NodeType instances leveraging object-oriented programming practices.",
+    "◎ Wrote Katana C++ Nodes for Houdini geometry ingestion within Katana."
   ],
   "skills": [
     "Houdini",
@@ -21,5 +21,6 @@
     "Katana",
     "Qt",
     "Unix"
-  ]
+  ],
+  "lengthy": false
 }

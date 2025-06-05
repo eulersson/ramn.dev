@@ -1,24 +1,25 @@
 "use client";
 
 // Third-Party
+import { debug } from "debug";
 import {
   animate,
   motion,
   useInView,
   useMotionValue,
   useScroll,
-} from "framer-motion";
+} from "motion/react";
 import { useCallback, useEffect, useRef } from "react";
-import { debug } from "debug";
 
 // Project
-import { SectionProvider, useSection } from "@/contexts/section";
+import { PageWrapper } from "@/app/page-wrapper";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
-import { PageWrapper } from "@/app/page-wrapper";
 import { Projects } from "@/components/sections/projects";
-import { toBool } from "@/utils";
+import { SectionProvider, useSection } from "@/contexts/section";
+import { useDebounce } from "@/hooks/debounce";
 import { usePrevious } from "@/hooks/previous";
+import { toBool } from "@/utils";
 
 // Loggers
 const log = debug("page");
@@ -35,6 +36,10 @@ export default function Page() {
 function Home() {
   const { section, setSection, navigationRunning } = useSection();
   const previousSection = usePrevious(section);
+  
+  // Handle a user scrolling so fast between sections. It's important for this value to
+  // not exceed the time of the animation in the Navbar.
+  const debouncedSetSection = useDebounce(setSection, 500);
 
   const heroRef = useRef<HTMLHeadingElement>(null);
   const heroInView = useInView(heroRef);
@@ -69,8 +74,7 @@ function Home() {
    * come into view or left the viewport.
    * @param sectionChange New section that has either come into view or left from view.
    * @param inView Whether it came into view or left.
-   */
-  const handleSectionInViewChange = useCallback(
+   */    const handleSectionInViewChange = useCallback(
     (sectionChange: string, inView: boolean) => {
       sectionsLog(
         `[inView] [${sectionChange}] navigationRunning: ${navigationRunning.current} ` +
@@ -87,15 +91,15 @@ function Home() {
         sectionsLog(
           `[inView] [${sectionChange}:ON] setting section to new '${sectionChange}'.`
         );
-        setSection(sectionChange);
+        debouncedSetSection(sectionChange);
       } else if (!inView && previousSection && section === sectionChange) {
         sectionsLog(
           `[inView] [${sectionChange}:OFF] setting section to previous '${previousSection}'.`
         );
-        setSection(previousSection);
+        debouncedSetSection(previousSection);
       }
     },
-    [section, heroInView, aboutInView, experienceInView, projectsInView]
+    [section, previousSection, debouncedSetSection, navigationRunning]
   );
 
   const windowSpring = useMotionValue(0);

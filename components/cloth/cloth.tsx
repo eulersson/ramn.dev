@@ -7,7 +7,9 @@ import {
   useTime,
   useTransform,
   useVelocity,
-} from "framer-motion";
+} from "motion/react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 import {
   MouseEventHandler,
   MutableRefObject,
@@ -17,23 +19,21 @@ import {
   useRef,
   useState,
 } from "react";
-import Image from "next/image";
-import { useTheme } from "next-themes";
 
 // Third-Party - 3D
-import { BufferAttribute, DynamicDrawUsage, OrthographicCamera } from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   OrthographicCamera as DreiOrthographicCamera,
   Stats,
 } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { BufferAttribute, DynamicDrawUsage, OrthographicCamera } from "three";
 
 // Project
-import { CursorSize, useCursor } from "@/components/cursor";
-import { GridDimensions, Size } from "@/types";
 import { ParticleSystem } from "@/components/cloth/particle-system";
-import cursorIcon from "@/public/cursor.svg";
+import { CursorSize, useCursor } from "@/components/cursor";
 import cursorIconDark from "@/public/cursor-dark.svg";
+import cursorIcon from "@/public/cursor.svg";
+import { GridDimensions, Size } from "@/types";
 import { toBool } from "@/utils";
 
 // Local
@@ -354,7 +354,7 @@ export function Cloth({
       y -= cameraRef.current.position.y;
     }
 
-    // Factor this out, it's beign repeated in onMouseDown
+    // Factor this out, it's being repeated in onMouseDown
     if (initialWrapperSize.current && canvasWrapperRef.current) {
       x -=
         (canvasWrapperRef.current.clientWidth - initialWrapperSize.current.w) /

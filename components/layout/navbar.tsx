@@ -1,11 +1,11 @@
 // Third-Party
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 // Project
-import { toBool } from "@/utils";
 import { useSection } from "@/contexts/section";
+import { toBool } from "@/utils";
 
-export function Navbar() {
+export function Navbar({ vertical = false }: { vertical?: boolean }) {
   const { setSection, sections, activeSectionIdx, navigationRunning } =
     useSection();
 
@@ -15,53 +15,69 @@ export function Navbar() {
 
   return (
     <>
-      {sections.map((s, i) => (
-        <motion.div
+      {sections.map((s, i) => {
+        const initialExtra = vertical ? {
+          bottom: i === 0 ? "-28px" : "initial",
+          top: i === 0 ? "initial" : `-${28 * (sections.length - i)}px`,
+        } : {
+          left: i === 0 ? "-28px" : "initial",
+          right: i === 0 ? "initial" : `-${28 * (sections.length - i)}px`,
+        }
+
+        const animateOrigin =
+          i > activeSectionIdx
+            ? `${28 * (sections.length - i - 1)}px`
+            : "initial"
+
+        const animateDestination = i <= activeSectionIdx ? `${28 * i}px` : "initial"
+
+        const animateExtra = vertical ? {
+          bottom: animateOrigin,
+          top: animateDestination,
+        } : {
+          right: animateOrigin,
+          left: animateDestination,
+        }
+        const extraClassNames = vertical ? "h-[30px] w-full py-gppn px-[8px]" : "w-[30px] h-full px-gppn py-[8px]"
+        const style = vertical ? { } : { writingMode: 'vertical-lr' as const }
+
+        return <motion.div
           key={s}
-          className="z-20 fixed h-full w-[30px] border-2-fore-inside px-gppn py-[8px]"
+          className={`z-20 fixed border-2-fore-inside ${extraClassNames}`}
           layout
           initial={{
-            left: i === 0 ? "-28px" : "initial",
-            right: i === 0 ? "initial" : `-${28 * (sections.length - i)}px`,
             color: i === 0 ? "var(--col-back)" : "var(--col-fore)",
             backgroundColor: i === 0 ? "var(--col-fore)" : "var(--col-back)",
+            ...initialExtra
           }}
           animate={{
-            left: i <= activeSectionIdx ? `${28 * i}px` : "initial",
-            right:
-              i > activeSectionIdx
-                ? `${28 * (sections.length - i - 1)}px`
-                : "initial",
             color:
               s === sections[activeSectionIdx]
                 ? "var(--col-back)"
                 : "var(--col-fore)",
-            backgroundColor:
-              s === sections[activeSectionIdx]
-                ? "var(--col-fore)"
-                : "var(--col-back)",
+            backgroundColor: 
+               s === sections[activeSectionIdx]
+                 ? "var(--col-fore)"
+                 : "var(--col-back)",
+            ...animateExtra
           }}
-          transition={{ duration: 0.6 }}
-          style={{
-            writingMode: "vertical-lr",
-          }}
+          transition={{ duration: 0.6 }} // make it no smaller than the setSection debounce amounts
+          style={style}
           onClick={() => {
             navigationRunning.current = true;
             setSection(s);
           }}
         >
-          {[...Array(20)].map((e, j) => (
+          {[...Array(40)].map((e, j) => (
             <span
-              className={`font-sans text-xl mb-2 select-none ${
-                j === 0 ? "font-bold" : ""
-              }`}
+              className={`font-sans text-xl select-none ${j === 0 ? "font-bold" : ""} ${vertical ? "mr-2" : "mb-2"}`}
               key={j}
             >
               {s}
             </span>
           ))}
         </motion.div>
-      ))}
+      })}
     </>
   );
 }

@@ -1,15 +1,15 @@
 "use client";
 
 // Third-Party
+import { motion, useScroll, useTransform } from "motion/react";
 import { forwardRef, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 
 // Project
 import { Cloth } from "@/components/cloth/cloth";
 import { CursorSize } from "@/components/cursor";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { toBool } from "@/utils";
 import { useSection } from "@/contexts/section";
+import { toBool } from "@/utils";
 
 const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
   const ref = useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
           <section className="sticky top-0 h-screen bg-fore">
             <div className="w-full h-full flex flex-col">
               {/* Progress bar. */}
-              <div className="bg-back">
+              <div className="bg-back mt-7 lg:mt-0">
                 <motion.div
                   ref={forwardedRef}
                   initial={{ y: 0, scaleX: 0 }}

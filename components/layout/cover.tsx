@@ -1,6 +1,6 @@
 // Third-Party
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
 // Project
 import { toBool } from "@/utils";

@@ -1,21 +1,21 @@
 // Third-Party
+import { motion, useInView } from "motion/react";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 
 // Project
-import { Sentence, Typewriter } from "@/components/typewriter";
 import { Block } from "@/components/block";
 import { CursorSize } from "@/components/cursor";
 import { TagProps } from "@/components/tag";
 import { Terminal } from "@/components/terminal";
 import { ThemedImage } from "@/components/themed-image";
 import { Title } from "@/components/title";
+import { Sentence, Typewriter } from "@/components/typewriter";
 import { toBool } from "@/utils";
 
 // Content
 import Intention from "@/content/sections/intention.mdx";
 
-const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
+const About = forwardRef<HTMLHeadingElement>(function About({ }, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
 
   const [terminalState, setTerminalState] = useState<
@@ -65,7 +65,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const tags: TagProps[] = [
     { text: "Python", dotted: false },
     { text: "C++", dotted: false },
-    { text: "JavaScript", dotted: false },
+    { text: "TypeScript", dotted: false },
     { text: "Go", dotted: false },
     { text: "Django", dotted: false },
     { text: "Angular", dotted: false },
@@ -135,7 +135,13 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             }}
             tags={tags}
           >
-            <Intention />
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <Intention />
+            </motion.div>
+
           </Block>
         </div>
       </div>
