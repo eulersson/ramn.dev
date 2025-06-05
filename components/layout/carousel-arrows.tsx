@@ -37,8 +37,6 @@ export function CarouselArrows({side, onClick} : CarouselArrowsProps) {
     : '-mr-[10px] hover:-mr-[6px] active:-mr-[2px] -mt-[10px] hover:-mt-[4px] active:-mt-[2px]';
   const alignmentClass = isLeft ? 'items-end pr-[10px]' : 'items-start pl-[10px]';
 
-  const controls = useAnimationControls();
-
   return (
     <motion.button
       type="button"
@@ -74,6 +72,7 @@ export function CarouselArrows({side, onClick} : CarouselArrowsProps) {
         const moveX = isLeft
           ? -30 - (3 - distance) * 30
           : 30 + (3 - distance) * 30;
+        const controls = useAnimationControls();
 
         return (
           <motion.span
