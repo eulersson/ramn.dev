@@ -1,5 +1,79 @@
 import { motion, useAnimationControls } from "framer-motion";
 
+type CarouselArrowProps = {
+  index: number;
+  middle: number;
+  isLeft: boolean;
+  arrowChar: string;
+};
+
+function CarouselArrow({ index, middle, isLeft, arrowChar }: CarouselArrowProps) {
+  const controls = useAnimationControls();
+  
+  // The arrows closer to the center are larger and bounce further when hovered.
+  const distance = Math.abs(index - middle);
+
+  const scale = distance === 0 ? 50 : Math.max(50 - (distance * 7), 15);
+  const moveX = isLeft
+    ? -30 - (3 - distance) * 30
+    : 30 + (3 - distance) * 30;
+
+  return (
+    <motion.span
+      className="mix-blend-difference"
+      style={{ fontSize: `${scale}px` }}
+      initial={{ x: isLeft ? -3 : 3, opacity: 0 }}
+      whileInView={{
+        x: isLeft ? -3 : 3,
+        opacity: 1,
+        transition: {
+          opacity: { duration: 0.2 }
+        }
+      }}
+      viewport={{ once: false }}
+      animate={controls}
+      onViewportEnter={() => {
+        setTimeout(() => {
+          controls.start({
+            x: moveX,
+            transition: {
+              duration: 0.3,
+              ease: "easeOut"
+            }
+          }).then(() => {
+            controls.start({
+              x: isLeft ? -3 : 3,
+              transition: {
+                duration: 0.5,
+                ease: "easeInOut"
+              }
+            });
+          });
+        }, index * 100 + 200);
+      }}
+      onHoverStart={() => {
+        controls.start({
+          x: moveX,
+          transition: {
+            duration: 0.3,
+            ease: "easeOut"
+          }
+        }).then(() => {
+          controls.start({
+            x: isLeft ? -3 : 3,
+            transition: {
+              duration: 0.5,
+              ease: "easeInOut"
+            }
+          });
+        });
+      }}
+    >
+      {arrowChar}
+    </motion.span>
+  );
+}
+
 type CarouselArrowsProps = {
   side: 'left' | 'right';
   onClick?: () => void;  // Optional callback for click events
@@ -37,6 +111,8 @@ export function CarouselArrows({side, onClick} : CarouselArrowsProps) {
     : '-mr-[10px] hover:-mr-[6px] active:-mr-[2px] -mt-[10px] hover:-mt-[4px] active:-mt-[2px]';
   const alignmentClass = isLeft ? 'items-end pr-[10px]' : 'items-start pl-[10px]';
 
+  const middle = Math.floor((7 - 1) / 2);
+
   return (
     <motion.button
       type="button"
@@ -46,6 +122,7 @@ export function CarouselArrows({side, onClick} : CarouselArrowsProps) {
         `w-g02n h-full transition ` +
         `text-back bg-fore hover:bg-back border-2-back ` +
         `flex flex-col -center ` + 
+        `cursor-none hover:cursor-none` +
         baseMarginClasses + " " + 
         alignmentClass + " justify"
       }
@@ -62,74 +139,16 @@ export function CarouselArrows({side, onClick} : CarouselArrowsProps) {
         }
       }}
     >
-      {Array.from({ length: 7 }, (_, i) => {
-        const middle = Math.floor((7 - 1) / 2);
-
-        // The arrows closer to the center are larger and bounce further when hovered.
-        const distance = Math.abs(i - middle);
-
-        const scale = distance === 0 ? 50 : Math.max(50 - (distance * 7), 15);
-        const moveX = isLeft
-          ? -30 - (3 - distance) * 30
-          : 30 + (3 - distance) * 30;
-        const controls = useAnimationControls();
-
-        return (
-          <motion.span
-            key={i}
-            className="mix-blend-difference"
-            style={{ fontSize: `${scale}px` }}
-            initial={{ x: isLeft ? -3 : 3, opacity: 0 }}
-            whileInView={{
-              x: isLeft ? -3 : 3,
-              opacity: 1,
-              transition: {
-                opacity: { duration: 0.2 }
-              }
-            }}
-            viewport={{ once: false }}
-            animate={controls}
-            onViewportEnter={() => {
-              setTimeout(() => {
-                controls.start({
-                  x: moveX,
-                  transition: {
-                    duration: 0.3,
-                    ease: "easeOut"
-                  }
-                }).then(() => {
-                  controls.start({
-                    x: isLeft ? -3 : 3,
-                    transition: {
-                      duration: 0.5,
-                      ease: "easeInOut"
-                    }
-                  });
-                });
-              }, i * 100 + 200);
-            }}
-            onHoverStart={() => {
-              controls.start({
-                x: moveX,
-                transition: {
-                  duration: 0.3,
-                  ease: "easeOut"
-                }
-              }).then(() => {
-                controls.start({
-                  x: isLeft ? -3 : 3,
-                  transition: {
-                    duration: 0.5,
-                    ease: "easeInOut"
-                  }
-                });
-              });
-            }}
-          >
-            {arrowChar}
-          </motion.span>
-        );
-      })}
+      {Array.from({ length: 7 }, (_, i) => (
+        <CarouselArrow
+          key={i}
+          index={i}
+          middle={middle}
+          isLeft={isLeft}
+          arrowChar={arrowChar}
+        />
+      ))}
     </motion.button>
   );
 }
+
