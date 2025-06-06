@@ -14,8 +14,8 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .invisible-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 :root {
@@ -76,15 +76,11 @@
 
 .cursor {
   pointer-events: none;
-  background-color: white;
-  width: 32px;
-  height: 32px;
   border-radius: 50%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 30;
-  mix-blend-mode: difference;
 }
 
 /* TODO: Maybe use this for mobile? Where hovering doesn't make any sense on the bg-grid? */

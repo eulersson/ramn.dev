@@ -3,24 +3,30 @@
 // React
 import { createContext, useContext, useEffect, useState } from "react";
 
-// Third-Part
+// Third-Party
 import { MotionValue, motion, useMotionValue, useSpring } from "motion/react";
 
 // Project
 import { ContextNotProvidedError } from "@/errors/context-not-provided";
 import { useTouchDevice } from "@/hooks/touch-device";
 import { toBool } from "@/utils";
+import { isMacOSChromium } from "@/utils/browser";
 
 // -- Cursor Context & Provider --------------------------------------------------------
 const CursorContext = createContext<{
   cursorSize: MotionValue;
   setCursorSize: Function;
+  cursorSizeRaw: number;
 } | null>(null);
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
+  const [cursorSizeRaw, setCursorSizeRaw] = useState(0)
   const cursorSize = useMotionValue(0);
   const cursorSizeAnim = useSpring(cursorSize, { damping: 10 });
-  const setCursorSize = (value: number) => cursorSize.set(value);
+  const setCursorSize = (value: number) => {
+    setCursorSizeRaw(value)
+    cursorSize.set(value)
+  };
 
   useEffect(() => {
     // Since `cursorSize` starts at 0 this will give it an initial bounce.
@@ -29,7 +35,7 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CursorContext.Provider
-      value={{ cursorSize: cursorSizeAnim, setCursorSize }}
+      value={{ cursorSize: cursorSizeAnim, setCursorSize, cursorSizeRaw }}
     >
       {children}
     </CursorContext.Provider>
@@ -56,10 +62,14 @@ export function useCursor() {
 export function Cursor() {
   const cursorX = useMotionValue(-500);
   const cursorY = useMotionValue(-500);
-
   const cursorContext = useCursor();
+  const [isCompatibleBrowser, setIsCompatibleBrowser] = useState(false);
 
   useEffect(() => {
+    // MacOS Chromium browsers lag when there are animations and the difference mix
+    // blending mode at the same time.
+    setIsCompatibleBrowser(!isMacOSChromium());
+    
     const mouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
@@ -74,9 +84,18 @@ export function Cursor() {
     console.log("[Cursor] Rendering");
   }
 
-  return (
+  return isCompatibleBrowser ? (
     <motion.div
-      className="cursor z-50"
+      className={`cursor w-[32px] h-[32px] z-50 bg-white mix-blend-difference`}
+      style={{
+        x: cursorX,
+        y: cursorY,
+        ...(cursorContext && { scale: cursorContext.cursorSize }),
+      }}
+    ></motion.div>
+  ) : (
+    <motion.div
+      className={`cursor w-[40px] h-[40px] z-50 bg-[radial-gradient(circle,transparent_14px,black_14px,black_16px,white_16px,white_18px,black_18px,black_20px)]`}
       style={{
         x: cursorX,
         y: cursorY,
