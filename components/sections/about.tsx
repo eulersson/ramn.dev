@@ -135,13 +135,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({ }, ref) {
             }}
             tags={tags}
           >
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            >
-              <Intention />
-            </motion.div>
-
+            <Intention />
           </Block>
         </div>
       </div>
