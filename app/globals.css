@@ -1,91 +1,459 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-/* Does not play well with the framer motion scrolling animation. */
-/* html {
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-title: var(--font-urbanist);
+  --font-mono: var(--font-fira-mono);
+  --font-sans: var(--font-nunito);
+  --font-serif: var(--font-playfair-display);
+}
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-xs: 475px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --color-fore: var(--col-fore);
+  --color-back: var(--col-back);
+
+  --shadow-blocky: 10px 10px 0 var(--col-fore);
+  --shadow-button: 5px 5px 0 var(--col-fore);
+  --shadow-buttonhover: 3px 3px 0 var(--col-fore);
+
+  --animate-blinky: blinky 800ms step-end 10;
+
+  --spacing-ggpn: calc(var(--bg-grid-gap));
+  --spacing-ggpy: calc(var(--bg-grid-gap) * 2);
+  --spacing-g01n: calc(var(--bg-grid-box-size) * (1 / 8));
+  --spacing-g01y: calc(var(--bg-grid-box-size) * (1 / 8) + var(--bg-grid-gap));
+  --spacing-g02n: calc(var(--bg-grid-box-size) * (2 / 8));
+  --spacing-g02y: calc(var(--bg-grid-box-size) * (2 / 8) + var(--bg-grid-gap));
+  --spacing-g03n: calc(var(--bg-grid-box-size) * (3 / 8));
+  --spacing-g03y: calc(var(--bg-grid-box-size) * (3 / 8) + var(--bg-grid-gap));
+  --spacing-g04n: calc(var(--bg-grid-box-size) * (4 / 8));
+  --spacing-g04y: calc(var(--bg-grid-box-size) * (4 / 8) + var(--bg-grid-gap));
+  --spacing-g05n: calc(var(--bg-grid-box-size) * (5 / 8));
+  --spacing-g05y: calc(var(--bg-grid-box-size) * (5 / 8) + var(--bg-grid-gap));
+  --spacing-g06n: calc(var(--bg-grid-box-size) * (6 / 8));
+  --spacing-g06y: calc(var(--bg-grid-box-size) * (6 / 8) + var(--bg-grid-gap));
+  --spacing-g07n: calc(var(--bg-grid-box-size) * (7 / 8));
+  --spacing-g07y: calc(var(--bg-grid-box-size) * (7 / 8) + var(--bg-grid-gap));
+  --spacing-g10n: calc(var(--bg-grid-box-size));
+  --spacing-g10t: calc(var(--bg-grid-box-size) + 1 * var(--bg-grid-gap));
+  --spacing-g10y: calc(var(--bg-grid-box-size) + 2 * var(--bg-grid-gap));
+  --spacing-g11n: calc(var(--bg-grid-box-size) * (9 / 8));
+  --spacing-g11t: calc(var(--bg-grid-box-size) * (9 / 8) + 1 * var(--bg-grid-gap));
+  --spacing-g11y: calc(var(--bg-grid-box-size) * (9 / 8) + 2 * var(--bg-grid-gap));
+  --spacing-g12n: calc(var(--bg-grid-box-size) * (10 / 8));
+  --spacing-g12t: calc(var(--bg-grid-box-size) * (10 / 8) + 1 * var(--bg-grid-gap));
+  --spacing-g12y: calc(var(--bg-grid-box-size) * (10 / 8) + 2 * var(--bg-grid-gap));
+  --spacing-g13n: calc(var(--bg-grid-box-size) * (11 / 8));
+  --spacing-g13t: calc(var(--bg-grid-box-size) * (11 / 8) + 1 * var(--bg-grid-gap));
+  --spacing-g13y: calc(var(--bg-grid-box-size) * (11 / 8) + 2 * var(--bg-grid-gap));
+  --spacing-g14n: calc(var(--bg-grid-box-size) * (12 / 8));
+  --spacing-g14t: calc(var(--bg-grid-box-size) * (12 / 8) + 1 * var(--bg-grid-gap));
+  --spacing-g14y: calc(var(--bg-grid-box-size) * (12 / 8) + 2 * var(--bg-grid-gap));
+  --spacing-g15n: calc(var(--bg-grid-box-size) * (13 / 8));
+  --spacing-g15t: calc(var(--bg-grid-box-size) * (13 / 8) + 1 * var(--bg-grid-gap));
+  --spacing-g15y: calc(var(--bg-grid-box-size) * (13 / 8) + 2 * var(--bg-grid-gap));
+  --spacing-g16n: calc(var(--bg-grid-box-size) * (14 / 8));
+  --spacing-g16t: calc(var(--bg-grid-box-size) * (14 / 8) + 1 * var(--bg-grid-gap));
+  --spacing-g16y: calc(var(--bg-grid-box-size) * (14 / 8) + 2 * var(--bg-grid-gap));
+  --spacing-g17n: calc(var(--bg-grid-box-size) * (15 / 8));
+  --spacing-g17t: calc(var(--bg-grid-box-size) * (15 / 8) + 1 * var(--bg-grid-gap));
+  --spacing-g17y: calc(var(--bg-grid-box-size) * (15 / 8) + 2 * var(--bg-grid-gap));
+  --spacing-g20n: calc(var(--bg-grid-box-size) * 2);
+  --spacing-g20y: calc(var(--bg-grid-box-size) * 2 + 3 * var(--bg-grid-gap));
+  --spacing-g30n: calc(var(--bg-grid-box-size) * 3);
+  --spacing-g30y: calc(var(--bg-grid-box-size) * 3 + 4 * var(--bg-grid-gap));
+  --spacing-g40n: calc(var(--bg-grid-box-size) * 4);
+  --spacing-g40y: calc(var(--bg-grid-box-size) * 4 + 5 * var(--bg-grid-gap));
+  --spacing-g50n: calc(var(--bg-grid-box-size) * 5);
+  --spacing-g50y: calc(var(--bg-grid-box-size) * 5 + 6 * var(--bg-grid-gap));
+
+  --min-width-ggpn: var(--bg-grid-gap);
+  --min-width-ggpy: calc(var(--bg-grid-gap) * 2);
+  --min-width-g01n: calc(var(--bg-grid-box-size) * (1 / 8));
+  --min-width-g01y: calc(var(--bg-grid-box-size) * (1 / 8) + var(--bg-grid-gap));
+  --min-width-g02n: calc(var(--bg-grid-box-size) * (2 / 8));
+  --min-width-g02y: calc(var(--bg-grid-box-size) * (2 / 8) + var(--bg-grid-gap));
+  --min-width-g03n: calc(var(--bg-grid-box-size) * (3 / 8));
+  --min-width-g03y: calc(var(--bg-grid-box-size) * (3 / 8) + var(--bg-grid-gap));
+  --min-width-g04n: calc(var(--bg-grid-box-size) * (4 / 8));
+  --min-width-g04y: calc(var(--bg-grid-box-size) * (4 / 8) + var(--bg-grid-gap));
+  --min-width-g05n: calc(var(--bg-grid-box-size) * (5 / 8));
+  --min-width-g05y: calc(var(--bg-grid-box-size) * (5 / 8) + var(--bg-grid-gap));
+  --min-width-g06n: calc(var(--bg-grid-box-size) * (6 / 8));
+  --min-width-g06y: calc(var(--bg-grid-box-size) * (6 / 8) + var(--bg-grid-gap));
+  --min-width-g07n: calc(var(--bg-grid-box-size) * (7 / 8));
+  --min-width-g07y: calc(var(--bg-grid-box-size) * (7 / 8) + var(--bg-grid-gap));
+  --min-width-g10n: calc(var(--bg-grid-box-size));
+  --min-width-g10t: calc(var(--bg-grid-box-size) + 1 * var(--bg-grid-gap));
+  --min-width-g10y: calc(var(--bg-grid-box-size) + 2 * var(--bg-grid-gap));
+  --min-width-g11n: calc(var(--bg-grid-box-size) * (9 / 8));
+  --min-width-g11t: calc(var(--bg-grid-box-size) * (9 / 8) + 1 * var(--bg-grid-gap));
+  --min-width-g11y: calc(var(--bg-grid-box-size) * (9 / 8) + 2 * var(--bg-grid-gap));
+  --min-width-g12n: calc(var(--bg-grid-box-size) * (10 / 8));
+  --min-width-g12t: calc(var(--bg-grid-box-size) * (10 / 8) + 1 * var(--bg-grid-gap));
+  --min-width-g12y: calc(var(--bg-grid-box-size) * (10 / 8) + 2 * var(--bg-grid-gap));
+  --min-width-g13n: calc(var(--bg-grid-box-size) * (11 / 8));
+  --min-width-g13t: calc(var(--bg-grid-box-size) * (11 / 8) + 1 * var(--bg-grid-gap));
+  --min-width-g13y: calc(var(--bg-grid-box-size) * (11 / 8) + 2 * var(--bg-grid-gap));
+  --min-width-g14n: calc(var(--bg-grid-box-size) * (12 / 8));
+  --min-width-g14t: calc(var(--bg-grid-box-size) * (12 / 8) + 1 * var(--bg-grid-gap));
+  --min-width-g14y: calc(var(--bg-grid-box-size) * (12 / 8) + 2 * var(--bg-grid-gap));
+  --min-width-g15n: calc(var(--bg-grid-box-size) * (13 / 8));
+  --min-width-g15t: calc(var(--bg-grid-box-size) * (13 / 8) + 1 * var(--bg-grid-gap));
+  --min-width-g15y: calc(var(--bg-grid-box-size) * (13 / 8) + 2 * var(--bg-grid-gap));
+  --min-width-g16n: calc(var(--bg-grid-box-size) * (14 / 8));
+  --min-width-g16t: calc(var(--bg-grid-box-size) * (14 / 8) + 1 * var(--bg-grid-gap));
+  --min-width-g16y: calc(var(--bg-grid-box-size) * (14 / 8) + 2 * var(--bg-grid-gap));
+  --min-width-g17n: calc(var(--bg-grid-box-size) * (15 / 8));
+  --min-width-g17t: calc(var(--bg-grid-box-size) * (15 / 8) + 1 * var(--bg-grid-gap));
+  --min-width-g17y: calc(var(--bg-grid-box-size) * (15 / 8) + 2 * var(--bg-grid-gap));
+  --min-width-g20n: calc(var(--bg-grid-box-size) * 2);
+  --min-width-g20y: calc(var(--bg-grid-box-size) * 2 + 3 * var(--bg-grid-gap));
+  --min-width-g30n: calc(var(--bg-grid-box-size) * 3);
+  --min-width-g30y: calc(var(--bg-grid-box-size) * 3 + 4 * var(--bg-grid-gap));
+  --min-width-g40n: calc(var(--bg-grid-box-size) * 4);
+  --min-width-g40y: calc(var(--bg-grid-box-size) * 4 + 5 * var(--bg-grid-gap));
+  --min-width-g50n: calc(var(--bg-grid-box-size) * 5);
+  --min-width-g50y: calc(var(--bg-grid-box-size) * 5 + 6 * var(--bg-grid-gap));
+
+  --width-ggpn: var(--bg-grid-gap);
+  --width-ggpy: calc(var(--bg-grid-gap) * 2);
+  --width-g01n: calc(var(--bg-grid-box-size) * (1 / 8));
+  --width-g01y: calc(var(--bg-grid-box-size) * (1 / 8) + var(--bg-grid-gap));
+  --width-g02n: calc(var(--bg-grid-box-size) * (2 / 8));
+  --width-g02y: calc(var(--bg-grid-box-size) * (2 / 8) + var(--bg-grid-gap));
+  --width-g03n: calc(var(--bg-grid-box-size) * (3 / 8));
+  --width-g03y: calc(var(--bg-grid-box-size) * (3 / 8) + var(--bg-grid-gap));
+  --width-g04n: calc(var(--bg-grid-box-size) * (4 / 8));
+  --width-g04y: calc(var(--bg-grid-box-size) * (4 / 8) + var(--bg-grid-gap));
+  --width-g05n: calc(var(--bg-grid-box-size) * (5 / 8));
+  --width-g05y: calc(var(--bg-grid-box-size) * (5 / 8) + var(--bg-grid-gap));
+  --width-g06n: calc(var(--bg-grid-box-size) * (6 / 8));
+  --width-g06y: calc(var(--bg-grid-box-size) * (6 / 8) + var(--bg-grid-gap));
+  --width-g07n: calc(var(--bg-grid-box-size) * (7 / 8));
+  --width-g07y: calc(var(--bg-grid-box-size) * (7 / 8) + var(--bg-grid-gap));
+  --width-g10n: calc(var(--bg-grid-box-size));
+  --width-g10t: calc(var(--bg-grid-box-size) + 1 * var(--bg-grid-gap));
+  --width-g10y: calc(var(--bg-grid-box-size) + 2 * var(--bg-grid-gap));
+  --width-g11n: calc(var(--bg-grid-box-size) * (9 / 8));
+  --width-g11t: calc(var(--bg-grid-box-size) * (9 / 8) + 1 * var(--bg-grid-gap));
+  --width-g11y: calc(var(--bg-grid-box-size) * (9 / 8) + 2 * var(--bg-grid-gap));
+  --width-g12n: calc(var(--bg-grid-box-size) * (10 / 8));
+  --width-g12t: calc(var(--bg-grid-box-size) * (10 / 8) + 1 * var(--bg-grid-gap));
+  --width-g12y: calc(var(--bg-grid-box-size) * (10 / 8) + 2 * var(--bg-grid-gap));
+  --width-g13n: calc(var(--bg-grid-box-size) * (11 / 8));
+  --width-g13t: calc(var(--bg-grid-box-size) * (11 / 8) + 1 * var(--bg-grid-gap));
+  --width-g13y: calc(var(--bg-grid-box-size) * (11 / 8) + 2 * var(--bg-grid-gap));
+  --width-g14n: calc(var(--bg-grid-box-size) * (12 / 8));
+  --width-g14t: calc(var(--bg-grid-box-size) * (12 / 8) + 1 * var(--bg-grid-gap));
+  --width-g14y: calc(var(--bg-grid-box-size) * (12 / 8) + 2 * var(--bg-grid-gap));
+  --width-g15n: calc(var(--bg-grid-box-size) * (13 / 8));
+  --width-g15t: calc(var(--bg-grid-box-size) * (13 / 8) + 1 * var(--bg-grid-gap));
+  --width-g15y: calc(var(--bg-grid-box-size) * (13 / 8) + 2 * var(--bg-grid-gap));
+  --width-g16n: calc(var(--bg-grid-box-size) * (14 / 8));
+  --width-g16t: calc(var(--bg-grid-box-size) * (14 / 8) + 1 * var(--bg-grid-gap));
+  --width-g16y: calc(var(--bg-grid-box-size) * (14 / 8) + 2 * var(--bg-grid-gap));
+  --width-g17n: calc(var(--bg-grid-box-size) * (15 / 8));
+  --width-g17t: calc(var(--bg-grid-box-size) * (15 / 8) + 1 * var(--bg-grid-gap));
+  --width-g17y: calc(var(--bg-grid-box-size) * (15 / 8) + 2 * var(--bg-grid-gap));
+  --width-g20n: calc(var(--bg-grid-box-size) * 2);
+  --width-g20y: calc(var(--bg-grid-box-size) * 2 + 3 * var(--bg-grid-gap));
+  --width-g30n: calc(var(--bg-grid-box-size) * 3);
+  --width-g30y: calc(var(--bg-grid-box-size) * 3 + 4 * var(--bg-grid-gap));
+  --width-g40n: calc(var(--bg-grid-box-size) * 4);
+  --width-g40y: calc(var(--bg-grid-box-size) * 4 + 5 * var(--bg-grid-gap));
+  --width-g50n: calc(var(--bg-grid-box-size) * 5);
+  --width-g50y: calc(var(--bg-grid-box-size) * 5 + 6 * var(--bg-grid-gap));
+
+  --min-height-ggpn: var(--bg-grid-gap);
+  --min-height-ggpy: calc(var(--bg-grid-gap) * 2);
+  --min-height-g01n: calc(var(--bg-grid-box-size) * (1 / 8));
+  --min-height-g01y: calc(var(--bg-grid-box-size) * (1 / 8) + var(--bg-grid-gap));
+  --min-height-g02n: calc(var(--bg-grid-box-size) * (2 / 8));
+  --min-height-g02y: calc(var(--bg-grid-box-size) * (2 / 8) + var(--bg-grid-gap));
+  --min-height-g03n: calc(var(--bg-grid-box-size) * (3 / 8));
+  --min-height-g03y: calc(var(--bg-grid-box-size) * (3 / 8) + var(--bg-grid-gap));
+  --min-height-g04n: calc(var(--bg-grid-box-size) * (4 / 8));
+  --min-height-g04y: calc(var(--bg-grid-box-size) * (4 / 8) + var(--bg-grid-gap));
+  --min-height-g05n: calc(var(--bg-grid-box-size) * (5 / 8));
+  --min-height-g05y: calc(var(--bg-grid-box-size) * (5 / 8) + var(--bg-grid-gap));
+  --min-height-g06n: calc(var(--bg-grid-box-size) * (6 / 8));
+  --min-height-g06y: calc(var(--bg-grid-box-size) * (6 / 8) + var(--bg-grid-gap));
+  --min-height-g07n: calc(var(--bg-grid-box-size) * (7 / 8));
+  --min-height-g07y: calc(var(--bg-grid-box-size) * (7 / 8) + var(--bg-grid-gap));
+  --min-height-g10n: calc(var(--bg-grid-box-size));
+  --min-height-g10t: calc(var(--bg-grid-box-size) + 1 * var(--bg-grid-gap));
+  --min-height-g10y: calc(var(--bg-grid-box-size) + 2 * var(--bg-grid-gap));
+  --min-height-g11n: calc(var(--bg-grid-box-size) * (9 / 8));
+  --min-height-g11t: calc(var(--bg-grid-box-size) * (9 / 8) + 1 * var(--bg-grid-gap));
+  --min-height-g11y: calc(var(--bg-grid-box-size) * (9 / 8) + 2 * var(--bg-grid-gap));
+  --min-height-g12n: calc(var(--bg-grid-box-size) * (10 / 8));
+  --min-height-g12t: calc(var(--bg-grid-box-size) * (10 / 8) + 1 * var(--bg-grid-gap));
+  --min-height-g12y: calc(var(--bg-grid-box-size) * (10 / 8) + 2 * var(--bg-grid-gap));
+  --min-height-g13n: calc(var(--bg-grid-box-size) * (11 / 8));
+  --min-height-g13t: calc(var(--bg-grid-box-size) * (11 / 8) + 1 * var(--bg-grid-gap));
+  --min-height-g13y: calc(var(--bg-grid-box-size) * (11 / 8) + 2 * var(--bg-grid-gap));
+  --min-height-g14n: calc(var(--bg-grid-box-size) * (12 / 8));
+  --min-height-g14t: calc(var(--bg-grid-box-size) * (12 / 8) + 1 * var(--bg-grid-gap));
+  --min-height-g14y: calc(var(--bg-grid-box-size) * (12 / 8) + 2 * var(--bg-grid-gap));
+  --min-height-g15n: calc(var(--bg-grid-box-size) * (13 / 8));
+  --min-height-g15t: calc(var(--bg-grid-box-size) * (13 / 8) + 1 * var(--bg-grid-gap));
+  --min-height-g15y: calc(var(--bg-grid-box-size) * (13 / 8) + 2 * var(--bg-grid-gap));
+  --min-height-g16n: calc(var(--bg-grid-box-size) * (14 / 8));
+  --min-height-g16t: calc(var(--bg-grid-box-size) * (14 / 8) + 1 * var(--bg-grid-gap));
+  --min-height-g16y: calc(var(--bg-grid-box-size) * (14 / 8) + 2 * var(--bg-grid-gap));
+  --min-height-g17n: calc(var(--bg-grid-box-size) * (15 / 8));
+  --min-height-g17t: calc(var(--bg-grid-box-size) * (15 / 8) + 1 * var(--bg-grid-gap));
+  --min-height-g17y: calc(var(--bg-grid-box-size) * (15 / 8) + 2 * var(--bg-grid-gap));
+  --min-height-g20n: calc(var(--bg-grid-box-size) * 2);
+  --min-height-g20y: calc(var(--bg-grid-box-size) * 2 + 3 * var(--bg-grid-gap));
+  --min-height-g30n: calc(var(--bg-grid-box-size) * 3);
+  --min-height-g30y: calc(var(--bg-grid-box-size) * 3 + 4 * var(--bg-grid-gap));
+  --min-height-g40n: calc(var(--bg-grid-box-size) * 4);
+  --min-height-g40y: calc(var(--bg-grid-box-size) * 4 + 5 * var(--bg-grid-gap));
+  --min-height-g50n: calc(var(--bg-grid-box-size) * 5);
+  --min-height-g50y: calc(var(--bg-grid-box-size) * 5 + 6 * var(--bg-grid-gap));
+
+  --height-ggpn: var(--bg-grid-gap);
+  --height-ggpy: calc(var(--bg-grid-gap) * 2);
+  --height-g01n: calc(var(--bg-grid-box-size) * (1 / 8));
+  --height-g01y: calc(var(--bg-grid-box-size) * (1 / 8) + var(--bg-grid-gap));
+  --height-g02n: calc(var(--bg-grid-box-size) * (2 / 8));
+  --height-g02y: calc(var(--bg-grid-box-size) * (2 / 8) + var(--bg-grid-gap));
+  --height-g03n: calc(var(--bg-grid-box-size) * (3 / 8));
+  --height-g03y: calc(var(--bg-grid-box-size) * (3 / 8) + var(--bg-grid-gap));
+  --height-g04n: calc(var(--bg-grid-box-size) * (4 / 8));
+  --height-g04y: calc(var(--bg-grid-box-size) * (4 / 8) + var(--bg-grid-gap));
+  --height-g05n: calc(var(--bg-grid-box-size) * (5 / 8));
+  --height-g05y: calc(var(--bg-grid-box-size) * (5 / 8) + var(--bg-grid-gap));
+  --height-g06n: calc(var(--bg-grid-box-size) * (6 / 8));
+  --height-g06y: calc(var(--bg-grid-box-size) * (6 / 8) + var(--bg-grid-gap));
+  --height-g07n: calc(var(--bg-grid-box-size) * (7 / 8));
+  --height-g07y: calc(var(--bg-grid-box-size) * (7 / 8) + var(--bg-grid-gap));
+  --height-g10n: calc(var(--bg-grid-box-size));
+  --height-g10t: calc(var(--bg-grid-box-size) + 1 * var(--bg-grid-gap));
+  --height-g10y: calc(var(--bg-grid-box-size) + 2 * var(--bg-grid-gap));
+  --height-g11n: calc(var(--bg-grid-box-size) * (9 / 8));
+  --height-g11t: calc(var(--bg-grid-box-size) * (9 / 8) + 1 * var(--bg-grid-gap));
+  --height-g11y: calc(var(--bg-grid-box-size) * (9 / 8) + 2 * var(--bg-grid-gap));
+  --height-g12n: calc(var(--bg-grid-box-size) * (10 / 8));
+  --height-g12t: calc(var(--bg-grid-box-size) * (10 / 8) + 1 * var(--bg-grid-gap));
+  --height-g12y: calc(var(--bg-grid-box-size) * (10 / 8) + 2 * var(--bg-grid-gap));
+  --height-g13n: calc(var(--bg-grid-box-size) * (11 / 8));
+  --height-g13t: calc(var(--bg-grid-box-size) * (11 / 8) + 1 * var(--bg-grid-gap));
+  --height-g13y: calc(var(--bg-grid-box-size) * (11 / 8) + 2 * var(--bg-grid-gap));
+  --height-g14n: calc(var(--bg-grid-box-size) * (12 / 8));
+  --height-g14t: calc(var(--bg-grid-box-size) * (12 / 8) + 1 * var(--bg-grid-gap));
+  --height-g14y: calc(var(--bg-grid-box-size) * (12 / 8) + 2 * var(--bg-grid-gap));
+  --height-g15n: calc(var(--bg-grid-box-size) * (13 / 8));
+  --height-g15t: calc(var(--bg-grid-box-size) * (13 / 8) + 1 * var(--bg-grid-gap));
+  --height-g15y: calc(var(--bg-grid-box-size) * (13 / 8) + 2 * var(--bg-grid-gap));
+  --height-g16n: calc(var(--bg-grid-box-size) * (14 / 8));
+  --height-g16t: calc(var(--bg-grid-box-size) * (14 / 8) + 1 * var(--bg-grid-gap));
+  --height-g16y: calc(var(--bg-grid-box-size) * (14 / 8) + 2 * var(--bg-grid-gap));
+  --height-g17n: calc(var(--bg-grid-box-size) * (15 / 8));
+  --height-g17t: calc(var(--bg-grid-box-size) * (15 / 8) + 1 * var(--bg-grid-gap));
+  --height-g17y: calc(var(--bg-grid-box-size) * (15 / 8) + 2 * var(--bg-grid-gap));
+  --height-g20n: calc(var(--bg-grid-box-size) * 2);
+  --height-g20y: calc(var(--bg-grid-box-size) * 2 + 3 * var(--bg-grid-gap));
+  --height-g30n: calc(var(--bg-grid-box-size) * 3);
+  --height-g30y: calc(var(--bg-grid-box-size) * 3 + 4 * var(--bg-grid-gap));
+  --height-g40n: calc(var(--bg-grid-box-size) * 4);
+  --height-g40y: calc(var(--bg-grid-box-size) * 4 + 5 * var(--bg-grid-gap));
+  --height-g50n: calc(var(--bg-grid-box-size) * 5);
+  --height-g50y: calc(var(--bg-grid-box-size) * 5 + 6 * var(--bg-grid-gap));
+
+  --gap-ggpn: var(--bg-grid-gap);
+  --gap-ggpy: calc(var(--bg-grid-gap) * 2);
+  --gap-g01n: calc(var(--bg-grid-box-size) * (1 / 8));
+  --gap-g01y: calc(var(--bg-grid-box-size) * (1 / 8) + var(--bg-grid-gap));
+  --gap-g02n: calc(var(--bg-grid-box-size) * (2 / 8));
+  --gap-g02y: calc(var(--bg-grid-box-size) * (2 / 8) + var(--bg-grid-gap));
+  --gap-g03n: calc(var(--bg-grid-box-size) * (3 / 8));
+  --gap-g03y: calc(var(--bg-grid-box-size) * (3 / 8) + var(--bg-grid-gap));
+  --gap-g04n: calc(var(--bg-grid-box-size) * (4 / 8));
+  --gap-g04y: calc(var(--bg-grid-box-size) * (4 / 8) + var(--bg-grid-gap));
+  --gap-g05n: calc(var(--bg-grid-box-size) * (5 / 8));
+  --gap-g05y: calc(var(--bg-grid-box-size) * (5 / 8) + var(--bg-grid-gap));
+  --gap-g06n: calc(var(--bg-grid-box-size) * (6 / 8));
+  --gap-g06y: calc(var(--bg-grid-box-size) * (6 / 8) + var(--bg-grid-gap));
+  --gap-g07n: calc(var(--bg-grid-box-size) * (7 / 8));
+  --gap-g07y: calc(var(--bg-grid-box-size) * (7 / 8) + var(--bg-grid-gap));
+  --gap-g10n: calc(var(--bg-grid-box-size));
+  --gap-g10t: calc(var(--bg-grid-box-size) + 1 * var(--bg-grid-gap));
+  --gap-g10y: calc(var(--bg-grid-box-size) + 2 * var(--bg-grid-gap));
+  --gap-g11n: calc(var(--bg-grid-box-size) * (9 / 8));
+  --gap-g11t: calc(var(--bg-grid-box-size) * (9 / 8) + 1 * var(--bg-grid-gap));
+  --gap-g11y: calc(var(--bg-grid-box-size) * (9 / 8) + 2 * var(--bg-grid-gap));
+  --gap-g12n: calc(var(--bg-grid-box-size) * (10 / 8));
+  --gap-g12t: calc(var(--bg-grid-box-size) * (10 / 8) + 1 * var(--bg-grid-gap));
+  --gap-g12y: calc(var(--bg-grid-box-size) * (10 / 8) + 2 * var(--bg-grid-gap));
+  --gap-g13n: calc(var(--bg-grid-box-size) * (11 / 8));
+  --gap-g13t: calc(var(--bg-grid-box-size) * (11 / 8) + 1 * var(--bg-grid-gap));
+  --gap-g13y: calc(var(--bg-grid-box-size) * (11 / 8) + 2 * var(--bg-grid-gap));
+  --gap-g14n: calc(var(--bg-grid-box-size) * (12 / 8));
+  --gap-g14t: calc(var(--bg-grid-box-size) * (12 / 8) + 1 * var(--bg-grid-gap));
+  --gap-g14y: calc(var(--bg-grid-box-size) * (12 / 8) + 2 * var(--bg-grid-gap));
+  --gap-g15n: calc(var(--bg-grid-box-size) * (13 / 8));
+  --gap-g15t: calc(var(--bg-grid-box-size) * (13 / 8) + 1 * var(--bg-grid-gap));
+  --gap-g15y: calc(var(--bg-grid-box-size) * (13 / 8) + 2 * var(--bg-grid-gap));
+  --gap-g16n: calc(var(--bg-grid-box-size) * (14 / 8));
+  --gap-g16t: calc(var(--bg-grid-box-size) * (14 / 8) + 1 * var(--bg-grid-gap));
+  --gap-g16y: calc(var(--bg-grid-box-size) * (14 / 8) + 2 * var(--bg-grid-gap));
+  --gap-g17n: calc(var(--bg-grid-box-size) * (15 / 8));
+  --gap-g17t: calc(var(--bg-grid-box-size) * (15 / 8) + 1 * var(--bg-grid-gap));
+  --gap-g17y: calc(var(--bg-grid-box-size) * (15 / 8) + 2 * var(--bg-grid-gap));
+  --gap-g20n: calc(var(--bg-grid-box-size) * 2);
+  --gap-g20y: calc(var(--bg-grid-box-size) * 2 + 3 * var(--bg-grid-gap));
+  --gap-g30n: calc(var(--bg-grid-box-size) * 3);
+  --gap-g30y: calc(var(--bg-grid-box-size) * 3 + 4 * var(--bg-grid-gap));
+  --gap-g40n: calc(var(--bg-grid-box-size) * 4);
+  --gap-g40y: calc(var(--bg-grid-box-size) * 4 + 5 * var(--bg-grid-gap));
+  --gap-g50n: calc(var(--bg-grid-box-size) * 5);
+  --gap-g50y: calc(var(--bg-grid-box-size) * 5 + 6 * var(--bg-grid-gap));
+
+  @keyframes blinky {
+
+    0%,
+    100% {
+      background: var(--col-fore);
+      color: var(--col-back);
+    }
+
+    50% {
+      background: var(--col-back);
+      color: var(--col-fore);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility border-2-fore {
+  @apply border-2 border-fore;
+}
+
+@utility border-2-back {
+  @apply border-2 border-fore;
+}
+
+@utility border-2-fore-inside {
+  @apply outline-solid outline-fore outline-2 -outline-offset-2;
+}
+
+@layer utilities {
+  /* Does not play well with the framer motion scrolling animation. */
+  /* html {
   scroll-behavior: smooth;
 } */
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.invisible-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .invisible-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-.invisible-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .invisible-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
 
-:root {
-  --col-fore: #000000;
-  --col-back: #ffffff;
-}
-
-.dark {
-  --col-fore: #94a3b8;
-  --col-back: #111827;
-}
-
-:root {
-  --bg-grid-box-size: 80px;
-  --bg-grid-gap: 2px;
-}
-
-@screen xs {
   :root {
-    --bg-grid-box-size: 120px;
+    --col-fore: #000000;
+    --col-back: #ffffff;
+  }
+
+  .dark {
+    --col-fore: #94a3b8;
+    --col-back: #111827;
+  }
+
+  :root {
+    --bg-grid-box-size: 80px;
     --bg-grid-gap: 2px;
   }
-}
 
-@screen sm {
-  :root {
-    --bg-grid-box-size: 160px;
-    --bg-grid-gap: 2px;
+  @media (width >=theme(--breakpoint-xs)) {
+    :root {
+      --bg-grid-box-size: 120px;
+      --bg-grid-gap: 2px;
+    }
   }
-}
 
-@screen md {
-  :root {
-    --bg-grid-box-size: 190px;
-    --bg-grid-gap: 2px;
+  @media (width >=theme(--breakpoint-sm)) {
+    :root {
+      --bg-grid-box-size: 160px;
+      --bg-grid-gap: 2px;
+    }
   }
-}
 
-@screen lg {
-  :root {
-    --bg-grid-box-size: 250px;
-    --bg-grid-gap: 2px;
+  @media (width >=theme(--breakpoint-md)) {
+    :root {
+      --bg-grid-box-size: 190px;
+      --bg-grid-gap: 2px;
+    }
   }
-}
 
-.drill-mouse-hover {
-  pointer-events: none !important;
-}
+  @media (width >=theme(--breakpoint-lg)) {
+    :root {
+      --bg-grid-box-size: 250px;
+      --bg-grid-gap: 2px;
+    }
+  }
 
-.drill-mouse-hover > * {
-  pointer-events: auto;
-}
+  .drill-mouse-hover {
+    pointer-events: none !important;
+  }
 
-/* We show our own default cursor. */
-* {
-  cursor: none;
-}
+  .drill-mouse-hover>* {
+    pointer-events: auto;
+  }
 
-.cursor {
-  pointer-events: none;
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 30;
-}
+  /* We show our own default cursor. */
+  * {
+    cursor: none;
+  }
 
-/* TODO: Maybe use this for mobile? Where hovering doesn't make any sense on the bg-grid? */
-/* https://stackoverflow.com/questions/4191260/drawing-a-grid-using-css */
-/* .css-bg-grid {
+  .cursor {
+    pointer-events: none;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+  }
+
+  /* TODO: Maybe use this for mobile? Where hovering doesn't make any sense on the bg-grid? */
+  /* https://stackoverflow.com/questions/4191260/drawing-a-grid-using-css */
+  /* .css-bg-grid {
   box-sizing: border-box;
   margin:0;
   background-position: center center;
@@ -95,17 +463,4 @@
   repeating-linear-gradient(#000000 0 2px, transparent 2px 100%),
   repeating-linear-gradient(90deg, #000000 0 2px, transparent 2px 100%);
 } */
-
-@layer components {
-  .border-2-fore {
-    @apply border-2 border-fore;
-  }
-
-  .border-2-back {
-    @apply border-2 border-fore;
-  }
-
-  .border-2-fore-inside {
-    @apply outline outline-fore outline-2 -outline-offset-2;
-  }
 }

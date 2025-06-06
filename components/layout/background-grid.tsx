@@ -17,7 +17,7 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
   return (
     <div className="w-full flex">
       <div
-        className={`plate-grid ml-[1px] justify-end ${
+        className={`plate-grid ml-px justify-end ${
           toBool(process.env.NEXT_PUBLIC_DEBUG_GRID) ? "bg-red-500" : "bg-fore"
         }`}
       >

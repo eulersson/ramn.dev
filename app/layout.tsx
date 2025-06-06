@@ -11,8 +11,6 @@ import { CoverWrapper } from "@/components/layout/cover-wrapper";
 import { Providers } from "@/app/providers";
 import { toBool } from "@/utils";
 
-// Styles
-import "./globals.css";
 
 const firaMono = Fira_Mono({
   subsets: ["latin"],
@@ -48,6 +46,9 @@ export const metadata = {
   title: "Ramon Blanquer",
   description: "Full Stack Software Engineer & Computer Graphics",
 };
+
+// Styles
+import "./globals.css";
 
 export default function RootLayout({
   children,

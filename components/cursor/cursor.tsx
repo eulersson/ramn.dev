@@ -11,6 +11,7 @@ import { ContextNotProvidedError } from "@/errors/context-not-provided";
 import { useTouchDevice } from "@/hooks/touch-device";
 import { toBool } from "@/utils";
 import { isMacOSChromium } from "@/utils/browser";
+import { useBreakpoint } from "@/hooks/breakpoint";
 
 // -- Cursor Context & Provider --------------------------------------------------------
 const CursorContext = createContext<{
@@ -63,12 +64,15 @@ export function Cursor() {
   const cursorX = useMotionValue(-500);
   const cursorY = useMotionValue(-500);
   const cursorContext = useCursor();
-  const [isCompatibleBrowser, setIsCompatibleBrowser] = useState(false);
+  const [isProblematicBrowser, setIsProblematicBrowser] = useState(false);
+
+  const { isSmaller } = useBreakpoint('lg')
+  const avoidMixBlendDifference = isProblematicBrowser && !isSmaller
 
   useEffect(() => {
     // MacOS Chromium browsers lag when there are animations and the difference mix
     // blending mode at the same time.
-    setIsCompatibleBrowser(!isMacOSChromium());
+    setIsProblematicBrowser(isMacOSChromium());
     
     const mouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX - 16);
@@ -84,9 +88,10 @@ export function Cursor() {
     console.log("[Cursor] Rendering");
   }
 
-  return isCompatibleBrowser ? (
+
+  return avoidMixBlendDifference ? (
     <motion.div
-      className={`cursor w-[32px] h-[32px] z-50 bg-white mix-blend-difference`}
+      className={`cursor w-[40px] h-[40px] z-50 bg-[radial-gradient(circle,transparent_14px,black_14px,black_16px,white_16px,white_18px,black_18px,black_20px)]`}
       style={{
         x: cursorX,
         y: cursorY,
@@ -95,7 +100,7 @@ export function Cursor() {
     ></motion.div>
   ) : (
     <motion.div
-      className={`cursor w-[40px] h-[40px] z-50 bg-[radial-gradient(circle,transparent_14px,black_14px,black_16px,white_16px,white_18px,black_18px,black_20px)]`}
+      className={`cursor w-[32px] h-[32px] z-50 bg-white mix-blend-difference`}
       style={{
         x: cursorX,
         y: cursorY,

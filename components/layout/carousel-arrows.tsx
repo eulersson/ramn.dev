@@ -20,8 +20,10 @@ function CarouselArrow({ index, middle, isLeft, arrowChar }: CarouselArrowProps)
 
   return (
     <motion.span
-      className="mix-blend-difference"
-      style={{ fontSize: `${scale}px` }}
+      style={{
+        textShadow: "-2px -2px 0 var(--color-fore), 2px -2px 0 var(--color-fore), -2px 2px 0 var(--color-fore), 2px 2px 0 var(--color-fore)",
+        fontSize: `${scale}px`
+      }}
       initial={{ x: isLeft ? -3 : 3, opacity: 0 }}
       whileInView={{
         x: isLeft ? -3 : 3,

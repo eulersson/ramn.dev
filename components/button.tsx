@@ -18,7 +18,7 @@ export function Button({
   return (
     <CursorSize sizeOnHover={0.4}>
       <button
-        className={`font-sans font-thin bg-daybg dark:bg-night rounded-full border-2-fore-inside px-3 transition-all shadow-button hover:shadow-buttonhover -translate-y-[2px] hover:-translate-y-[1px] cursor-none hover:cursor-none ${className}`}
+        className={`font-sans font-thin bg-daybg dark:bg-night rounded-full border-2-fore-inside px-3 transition-all shadow-button hover:shadow-buttonhover -translate-y-[2px] hover:-translate-y-px cursor-none hover:cursor-none ${className}`}
         onClick={onClick}
       >
         {children}

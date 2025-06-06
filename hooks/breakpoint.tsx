@@ -1,5 +1,4 @@
 import { useMediaQuery } from 'react-responsive';
-import tailwindConfig from '../tailwind.config.mjs'; // Your tailwind config
 
 type BreakpointKey = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -7,7 +6,15 @@ type Breakpoints = {
   [key in BreakpointKey]: string;
 };
 
-const breakpoints = tailwindConfig.theme!.screens as Breakpoints;
+// Default Tailwind CSS v4 breakpoints (must be aligned with `global.css`)
+const breakpoints: Breakpoints = {
+  'xs': '475px',
+  'sm': '640px',
+  'md': '768px',
+  'lg': '1024px',
+  'xl': '1280px',
+  '2xl': '1536px',
+};
 
 /**
  * A React hook that returns information about the viewport width in relation to a Tailwind breakpoint.
@@ -53,9 +60,9 @@ export function useBreakpoint<K extends BreakpointKey>(breakpointKey: K) {
     breakpoint,
     isSmaller: !bool,
     isLarger: bool,
-  } as Record<Key, boolean> & { 
-    breakpoint: string, 
-    isSmaller: boolean, 
-    isLarger: boolean 
+  } as Record<Key, boolean> & {
+    breakpoint: string,
+    isSmaller: boolean,
+    isLarger: boolean
   };
 }

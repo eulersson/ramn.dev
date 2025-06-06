@@ -96,7 +96,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(40)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g02n bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g02n bg-back border-2-fore -mx-px"
                     variants={{
                       visible: { opacity: 1, x: 0, y: 0 },
                       hidden: { opacity: 0, x: -40, y: -40 },
@@ -134,7 +134,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(8)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g05n bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g05n bg-back border-2-fore -mx-px"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
@@ -143,7 +143,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 ))}
                 <CursorSize sizeOnHover={4}>
                   <motion.div
-                    className="h-full min-w-[661px] bg-back border-2-fore -mx-[1px] flex flex-col items-center justify-center"
+                    className="h-full min-w-[661px] bg-back border-2-fore -mx-px flex flex-col items-center justify-center"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
@@ -166,7 +166,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(8)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g05n bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g05n bg-back border-2-fore -mx-px"
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: { opacity: 0, y: -40 },
@@ -217,7 +217,7 @@ const Hero = forwardRef<HTMLHeadingElement>(function Hero({}, forwardedRef) {
                 {[...Array(40)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="min-w-g03n bg-back border-2-fore -mx-[1px]"
+                    className="min-w-g03n bg-back border-2-fore -mx-px"
                     variants={{
                       visible: { opacity: 1, x: 0, y: 0 },
                       hidden: { opacity: 0, x: -40, y: -40 },
