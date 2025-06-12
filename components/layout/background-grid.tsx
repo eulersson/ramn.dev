@@ -1,3 +1,5 @@
+"use client";
+
 // Third-Party
 import { memo, useEffect, useState } from "react";
 
@@ -12,7 +14,9 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
   const debugGrid = toBool(process.env.NEXT_PUBLIC_DEBUG_GRID);
 
   const { isSmaller } = useBreakpoint("xs");
-  const [numBoxes, setNumBoxes] = useState(68);
+
+  // TODO: This makes us have the component as client-side. Investigate the cons we have.
+  const [numBoxes, setNumBoxes] = useState(68 * 3);
 
   useEffect(() => {
     if (isSmaller) {
