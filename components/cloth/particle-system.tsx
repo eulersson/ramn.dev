@@ -90,7 +90,6 @@ export class ParticleSystem {
   get aproximateClothSize(): Size {
     const verticalStretchCausedByGravity = 2;
     const heightFactor = this.windowHalfSize.h * 0.05;
-    console.log("hf", heightFactor);
     return {
       w: this.gridDimensions.cols * this.cellSize.w,
       h:
@@ -144,8 +143,8 @@ export class ParticleSystem {
                 index,
                 index - 1,
                 this.cellSize.w - this.cellSize.w * 0.2,
-                1.0
-              )
+                1.0,
+              ),
             );
           }
         } else if (j === 0) {
@@ -155,21 +154,21 @@ export class ParticleSystem {
           } else {
             // constraint just to top
             this.addConstraint(
-              new SpringConstraint(index, index - cols, this.cellSize.h, 1.0)
+              new SpringConstraint(index, index - cols, this.cellSize.h, 1.0),
             );
           }
         } else {
           // constraint top and left
           this.addConstraint(
-            new SpringConstraint(index, index - cols, this.cellSize.h, 1.0)
+            new SpringConstraint(index, index - cols, this.cellSize.h, 1.0),
           );
           this.addConstraint(
             new SpringConstraint(
               index,
               index - 1,
               this.cellSize.w - this.cellSize.w * 0.2,
-              0.8
-            )
+              0.8,
+            ),
           );
         }
       }
@@ -289,7 +288,7 @@ export class ParticleSystem {
       ) {
         that.clickCon.constrained.push(idx);
         that.constraints.push(
-          new PinConstraint(idx, that.clickCon.x, that.clickCon.y)
+          new PinConstraint(idx, that.clickCon.x, that.clickCon.y),
         );
       }
     }, this);

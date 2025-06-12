@@ -10,7 +10,7 @@ import {
   useSpring,
   useVelocity,
 } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 // Project
 import { Button } from "@/components/button";
@@ -18,10 +18,17 @@ import { CursorSize } from "@/components/cursor";
 import { ThemedImage } from "@/components/themed-image";
 import { useTouchDevice } from "@/hooks/touch-device";
 import { toBool } from "@/utils";
+import { useSection } from "@/contexts/section";
+import { useBreakpoint } from "@/hooks/breakpoint";
+import settings from "@/config/settings";
 
 const SCROLL_THRESHOLD = 900;
 
-export function Header() {
+export function Header({
+  correctNavbarUpperSpace = false,
+}: {
+  correctNavbarUpperSpace?: boolean;
+}) {
   const isTouchDevice = useTouchDevice();
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
@@ -30,6 +37,9 @@ export function Header() {
 
   const initialScrollChangeHappened = useRef<boolean>(false);
 
+  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
+  const navbarVertical = isSmaller;
+
   const headerRef = useRef<HTMLHeadElement>(null);
   const headerTranslateY = useMotionValue(0);
   const headerTranslateYSpring = useSpring(headerTranslateY);
@@ -37,7 +47,20 @@ export function Header() {
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
 
+  const { activeSectionIdx } = useSection();
+
+  useEffect(() => {
+    if (correctNavbarUpperSpace && navbarVertical) {
+      headerTranslateY.set((activeSectionIdx + 1) * 28);
+    } else {
+      headerTranslateY.set(0);
+    }
+  }, [correctNavbarUpperSpace, activeSectionIdx, navbarVertical]);
+
   useMotionValueEvent(scrollY, "change", (v) => {
+    if (!correctNavbarUpperSpace) {
+      return;
+    }
     if (toBool(process.env.NEXT_PUBLIC_DISABLE_HEADER_HIDE_ON_SCROLL)) {
       return;
     }
@@ -52,7 +75,7 @@ export function Header() {
     }
 
     if (scrollVelocity.get() < 0) {
-      headerTranslateY.set(0);
+      headerTranslateY.set((activeSectionIdx + 1) * 28);
     } else {
       if (headerRef.current && scrollVelocity.get() > SCROLL_THRESHOLD) {
         headerTranslateY.set(-headerRef.current.offsetHeight);
@@ -61,7 +84,7 @@ export function Header() {
   });
 
   return (
-    <div className="sticky top-0 h-g06n xs:h-g04n lg:h-g03n w-full flex justify-center z-10">
+    <div className="sticky top-0 h-(--header-height) w-full flex justify-center z-10">
       <motion.header
         ref={headerRef}
         className="w-g40y grid grid-cols-4 grid-rows-2 gap-ggpn border-2-fore bg-fore bg-back"

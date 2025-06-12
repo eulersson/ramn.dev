@@ -14,8 +14,9 @@ import { toBool } from "@/utils";
 
 // Content
 import Intention from "@/content/sections/intention.mdx";
+import { cn } from "@/utils/cn";
 
-const About = forwardRef<HTMLHeadingElement>(function About({ }, ref) {
+const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
 
   const [terminalState, setTerminalState] = useState<
@@ -81,7 +82,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({ }, ref) {
     { text: "with" },
     { text: "computer graphics", className: "font-medium underline" },
     {
-      text: "background and|VFX industry experience. I design, build and deploy scalable|interactive",
+      text: "background and VFX industry experience. I design, build and deploy scalable interactive",
     },
     { text: "web apps,", className: "font-medium underline" },
     { text: "leveraging cloud computing when possible." },
@@ -96,30 +97,62 @@ const About = forwardRef<HTMLHeadingElement>(function About({ }, ref) {
       ref={ref}
       className="flex flex-col justify-center drill-mouse-hover"
     >
-      <Title>Who Am I?</Title>
-      <Terminal
-        ref={terminalRef}
-        disableHighlight={terminalState !== null}
-        showCommand={terminalInView}
-        className="m-g02n mt-0 h-g10t mb-g04n"
-        command="whoami"
+      <Title
+        className={cn(
+          // Upper spacing.
+          "mt-[calc(2*var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding)-var(--header-height))]",
+          "sm:mt-[calc(var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding)-var(--header-height))]",
+
+          // Lower spacing.
+          "mb-[calc(0.5*var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+        )}
       >
-        {terminalState &&
-          (terminalState === "loading" ? (
-            <div className="flex">
-              <span>{spinnerChar}</span>
-            </div>
-          ) : terminalState === "output" ? (
-            <Typewriter sentences={sentences} />
-          ) : (
-            ""
-          ))}
-      </Terminal>
-      <div className="relative p-ggpn grid grid-cols-4 gap-ggpn drill-mouse-hover">
-        <div className="drill-mouse-hover">
+        Who Am I?
+      </Title>
+      <div
+        className={cn(
+          "h-g70t xs:h-g30t sm:h-g20t lg:h-g10t",
+          "mb-g04n",
+          "p-g02n",
+          "flex flex-col justify-center",
+        )}
+      >
+        {/* Little terminal box that types a short summary what I do. */}
+        <Terminal
+          ref={terminalRef}
+          disableHighlight={terminalState !== null}
+          showCommand={terminalInView}
+          command="whoami"
+        >
+          {terminalState &&
+            (terminalState === "loading" ? (
+              <div className="flex">
+                <span>{spinnerChar}</span>
+              </div>
+            ) : terminalState === "output" ? (
+              <Typewriter sentences={sentences} />
+            ) : (
+              ""
+            ))}
+        </Terminal>
+      </div>
+
+      {/* A more technical overview of my work. */}
+      <div className="relative grid grid-cols-4 gap-ggpn p-ggpn drill-mouse-hover">
+        <div
+          className={cn(
+            "col-span-4 sm:col-span-1 ",
+            "drill-mouse-hover",
+            "flex flex-col justify-center",
+            "h-g40t xs:h-g30t sm:h-auto",
+          )}
+        >
           <CursorSize sizeOnHover={4}>
             <ThemedImage
-              className="absolute top-[-61px] left-[-108px] w-[366px]"
+              className={cn(
+                "scale-115 xs:scale-80 sm:scale-170 md:scale-150 lg:scale-150",
+                "-translate-y-20 xs:-translate-y-16 sm:translate-y-0",
+              )}
               src="/displaced-me.png"
               width={707}
               height={685}
@@ -127,11 +160,17 @@ const About = forwardRef<HTMLHeadingElement>(function About({ }, ref) {
             />
           </CursorSize>
         </div>
-        <div className="col-span-3  bg-yellow-500">
+
+        <div className="col-span-4 sm:col-span-3">
           <Block
             classNames={{
-              main: "h-g06n py-5 px-9 flex items-center justify-center",
-              tags: "h-g02n",
+              wrapper: cn("h-g50t xs:h-g30t md:h-g20t", "flex flex-col"),
+              main: cn(
+                "grow",
+                "py-5 px-9",
+                "text-md xs:text-lg xl:text-xl",
+                "flex items-center justify-center",
+              ),
             }}
             tags={tags}
           >

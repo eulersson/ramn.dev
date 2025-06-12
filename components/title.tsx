@@ -17,11 +17,16 @@ const Title = forwardRef<
   }
 
   return (
-    <div className="m-auto my-[calc((var(--bg-grid-box-size)-100px)/2)]">
+    <div className="m-auto">
       <CursorSize sizeOnHover={4}>
         <h1
           ref={ref}
-          className={`italic font-serif font-normal leading-none text-[60px] p-[20px] bg-back border-2-fore-inside shadow-blocky ${className}`}
+          className={
+            `italic font-serif font-normal leading-none bg-back border-2-fore-inside shadow-blocky ` +
+            `text-[calc(var(--title-tag-size))] ` +
+            `p-[calc(var(--title-tag-padding))] ` +
+            className
+          }
         >
           {children}
         </h1>

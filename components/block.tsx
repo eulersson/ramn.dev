@@ -18,21 +18,26 @@ export function Block({
   }
 
   return (
-    <div className={`bg-fore ${classNames.wrapper || ""}`}>
+    <div className={`bg-fore border-2-fore ${classNames.wrapper || ""}`}>
       <div
-        className={`bg-back font-sans text-xl rounded-[40px] ${
-          classNames.main || ""
-        }`}
+        className={`bg-back font-sans rounded-[40px] hyphens-auto ${classNames.main || ""}`}
       >
         {children}
       </div>
       {tags && tags.length >= 1 && (
+        // TODO: When the pills don't fit in the container with mouse, as you
+        // move it left "scroll" the view leftwards and similarly rightwards.
         <div
-          className={`bg-fore p-2 flex items-center justify-center gap-2 ${
+          className={`bg-fore p-2 flex items-center justify-center gap-2 overflow-hidden ${
             classNames.tags || ""
           }`}
         >
-          {...tags.map((props, i) =><div key={i}> <Tag {...props} key={i} /></div>)}
+          {...tags.map((props, i) => (
+            <div key={i}>
+              {" "}
+              <Tag {...props} key={i} />
+            </div>
+          ))}
         </div>
       )}
     </div>

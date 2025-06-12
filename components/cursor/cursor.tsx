@@ -21,12 +21,12 @@ const CursorContext = createContext<{
 } | null>(null);
 
 export function CursorProvider({ children }: { children: React.ReactNode }) {
-  const [cursorSizeRaw, setCursorSizeRaw] = useState(0)
+  const [cursorSizeRaw, setCursorSizeRaw] = useState(0);
   const cursorSize = useMotionValue(0);
   const cursorSizeAnim = useSpring(cursorSize, { damping: 10 });
   const setCursorSize = (value: number) => {
-    setCursorSizeRaw(value)
-    cursorSize.set(value)
+    setCursorSizeRaw(value);
+    cursorSize.set(value);
   };
 
   useEffect(() => {
@@ -65,15 +65,19 @@ export function Cursor() {
   const cursorY = useMotionValue(-500);
   const cursorContext = useCursor();
   const [isProblematicBrowser, setIsProblematicBrowser] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const { isSmaller } = useBreakpoint('lg')
-  const avoidMixBlendDifference = isProblematicBrowser && !isSmaller
+  const { isSmaller } = useBreakpoint("lg");
+  const avoidMixBlendDifference = isProblematicBrowser && !isSmaller;
 
   useEffect(() => {
+    // Only show the cursor after client-side hydration is complete
+    setIsMounted(true);
+
     // MacOS Chromium browsers lag when there are animations and the difference mix
     // blending mode at the same time.
     setIsProblematicBrowser(isMacOSChromium());
-    
+
     const mouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
@@ -88,6 +92,8 @@ export function Cursor() {
     console.log("[Cursor] Rendering");
   }
 
+  // Don't render the custom cursor until after hydration is complete
+  if (!isMounted) return null;
 
   return avoidMixBlendDifference ? (
     <motion.div

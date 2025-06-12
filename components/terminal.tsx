@@ -15,7 +15,8 @@ export const Terminal = forwardRef<
     children: React.ReactNode;
     disableHighlight?: boolean;
     showCommand?: boolean;
-    className: string;
+    textSize?: "xs" | "sm" | "md" | "lg" | "xl";
+    className?: string;
   }
 >(function Terminal(
   {
@@ -23,9 +24,9 @@ export const Terminal = forwardRef<
     children,
     showCommand = true,
     disableHighlight = false,
-    className,
+    className = "",
   },
-  ref
+  ref,
 ) {
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Terminal] Rendering");
@@ -44,11 +45,12 @@ export const Terminal = forwardRef<
           ></div>
         ))}
       </div>
-      <div className="grow bg-back p-5 text-xl">
+      <div className={`grow bg-back p-5`}>
         <pre>
           ${" "}
           {showCommand && (
             <Typewriter
+              className="inline"
               disableHighlight={disableHighlight}
               staggerChildren={0.15}
               sentences={[{ text: `${command} ` }]}

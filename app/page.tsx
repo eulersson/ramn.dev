@@ -8,6 +8,7 @@ import {
   useInView,
   useMotionValue,
   useScroll,
+  useSpring,
 } from "motion/react";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -20,6 +21,8 @@ import { SectionProvider, useSection } from "@/contexts/section";
 import { useDebounce } from "@/hooks/debounce";
 import { usePrevious } from "@/hooks/previous";
 import { toBool } from "@/utils";
+import { useBreakpoint } from "@/hooks/breakpoint";
+import settings from "@/config/settings";
 
 // Loggers
 const log = debug("page");
@@ -34,9 +37,10 @@ export default function Page() {
 }
 
 function Home() {
-  const { section, setSection, navigationRunning } = useSection();
+  const { activeSectionIdx, sections, section, setSection, navigationRunning } =
+    useSection();
   const previousSection = usePrevious(section);
-  
+
   // Handle a user scrolling so fast between sections. It's important for this value to
   // not exceed the time of the animation in the Navbar.
   const debouncedSetSection = useDebounce(setSection, 500);
@@ -74,32 +78,32 @@ function Home() {
    * come into view or left the viewport.
    * @param sectionChange New section that has either come into view or left from view.
    * @param inView Whether it came into view or left.
-   */    const handleSectionInViewChange = useCallback(
+   */ const handleSectionInViewChange = useCallback(
     (sectionChange: string, inView: boolean) => {
       sectionsLog(
         `[inView] [${sectionChange}] navigationRunning: ${navigationRunning.current} ` +
-          `inView: ${inView}`
+          `inView: ${inView}`,
       );
       if (navigationRunning.current) {
         sectionsLog(
-          "Returning because an animation resulting from a nav item click is running."
+          "Returning because an animation resulting from a nav item click is running.",
         );
         return;
       }
 
       if (inView && section !== sectionChange) {
         sectionsLog(
-          `[inView] [${sectionChange}:ON] setting section to new '${sectionChange}'.`
+          `[inView] [${sectionChange}:ON] setting section to new '${sectionChange}'.`,
         );
         debouncedSetSection(sectionChange);
       } else if (!inView && previousSection && section === sectionChange) {
         sectionsLog(
-          `[inView] [${sectionChange}:OFF] setting section to previous '${previousSection}'.`
+          `[inView] [${sectionChange}:OFF] setting section to previous '${previousSection}'.`,
         );
         debouncedSetSection(previousSection);
       }
     },
-    [section, previousSection, debouncedSetSection, navigationRunning]
+    [section, previousSection, debouncedSetSection, navigationRunning],
   );
 
   const windowSpring = useMotionValue(0);
@@ -157,7 +161,7 @@ function Home() {
             navigationRunning.current = false;
             animationCompleteUnsubscribe();
             scrollUnsubscribe();
-          }
+          },
         );
 
         animate(windowSpring, positionToScrollTo, {
@@ -168,32 +172,53 @@ function Home() {
     }
   }, [section]);
 
+  // -- Sticky bottom progress bar
+  const { scrollYProgress } = useScroll();
+  const bottomProgressTranslateY = useMotionValue(0);
+  const bottomProgressYSpring = useSpring(bottomProgressTranslateY);
+
+  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
+  const navbarVertical = isSmaller;
+
+  useEffect(() => {
+    if (navbarVertical) {
+      bottomProgressTranslateY.set(
+        (sections.length - activeSectionIdx - 1) * 28,
+      );
+    } else {
+      bottomProgressTranslateY.set(0);
+    }
+  }, [activeSectionIdx, navbarVertical]);
+
   // TODO: Home is rendering too many times. Isolate the parts that are dynamic, such
   //   as the cursor.
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     log("[Home] Rendering.");
   }
-  const { scrollYProgress } = useScroll();
 
   return (
-    <div>
-      <PageWrapper heroRef={heroRef}>
-        <div className="drill-mouse-hover">
-          <About ref={aboutRef} />
-          <Experience ref={experienceRef} />
-          <Projects ref={projectsRef} />
-          <div className="-mb-[24px]"></div>
-          {/* Progress bar. */}
-          <div className="sticky bottom-0 w-full border-2-fore bg-back">
+    <PageWrapper heroRef={heroRef}>
+      <div className="drill-mouse-hover">
+        <About ref={aboutRef} />
+        {/* <Experience ref={experienceRef} /> */}
+        {/* <Projects ref={projectsRef} /> */}
+
+        {/* NOTE: Turning this mb into a negative -mb produces an interesting inset effect */}
+        <div className="mb-[24px]"></div>
+
+        {/* Progress bar. */}
+        <div className="sticky bottom-0 ">
+          <div className="w-full border-2-fore bg-back">
             <motion.div
-              initial={{ y: 0, scaleX: 0 }}
-              animate={{ y: 0, scaleX: 1 }}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
               className="h-[20px] bg-fore"
               style={{ scaleX: scrollYProgress }}
-              />
+            />
           </div>
+          <motion.div style={{ height: bottomProgressYSpring }} />
         </div>
-      </PageWrapper>
-    </div>
+      </div>
+    </PageWrapper>
   );
 }

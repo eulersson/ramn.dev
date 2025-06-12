@@ -11,7 +11,6 @@ import { CoverWrapper } from "@/components/layout/cover-wrapper";
 import { Providers } from "@/app/providers";
 import { toBool } from "@/utils";
 
-
 const firaMono = Fira_Mono({
   subsets: ["latin"],
   variable: "--font-fira-mono",
@@ -58,26 +57,31 @@ export default function RootLayout({
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[RootLayout] Rendering");
   }
+  const disableCover = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER);
   return (
     // suppressHydrationWarning reason:
     // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#with-app
     // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
     <html className="invisible-scrollbar" lang="en" suppressHydrationWarning>
       <head>
-      {/* https://tailwindcss.com/docs/responsive-design#overview */}
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {/* https://tailwindcss.com/docs/responsive-design#overview */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
 
       <body
         className={
           `${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} ` +
           "selection:bg-fore selection:text-back " +
-          "bg-back text-fore"
+          "bg-back text-fore "
         }
       >
-        <CoverWrapper>
+        {disableCover ? (
           <Providers>{children}</Providers>
-        </CoverWrapper>
+        ) : (
+          <CoverWrapper>
+            <Providers>{children}</Providers>
+          </CoverWrapper>
+        )}
       </body>
     </html>
   );

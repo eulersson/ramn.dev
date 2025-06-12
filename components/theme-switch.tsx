@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Third-Party
 import { motion, useMotionValue, useSpring } from "motion/react";
@@ -10,6 +10,9 @@ import { useTheme } from "next-themes";
 // Project
 import { CursorSize } from "@/components/cursor";
 import { toBool } from "@/utils";
+import { useSection } from "@/contexts/section";
+import { useBreakpoint } from "@/hooks/breakpoint";
+import settings from "@/config/settings";
 
 // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
 export function ThemeSwitch({ className }: { className?: string }) {
@@ -17,29 +20,47 @@ export function ThemeSwitch({ className }: { className?: string }) {
   const scaleSpring = useSpring(scale, { stiffness: 200, damping: 12 });
 
   const [mounted, setMounted] = useState(false);
+  const [showSwitcher, setShowSwitcher] = useState(false);
 
   const { theme, setTheme } = useTheme();
-
   const isDark = theme === "dark";
 
-  const [showSwitcher, setShowSwitcher] = useState(false);
+  const { activeSectionIdx, sections } = useSection();
+  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
+  const navbarVertical = isSmaller;
+
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    if (navbarVertical) {
+      setOffset((sections.length - activeSectionIdx - 1) * 28 + 47);
+    } else {
+      setOffset(0);
+    }
+  }, [activeSectionIdx, navbarVertical]);
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {}, [activeSectionIdx]);
+
   useEffect(() => {
     let timeouts: Array<NodeJS.Timeout> = [];
     if (mounted) {
       if (theme) {
-        const offset = 4000;
+        const offset = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+          ? 4000
+          : 4000;
         timeouts = [
           setTimeout(() => setShowSwitcher(true), offset),
-          ...(localStorage.getItem("hasPlayedThemeSwitcherAnimation")
+          // TODO: Fix the animation alignment, it does not respect whether it's vertical or horizontal
+          // ...(localStorage.getItem("hasPlayedThemeSwitcherAnimation")
+          ...(false
             ? []
             : [
-                setTimeout(() => scale.set(2), offset + 500),
+                setTimeout(() => scale.set(1.5), offset + 500),
                 setTimeout(() => {
                   setTheme("dark");
                 }, offset + 1000),
@@ -167,12 +188,12 @@ export function ThemeSwitch({ className }: { className?: string }) {
     showSwitcher && (
       <motion.div
         className={`${className}`}
-        initial={{ y: "calc(100vh - 0px)", scale: 1 }}
+        initial={{ y: "calc(100dvh - 0px)", scale: 1 }}
         animate={{
-          y: "calc(100vh - 63.5px)",
+          y: `calc(100dvh - ${offset}px)`,
           scale: 1,
         }}
-        exit={{ y: "calc(100vh - 0px)", scale: 1 }}
+        exit={{ y: "calc(100dvh - 0px)", scale: 1 }}
         style={{ x: "calc(50vw - 35px)" }}
         transition={{ type: "spring" }}
       >
@@ -180,7 +201,7 @@ export function ThemeSwitch({ className }: { className?: string }) {
           <motion.label
             className="relative inline-block w-[70px] h-[34px]"
             onMouseEnter={() => {
-              scale.set(1.2);
+              scale.set(1.15);
             }}
             onMouseLeave={() => {
               scale.set(1);

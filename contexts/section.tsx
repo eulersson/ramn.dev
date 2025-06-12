@@ -22,19 +22,16 @@ const SectionContext = createContext<{
 
 export function SectionProvider({ children }: { children: React.ReactNode }) {
   const sections = ["home", "about", "experience", "projects"];
-
   const [section, setSection] = useState("home");
-
   const activeSectionIdx = sections.findIndex((s) => s === section);
-
   const navigationRunning = useRef(false);
 
   return (
     <SectionContext.Provider
       value={{
         section,
-        setSection,
         sections,
+        setSection,
         activeSectionIdx,
         navigationRunning,
       }}

@@ -4,10 +4,15 @@ import { motion } from "motion/react";
 // Project
 import { useSection } from "@/contexts/section";
 import { toBool } from "@/utils";
+import { useBreakpoint } from "@/hooks/breakpoint";
+import settings from "@/config/settings";
 
-export function Navbar({ vertical = false }: { vertical?: boolean }) {
+export function Navbar() {
   const { setSection, sections, activeSectionIdx, navigationRunning } =
     useSection();
+
+  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
+  const vertical = isSmaller;
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Navbar] Rendering");
@@ -18,12 +23,16 @@ export function Navbar({ vertical = false }: { vertical?: boolean }) {
       {sections.map((s, i) => {
         const initialExtra = vertical
           ? {
-              bottom: i === 0 ? "-28px" : "initial",
-              top: i === 0 ? "initial" : `-${28 * (sections.length - i)}px`,
+              bottom: i === 0 ? "initial" : `-${28 * (sections.length - i)}px`,
+              top: i === 0 ? "-28px" : "initial",
+              left: "initial",
+              right: "initial",
             }
           : {
               left: i === 0 ? "-28px" : "initial",
               right: i === 0 ? "initial" : `-${28 * (sections.length - i)}px`,
+              top: "initial",
+              bottom: "initial",
             };
 
         const animateOrigin =
@@ -36,13 +45,18 @@ export function Navbar({ vertical = false }: { vertical?: boolean }) {
 
         const animateExtra = vertical
           ? {
-              bottom: animateOrigin,
               top: animateDestination,
+              bottom: animateOrigin,
+              left: 0,
+              right: "initial",
             }
           : {
-              right: animateOrigin,
               left: animateDestination,
+              right: animateOrigin,
+              top: 0,
+              bottom: "initial",
             };
+
         const extraClassNames = vertical
           ? "h-[30px] w-full py-gppn px-[8px]"
           : "w-[30px] h-full px-gppn px-[8px]";

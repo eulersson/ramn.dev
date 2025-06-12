@@ -13,11 +13,13 @@ export function Typewriter({
   sentences,
   disableHighlight = false,
   staggerChildren = 0.025,
-  className,
+  textSize = "xl",
+  className = "",
 }: {
   sentences: Sentence[];
   disableHighlight?: boolean;
   staggerChildren?: number;
+  textSize?: "xs" | "sm" | "md" | "lg" | "xl";
   className?: string;
 }) {
   const container = {
@@ -49,7 +51,7 @@ export function Typewriter({
 
   return (
     <motion.div
-      className={`${className} inline-block`}
+      className={`${className} flex flex-wrap text-${textSize}`}
       variants={container}
       initial="hidden"
       animate="show"
@@ -60,6 +62,7 @@ export function Typewriter({
           for (let i = 0; i < s.text.length; i++) {
             stringCharacters.push(s.text[i]);
           }
+
           return stringCharacters.map((c, j) => (
             <span
               key={`i${i}j${j}div`}
@@ -69,22 +72,14 @@ export function Typewriter({
                   : ""
               }`}
             >
-              {c === "|" ? (
-                <motion.br
-                  className={`i${i}j${j}linebreak`}
-                  key={`i${i}j${j}linebreak`}
-                  variants={item}
-                />
-              ) : (
-                <motion.span
-                  className={`i${i}j${j} ${s.className || ""}`}
-                  key={`i${i}j${j}`}
-                  variants={item}
-                >
-                  {c}
-                </motion.span>
-              )}
-
+              <motion.span
+                className={`i${i}j${j} ${s.className || ""}`}
+                key={`i${i}j${j}`}
+                variants={item}
+              >
+                {/* Use non-breaking space instead of " " to avoid not being interpreted as such */}
+                {c === " " ? "\u00A0" : c}
+              </motion.span>
               {j === s.text.length - 1 && i !== sentences.length - 1 ? (
                 <motion.span
                   className={`i${i}j${j}space relative`}
@@ -100,6 +95,43 @@ export function Typewriter({
           ));
         }),
       ]}
+      {/* {...[ */}
+      {/*   sentences.map((s, i) => { */}
+      {/*     const stringCharacters = []; */}
+      {/*     for (let i = 0; i < s.text.length; i++) { */}
+      {/*       stringCharacters.push(s.text[i]); */}
+      {/*     } */}
+      {/*     return stringCharacters.map((c, j) => ( */}
+      {/*       <span */}
+      {/*         key={`i${i}j${j}div`} */}
+      {/*         className={`relative ${ */}
+      {/*           i === sentences.length - 1 && j === stringCharacters.length - 1 */}
+      {/*             ? "text-back z-10" */}
+      {/*             : "" */}
+      {/*         }`} */}
+      {/*       > */}
+      {/*         <motion.span */}
+      {/*           className={`i${i}j${j} ${s.className || ""}`} */}
+      {/*           key={`i${i}j${j}`} */}
+      {/*           variants={item} */}
+      {/*         > */}
+      {/*           {c === " " ? "\u00A0" : c} */}
+      {/*         </motion.span> */}
+      {/*         {j === s.text.length - 1 && i !== sentences.length - 1 ? ( */}
+      {/*           <motion.span */}
+      {/*             className={`i${i}j${j}space relative`} */}
+      {/*             key={`i${i}j${j}space`} */}
+      {/*             variants={item} */}
+      {/*           > */}
+      {/*             &nbsp; */}
+      {/*           </motion.span> */}
+      {/*         ) : ( */}
+      {/*           "" */}
+      {/*         )} */}
+      {/*       </span> */}
+      {/*     )); */}
+      {/*   }), */}
+      {/* ]} */}
       {(!disableHighlight && (
         <span key={`dh`} className="bg-fore -left-[12px] relative">
           &nbsp;
