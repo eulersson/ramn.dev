@@ -231,7 +231,7 @@ const Hero = forwardRef<
                     )}
                     initial={{ rotateX: 90 }}
                     animate={{ rotateX: 0 }}
-                    transition={{ duration: 0.3, delay: 3.1 }}
+                    transition={{ duration: 0.3, delay: 2 }}
                   >
                     <span className="block sm:inline sm:mr-[10px] bg-fore text-back ">
                       from code to deployment;
