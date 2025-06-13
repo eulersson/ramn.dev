@@ -62,12 +62,12 @@ export function PageWrapper({
       )}
       <div
         key="layout-container"
-        className="absolute w-full flex justify-center drill-mouse-hover"
+        className="absolute w-full flex justify-center"
       >
-        <div className="w-g40y lg:w-g40y xl:w-g40y drill-mouse-hover">
+        <div className="w-g40y lg:w-g40y xl:w-g40y">
           <Header correctNavbarUpperSpace={correctHeaderNavbarUpperSpace} />
           <div className="pt-ggpn">
-            <main className="-mt-ggpn drill-mouse-hover">{children}</main>
+            <main className="-mt-ggpn">{children}</main>
           </div>
         </div>
       </div>

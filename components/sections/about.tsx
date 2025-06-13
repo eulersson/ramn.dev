@@ -92,10 +92,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   }
 
   return (
-    <section
-      ref={ref}
-      className="flex flex-col justify-center drill-mouse-hover"
-    >
+    <section ref={ref} className="flex flex-col justify-center">
       <Title
         className={cn(
           // Upper spacing.
@@ -137,11 +134,10 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
       </div>
 
       {/* A more technical overview of my work. */}
-      <div className="relative grid grid-cols-4 gap-ggpn p-ggpn drill-mouse-hover">
+      <div className="relative grid grid-cols-4 gap-ggpn p-ggpn">
         <div
           className={cn(
             "col-span-4 sm:col-span-1 ",
-            "drill-mouse-hover",
             "flex flex-col justify-center",
             "h-g40t xs:h-g30t sm:h-auto",
           )}

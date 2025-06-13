@@ -195,7 +195,7 @@ function Home() {
 
   return (
     <PageWrapper heroRef={heroRef}>
-      <div className="drill-mouse-hover">
+      <div>
         <About ref={aboutRef} />
         {/* <Experience ref={experienceRef} /> */}
         {/* <Projects ref={projectsRef} /> */}

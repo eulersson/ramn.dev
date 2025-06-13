@@ -29,7 +29,7 @@ import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
 import RecommendationPau from "@/content/recommendations/pau.mdx";
 
 // Loggers
-const log = debug("experience")
+const log = debug("experience");
 
 type LogoRef = {
   spin: Function;
@@ -94,7 +94,7 @@ const Logo = forwardRef<LogoRef, { logoUrl: string }>(
 );
 
 // TODO: Break into separate components.
-const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) {
+const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
   const logoRef = useRef<LogoRef>(null);
 
   // Sets the current job to read. When the job is changed spin the job's company logo.
@@ -116,25 +116,29 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
   return (
     <div ref={ref}>
       {/* --- Experience ----------------------------------------------------------- */}
-      <section className="flex flex-col justify-center drill-mouse-hover">
+      <section className="flex flex-col justify-center">
         <Title>Experience</Title>
         <div
-          className={`grid p-ggpn grid-cols-4 gap-ggpn flex drill-mouse-hover ${job['lengthy'] ? "h-g30y" : "h-20n"
-            }`}
+          className={`grid p-ggpn grid-cols-4 gap-ggpn flex ${
+            job["lengthy"] ? "h-g30y" : "h-20n"
+          }`}
         >
-          <div className="col-span-1 flex flex-col gap-ggpn drill-mouse-hover">
+          <div className="col-span-1 flex flex-col gap-ggpn">
             <CursorSize sizeOnHover={0.4}>
               <div className="border-x-0 h-g10t flex flex-col">
                 {jobs.map((job, i) => (
                   <div
-                    className={`grow font-mono green border-b-2 border-fore underline flex items-center justify-end px-2 ${i === activeEmployer
-                      ? "bg-fore text-back hover:font-extrabold"
-                      : "bg-back text-fore hover:bg-fore hover:text-back"
-                      } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
+                    className={`grow font-mono green border-b-2 border-fore underline flex items-center justify-end px-2 ${
+                      i === activeEmployer
+                        ? "bg-fore text-back hover:font-extrabold"
+                        : "bg-back text-fore hover:bg-fore hover:text-back"
+                    } ${i === jobs.length - 1 ? "" : "border-b-2"}`}
                     key={i}
                     onClick={() => setActiveEmployerAnimated(i)}
                   >
-                    <span className={`text-back bg-fore`}>{job["company"]}</span>
+                    <span className={`text-back bg-fore`}>
+                      {job["company"]}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -161,7 +165,9 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
                   key={i}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                >{p}</motion.li>
+                >
+                  {p}
+                </motion.li>
               ))}
             </ul>
             <div
@@ -174,7 +180,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
       </section>
 
       {/* --- Recommendations ------------------------------------------------------ */}
-      <section className="flex flex-col justify-center drill-mouse-hover">
+      <section className="flex flex-col justify-center">
         <Title>Recommendations</Title>
         <div className="p-ggpn relative">
           <Block
@@ -185,9 +191,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({ }, ref) 
             tags={[]}
           >
             <div className="grid grid-cols-4 h-full">
-              <div
-                className="absolute origin-top-left left-6 top-1 w-full"
-              >
+              <div className="absolute origin-top-left left-6 top-1 w-full">
                 <motion.span
                   className="absolute top-0 left-0 font-title uppercase origin-top-left text-fore bg-back"
                   initial={{ rotate: 90, y: 100 }}

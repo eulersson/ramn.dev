@@ -547,15 +547,6 @@
     }
   }
 
-  /* TODO: Remove any occurrence of drill-mouse hover if it doesn't do anything */
-  /* .drill-mouse-hover { */
-  /*   pointer-events: none !important; */
-  /* } */
-  /**/
-  /* .drill-mouse-hover > * { */
-  /*   pointer-events: auto; */
-  /* } */
-
   /* We show our own default cursor. */
   * {
     cursor: none;
