@@ -1,10 +1,13 @@
 // Third-Party
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import { MouseEventHandler } from "react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
+import cursorIconDark from "@/public/cursor-dark.svg";
+import cursorIcon from "@/public/cursor.svg";
 import { cn } from "@/utils";
 
 export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
