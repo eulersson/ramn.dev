@@ -19,7 +19,7 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
           onClick={onClick}
           className={cn(
             "relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90 ",
-            "scale-75 xs:scale-100 hover:scale-50",
+            "scale-70 xs:scale-100 hover:scale-50",
           )}
         >
           {/* Grid. */}
