@@ -17,8 +17,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
-import { toBool } from "@/utils";
-import { cn } from "@/utils/cn";
+import { cn, toBool } from "@/utils";
 import { useMediaQuery } from "react-responsive";
 
 const Hero = forwardRef<

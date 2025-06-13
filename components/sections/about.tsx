@@ -1,5 +1,5 @@
 // Third-Party
-import { motion, useInView } from "motion/react";
+import { useInView } from "motion/react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 
 // Project
@@ -10,11 +10,10 @@ import { Terminal } from "@/components/terminal";
 import { ThemedImage } from "@/components/themed-image";
 import { Title } from "@/components/title";
 import { Sentence, Typewriter } from "@/components/typewriter";
-import { toBool } from "@/utils";
+import { cn, toBool } from "@/utils";
 
 // Content
 import Intention from "@/content/sections/intention.mdx";
-import { cn } from "@/utils/cn";
 
 const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);

@@ -34,8 +34,7 @@ import { CursorSize, useCursor } from "@/components/cursor";
 import cursorIconDark from "@/public/cursor-dark.svg";
 import cursorIcon from "@/public/cursor.svg";
 import { GridDimensions, Size } from "@/types";
-import { toBool } from "@/utils";
-import { cn } from "@/utils/cn";
+import { cn, toBool } from "@/utils";
 
 // Local
 import { cursorAnimationConfig } from "./cursor-animation";
