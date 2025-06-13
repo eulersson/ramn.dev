@@ -75,7 +75,7 @@ const Hero = forwardRef<
 
   return (
     <motion.div
-      className={`w-full h-dvh bg-fore overflow-y-scroll overflow-x-hidden invisible-scrollbar -mb-ggpn`}
+      className={`w-full h-dvh bg-fore overflow-y-scroll overflow-y-auto overflow-x-hidden invisible-scrollbar -mb-ggpn`}
       ref={ref}
     >
       <div className="h-[500vh]">
