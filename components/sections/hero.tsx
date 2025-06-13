@@ -259,10 +259,7 @@ const Hero = forwardRef<
               {toBool(process.env.NEXT_PUBLIC_DISABLE_GRAPHICS) ? (
                 ""
               ) : (
-                <Cloth
-                  scrollYProgress={scrollYProgress}
-                  delayOffset={hasPlayedThemeSwitcherAnimation ? 0 : 3}
-                />
+                <Cloth scrollYProgress={scrollYProgress} />
               )}
             </div>
 

@@ -10,219 +10,33 @@ import {
 } from "motion/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import {
-  MouseEventHandler,
-  MutableRefObject,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Third-Party - 3D
 import {
   OrthographicCamera as DreiOrthographicCamera,
   Stats,
 } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { BufferAttribute, DynamicDrawUsage, OrthographicCamera } from "three";
+import { Canvas } from "@react-three/fiber";
+import { OrthographicCamera } from "three";
 
 // Project
-import { ParticleSystem } from "@/components/cloth/particle-system";
 import { CursorSize, useCursor } from "@/components/cursor";
 import cursorIconDark from "@/public/cursor-dark.svg";
 import cursorIcon from "@/public/cursor.svg";
-import { GridDimensions, Size } from "@/types";
-import { cn, toBool } from "@/utils";
+import { Size } from "@/types";
+import { toBool } from "@/utils";
 
 // Local
 import { cursorAnimationConfig } from "./cursor-animation";
-
-function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
-  const { theme } = useTheme();
-  return (
-    <div className="bg-fore text-back w-full h-full flex items-center justify-center">
-      <CursorSize sizeOnHover={8}>
-        <div
-          onClick={onClick}
-          className={cn(
-            "relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90 ",
-            "scale-75 xs:scale-100 hover:scale-50",
-          )}
-        >
-          {/* Grid. */}
-          <div
-            className=" w-[300px] h-[300px]"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(var(--col-back) 0 2px, transparent 1px 100%), " +
-                "repeating-linear-gradient(90deg, var(--col-back) 0 1px, transparent 2px 100%)",
-              backgroundSize: "59.75px 59.75px",
-            }}
-          ></div>
-
-          {/* Dots. */}
-          <div
-            className="absolute inset-0"
-            style={{
-              display: "grid",
-              gridTemplateRows: "repeat(6, 10px)",
-              gridTemplateColumns: "repeat(6, 10px)",
-              justifyContent: "space-between",
-              alignContent: "space-between",
-            }}
-          >
-            {[...Array(36)].map((_, i) => (
-              <div key={i} className="bg-back"></div>
-            ))}
-          </div>
-        </div>
-      </CursorSize>
-
-      {/* Cursor. */}
-      <div className="absolute pointer-events-none rotate-180 translate-x-3 translate-y-14">
-        <div className="animate-bounce">
-          <div className="rotate-180">
-            {theme === "dark" ? (
-              <Image width={80} src={cursorIconDark} alt="Cursor" />
-            ) : (
-              <Image width={80} src={cursorIcon} alt="Cursor" />
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Pinging sphere. */}
-      <motion.div className="absolute pointer-events-none">
-        <div className="absolute -ml-[8px] -mt-[8px]">
-          <div className="absolute rounded-full w-[16px] h-[16px] bg-back"></div>
-          <div className="absolute animate-ping rounded-full w-[16px] h-[16px] bg-back"></div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-function Simulation({
-  particleSystemRef,
-  delayOffset,
-}: {
-  particleSystemRef: MutableRefObject<ParticleSystem>;
-  delayOffset?: number;
-}) {
-  const { camera, raycaster, size } = useThree();
-
-  camera.position.setX(0);
-  camera.position.setY(0);
-  camera.position.setZ(500);
-
-  useEffect(() => {
-    camera.position.setX(particleSystem.approximateHalfClothWidth);
-    camera.position.setY(-size.height / 2);
-  }, [camera, size]);
-
-  if (raycaster.params.Points) {
-    raycaster.params.Points.threshold = 5;
-  }
-
-  const linesPositionsRef = useRef<BufferAttribute>(null);
-  const linesIndicesRef = useRef<BufferAttribute>(null);
-  const pointsPositionsRef = useRef<BufferAttribute>(null);
-
-  const clothGridDimensions: GridDimensions = useMemo(
-    () => ({ rows: 20, cols: 40 }),
-    [],
-  );
-
-  const pointsData = new Float32Array(
-    Array(clothGridDimensions.rows * clothGridDimensions.cols * 3).fill(0),
-  );
-
-  const numLineConstraints =
-    clothGridDimensions.cols * (clothGridDimensions.rows - 1) +
-    (clothGridDimensions.cols - 1) * clothGridDimensions.rows;
-  const constraintsData = new Uint16Array(
-    Array(numLineConstraints * 2).fill(0),
-  );
-
-  const particleSystem = particleSystemRef.current;
-
-  useLayoutEffect(() => {
-    if (particleSystem.empty) {
-      particleSystem.populate(
-        { w: size.width, h: size.height },
-        clothGridDimensions,
-      );
-    }
-  }, [particleSystem, size, clothGridDimensions]);
-
-  useFrame((state, delta) => {
-    particleSystem.step();
-    pointsData.set(particleSystem.getPoints());
-    constraintsData.set(particleSystem.getConstraints());
-
-    if (pointsPositionsRef.current) {
-      pointsPositionsRef.current.needsUpdate = true;
-    }
-    if (linesPositionsRef.current) {
-      linesPositionsRef.current.needsUpdate = true;
-    }
-    if (linesIndicesRef.current) {
-      linesIndicesRef.current.needsUpdate = true;
-    }
-  });
-
-  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
-    console.log("[Cloth] Rendering");
-  }
-
-  const { theme } = useTheme();
-  const col = theme === "dark" ? 0x94a3b8 : 0x111827;
-
-  return (
-    <>
-      <lineSegments>
-        <bufferGeometry>
-          <bufferAttribute
-            ref={linesIndicesRef}
-            attach="index"
-            count={constraintsData.length}
-            usage={DynamicDrawUsage}
-            args={[constraintsData, 1]}
-          />
-          <bufferAttribute
-            ref={linesPositionsRef}
-            attach="attributes-position"
-            count={clothGridDimensions.rows * clothGridDimensions.cols}
-            usage={DynamicDrawUsage}
-            args={[pointsData, 3]}
-          />
-        </bufferGeometry>
-        <lineBasicMaterial color={col} linewidth={1} />
-      </lineSegments>
-      <points>
-        <bufferGeometry>
-          <bufferAttribute
-            ref={pointsPositionsRef}
-            attach="attributes-position"
-            count={clothGridDimensions.rows * clothGridDimensions.cols}
-            usage={DynamicDrawUsage}
-            args={[pointsData, 3]}
-          />
-        </bufferGeometry>
-        <pointsMaterial color={col} size={5} sizeAttenuation={false} />
-      </points>
-    </>
-  );
-}
+import { ParticleSystem } from "./particle-system";
+import { PlayPrompt } from "./play-prompt";
+import { Simulation } from "./simulation";
 
 export function Cloth({
   scrollYProgress,
-  delayOffset = 0,
 }: {
   scrollYProgress: MotionValue<number>;
-  delayOffset?: number;
 }) {
   // Particle system references.
   const particleSystemRef = useRef(new ParticleSystem());
@@ -319,31 +133,28 @@ export function Cloth({
   useEffect(() => {
     const offsetX = 23;
     const offsetY = -197;
-    const timeout = setTimeout(
-      () => {
-        let i = 0;
+    const timeout = setTimeout(() => {
+      let i = 0;
 
-        onMouseDown(
+      onMouseDown(
+        cursorIconRef.current!.getBoundingClientRect().x + offsetX,
+        cursorIconRef.current!.getBoundingClientRect().y + offsetY,
+        0,
+      );
+
+      const interval = setInterval(() => {
+        if (i > cursorAnimationConfig.pressingCycles) {
+          clothInstructionPlaying.current = false;
+          clearInterval(interval);
+          onMouseUp();
+        }
+        onMouseMove(
           cursorIconRef.current!.getBoundingClientRect().x + offsetX,
           cursorIconRef.current!.getBoundingClientRect().y + offsetY,
-          0,
         );
-
-        const interval = setInterval(() => {
-          if (i > cursorAnimationConfig.pressingCycles) {
-            clothInstructionPlaying.current = false;
-            clearInterval(interval);
-            onMouseUp();
-          }
-          onMouseMove(
-            cursorIconRef.current!.getBoundingClientRect().x + offsetX,
-            cursorIconRef.current!.getBoundingClientRect().y + offsetY,
-          );
-          i = i + 1;
-        }, cursorAnimationConfig.pressingIntervalSize);
-      },
-      cursorAnimationConfig.pressingStart + delayOffset * 1000,
-    );
+        i = i + 1;
+      }, cursorAnimationConfig.pressingIntervalSize);
+    }, cursorAnimationConfig.pressingStart);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -427,7 +238,7 @@ export function Cloth({
         animate={{ ...cursorAnimationConfig.animate }}
         transition={{
           ...cursorAnimationConfig.transition,
-          delay: cursorAnimationConfig.transition.delay + delayOffset,
+          delay: cursorAnimationConfig.transition.delay,
         }}
       >
         {theme === "dark" ? (
@@ -469,7 +280,8 @@ export function Cloth({
             ></motion.div>
           </CursorSize>
           <Canvas
-            onMouseDown={(e) =>
+            className="select-none touch-none"
+            onPointerDown={(e) =>
               clothInstructionPlaying.current === false &&
               onMouseDown(
                 e.nativeEvent.offsetX,
@@ -477,20 +289,17 @@ export function Cloth({
                 e.nativeEvent.button,
               )
             }
-            onMouseMove={(e) =>
+            onPointerMove={(e) =>
               clothInstructionPlaying.current === false &&
               onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
             }
-            onMouseUp={(e) =>
+            onPointerUp={(e) =>
               clothInstructionPlaying.current === false && onMouseUp()
             }
           >
             <DreiOrthographicCamera ref={cameraRef} makeDefault />
             {toBool(process.env.NEXT_PUBLIC_DEBUG) && <Stats />}
-            <Simulation
-              particleSystemRef={particleSystemRef}
-              delayOffset={delayOffset}
-            />
+            <Simulation particleSystemRef={particleSystemRef} />
           </Canvas>
         </>
       )}
