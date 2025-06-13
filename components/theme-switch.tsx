@@ -15,7 +15,7 @@ import { useBreakpoint } from "@/hooks/breakpoint";
 import settings from "@/config/settings";
 
 // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
-export function ThemeSwitch({ className }: { className?: string }) {
+export function ThemeSwitch() {
   const scale = useMotionValue(1);
   const scaleSpring = useSpring(scale, { stiffness: 200, damping: 12 });
 
@@ -25,56 +25,38 @@ export function ThemeSwitch({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
   const isDark = theme === "dark";
 
-  const { activeSectionIdx, sections } = useSection();
-  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
-  const navbarVertical = isSmaller;
-
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    if (navbarVertical) {
-      setOffset((sections.length - activeSectionIdx - 1) * 28 + 47);
-    } else {
-      setOffset(0);
-    }
-  }, [activeSectionIdx, navbarVertical]);
-
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {}, [activeSectionIdx]);
-
   useEffect(() => {
     let timeouts: Array<NodeJS.Timeout> = [];
     if (mounted) {
       if (theme) {
-        const offset = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+        const timeOffset = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
           ? 2000
           : 4000;
         timeouts = [
-          setTimeout(() => setShowSwitcher(true), offset),
-          // TODO: Fix the animation alignment, it does not respect whether it's vertical or horizontal
-          // ...(localStorage.getItem("hasPlayedThemeSwitcherAnimation")
-          ...(false
+          setTimeout(() => setShowSwitcher(true), timeOffset),
+          ...(localStorage.getItem("hasPlayedThemeSwitcherAnimation")
             ? []
             : [
-                setTimeout(() => scale.set(1.5), offset + 500),
+                setTimeout(() => scale.set(1.5), timeOffset + 500),
                 setTimeout(() => {
                   setTheme("dark");
-                }, offset + 1000),
+                }, timeOffset + 1000),
                 setTimeout(() => {
                   setTheme("light");
-                }, offset + 2000),
-                setTimeout(() => scale.set(1), offset + 3000),
+                }, timeOffset + 2000),
+                setTimeout(() => scale.set(1), timeOffset + 3000),
                 setTimeout(
                   () =>
                     localStorage.setItem(
                       "hasPlayedThemeSwitcherAnimation",
                       "true",
                     ),
-                  offset + 3000,
+                  timeOffset + 3000,
                 ),
               ]),
         ];
@@ -187,14 +169,8 @@ export function ThemeSwitch({ className }: { className?: string }) {
   return (
     showSwitcher && (
       <motion.div
-        className={`${className}`}
-        initial={{ y: "calc(100dvh - 0px)", scale: 1 }}
-        animate={{
-          y: `calc(100dvh - ${offset}px)`,
-          scale: 1,
-        }}
-        exit={{ y: "calc(100dvh - 0px)", scale: 1 }}
-        style={{ x: "calc(50vw - 35px)" }}
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
         transition={{ type: "spring" }}
       >
         <CursorSize sizeOnHover={0.4}>

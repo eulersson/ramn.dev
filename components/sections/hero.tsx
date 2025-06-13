@@ -80,7 +80,6 @@ const Hero = forwardRef<
     >
       <div className="h-[500vh]">
         <section className="sticky top-0 h-dvh bg-fore">
-          <ThemeSwitch className="absolute" />
           <div className="w-full h-full flex flex-col">
             {/* Progress bar. */}
             <div className={`bg-back mt-7 lg:mt-0`}>
@@ -293,16 +292,25 @@ const Hero = forwardRef<
                 },
               }}
             >
-              {[...Array(40)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="min-w-g06n md:min-w-g03n bg-back border-2-fore -mx-px"
-                  variants={{
-                    visible: { opacity: 1, x: 0, y: 0 },
-                    hidden: { opacity: 0, x: -40, y: -40 },
-                  }}
-                ></motion.div>
-              ))}
+              {[...Array(39)].map((_, i) => {
+                const middleIndex = Math.floor(39 / 2); // Index 19
+                const isMiddle = i === middleIndex;
+                return (
+                  <motion.div
+                    key={i}
+                    className={`min-w-g06n md:min-w-g03n bg-back border-2-fore -mx-px ${
+                      isMiddle &&
+                      "flex items-center justify-center min-w-g12n xs:min-w-g10n md:min-w-g05n"
+                    }`}
+                    variants={{
+                      visible: { opacity: 1, x: 0, y: 0 },
+                      hidden: { opacity: 0, x: -40, y: -40 },
+                    }}
+                  >
+                    {isMiddle && <ThemeSwitch />}
+                  </motion.div>
+                );
+              })}
             </motion.div>
             <motion.div
               className="w-full bg-front bg-fore"
