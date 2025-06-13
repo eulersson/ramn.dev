@@ -186,6 +186,7 @@ const Hero = forwardRef<
                   <motion.h1
                     className={cn(
                       "text-center text-[50px] sm:text-[60px] md:text-[70px]",
+                      "-mt-[6px] lg:-mt-[12px]",
                       "leading-[0.7] sm:leading-none font-title font-extrabold",
                     )}
                     variants={{
