@@ -99,7 +99,7 @@ const Hero = forwardRef<
 
             {/* Upper small box stripe. */}
             <motion.div
-              className="h-g02n flex justify-center overflow-visible"
+              className="h-g03n xs:h-g02n flex justify-center overflow-visible"
               initial="hidden"
               animate="visible"
               variants={{
@@ -124,7 +124,7 @@ const Hero = forwardRef<
               {[...Array(40)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="min-w-g02n bg-back border-2-fore -mx-px"
+                  className="min-w-g03n xs:min-w-g02n bg-back border-2-fore -mx-px"
                   variants={{
                     visible: { opacity: 1, x: 0, y: 0 },
                     hidden: { opacity: 0, x: -40, y: -40 },
@@ -232,7 +232,7 @@ const Hero = forwardRef<
                     animate={{ rotateX: 0 }}
                     transition={{ duration: 0.3, delay: 2 }}
                   >
-                    <span className="block sm:inline sm:mr-[10px] bg-fore text-back ">
+                    <span className="block sm:inline mb-[3px] sm:mb-0 sm:mr-[10px] bg-fore text-back ">
                       from code to deployment;
                     </span>
                     <span className="bg-fore text-back sm:mr-[24px]">
@@ -265,7 +265,7 @@ const Hero = forwardRef<
 
             {/* Lower small box stripe. */}
             <motion.div
-              className={`h-g06n md:h-g03n flex justify-center overflow-visible`}
+              className={`h-g10n xs:h-g06n md:h-g03n flex justify-center overflow-visible`}
               initial="hidden"
               animate="visible"
               variants={{
@@ -294,7 +294,7 @@ const Hero = forwardRef<
                 return (
                   <motion.div
                     key={i}
-                    className={`min-w-g06n md:min-w-g03n bg-back border-2-fore -mx-px ${
+                    className={`min-w-g10n xs:min-w-g06n md:min-w-g03n bg-back border-2-fore -mx-px ${
                       isMiddle &&
                       "flex items-center justify-center min-w-g12n xs:min-w-g10n md:min-w-g05n"
                     }`}
@@ -309,7 +309,7 @@ const Hero = forwardRef<
               })}
             </motion.div>
             <motion.div
-              className="w-full bg-front bg-fore"
+              className="w-full bg-front bg-fore pointer-events-none"
               onViewportEnter={() => {
                 onEnterLeave !== undefined && onEnterLeave(true);
               }}

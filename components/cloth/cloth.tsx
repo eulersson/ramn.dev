@@ -1,5 +1,6 @@
 // Third-Party
 import {
+  AnimatePresence,
   MotionValue,
   motion,
   useInView,
@@ -109,9 +110,7 @@ export function Cloth({
     }
   }, []);
 
-  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
-    console.log("[Cloth] Rendering");
-  }
+  const [hasResized, setHasResized] = useState(false);
 
   useEffect(() => {
     const onResize = (e: UIEvent) => {
@@ -124,7 +123,8 @@ export function Cloth({
         //   w: canvasWrapperRef.current.clientWidth,
         //   h: canvasWrapperRef.current.clientHeight,
         // });
-        setShowPlayPrompt(true);
+        setCurtainsClosed(true);
+        setHasResized(true);
         particleSystemRef.current.destroy();
         initialWrapperSize.current = {
           w: canvasWrapperRef.current.clientWidth,
@@ -223,6 +223,8 @@ export function Cloth({
   const [showPlayPrompt, setShowPlayPrompt] = useState(false);
   const playPromptClicked = useRef(false);
 
+  const [curtainsClosed, setCurtainsClosed] = useState(false);
+
   useEffect(() => {
     if (inView === false && previousInView.current === true) {
       hasNavigatedAway.current = true;
@@ -234,14 +236,19 @@ export function Cloth({
     ) {
       playPromptClicked.current = true;
       setShowPlayPrompt(true);
+      setCurtainsClosed(true);
       particleSystemRef.current.destroy();
     }
     previousInView.current = inView;
   }, [inView]);
 
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
+    console.log("[Cloth] Rendering");
+  }
+
   return (
-    <div className="relative w-full h-full" ref={canvasWrapperRef}>
-      {/* https://blog.noelcserepy.com/creatin  g-keyframe-animations-with-framer-motion */}
+    <div className="relative w-full h-full bg-back" ref={canvasWrapperRef}>
+      {/* https://blog.noelcserepy.com/creating-keyframe-animations-with-framer-motion */}
       <motion.div
         ref={cursorIconRef}
         className="absolute z-20 top-1/2 left-1/2 pointer-events-none"
@@ -257,62 +264,105 @@ export function Cloth({
           <Image width={100} src={cursorIcon} alt="Cursor" />
         )}
       </motion.div>
-      {showPlayPrompt ? (
-        <PlayPrompt onClick={() => setShowPlayPrompt(false)} />
-      ) : (
-        <>
-          <CursorSize sizeOnHover={1}>
-            <motion.div
-              className="absolute left-0 w-1/2 h-full bg-fore z-10"
-              initial={{ x: 0 }}
-              animate={{ x: "-100%", transitionEnd: { display: "none" } }}
-              transition={{
-                delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
-                  ? 1.2
-                  : playPromptClicked.current
-                    ? 1
-                    : 2.9,
-                duration: 1,
-              }}
-            ></motion.div>
-            <motion.div
-              className="absolute right-0 w-1/2 h-full bg-fore z-10"
-              initial={{ x: 0 }}
-              animate={{ x: "100%", transitionEnd: { display: "none" } }}
-              transition={{
-                delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
-                  ? 1.2
-                  : playPromptClicked.current
-                    ? 1
-                    : 2.9,
-                duration: 1,
-              }}
-            ></motion.div>
-          </CursorSize>
-          <Canvas
-            className="select-none touch-none"
-            onPointerDown={(e) =>
-              clothInstructionPlaying.current === false &&
-              onMouseDown(
-                e.nativeEvent.offsetX,
-                e.nativeEvent.offsetY,
-                e.nativeEvent.button,
-              )
-            }
-            onPointerMove={(e) =>
-              clothInstructionPlaying.current === false &&
-              onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
-            }
-            onPointerUp={(e) =>
-              clothInstructionPlaying.current === false && onMouseUp()
-            }
-          >
-            <DreiOrthographicCamera ref={cameraRef} makeDefault />
-            {toBool(process.env.NEXT_PUBLIC_DEBUG) && <Stats />}
-            <Simulation particleSystemRef={particleSystemRef} />
-          </Canvas>
-        </>
+
+      {showPlayPrompt && (
+        <PlayPrompt
+          onClick={() => {
+            playPromptClicked.current = true;
+            setHasResized(false);
+            setShowPlayPrompt(false);
+            setCurtainsClosed(false);
+          }}
+        />
+      )}
+
+      <Curtains
+        playPromptClicked={playPromptClicked.current}
+        hasResized={hasResized}
+        curtainsClosed={curtainsClosed}
+        afterCurtainsClosed={() => {
+          setShowPlayPrompt(true);
+        }}
+      />
+
+      {!showPlayPrompt && (
+        <Canvas
+          className="select-none touch-none"
+          onPointerDown={(e) =>
+            clothInstructionPlaying.current === false &&
+            onMouseDown(
+              e.nativeEvent.offsetX,
+              e.nativeEvent.offsetY,
+              e.nativeEvent.button,
+            )
+          }
+          onPointerMove={(e) =>
+            clothInstructionPlaying.current === false &&
+            onMouseMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+          }
+          onPointerUp={(e) =>
+            clothInstructionPlaying.current === false && onMouseUp()
+          }
+        >
+          <DreiOrthographicCamera ref={cameraRef} makeDefault />
+          {toBool(process.env.NEXT_PUBLIC_DEBUG) && <Stats />}
+          <Simulation particleSystemRef={particleSystemRef} />
+        </Canvas>
       )}
     </div>
+  );
+}
+
+function Curtains({
+  playPromptClicked,
+  hasResized,
+  curtainsClosed,
+  afterCurtainsClosed,
+}: {
+  playPromptClicked: boolean;
+  hasResized: boolean;
+  curtainsClosed: boolean;
+  afterCurtainsClosed: Function;
+}) {
+  const delay = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+    ? 1.2
+    : playPromptClicked
+      ? 0.25
+      : hasResized
+        ? 1
+        : 2.9;
+
+  return (
+    <>
+      <motion.div
+        className="absolute left-0 w-1/2 h-full bg-fore z-10"
+        initial="visible"
+        animate={curtainsClosed ? "visible" : "hidden"}
+        variants={{
+          visible: { x: 0 },
+          hidden: { x: "-100%" },
+        }}
+        transition={{
+          delay: delay,
+          duration: 1,
+        }}
+        onAnimationComplete={() => {
+          curtainsClosed && afterCurtainsClosed();
+        }}
+      ></motion.div>
+      <motion.div
+        className="absolute right-0 w-1/2 h-full bg-fore z-10"
+        initial="visible"
+        animate={curtainsClosed ? "visible" : "hidden"}
+        variants={{
+          visible: { x: 0 },
+          hidden: { x: "100%" },
+        }}
+        transition={{
+          delay: delay,
+          duration: 1,
+        }}
+      ></motion.div>
+    </>
   );
 }
