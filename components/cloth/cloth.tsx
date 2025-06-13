@@ -35,6 +35,7 @@ import cursorIconDark from "@/public/cursor-dark.svg";
 import cursorIcon from "@/public/cursor.svg";
 import { GridDimensions, Size } from "@/types";
 import { toBool } from "@/utils";
+import { cn } from "@/utils/cn";
 
 // Local
 import { cursorAnimationConfig } from "./cursor-animation";
@@ -46,14 +47,18 @@ function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
       <CursorSize sizeOnHover={8}>
         <div
           onClick={onClick}
-          className="relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90 hover:scale-50"
+          className={cn(
+            "relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90 ",
+            "scale-75 xs:scale-100 hover:scale-50",
+          )}
         >
           {/* Grid. */}
           <div
-            className="w-[300px] h-[300px]"
+            className=" w-[300px] h-[300px]"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(var(--col-back) 0 2px, transparent 1px 100%), repeating-linear-gradient(90deg, var(--col-back) 0 1px, transparent 2px 100%)",
+                "repeating-linear-gradient(var(--col-back) 0 2px, transparent 1px 100%), " +
+                "repeating-linear-gradient(90deg, var(--col-back) 0 1px, transparent 2px 100%)",
               backgroundSize: "59.75px 59.75px",
             }}
           ></div>
