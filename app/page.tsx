@@ -117,10 +117,7 @@ function Home() {
 
       switch (section) {
         case "home": {
-          if (!heroInView && heroRef.current) {
-            positionToScrollTo =
-              windowScrollY + heroRef.current.getBoundingClientRect().top;
-          }
+          positionToScrollTo = 0;
           break;
         }
         case "about": {
