@@ -51,7 +51,7 @@ export function ThemeSwitch({ className }: { className?: string }) {
     if (mounted) {
       if (theme) {
         const offset = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
-          ? 4000
+          ? 2000
           : 4000;
         timeouts = [
           setTimeout(() => setShowSwitcher(true), offset),
