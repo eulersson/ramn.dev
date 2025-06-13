@@ -116,10 +116,20 @@ export function Cloth({
   useEffect(() => {
     const onResize = (e: UIEvent) => {
       if (canvasWrapperRef.current) {
-        particleSystem.onWindowResize({
+        // TODO: Instead of killing the animation completely handle the
+        // resizing properly. At the moment to keep things simply the animation
+        //
+        // is destroyed and can be re-created by clicking the PlayPrompt.
+        // particleSystem.onWindowResize({
+        //   w: canvasWrapperRef.current.clientWidth,
+        //   h: canvasWrapperRef.current.clientHeight,
+        // });
+        setShowPlayPrompt(true);
+        particleSystemRef.current.destroy();
+        initialWrapperSize.current = {
           w: canvasWrapperRef.current.clientWidth,
           h: canvasWrapperRef.current.clientHeight,
-        });
+        };
       }
     };
     window.addEventListener("resize", onResize);
@@ -191,7 +201,7 @@ export function Cloth({
       y -= cameraRef.current.position.y;
     }
 
-    // Factor this out, it's beign repeated in onMouseDown
+    // Factor this out, it's being repeated in onMouseDown
     if (initialWrapperSize.current && canvasWrapperRef.current) {
       x -=
         (canvasWrapperRef.current.clientWidth - initialWrapperSize.current.w) /
