@@ -142,8 +142,14 @@ export function Header({
         </div>
         {/* Resume */}
         <div className="flex items-center justify-center bg-back">
-          <Button className="max-sm:hidden px-4">CV Resume</Button>
-          <a className="sm:hidden font-mono text-[15px] sm:text-[18px] underline hover:font-bold">
+          <Button link="/CV.pdf" className="max-sm:hidden px-4">
+            CV Resume
+          </Button>
+          <a
+            className="sm:hidden font-mono text-[15px] sm:text-[18px] underline hover:font-bold"
+            href="/CV.pdf"
+            target="_blank"
+          >
             Resume<span className="hidden xs:inline"> (CV)</span>
           </a>
         </div>
