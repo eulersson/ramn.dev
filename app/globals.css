@@ -25,8 +25,6 @@
   --shadow-button: 5px 5px 0 var(--col-fore);
   --shadow-buttonhover: 3px 3px 0 var(--col-fore);
 
-  --animate-blinky: blinky 800ms step-end 10;
-
   --spacing-ggpn: calc(var(--bg-grid-gap));
   --spacing-ggpy: calc(var(--bg-grid-gap) * 2);
   --spacing-g01n: calc(var(--bg-grid-box-size) * (1 / 8));
@@ -421,6 +419,8 @@
   --gap-g70n: calc(var(--bg-grid-box-size) * 7);
   --gap-g70t: calc(var(--bg-grid-box-size) * 7 + 7 * var(--bg-grid-gap));
   --gap-g70y: calc(var(--bg-grid-box-size) * 7 + 8 * var(--bg-grid-gap));
+
+  --animate-blinky: blinky 800ms step-end 10;
 
   @keyframes blinky {
     0%,
