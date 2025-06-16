@@ -107,23 +107,37 @@ export function Header({
         <div className="col-span-2 sm:col-span-1 flex gap-2 items-center justify-center bg-back">
           {/* https://github.com/pacocoursey/next-themes#images */}
           <CursorSize sizeOnHover={0.4}>
-            <ThemedImage
-              src="/github.svg"
-              alt="GitHub Logo"
-              width={24}
-              height={24}
-            />
+            <a href="https://github.com/eulersson" target="_blank">
+              <ThemedImage
+                src="/github.svg"
+                alt="GitHub Logo"
+                width={24}
+                height={24}
+                className="transition-transform active:scale-75"
+              />
+            </a>
           </CursorSize>
           <CursorSize sizeOnHover={0.4}>
-            <ThemedImage
-              src="/linkedin.svg"
-              alt="LinkedIn Logo"
-              width={24}
-              height={24}
-            />
+            <a href="https://www.linkedin.com/in/ramonblanquer" target="_blank">
+              <ThemedImage
+                src="/linkedin.svg"
+                alt="LinkedIn Logo"
+                width={24}
+                height={24}
+                className="transition-transform active:scale-75"
+              />
+            </a>
           </CursorSize>
           <CursorSize sizeOnHover={0.4}>
-            <ThemedImage src="/x.svg" alt="X Logo" width={24} height={24} />
+            <a href="https://www.linkedin.com/in/ramonblanquer" target="_blank">
+              <ThemedImage
+                src="/x.svg"
+                alt="X Logo"
+                width={24}
+                height={24}
+                className="transition-transform active:scale-75"
+              />
+            </a>
           </CursorSize>
         </div>
         {/* Resume */}
