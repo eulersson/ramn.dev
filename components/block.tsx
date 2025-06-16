@@ -1,6 +1,17 @@
+// Third-Party
+import {
+  animate,
+  motion,
+  useAnimation,
+  useInView,
+  useMotionValue,
+} from "motion/react";
+
 // Project
 import { Tag, TagProps } from "@/components/tag";
-import { toBool } from "@/utils";
+import { useTouchDevice } from "@/hooks/touch-device";
+import { cn, toBool } from "@/utils";
+import { useEffect, useRef } from "react";
 
 type ClassNameSlot = "wrapper" | "main" | "tags";
 
@@ -13,6 +24,33 @@ export function Block({
   tags: TagProps[];
   classNames: { [key in ClassNameSlot]?: string };
 }) {
+  const tagsRef = useRef<HTMLDivElement>(null);
+  const tagsInView = useInView(tagsRef);
+
+  const scrollX = useMotionValue(0);
+
+  // Update the element's scroll position as the motion value changes
+  useEffect(() => {
+    const unsubscribe = scrollX.on("change", (latest) => {
+      if (tagsRef.current) {
+        tagsRef.current.scrollLeft = latest;
+      }
+    });
+    return unsubscribe;
+  }, [scrollX]);
+
+  useEffect(() => {
+    if (tagsInView && tagsRef.current) {
+      const maxScroll =
+        tagsRef.current.scrollWidth - tagsRef.current.clientWidth;
+      animate(scrollX, [0, maxScroll, 0], {
+        duration: 1,
+        repeat: 1,
+        ease: "easeInOut",
+      });
+    }
+  }, [tagsInView, scrollX]);
+
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Block] Rendering");
   }
@@ -20,24 +58,31 @@ export function Block({
   return (
     <div className={`bg-fore border-2-fore ${classNames.wrapper || ""}`}>
       <div
-        className={`bg-back font-sans rounded-[40px] hyphens-auto ${classNames.main || ""}`}
+        className={cn(
+          "bg-back min-h-0 font-sans rounded-[40px] hyphens-auto text-ellipsis",
+          classNames.main,
+        )}
       >
         {children}
       </div>
       {tags && tags.length >= 1 && (
-        // TODO: When the pills don't fit in the container with mouse, as you
-        // move it left "scroll" the view leftwards and similarly rightwards.
-        <div
-          className={`bg-fore p-2 flex items-center justify-center gap-2 overflow-hidden ${
-            classNames.tags || ""
-          }`}
-        >
-          {...tags.map((props, i) => (
-            <div key={i}>
-              {" "}
-              <Tag {...props} key={i} />
-            </div>
-          ))}
+        <div className="bg-fore p-ggpy overflow-hidden">
+          <div
+            ref={tagsRef}
+            className={cn(
+              "flex items-center justify-center gap-ggpy",
+              "overflow-x-auto scrollbar-hide",
+              "hover:flex-wrap",
+              classNames.tags,
+            )}
+          >
+            {...tags.map((props, i) => (
+              <div key={i}>
+                {" "}
+                <Tag {...props} key={i} />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
