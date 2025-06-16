@@ -11,7 +11,7 @@
     "◎ Designed and implemented (delivering DX-friendly Postman documentation) REST API endpoints demanded by technical clients using Django.",
     "◎ Proactively migrated the frontend stack to use Nx and designed an NgRx store for it that could be reused across various apps.",
     "◎ Developed a queue observation solution that cut down AWS costs by 30%",
-    "◎ Bootstrapped a Janus client for Unity in C#.",
+    "◎ Bootstrapped a Janus WebRTC client for Unity in C#.",
     "◎ Troubleshot WebRTC, specially on corporate restrictive networks.",
     "◎ Containerized apps so new colleagues have an environment ready to work.",
     "◎ Proactively wrote Helm Charts for our apps with secrets management.",
