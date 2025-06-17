@@ -2,10 +2,10 @@
 
 // Third-Party
 import { AnimatePresence } from "motion/react";
-import { ForwardedRef, useEffect, useState } from "react";
+import { ForwardedRef, useEffect, useRef, useState } from "react";
 
 // Project
-import { Header } from "@/components/header";
+import { Header, HeaderProvider } from "@/components/header";
 import { BackgroundGrid } from "@/components/layout/background-grid";
 import { Navbar } from "@/components/layout/navbar";
 import { Hero } from "@/components/sections/hero";
@@ -18,6 +18,7 @@ export function PageWrapper({
   children: React.ReactNode;
   heroRef: ForwardedRef<HTMLHeadingElement>;
 }) {
+  const headerRef = useRef<HTMLHeadElement>(null);
   const [showNavBar, setShowNavBar] = useState(false);
 
   const navBarTimeoutMillis = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
@@ -65,10 +66,15 @@ export function PageWrapper({
         className="absolute w-full flex justify-center"
       >
         <div className="w-g40y lg:w-g40y xl:w-g40y">
-          <Header correctNavbarUpperSpace={correctHeaderNavbarUpperSpace} />
-          <div className="pt-ggpn">
-            <main className="-mt-ggpn">{children}</main>
-          </div>
+          <HeaderProvider
+            headerRef={headerRef}
+            correctNavbarUpperSpace={correctHeaderNavbarUpperSpace}
+          >
+            <Header ref={headerRef} />
+            <div className="pt-ggpn">
+              <main className="-mt-ggpn">{children}</main>
+            </div>
+          </HeaderProvider>
         </div>
       </div>
       <BackgroundGrid key="grid" />

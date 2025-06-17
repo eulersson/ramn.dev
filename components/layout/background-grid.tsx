@@ -16,13 +16,13 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
   const { isSmaller } = useBreakpoint("xs");
 
   // TODO: This makes us have the component as client-side. Investigate the cons we have.
-  const [numBoxes, setNumBoxes] = useState(68 * 3);
+  const [numBoxes, setNumBoxes] = useState(128);
 
   useEffect(() => {
     if (isSmaller) {
-      setNumBoxes(68 * 3);
+      setNumBoxes(180);
     } else {
-      setNumBoxes(68);
+      setNumBoxes(128);
     }
   }, [isSmaller]);
 

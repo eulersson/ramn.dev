@@ -197,7 +197,7 @@ function Home() {
     <PageWrapper heroRef={heroRef}>
       <div>
         <About ref={aboutRef} />
-        {/* <Experience ref={experienceRef} /> */}
+        <Experience ref={experienceRef} />
         {/* <Projects ref={projectsRef} /> */}
 
         {/* NOTE: Turning this mb into a negative -mb produces an interesting inset effect */}

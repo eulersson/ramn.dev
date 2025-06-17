@@ -2,89 +2,42 @@
 
 // Third-Party
 import {
-  animate,
   motion,
+  MotionValue,
   useMotionValue,
   useMotionValueEvent,
   useScroll,
   useSpring,
   useVelocity,
 } from "motion/react";
-import { useEffect, useRef } from "react";
+import { createContext, RefObject, useContext, useEffect, useRef } from "react";
 
 // Project
 import { Button } from "@/components/button";
 import { CursorSize } from "@/components/cursor";
 import { ThemedImage } from "@/components/themed-image";
-import { useTouchDevice } from "@/hooks/touch-device";
-import { toBool } from "@/utils";
+import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
-import settings from "@/config/settings";
+import { useTouchDevice } from "@/hooks/touch-device";
+import { toBool } from "@/utils";
+import { forwardRef } from "react";
 
-const SCROLL_THRESHOLD = 900;
+const SCROLL_THRESHOLD = 800;
 
-export function Header({
-  correctNavbarUpperSpace = false,
-}: {
-  correctNavbarUpperSpace?: boolean;
-}) {
-  const isTouchDevice = useTouchDevice();
+const Header = forwardRef<HTMLHeadElement>(function Header(props, headerRef) {
+  const headerContext = useHeader();
+  const fallbackMotionValue = useMotionValue(0);
+  const headerTranslateYSpring = headerContext
+    ? headerContext.headerTranslateYSpring
+    : fallbackMotionValue;
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Header] Rendering");
   }
 
-  const initialScrollChangeHappened = useRef<boolean>(false);
-
-  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
-  const navbarVertical = isSmaller;
-
-  const headerRef = useRef<HTMLHeadElement>(null);
-  const headerTranslateY = useMotionValue(0);
-  const headerTranslateYSpring = useSpring(headerTranslateY);
-
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-
-  const { activeSectionIdx } = useSection();
-
-  useEffect(() => {
-    if (correctNavbarUpperSpace && navbarVertical) {
-      headerTranslateY.set((activeSectionIdx + 1) * 28);
-    } else {
-      headerTranslateY.set(0);
-    }
-  }, [correctNavbarUpperSpace, activeSectionIdx, navbarVertical]);
-
-  useMotionValueEvent(scrollY, "change", (v) => {
-    if (!correctNavbarUpperSpace) {
-      return;
-    }
-    if (toBool(process.env.NEXT_PUBLIC_DISABLE_HEADER_HIDE_ON_SCROLL)) {
-      return;
-    }
-
-    if (!isTouchDevice) {
-      return;
-    }
-    // Protect against the initial scroll in case you refresh after having scrolled.
-    if (initialScrollChangeHappened.current === false) {
-      initialScrollChangeHappened.current = true;
-      return;
-    }
-
-    if (scrollVelocity.get() < 0) {
-      headerTranslateY.set((activeSectionIdx + 1) * 28);
-    } else {
-      if (headerRef.current && scrollVelocity.get() > SCROLL_THRESHOLD) {
-        headerTranslateY.set(-headerRef.current.offsetHeight);
-      }
-    }
-  });
-
   return (
-    <div className="sticky top-0 h-(--header-height) w-full flex justify-center z-10">
+    <motion.div className="sticky top-0 h-(--header-height) w-full flex justify-center z-50">
       <motion.header
         ref={headerRef}
         className="w-g40y grid grid-cols-4 grid-rows-2 gap-ggpn border-2-fore bg-fore bg-back"
@@ -183,6 +136,97 @@ export function Header({
           </div>
         </div>
       </motion.header>
-    </div>
+    </motion.div>
+  );
+});
+
+const HeaderContext = createContext<{
+  headerTranslateYSpring: MotionValue;
+  headerTranslateYOffsetSpring: MotionValue;
+} | null>(null);
+
+export function HeaderProvider({
+  headerRef,
+  correctNavbarUpperSpace,
+  children,
+}: {
+  headerRef: RefObject<HTMLHeadElement | null>;
+  correctNavbarUpperSpace: boolean;
+  children: React.ReactNode;
+}) {
+  const isTouchDevice = useTouchDevice();
+  const initialScrollChangeHappened = useRef<boolean>(false);
+
+  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
+  const navbarVertical = isSmaller;
+
+  const headerTranslateY = useMotionValue(0);
+  const headerTranslateYSpring = useSpring(headerTranslateY);
+
+  const headerTranslateYOffset = useMotionValue(0);
+  const headerTranslateYOffsetSpring = useSpring(headerTranslateYOffset);
+
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+
+  const { activeSectionIdx } = useSection();
+
+  useEffect(() => {
+    if (correctNavbarUpperSpace && navbarVertical) {
+      const offset = (activeSectionIdx + 1) * 28;
+      headerTranslateY.set(offset);
+      headerTranslateYOffset.set(
+        offset + (headerRef.current?.offsetHeight || 0),
+      );
+    } else {
+      headerTranslateY.set(0);
+      headerTranslateYOffset.set(headerRef.current?.offsetHeight || 0);
+    }
+  }, [correctNavbarUpperSpace, activeSectionIdx, navbarVertical]);
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    if (!correctNavbarUpperSpace) {
+      return;
+    }
+    if (toBool(process.env.NEXT_PUBLIC_DISABLE_HEADER_HIDE_ON_SCROLL)) {
+      return;
+    }
+
+    if (!isTouchDevice) {
+      return;
+    }
+    // Protect against the initial scroll in case you refresh after having scrolled.
+    if (initialScrollChangeHappened.current === false) {
+      initialScrollChangeHappened.current = true;
+      return;
+    }
+
+    const offset = (activeSectionIdx + 1) * 28;
+    if (scrollVelocity.get() < 0) {
+      headerTranslateY.set(offset);
+      headerTranslateYOffset.set(
+        offset + (headerRef.current?.offsetHeight || 0),
+      );
+    } else {
+      if (headerRef.current && scrollVelocity.get() > SCROLL_THRESHOLD) {
+        // Scrolling up hides the header.
+        headerTranslateY.set(-headerRef.current.offsetHeight);
+        headerTranslateYOffset.set(offset);
+      }
+    }
+  });
+
+  return (
+    <HeaderContext.Provider
+      value={{ headerTranslateYSpring, headerTranslateYOffsetSpring }}
+    >
+      {children}
+    </HeaderContext.Provider>
   );
 }
+
+export function useHeader() {
+  return useContext(HeaderContext);
+}
+
+export { Header };

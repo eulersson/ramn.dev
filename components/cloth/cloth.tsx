@@ -158,10 +158,11 @@ export function Cloth({
           clearInterval(interval);
           onMouseUp();
         }
-        onMouseMove(
-          cursorIconRef.current!.getBoundingClientRect().x + offsetX,
-          cursorIconRef.current!.getBoundingClientRect().y + offsetY,
-        );
+        particleSystemRef.current?.empty == false &&
+          onMouseMove(
+            cursorIconRef.current!.getBoundingClientRect().x + offsetX,
+            cursorIconRef.current!.getBoundingClientRect().y + offsetY,
+          );
         i = i + 1;
       }, cursorAnimationConfig.pressingIntervalSize);
     }, cursorAnimationConfig.pressingStart);

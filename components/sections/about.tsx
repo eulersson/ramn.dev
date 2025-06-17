@@ -92,7 +92,10 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   }
 
   return (
-    <section ref={ref} className="flex flex-col justify-center">
+    <section
+      ref={ref}
+      className={cn("flex flex-col justify-center", "md:mb-g04n")}
+    >
       <Title
         className={cn(
           // Upper spacing.
@@ -134,7 +137,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
       </div>
 
       {/* A more technical overview of my work. */}
-      <div className="relative grid grid-cols-4 gap-ggpn p-ggpn">
+      <div className="relative grid grid-cols-4 gap-ggpn p-ggpn pb-0">
         <div
           className={cn(
             "col-span-4 sm:col-span-1 ",

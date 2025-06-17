@@ -1,4 +1,5 @@
 // React
+import { motion } from "motion/react";
 import { forwardRef } from "react";
 
 // Project
@@ -19,7 +20,13 @@ const Title = forwardRef<
   return (
     <div className="m-auto">
       <CursorSize sizeOnHover={4}>
-        <h1
+        <motion.h1
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          transition={{
+            delay: 0.3,
+            type: "spring",
+          }}
           ref={ref}
           className={
             `italic font-serif font-normal leading-none bg-back border-2-fore-inside shadow-blocky ` +
@@ -29,7 +36,7 @@ const Title = forwardRef<
           }
         >
           {children}
-        </h1>
+        </motion.h1>
       </CursorSize>
     </div>
   );
