@@ -1,11 +1,12 @@
 // Third-Party
-import { motion, useMotionValue, useMotionValueEvent } from "motion/react";
+import { motion, useMotionValue } from "motion/react";
 import { forwardRef, useRef, useState } from "react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
 import { useHeader } from "@/components/header";
 import { Logo, LogoRef } from "@/components/logo";
+import { Recommendations } from "@/components/sections/recommendations";
 import { Tag } from "@/components/tag";
 import { Title } from "@/components/title";
 import { cn, toBool } from "@/utils";
@@ -172,7 +173,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
           </div>
         </div>
       </section>
-      {/* <Recommendations /> */}
+      <Recommendations />
     </div>
   );
 });

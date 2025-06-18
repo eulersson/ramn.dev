@@ -68,9 +68,13 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "TypeScript", dotted: false },
     { text: "Go", dotted: false },
     { text: "Django", dotted: false },
-    { text: "Angular", dotted: false },
     { text: "React", dotted: false },
     { text: "Next.js", dotted: false },
+    { text: "Angular", dotted: false },
+    { text: "AWS", dotted: false },
+    { text: "Kubernetes", dotted: false },
+    { text: "OpenGL", dotted: false },
+    { text: "VFX", dotted: false },
   ];
 
   const sentences: Sentence[] = [
