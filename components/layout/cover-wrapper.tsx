@@ -30,6 +30,7 @@ export function CoverWrapper({ children }: { children: React.ReactNode }) {
       timeouts.forEach((t) => clearTimeout(t));
     };
   }, []);
+
   return (
     <AnimatePresence>
       {!showCover && !showPage && <Spinner key="spinner" />}
