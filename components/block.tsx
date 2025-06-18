@@ -70,7 +70,7 @@ export function Block({
           <div
             ref={tagsRef}
             className={cn(
-              "flex items-center justify-center gap-ggpy",
+              "flex items-center justify-start gap-ggpy",
               "overflow-x-auto scrollbar-hide",
               "hover:flex-wrap",
               classNames.tags,
