@@ -1,8 +1,8 @@
 // Third-Party
 import {
-  AnimatePresence,
   MotionValue,
   motion,
+  useAnimate,
   useInView,
   useSpring,
   useTime,
@@ -22,7 +22,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrthographicCamera } from "three";
 
 // Project
-import { CursorSize, useCursor } from "@/components/cursor";
+import { useCursor } from "@/components/cursor";
 import cursorIconDark from "@/public/cursor-dark.svg";
 import cursorIcon from "@/public/cursor.svg";
 import { Size } from "@/types";
@@ -136,9 +136,77 @@ export function Cloth({
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const cursorIconRef = useRef<HTMLDivElement>(null);
+  const [cursorIconRef, animate] = useAnimate();
 
   const clothInstructionPlaying = useRef(true);
+
+  const [showCursorIcon, setShowCursorIcon] = useState(true);
+
+  useEffect(() => {
+    const containerHeight = canvasWrapperRef.current?.clientHeight || 0;
+    const pickFrom = containerHeight > 550 ? -0.1971 : -0.0671;
+    if (cursorIconRef.current) {
+      animate(
+        [
+          [
+            cursorIconRef.current,
+            { x: 0, y: pickFrom * containerHeight, rotateZ: 10, scale: 1.3 },
+            { duration: 0.75 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: 0, y: pickFrom * containerHeight, rotateZ: 0, scale: 0.8 },
+            { duration: 0.15 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: 0, y: pickFrom * containerHeight, rotateZ: 0, scale: 0.8 },
+            { duration: 0.7 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: 200, y: -0.3942 * containerHeight, rotateZ: -20 },
+            { duration: 1 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: -240, y: -0.5256 * containerHeight, rotateZ: 30 },
+            { duration: 1.5 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: 120, y: -0.657 * containerHeight, rotateZ: -45 },
+            { duration: 0.2 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: 120, y: -0.657 * containerHeight, rotateZ: -45 },
+            { duration: 0.75 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: 120, y: -0.657 * containerHeight, rotateZ: -45, scale: 1.3 },
+            { duration: 0.15 },
+          ],
+          [
+            cursorIconRef.current,
+            { x: 0, y: 0.1971 * containerHeight, rotateZ: 360 },
+            { duration: 1 },
+          ],
+        ],
+        {
+          defaultTransition: {
+            delay: toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
+              ? cursorAnimationConfig.delayOffset
+              : cursorAnimationConfig.delayOffset + 1.5,
+            ease: "easeInOut",
+          },
+        },
+      ).then(() => {
+        setShowCursorIcon(false);
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const offsetX = 23;
@@ -250,21 +318,19 @@ export function Cloth({
   return (
     <div className="relative w-full h-full bg-back" ref={canvasWrapperRef}>
       {/* https://blog.noelcserepy.com/creating-keyframe-animations-with-framer-motion */}
-      <motion.div
-        ref={cursorIconRef}
-        className="absolute z-20 top-1/2 left-1/2 pointer-events-none"
-        animate={{ ...cursorAnimationConfig.animate }}
-        transition={{
-          ...cursorAnimationConfig.transition,
-          delay: cursorAnimationConfig.transition.delay,
-        }}
-      >
-        {theme === "dark" ? (
-          <Image width={100} src={cursorIconDark} alt="Cursor" />
-        ) : (
-          <Image width={100} src={cursorIcon} alt="Cursor" />
-        )}
-      </motion.div>
+      {showCursorIcon && (
+        <motion.div
+          ref={cursorIconRef}
+          className="absolute z-100 top-[calc(100%-15px)] left-[calc(50%-35px)] pointer-events-none"
+          initial={{ y: -1000 }}
+        >
+          {theme === "dark" ? (
+            <Image width={100} src={cursorIconDark} alt="Cursor" />
+          ) : (
+            <Image width={100} src={cursorIcon} alt="Cursor" />
+          )}
+        </motion.div>
+      )}
 
       {showPlayPrompt && (
         <PlayPrompt
