@@ -44,7 +44,7 @@ export function Block({
       const maxScroll =
         tagsRef.current.scrollWidth - tagsRef.current.clientWidth;
       animate(scrollX, [0, maxScroll, 0], {
-        duration: 1,
+        duration: 1.5,
         repeat: 1,
         ease: "easeInOut",
       });
