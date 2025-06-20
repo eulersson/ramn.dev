@@ -144,7 +144,7 @@ export function Cloth({
 
   useEffect(() => {
     const containerHeight = canvasWrapperRef.current?.clientHeight || 0;
-    const pickFrom = containerHeight > 550 ? -0.1971 : -0.0671;
+    const pickFrom = containerHeight > 550 ? -0.1271 : -0.0671;
     if (cursorIconRef.current) {
       animate(
         [
