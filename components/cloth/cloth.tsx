@@ -33,6 +33,7 @@ import { cursorAnimationConfig } from "./cursor-animation";
 import { ParticleSystem } from "./particle-system";
 import { PlayPrompt } from "./play-prompt";
 import { Simulation } from "./simulation";
+import { isSafari } from "@/utils/browser";
 
 export function Cloth({
   scrollYProgress,
@@ -175,17 +176,17 @@ export function Cloth({
           ],
           [
             cursorIconRef.current,
-            { x: 120, y: -0.657 * containerHeight, rotateZ: -45 },
+            { x: 120, y: -0.657 * containerHeight, rotateZ: 0 },
             { duration: 0.2 },
           ],
           [
             cursorIconRef.current,
-            { x: 120, y: -0.657 * containerHeight, rotateZ: -45 },
+            { x: 120, y: -0.657 * containerHeight, rotateZ: 0 },
             { duration: 0.75 },
           ],
           [
             cursorIconRef.current,
-            { x: 120, y: -0.657 * containerHeight, rotateZ: -45, scale: 1.3 },
+            { x: 120, y: -0.657 * containerHeight, rotateZ: 0, scale: 1.3 },
             { duration: 0.15 },
           ],
           [
@@ -210,10 +211,11 @@ export function Cloth({
 
   useEffect(() => {
     const offsetX = 23;
-    const offsetY = -197;
+    // Safari's getBoundingClientRect gives different results because the way
+    // the bounding box is calculated on transforming objects varies.
+    const offsetY = isSafari() ? -167 : -197;
     const timeout = setTimeout(() => {
       let i = 0;
-
       onMouseDown(
         cursorIconRef.current!.getBoundingClientRect().x + offsetX,
         cursorIconRef.current!.getBoundingClientRect().y + offsetY,
