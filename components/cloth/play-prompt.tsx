@@ -30,7 +30,7 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
                 backgroundImage:
                   "repeating-linear-gradient(var(--col-back) 0 2px, transparent 1px 100%), " +
                   "repeating-linear-gradient(90deg, var(--col-back) 0 1px, transparent 2px 100%)",
-                backgroundSize: "59.75px 59.75px",
+                backgroundSize: "59.74px 59.74px",
               }}
             ></div>
 
