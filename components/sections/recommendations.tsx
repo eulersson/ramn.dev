@@ -7,6 +7,7 @@ import { Block } from "@/components/block";
 import { CursorSize } from "@/components/cursor";
 import ThemedImage from "@/components/themed-image";
 import { Title } from "@/components/title";
+import { cn } from "@/utils";
 
 // Project - Content
 import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
@@ -14,9 +15,20 @@ import RecommendationPau from "@/content/recommendations/pau.mdx";
 
 const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   return (
-    <section className="flex flex-col justify-center" ref={ref}>
-      <Title>Recommendations</Title>
-      <div className="p-ggpn relative">
+    <section className="flex flex-col justify-center md:mb-g04n" ref={ref}>
+      <Title
+        className={cn(
+          // Upper spacing.
+          "mt-[calc(1*var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+          "md:mt-[calc(0.5*var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+
+          // Lower spacing.
+          "mb-[calc(1*var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+        )}
+      >
+        Recommendations
+      </Title>
+      <div className="relative">
         <Block
           classNames={{
             wrapper: "h-g10n",
@@ -44,7 +56,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               </motion.span>
             </div>
             <div className="bg-back dark:bg-fore h-full overflow-hidden col-span-1 flex items-center justify-center -mb-[20px]">
-              <CursorSize sizeOnHover={4}>
+              <CursorSize sizeOnHover={8}>
                 <ThemedImage
                   src="/pnavarro.png"
                   alt="Pau Navarro"
@@ -98,7 +110,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
                 <RecommendationLorenzo />
               </div>
               <div className="overflow-hidden col-span-1">
-                <CursorSize sizeOnHover={4}>
+                <CursorSize sizeOnHover={8}>
                   <ThemedImage
                     src="/langeli.png"
                     alt="Lorenzo Angeli"

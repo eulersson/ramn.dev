@@ -149,7 +149,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             "h-g40t xs:h-g30t sm:h-auto",
           )}
         >
-          <CursorSize sizeOnHover={4}>
+          <CursorSize sizeOnHover={8}>
             <ThemedImage
               className={cn(
                 "scale-115 xs:scale-80 sm:scale-170 md:scale-150 lg:scale-150",

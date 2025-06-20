@@ -167,7 +167,7 @@ const Hero = forwardRef<
                   }}
                 ></motion.div>
               ))}
-              <CursorSize sizeOnHover={4}>
+              <CursorSize sizeOnHover={8}>
                 <motion.div
                   className={cn(
                     "h-full bg-back border-2-fore",

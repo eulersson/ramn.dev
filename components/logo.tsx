@@ -50,7 +50,7 @@ const Logo = forwardRef<LogoRef, { logoUrl: string; className?: string }>(
     }, [logoInView]);
 
     return (
-      <CursorSize sizeOnHover={4}>
+      <CursorSize sizeOnHover={8}>
         <div
           className={cn(
             "min-h-[calc(var(--bg-grid-box-size)-2px)]",

@@ -19,7 +19,7 @@ import { ThemedImage } from "@/components/themed-image";
 import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
-import { useTouchDevice } from "@/hooks/touch-device";
+import { useTouchDevice } from "@/hooks/browser";
 import { toBool } from "@/utils";
 import { forwardRef } from "react";
 

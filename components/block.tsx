@@ -1,15 +1,8 @@
 // Third-Party
-import {
-  animate,
-  motion,
-  useAnimation,
-  useInView,
-  useMotionValue,
-} from "motion/react";
+import { animate, useInView, useMotionValue } from "motion/react";
 
 // Project
 import { Tag, TagProps } from "@/components/tag";
-import { useTouchDevice } from "@/hooks/touch-device";
 import { cn, toBool } from "@/utils";
 import { useEffect, useRef } from "react";
 

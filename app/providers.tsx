@@ -5,7 +5,7 @@ import { Cursor, CursorProvider } from "@/components/cursor";
 import { ThemeProvider } from "next-themes";
 
 // Project
-import { useTouchDevice } from "@/hooks/touch-device";
+import { useTouchDevice } from "@/hooks/browser";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const isTouchDevice = useTouchDevice();

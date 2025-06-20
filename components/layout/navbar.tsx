@@ -65,7 +65,7 @@ export function Navbar() {
         return (
           <motion.div
             key={s}
-            className={`z-20 fixed border-2-fore-inside ${extraClassNames}`}
+            className={`z-60 fixed border-2-fore-inside ${extraClassNames}`}
             layout
             initial={{
               color: i === 0 ? "var(--col-back)" : "var(--col-fore)",
