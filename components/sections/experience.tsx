@@ -57,21 +57,12 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
         >
           Experience
         </Title>
-        <div
-          className={cn(
-            "px-ggpn grid grid-cols-4 gap-ggpn",
-            job["lengthy"]
-              ? "md:h-g50t lg:h-g40t xl:h-g30t"
-              : "md:h-g30t lg:h-g30t xl:h-g20t",
-          )}
-        >
+        <div className={cn("px-ggpn grid grid-cols-4 gap-ggpn")}>
           {/* Menu selector with logo */}
           <motion.div
             className={cn(
               "col-span-4 md:col-span-1",
-
               "max-md:sticky max-md:z-10",
-
               "flex flex-row md:flex-col",
               "-mb-ggpn -mr-ggpn",
             )}
@@ -125,7 +116,14 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             </div>
           </motion.div>
 
-          <div className={`col-span-4 md:col-span-3 bg-back flex flex-col`}>
+          <div
+            className={cn(
+              `col-span-4 md:col-span-3 bg-back flex flex-col`,
+              job["lengthy"]
+                ? "h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t"
+                : "h-g60t sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t",
+            )}
+          >
             <div className="font-mono text-center text-sm mt-3">
               {job["duration"]}
             </div>
