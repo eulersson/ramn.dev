@@ -113,7 +113,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
                 className={cn(
                   "xs:max-md:-m-ggpy xs:max-md:scale-50",
                   "xs:max-md:border-4 xs:max-md:border-fore xs:max-md:bg-back",
-                  "max-xs:absolute max-xs:right-0 max-xs:top-[calc(var(--header-height))]",
+                  "max-xs:absolute max-xs:right-0 max-xs:right-[8px] max-xs:top-[calc(var(--header-height)+10px)]",
                 )}
               >
                 <Logo
