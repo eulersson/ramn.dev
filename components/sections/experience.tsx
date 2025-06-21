@@ -120,7 +120,7 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             className={cn(
               `col-span-4 md:col-span-3 bg-back flex flex-col`,
               job["lengthy"]
-                ? "h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t"
+                ? "h-[calc(20*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] xs:h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t"
                 : "h-g60t sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t",
             )}
           >
@@ -170,8 +170,10 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
             </div>
           </div>
         </div>
+        <div className="mt-g04n">
+          <Recommendations />
+        </div>
       </section>
-      <Recommendations />
     </div>
   );
 });
