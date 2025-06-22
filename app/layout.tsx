@@ -66,6 +66,8 @@ export default function RootLayout({
       <head>
         {/* https://tailwindcss.com/docs/responsive-design#overview */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta name="apple-mobile-web-app-title" content="ramn.dev" />
       </head>
 
       <body
