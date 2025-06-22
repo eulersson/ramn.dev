@@ -106,7 +106,8 @@ export function Cursor() {
     <motion.div
       className={cn(
         "w-[40px] h-[40px]",
-        "cursor z-50 bg-[radial-gradient(circle,transparent_14px,black_14px,black_16px,white_16px,white_18px,black_18px,black_20px)]",
+        "cursor z-50 ",
+        "bg-[radial-gradient(circle,transparent_14px,var(--col-fore)_14px,var(--col-fore)_16px,var(--col-back)_16px,var(--col-back)_18px,var(--col-fore)_18px,var(--col-fore)_20px)]",
       )}
       style={{
         x: cursorX,
