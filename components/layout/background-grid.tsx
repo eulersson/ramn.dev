@@ -7,8 +7,8 @@ import { memo, useEffect, useState } from "react";
 import { toBool } from "@/utils";
 
 // Styles
-import "./background-grid.css";
 import { useBreakpoint } from "@/hooks/breakpoint";
+import "./background-grid.css";
 
 export const BackgroundGrid = memo(function BackgroundGrid() {
   const debugGrid = toBool(process.env.NEXT_PUBLIC_DEBUG_GRID);
@@ -20,9 +20,9 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
 
   useEffect(() => {
     if (isSmaller) {
-      setNumBoxes(180);
+      setNumBoxes(220);
     } else {
-      setNumBoxes(128);
+      setNumBoxes(140);
     }
   }, [isSmaller]);
 
