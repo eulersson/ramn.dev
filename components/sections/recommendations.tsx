@@ -55,11 +55,12 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               <motion.span
                 className={cn(
                   "absolute top-0",
-                  "text-[16px] xs:text-[25px]",
+                  "text-[16px] xs:text-[23px]",
                   "font-title uppercase",
                   "text-fore bg-back",
 
                   "origin-top-left left-0 xs:left-[16px]",
+                  "dark:text-back dark:bg-fore",
                 )}
                 initial={{ rotate: 90, y: 100 }}
                 whileInView={{ y: -2 }}
@@ -92,7 +93,6 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
                 "md:self-stretch md:flex md:items-end",
                 "float-left",
 
-                "ml-[45px]",
                 "dark:bg-fore",
               )}
             >
@@ -118,8 +118,8 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
                   "text-[60px] -top-[14px] left-[140px]",
                   "xs:text-[80px] xs:top-[15px] xs:left-[195px]",
                   "sm:text-[60px] sm:top-[15px] sm:left-[265px]",
-                  "md:text-[70px] md:top-[30px] md:left-[340px]",
-                  "lg:text-[70px] lg:top-[85px] lg:left-[330px]",
+                  "md:text-[70px] md:top-[30px] md:left-[310px]",
+                  "lg:text-[70px] lg:top-[95px] lg:left-[290px]",
                   "xl:text-[90px] xl:-top-[2px] xl:left-[330px]",
                 )}
               >
@@ -156,7 +156,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               <motion.span
                 className={cn(
                   "absolute top-0 ",
-                  "text-[16px] xs:text-[25px]",
+                  "text-[16px] xs:text-[23px]",
                   "font-title uppercase",
                   "text-fore bg-back",
 
@@ -196,6 +196,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
 
                 "mr-[20px] ml-[5px] md:mr-0",
                 "xs:order-2",
+                "dark:bg-back",
               )}
             >
               <CursorSize sizeOnHover={8}>
