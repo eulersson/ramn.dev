@@ -33,7 +33,6 @@ import { cursorAnimationConfig } from "./cursor-animation";
 import { ParticleSystem } from "./particle-system";
 import { PlayPrompt } from "./play-prompt";
 import { Simulation } from "./simulation";
-import { isSafari } from "@/utils/browser";
 
 export function Cloth({
   scrollYProgress,
@@ -211,9 +210,7 @@ export function Cloth({
 
   useEffect(() => {
     const offsetX = 23;
-    // Safari's getBoundingClientRect gives different results because the way
-    // the bounding box is calculated on transforming objects varies.
-    const offsetY = isSafari() ? -167 : -197;
+    const offsetY = -197;
     const timeout = setTimeout(() => {
       let i = 0;
       onMouseDown(
