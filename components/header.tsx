@@ -1,6 +1,7 @@
 "use client";
 
 // Third-Party
+import { Brain } from "lucide-react";
 import {
   motion,
   MotionValue,
@@ -66,7 +67,7 @@ const Header = forwardRef<HTMLHeadElement>(function Header(props, headerRef) {
                 alt="GitHub Logo"
                 width={24}
                 height={24}
-                className="transition-transform active:scale-75"
+                className="transition-transform active:scale-75 hover:p-[2px] hover:border-2-fore"
               />
             </a>
           </CursorSize>
@@ -77,7 +78,7 @@ const Header = forwardRef<HTMLHeadElement>(function Header(props, headerRef) {
                 alt="LinkedIn Logo"
                 width={24}
                 height={24}
-                className="transition-transform active:scale-75"
+                className="transition-transform active:scale-75 hover:p-[2px] hover:border-2-fore"
               />
             </a>
           </CursorSize>
@@ -88,8 +89,13 @@ const Header = forwardRef<HTMLHeadElement>(function Header(props, headerRef) {
                 alt="X Logo"
                 width={24}
                 height={24}
-                className="transition-transform active:scale-75"
+                className="transition-transform active:scale-75 hover:p-[2px] hover:border-2-fore"
               />
+            </a>
+          </CursorSize>
+          <CursorSize sizeOnHover={0.4}>
+            <a href="https://notes.ramn.dev/" target="_blank">
+              <Brain className="transition-transform active:scale-75 hover:border-2-fore" />
             </a>
           </CursorSize>
         </div>
