@@ -120,7 +120,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
                   "sm:text-[60px] sm:top-[15px] sm:left-[265px]",
                   "md:text-[70px] md:top-[30px] md:left-[310px]",
                   "lg:text-[70px] lg:top-[95px] lg:left-[290px]",
-                  "xl:text-[90px] xl:-top-[2px] xl:left-[330px]",
+                  "xl:text-[90px] xl:-top-[2px] xl:left-[285px]",
                 )}
               >
                 “
