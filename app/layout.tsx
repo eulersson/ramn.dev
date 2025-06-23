@@ -7,7 +7,6 @@ import {
 } from "next/font/google";
 
 // Project
-import { CoverWrapper } from "@/components/layout/cover-wrapper";
 import { Providers } from "@/app/providers";
 import { toBool } from "@/utils";
 
@@ -41,13 +40,13 @@ const urbanist = Urbanist({
   display: "swap",
 });
 
+// Styles
+import "./globals.css";
+
 export const metadata = {
   title: "Ramon Blanquer",
   description: "Full Stack Software Engineer & Computer Graphics",
 };
-
-// Styles
-import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -57,7 +56,6 @@ export default function RootLayout({
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[RootLayout] Rendering");
   }
-  const disableCover = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER);
   return (
     // suppressHydrationWarning reason:
     // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#with-app
@@ -70,13 +68,7 @@ export default function RootLayout({
           "bg-back text-fore "
         }
       >
-        {disableCover ? (
-          <Providers>{children}</Providers>
-        ) : (
-          <CoverWrapper>
-            <Providers>{children}</Providers>
-          </CoverWrapper>
-        )}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

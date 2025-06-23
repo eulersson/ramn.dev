@@ -14,26 +14,28 @@ import { useCallback, useEffect, useRef } from "react";
 
 // Project
 import { PageWrapper } from "@/app/page-wrapper";
+import { CoverWrapper } from "@/components/layout/cover-wrapper";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
-import { Projects } from "@/components/sections/projects";
+import settings from "@/config/settings";
 import { SectionProvider, useSection } from "@/contexts/section";
+import { useBreakpoint } from "@/hooks/breakpoint";
 import { useDebounce } from "@/hooks/debounce";
 import { usePrevious } from "@/hooks/previous";
 import { toBool } from "@/utils";
-import { useBreakpoint } from "@/hooks/breakpoint";
-import settings from "@/config/settings";
 
 // Loggers
 const log = debug("page");
 const sectionsLog = debug("sections");
 
 export default function Page() {
-  return (
+  const disableCover = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER);
+  const node = (
     <SectionProvider>
       <Home></Home>
     </SectionProvider>
   );
+  return disableCover ? node : <CoverWrapper>{node}</CoverWrapper>;
 }
 
 function Home() {
