@@ -63,13 +63,6 @@ export default function RootLayout({
     // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#with-app
     // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
     <html className="invisible-scrollbar" lang="en" suppressHydrationWarning>
-      <head>
-        {/* https://tailwindcss.com/docs/responsive-design#overview */}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <meta name="apple-mobile-web-app-title" content="ramn.dev" />
-      </head>
-
       <body
         className={
           `${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} ` +
