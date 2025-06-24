@@ -1,3 +1,7 @@
+// Third-Party
+import { motion } from "motion/react";
+
+// Project
 import education from "@/content/experience/education.json";
 import { cn } from "@/utils";
 
@@ -7,22 +11,28 @@ export function Education() {
       className={cn(
         "h-g70n mt-g10n mb-[16px]",
         "xs:h-[calc(var(--spacing-g30n)+12px)] xs:-mb-[1px] xs:mt-[calc(var(--spacing-g10n)-3px)]",
-        "sm:h-[calc(var(--spacing-g20n)+14px)] sm:-mb-[5px] sm:mt-[calc(var(--spacing-g10n)-3px)]",
+        "sm:h-[calc(var(--spacing-g20n)+19px)] sm:-mb-[10px] sm:mt-[calc(var(--spacing-g10n)-3px)]",
         "md:h-[calc(var(--height-g20y)-7px)] md:mb-[7px] md:mt-g10n",
-        "lg:h-[calc(var(--height-g20y)+8px)] lg:-mb-[8px] lg:mt-g10n",
-        "xl:h-g20y xl:mb-[0px] lg:mt-g10n",
+        "lg:h-[calc(var(--height-g20y))] lg:-mb-[8px] lg:mt-g10n",
+        "xl:h-[calc(var(--height-g20y))] xl:mb-[0px] lg:mt-g10n",
         "grid grid-cols-2 gap-x-ggpn",
       )}
     >
       {education.map((item, i) => (
-        <div
+        <motion.div
+          key={i}
+          initial={{ x: i % 2 ? 150 : -150 }}
+          whileInView={{ x: 0 }}
+          transition={{ delay: i * 0.05 }}
           className={cn(
-            i % 2 &&
-              "translate-y-[calc(var(--height-g02n)-var(--bg-grid-gap))] " +
-                "sm:translate-y-[calc(var(--height-g02n)-3*var(--bg-grid-gap))] " +
-                "md:translate-y-[calc(var(--height-g02n)+2*var(--bg-grid-gap))] " +
-                "lg:translate-y-[calc(var(--height-g02n)-2*var(--bg-grid-gap))] " +
-                "xl:translate-y-[calc(var(--height-g02n)-6*var(--bg-grid-gap))] ",
+            i % 2
+              ? "translate-y-[calc(var(--height-g02n)-2*var(--bg-grid-gap))] " +
+                  "sm:translate-y-[calc(var(--height-g02n)-4*var(--bg-grid-gap))] " +
+                  "md:translate-y-[calc(var(--height-g02n)+2*var(--bg-grid-gap))] " +
+                  "lg:translate-y-[calc(var(--height-g02n)-2*var(--bg-grid-gap))] " +
+                  "xl:translate-y-[calc(var(--height-g02n)-6*var(--bg-grid-gap))] " +
+                  "-ml-[12px] xs:-ml-[10px] sm:-ml-[14px] md:-ml-[24px] lg:-ml-[36px]"
+              : "-mr-[12px] xs:-mr-[10px] sm:-mr-[14px] md:-mr-[24px] lg:-mr-[36px]",
             i == 1 && "",
           )}
         >
@@ -49,14 +59,13 @@ export function Education() {
           </span>
           <p
             className={cn(
-              "border-fore border-t-2 border-b-2 bg-back px-2",
+              "border-2-fore bg-back px-2",
               "text-[14px] xs:text-[14px] md:text-[16px]",
-              i % 2 ? "border-r-2" : "border-l-2",
             )}
           >
             {item["title"]}
           </p>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
