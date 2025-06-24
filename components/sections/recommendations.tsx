@@ -115,7 +115,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               <span
                 className={cn(
                   "font-serif absolute",
-                  "text-[60px] -top-[14px] left-[140px]",
+                  "text-[60px] -top-[14px] left-[125px]",
                   "xs:text-[80px] xs:top-[15px] xs:left-[195px]",
                   "sm:text-[60px] sm:top-[15px] sm:left-[265px]",
                   "md:text-[70px] md:top-[30px] md:left-[310px]",
