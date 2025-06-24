@@ -20,7 +20,7 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
 
   useEffect(() => {
     if (isSmaller) {
-      setNumBoxes(220);
+      setNumBoxes(260);
     } else {
       setNumBoxes(140);
     }

@@ -1,0 +1,55 @@
+[
+  {
+    "school": "Bournemouth University",
+    "title": "BA (Hons) Computer Animation & Visualisation",
+    "year": 2017
+  },
+  {
+    "school": "Stanford University",
+    "online": true,
+    "title": "Machine Learning (via Coursera) (Andrew Ng)",
+    "year": 2017
+  },
+  {
+    "school": "MongoDB University",
+    "online": true,
+    "title": "M101P: MongoDB for Developers",
+    "year": 2017
+  },
+  {
+    "school": "Hardvard University",
+    "online": true,
+    "title": "CS50: Introduction to Computer Science (via edX)",
+    "year": 2014
+  },
+  {
+    "school": "California Arts Institute",
+    "online": true,
+    "title": "Sound Synthesis Using Reaktor (via Kadenze)",
+    "year": 2017
+  },
+  {
+    "school": "Udemy",
+    "online": true,
+    "title": "Webpack 5: The Complete Guide For Beginners",
+    "year": 2022
+  },
+  {
+    "school": "Angular University",
+    "online": true,
+    "title": "NgRx (with NgRx Data) - The Complete Guide",
+    "year": 2021
+  },
+  {
+    "school": "Tonsei University",
+    "online": true,
+    "title": "Introduction to TCP/IP",
+    "year": 2021
+  },
+  {
+    "school": "Udemy",
+    "online": true,
+    "title": "Build a Backend REST API with Python & Django - Advanced",
+    "year": 2019
+  }
+]
