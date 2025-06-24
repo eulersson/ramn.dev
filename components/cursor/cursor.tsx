@@ -9,7 +9,7 @@ import { MotionValue, motion, useMotionValue, useSpring } from "motion/react";
 // Project
 import { ContextNotProvidedError } from "@/errors/context-not-provided";
 import { useBrowserTooLaggy, useSafari, useTouchDevice } from "@/hooks/browser";
-import { cn, toBool } from "@/utils";
+import { cn, toBool } from "@/lib";
 
 // In Safari in macOS, if you scale an HTML element with transform rules you
 // see jaggy edges, just as it didn't have enough resolution.

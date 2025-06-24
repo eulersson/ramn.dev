@@ -1,4 +1,4 @@
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 export default function ProjectLayout({
   children,

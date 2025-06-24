@@ -1,4 +1,4 @@
-// Third-Party
+// Next.js
 import {
   Fira_Mono,
   Nunito,
@@ -8,7 +8,7 @@ import {
 
 // Project
 import { Providers } from "@/app/providers";
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 const firaMono = Fira_Mono({
   subsets: ["latin"],

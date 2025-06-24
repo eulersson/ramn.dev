@@ -4,7 +4,7 @@
 import { memo, useEffect, useState } from "react";
 
 // Project
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 // Styles
 import { useBreakpoint } from "@/hooks/breakpoint";

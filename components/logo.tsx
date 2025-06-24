@@ -11,7 +11,7 @@ import {
 // Project
 import { CursorSize } from "@/components/cursor";
 import ThemedImage from "@/components/themed-image";
-import { cn } from "@/utils";
+import { cn } from "@/lib";
 
 export type LogoRef = {
   spin: Function;

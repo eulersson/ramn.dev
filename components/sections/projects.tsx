@@ -1,11 +1,13 @@
+// React
+import { forwardRef, useRef, useState, type ForwardedRef } from "react";
+
 // Third-Party
 import { useInView } from "motion/react";
-import { forwardRef, useRef, useState, type ForwardedRef } from "react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
 import { Title } from "@/components/title";
-import { cn, toBool } from "@/utils";
+import { cn, toBool } from "@/lib";
 
 const Projects = forwardRef<HTMLHeadingElement>(function Projects(
   {},

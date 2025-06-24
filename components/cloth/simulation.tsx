@@ -1,17 +1,16 @@
-import { useThree, useFrame } from "@react-three/fiber";
+// React
+import { RefObject, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+
+// Next.js
 import { useTheme } from "next-themes";
-import {
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useMemo,
-  useLayoutEffect,
-} from "react";
+
+// Project - 3D
+import { useFrame, useThree } from "@react-three/fiber";
 import { BufferAttribute, DynamicDrawUsage } from "three";
 
 // Project
+import { toBool } from "@/lib";
 import { GridDimensions } from "@/types";
-import { toBool } from "@/utils";
 
 // Local
 import { ParticleSystem } from "./particle-system";
@@ -19,7 +18,7 @@ import { ParticleSystem } from "./particle-system";
 export function Simulation({
   particleSystemRef,
 }: {
-  particleSystemRef: MutableRefObject<ParticleSystem>;
+  particleSystemRef: RefObject<ParticleSystem>;
 }) {
   const { camera, raycaster, size } = useThree();
 

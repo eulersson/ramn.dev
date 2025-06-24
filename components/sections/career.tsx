@@ -7,9 +7,9 @@ import { CursorSize } from "@/components/cursor";
 import { useHeader } from "@/components/header";
 import { Logo, LogoRef } from "@/components/logo";
 import { Tag } from "@/components/tag";
-import { cn } from "@/utils";
+import { cn } from "@/lib";
 
-// Project - Content
+// Content
 import jobEfestoLab from "@/content/experience/efesto-lab.json";
 import jobMPC from "@/content/experience/mpc.json";
 import jobNpaw from "@/content/experience/npaw.json";

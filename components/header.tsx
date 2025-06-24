@@ -1,5 +1,8 @@
 "use client";
 
+// React
+import { createContext, RefObject, useContext, useEffect, useRef } from "react";
+
 // Third-Party
 import { Brain } from "lucide-react";
 import {
@@ -11,7 +14,6 @@ import {
   useSpring,
   useVelocity,
 } from "motion/react";
-import { createContext, RefObject, useContext, useEffect, useRef } from "react";
 
 // Project
 import { Button } from "@/components/button";
@@ -21,7 +23,7 @@ import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
 import { useTouchDevice } from "@/hooks/browser";
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 import { forwardRef } from "react";
 
 const SCROLL_THRESHOLD = 800;

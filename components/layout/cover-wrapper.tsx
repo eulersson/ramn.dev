@@ -1,13 +1,15 @@
 "use client";
 
+// React
+import { useEffect, useState } from "react";
+
 // Third-Party
 import { AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
 
 // Project
 import { Cover } from "@/components/layout/cover";
 import { Spinner } from "@/components/layout/spinner";
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 export function CoverWrapper({ children }: { children: React.ReactNode }) {
   const [showCover, setShowCover] = useState(true);

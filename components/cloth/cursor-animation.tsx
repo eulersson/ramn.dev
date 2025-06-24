@@ -1,4 +1,4 @@
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 const delayOffset = 2.0;
 const pressingStart = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)

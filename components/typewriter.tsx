@@ -2,7 +2,7 @@
 import { motion } from "motion/react";
 
 // Project
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 export type Sentence = {
   text: string;

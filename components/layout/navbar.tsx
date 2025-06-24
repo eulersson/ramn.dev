@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 // Project
 import { useSection } from "@/contexts/section";
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 import { useBreakpoint } from "@/hooks/breakpoint";
 import settings from "@/config/settings";
 

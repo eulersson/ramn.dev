@@ -10,7 +10,7 @@ import { Terminal } from "@/components/terminal";
 import { ThemedImage } from "@/components/themed-image";
 import { Title } from "@/components/title";
 import { Sentence, Typewriter } from "@/components/typewriter";
-import { cn, toBool } from "@/utils";
+import { cn, toBool } from "@/lib";
 
 // Content
 import Intention from "@/content/sections/intention.mdx";
@@ -63,18 +63,18 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   }, [terminalState]);
 
   const tags: TagProps[] = [
-    { text: "Python", dotted: false },
-    { text: "C++", dotted: false },
-    { text: "TypeScript", dotted: false },
-    { text: "Go", dotted: false },
-    { text: "Django", dotted: false },
-    { text: "React", dotted: false },
-    { text: "Next.js", dotted: false },
-    { text: "Angular", dotted: false },
-    { text: "AWS", dotted: false },
-    { text: "Kubernetes", dotted: false },
-    { text: "OpenGL", dotted: false },
-    { text: "VFX", dotted: false },
+    { text: "Python" },
+    { text: "C++" },
+    { text: "TypeScript" },
+    { text: "Go" },
+    { text: "Django" },
+    { text: "React" },
+    { text: "Next.js" },
+    { text: "Angular" },
+    { text: "AWS" },
+    { text: "Kubernetes" },
+    { text: "OpenGL" },
+    { text: "VFX" },
   ];
 
   const sentences: Sentence[] = [

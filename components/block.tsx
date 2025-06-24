@@ -1,10 +1,12 @@
+// React
+import { useEffect, useRef } from "react";
+
 // Third-Party
 import { animate, useInView, useMotionValue } from "motion/react";
 
 // Project
 import { Tag, TagProps } from "@/components/tag";
-import { cn, toBool } from "@/utils";
-import { useEffect, useRef } from "react";
+import { cn, toBool } from "@/lib";
 
 type ClassNameSlot = "wrapper" | "main" | "tags";
 

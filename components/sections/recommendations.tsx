@@ -7,11 +7,11 @@ import { Block } from "@/components/block";
 import { CursorSize } from "@/components/cursor";
 import ThemedImage from "@/components/themed-image";
 import { Title } from "@/components/title";
-import { cn } from "@/utils";
+import { cn } from "@/lib";
 
-// Project - Content
-import RecommendationPau from "@/content/recommendations/pau.mdx";
+// Content
 import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
+import RecommendationPau from "@/content/recommendations/pau.mdx";
 
 const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   return (

@@ -1,3 +1,10 @@
+// React
+import { useEffect, useRef, useState } from "react";
+
+// Next.js
+import { useTheme } from "next-themes";
+import Image from "next/image";
+
 // Third-Party
 import {
   MotionValue,
@@ -9,9 +16,6 @@ import {
   useTransform,
   useVelocity,
 } from "motion/react";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 
 // Third-Party - 3D
 import {
@@ -23,10 +27,10 @@ import { OrthographicCamera } from "three";
 
 // Project
 import { useCursor } from "@/components/cursor";
+import { toBool } from "@/lib";
 import cursorIconDark from "@/public/cursor-dark.svg";
 import cursorIcon from "@/public/cursor.svg";
 import { Size } from "@/types";
-import { toBool } from "@/utils";
 
 // Local
 import { cursorAnimationConfig } from "./cursor-animation";

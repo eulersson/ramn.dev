@@ -6,7 +6,7 @@ import path from "path";
 import dynamic from "next/dynamic";
 
 // Project
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 const projectsPath = path.join(process.cwd(), "content", "projects");
 
@@ -17,11 +17,9 @@ export function generateStaticParams() {
   return projects.map((name) => ({ slug: name.replace(".mdx", "") }));
 }
 
-export default async function ProjectPage(
-  props: {
-    params: Promise<{ slug: string }>;
-  }
-) {
+export default async function ProjectPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
   const { slug } = params;
 

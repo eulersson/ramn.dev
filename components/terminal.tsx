@@ -5,7 +5,7 @@ import { forwardRef } from "react";
 import { Typewriter } from "./typewriter";
 
 // Project
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 // TODO: Make interactive: allow moving, minimizing, closing, resizing.
 export const Terminal = forwardRef<

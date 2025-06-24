@@ -6,7 +6,7 @@ import path from "path";
 import dynamic from "next/dynamic";
 
 // Project
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 const blogPath = path.join(process.cwd(), "content", "articles");
 
@@ -17,11 +17,9 @@ export function generateStaticParams() {
   return projects.map((name) => ({ slug: name.replace(".mdx", "") }));
 }
 
-export default async function ArticlePage(
-  props: {
-    params: Promise<{ slug: string }>;
-  }
-) {
+export default async function ArticlePage(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
   const { slug } = params;
 

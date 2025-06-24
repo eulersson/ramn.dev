@@ -1,8 +1,8 @@
-// Third-Party
+// React
 import { useMemo } from "react";
 
 // Project
-import { isMacOSChromium, isSafari, isTouchDevice } from "@/utils/browser";
+import { isMacOSChromium, isSafari, isTouchDevice } from "@/lib/browser";
 import { useBreakpoint } from "@/hooks/breakpoint";
 
 export function useMacMacOSChromium() {

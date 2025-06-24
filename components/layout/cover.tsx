@@ -1,9 +1,11 @@
-// Third-Party
-import { motion } from "motion/react";
+// React
 import { useEffect, useState } from "react";
 
+// Third-Party
+import { motion } from "motion/react";
+
 // Project
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 export function Cover() {
   const [cross, setCross] = useState(true);

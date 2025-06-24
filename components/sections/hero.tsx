@@ -1,5 +1,8 @@
 "use client";
 
+// React
+import { forwardRef, useEffect, useRef } from "react";
+
 // Third-Party
 import {
   motion,
@@ -8,7 +11,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { forwardRef, useEffect, useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 
 // Project
 import { Cloth } from "@/components/cloth/cloth";
@@ -17,8 +20,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
-import { cn, toBool } from "@/utils";
-import { useMediaQuery } from "react-responsive";
+import { cn, toBool } from "@/lib";
 
 const Hero = forwardRef<
   HTMLHeadingElement,

@@ -17,13 +17,13 @@ import { PageWrapper } from "@/app/page-wrapper";
 import { CoverWrapper } from "@/components/layout/cover-wrapper";
 import { About } from "@/components/sections/about";
 import { Experience } from "@/components/sections/experience";
+import { Projects } from "@/components/sections/projects";
 import settings from "@/config/settings";
 import { SectionProvider, useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
 import { useDebounce } from "@/hooks/debounce";
 import { usePrevious } from "@/hooks/previous";
-import { toBool } from "@/utils";
-import { Projects } from "@/components/sections/projects";
+import { toBool } from "@/lib";
 
 // Loggers
 const log = debug("page");

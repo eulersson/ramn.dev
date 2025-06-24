@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Third-Party
 import { motion, useMotionValue, useSpring } from "motion/react";
@@ -9,10 +9,7 @@ import { useTheme } from "next-themes";
 
 // Project
 import { CursorSize } from "@/components/cursor";
-import { toBool } from "@/utils";
-import { useSection } from "@/contexts/section";
-import { useBreakpoint } from "@/hooks/breakpoint";
-import settings from "@/config/settings";
+import { toBool } from "@/lib";
 
 // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
 export function ThemeSwitch() {

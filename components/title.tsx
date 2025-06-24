@@ -1,10 +1,12 @@
 // React
-import { motion } from "motion/react";
 import { forwardRef } from "react";
+
+// Third-Party
+import { motion } from "motion/react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
-import { toBool } from "@/utils";
+import { toBool } from "@/lib";
 
 const Title = forwardRef<
   HTMLHeadingElement,

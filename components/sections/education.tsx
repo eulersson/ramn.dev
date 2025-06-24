@@ -2,8 +2,10 @@
 import { motion } from "motion/react";
 
 // Project
+import { cn } from "@/lib";
+
+// Content
 import education from "@/content/experience/education.json";
-import { cn } from "@/utils";
 
 export function Education() {
   return (
