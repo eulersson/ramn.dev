@@ -55,7 +55,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               <motion.span
                 className={cn(
                   "absolute top-0",
-                  "text-[16px] xs:text-[23px]",
+                  "text-[14px] xs:text-[23px]",
                   "font-title uppercase",
                   "text-fore bg-back",
 
@@ -156,11 +156,11 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               <motion.span
                 className={cn(
                   "absolute top-0 ",
-                  "text-[16px] xs:text-[23px]",
+                  "text-[14px] xs:text-[23px]",
                   "font-title uppercase",
                   "text-fore bg-back",
 
-                  "origin-top-right right-0 xs:right-[16px]",
+                  "origin-top-right -right-[1px] xs:right-[16px]",
                 )}
                 initial={{ rotate: -90, y: 100 }}
                 whileInView={{ y: 0 }}
