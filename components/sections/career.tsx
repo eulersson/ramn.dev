@@ -100,8 +100,8 @@ export function Career() {
         className={cn(
           `col-span-4 md:col-span-3 bg-back flex flex-col`,
           job["lengthy"]
-            ? "h-[calc(20*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] xs:h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t"
-            : "h-g60t sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t",
+            ? "h-[calc(18*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] xs:h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t"
+            : "h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t",
         )}
       >
         <div className="font-mono text-center text-sm mt-3">
