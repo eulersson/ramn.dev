@@ -23,6 +23,7 @@ import { useBreakpoint } from "@/hooks/breakpoint";
 import { useDebounce } from "@/hooks/debounce";
 import { usePrevious } from "@/hooks/previous";
 import { toBool } from "@/utils";
+import { Projects } from "@/components/sections/projects";
 
 // Loggers
 const log = debug("page");
@@ -189,8 +190,7 @@ function Home() {
     }
   }, [activeSectionIdx, navbarVertical]);
 
-  // TODO: Home is rendering too many times. Isolate the parts that are dynamic, such
-  //   as the cursor.
+  // TODO: Home is rendering too many times. Isolate the parts that are dynamic (cursor).
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     log("[Home] Rendering.");
   }
@@ -200,10 +200,7 @@ function Home() {
       <div>
         <About ref={aboutRef} />
         <Experience ref={experienceRef} />
-        {/* <Projects ref={projectsRef} /> */}
-
-        {/* NOTE: Turning this mb into a negative -mb produces an interesting inset effect */}
-        <div className="mb-[24px]"></div>
+        <Projects ref={projectsRef} />
 
         {/* Progress bar. */}
         <div className="sticky bottom-0 ">

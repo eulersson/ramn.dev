@@ -15,14 +15,15 @@ import RecommendationLorenzo from "@/content/recommendations/lorenzo.mdx";
 
 const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   return (
-    <section className="flex flex-col justify-center" ref={ref}>
+    <section className="flex flex-col justify-center mt-g04n" ref={ref}>
       <Title
         className={cn(
           // Upper spacing.
-          "mt-[calc(0.5*var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+          "mt-[calc(var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+          "md:mt-[calc(var(--bg-grid-box-size)/2+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
 
           // Lower spacing.
-          "mb-[calc(1*var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+          "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
         )}
       >
         Recommendations

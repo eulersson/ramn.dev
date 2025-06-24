@@ -21,20 +21,18 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
         <Title
           className={cn(
             // Upper spacing.
-            "mt-[calc(1*var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
-            "md:mt-[calc(0.5*var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+            "mt-[calc(var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+            "md:mt-[calc(var(--bg-grid-box-size)/2+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
 
             // Lower spacing.
-            "mb-[calc(1*var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+            "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
           )}
         >
           Experience
         </Title>
         <Career />
         <Education />
-        <div className="mt-g04n">
-          <Recommendations />
-        </div>
+        <Recommendations />
       </section>
     </div>
   );
