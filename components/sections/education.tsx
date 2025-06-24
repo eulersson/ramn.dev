@@ -9,7 +9,7 @@ export function Education() {
   return (
     <div
       className={cn(
-        "h-g70n mt-g10n mb-[16px]",
+        "h-g70n mt-g10n mb-[16px] overflow-hidden",
         "xs:h-[calc(var(--spacing-g30n)+12px)] xs:-mb-[1px] xs:mt-[calc(var(--spacing-g10n)-3px)]",
         "sm:h-[calc(var(--spacing-g20n)+19px)] sm:-mb-[10px] sm:mt-[calc(var(--spacing-g10n)-3px)]",
         "md:h-[calc(var(--height-g20y)-7px)] md:mb-[7px] md:mt-g10n",
