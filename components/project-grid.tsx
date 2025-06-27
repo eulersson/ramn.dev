@@ -10,7 +10,12 @@ import { ProjectInfo } from "@/types";
 
 export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
   return (
-    <div className="grid grid-cols-2 xs:grid-cols-4 gap-ggpn border-2-fore bg-fore">
+    <div
+      className={cn(
+        "pointer-events-auto",
+        "grid grid-cols-2 xs:grid-cols-4 gap-ggpn border-2-fore bg-fore",
+      )}
+    >
       {projects.map((project, i) => (
         <CubeFlip
           key={i}

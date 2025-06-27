@@ -34,6 +34,7 @@ const Title = forwardRef<
             `italic font-serif font-normal leading-none bg-back border-2-fore-inside shadow-blocky ` +
             `text-[calc(var(--title-tag-size))] ` +
             `p-[calc(var(--title-tag-padding))] ` +
+            `pointer-events-auto ` +
             className
           }
         >

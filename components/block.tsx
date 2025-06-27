@@ -51,7 +51,9 @@ export function Block({
   }
 
   return (
-    <div className={`bg-fore border-2-fore ${classNames.wrapper || ""}`}>
+    <div
+      className={`bg-fore border-2-fore pointer-events-auto ${classNames.wrapper || ""}`}
+    >
       <div
         className={cn(
           "bg-back min-h-0 font-sans rounded-[40px] hyphens-auto text-ellipsis",

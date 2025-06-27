@@ -14,10 +14,11 @@
 }
 
 .plate-grid .plate-grid--item {
-  transition:  border-radius 0.5s ease;
+  transition: border-radius 0.5s ease;
   border-radius: 0px;
 }
 
-.plate-grid .plate-grid---item:hover {
+.plate-grid .plate-grid--item:hover {
   border-radius: 40px;
 }
+

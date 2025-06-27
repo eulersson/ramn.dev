@@ -35,7 +35,7 @@ export const Terminal = forwardRef<
   return (
     <div
       ref={ref}
-      className={`flex flex-col border-2-fore shadow-blocky ${className}`}
+      className={`flex flex-col border-2-fore shadow-blocky pointer-events-auto ${className}`}
     >
       <div className="bg-fore p-[10px] flex space-x-[10px]">
         {[...Array(3)].map((_, i) => (

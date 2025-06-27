@@ -41,6 +41,7 @@ export function Career() {
       {/* Menu selector with logo */}
       <motion.div
         className={cn(
+          "pointer-events-auto",
           "col-span-4 md:col-span-1",
           "max-md:sticky max-md:z-10",
           "flex flex-row md:flex-col",
@@ -98,7 +99,8 @@ export function Career() {
 
       <div
         className={cn(
-          `col-span-4 md:col-span-3 bg-back flex flex-col`,
+          "pointer-events-auto",
+          "col-span-4 md:col-span-3 bg-back flex flex-col",
           job["lengthy"]
             ? "h-[calc(18*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] xs:h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t"
             : "h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t",

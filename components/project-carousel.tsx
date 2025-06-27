@@ -37,6 +37,7 @@ export const ProjectCarousel = ({ projects }: { projects: ProjectInfo[] }) => {
   return (
     <div
       className={cn(
+        "pointer-events-auto",
         "bg-back border-2-fore mb-g10n",
         "h-g30y xs:h-g20y",
         "md:p-[10px] ",
@@ -91,11 +92,17 @@ const ProjectSelector = ({
   setSelectedProject: Dispatch<SetStateAction<number>>;
 }) => (
   <CursorSize sizeOnHover={0.2}>
-    <div className="absolute w-full h-[20px] -top-[21px] flex gap-1 items-center justify-center z-10">
+    <div
+      className={cn(
+        "absolute w-full h-[20px] -top-[21px] z-10",
+        "flex gap-1 items-center justify-center",
+      )}
+    >
       {projects.map((_, i) => (
         <div
           key={i}
           className={cn(
+            "pointer-events-auto",
             "w-[45px] h-[45px]",
             "font-serif text-[30px] flex items-center justify-center border-2-fore",
             "hover:w-[70px]",
@@ -144,7 +151,7 @@ const ProjectSummary = forwardRef<
         {description && (
           <motion.p
             className={cn(
-              "text-center text-[#ff0] overflow-hidden text-ellipsis",
+              "text-center text-[#ff0] text-ellipsis",
 
               "text-[14px] leading-[18px] max-h-[36px]",
               "xs:text-[14px] xs:leading-[18px] xs:max-h-[36px]",

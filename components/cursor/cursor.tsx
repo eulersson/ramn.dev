@@ -151,7 +151,7 @@ export function CursorSize({
   } else {
     return (
       <div
-        className={className}
+        className={"pointer-events-auto " + className}
         onMouseEnter={() => context.setCursorSize(sizeOnHover)}
         onMouseLeave={() => context.setCursorSize(1)}
       >

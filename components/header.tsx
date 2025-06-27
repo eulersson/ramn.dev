@@ -43,7 +43,12 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
   }
 
   return (
-    <motion.div className="sticky top-0 h-(--header-height) w-full flex justify-center z-50">
+    <motion.div
+      className={cn(
+        "pointer-events-auto",
+        "sticky top-0 h-(--header-height) w-full flex justify-center z-50",
+      )}
+    >
       <motion.header
         ref={headerRef}
         className="w-g40y grid grid-cols-4 grid-rows-2 gap-ggpn border-2-fore bg-fore"
