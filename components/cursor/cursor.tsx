@@ -136,7 +136,7 @@ export function Cursor() {
  * cursor size specified in `sizeOnHover`.
  */
 export function CursorSize({
-  className,
+  className = "",
   children,
   sizeOnHover,
 }: {

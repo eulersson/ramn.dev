@@ -1,7 +1,7 @@
 "use client";
 
 // Third-Party
-import { memo, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 // Project
@@ -10,6 +10,7 @@ import { toBool } from "@/lib";
 
 // Styles
 import "./background-grid.css";
+import { useInView } from "motion/react";
 
 // Configuration for different routes
 const GRID_CONFIG = {
@@ -34,7 +35,7 @@ const GRID_CONFIG = {
 } as const;
 
 const PLATE_GRID_ITEM_CLASSES =
-  "bg-back transition-[border-radius] hover:rounded-[40px] duration-500 ease-in-out";
+  "bg-back transition-[border-radius] hover:rounded-[20px] hover:md:rounded-[40px] duration-500 ease-in-out";
 
 const DEBUG_CLASSES =
   "w-[4px] h-[2px] mt-[calc((var(--bg-grid-box-size)/2)+1px)] -translate-[2px] bg-red-500";
@@ -42,9 +43,16 @@ const DEBUG_CLASSES =
 export const BackgroundGrid = memo(function BackgroundGrid() {
   const debugGrid = toBool(process.env.NEXT_PUBLIC_DEBUG_GRID);
   const bgGridRef = useRef<HTMLDivElement>(null);
+  const bgGridInView = useInView(bgGridRef, {
+    once: true,
+    margin: "0px 0px -100% 0px",
+  });
   const pathname = usePathname();
   const [numBoxes, setNumBoxes] = useState(128);
   const bpXs = useBreakpoint("xs");
+  const bpMd = useBreakpoint("md");
+
+  const FLASH_ANIM_DELAY = 1000; // Adjust this value as needed
 
   useBreakpointChange((bp) => {
     const routeConfig =
@@ -59,6 +67,113 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
     }
   });
 
+  useEffect(() => {
+    if (!bgGridInView) {
+      return;
+    }
+
+    const runFlashAnimation = () => {
+      if (!bgGridRef.current) {
+        return;
+      }
+
+      const rounded = bpMd.isSmaller ? "rounded-[20px]" : "rounded-[40px]";
+      const leftBoxes = bgGridRef.current.querySelectorAll(
+        ".plate-grid--left > div",
+      );
+      const rightBoxes = bgGridRef.current.querySelectorAll(
+        ".plate-grid--right > div",
+      );
+
+      let boxesPerRow = 0;
+      let prevTop: number | null = null;
+
+      for (let i = 0; i < leftBoxes.length; i++) {
+        const box = leftBoxes[i];
+        const top = box.getBoundingClientRect().top;
+
+        if (prevTop === null) {
+          prevTop = top;
+          boxesPerRow = 1;
+        } else if (top === prevTop) {
+          boxesPerRow++;
+        } else {
+          // Found the first box of the next row, so we know the stride
+          break;
+        }
+      }
+
+      const allBoxes = [...leftBoxes, ...rightBoxes];
+
+      const oddBoxes1 = Array.from(allBoxes).filter((_, i) => {
+        const row = Math.floor(i / boxesPerRow);
+        return (i + row) % 2 === 1;
+      });
+
+      const evenBoxes1 = Array.from(allBoxes).filter((_, i) => {
+        const row = Math.floor(i / boxesPerRow);
+        return (i + row) % 2 === 0;
+      });
+
+      const oddBoxes2 = Array.from(allBoxes).filter((_, i) => {
+        return i % 2 === 1;
+      });
+
+      const evenBoxes2 = Array.from(allBoxes).filter((_, i) => {
+        const row = Math.floor(i / boxesPerRow);
+        return row % 2 === 0;
+      });
+
+      const oddBoxes3 = Array.from(allBoxes).filter((_, i) => {
+        const row = Math.floor(i / boxesPerRow);
+        return row % 2 === 1;
+      });
+
+      const evenBoxes3 = Array.from(allBoxes).filter((_, i) => {
+        return i % 2 === 0;
+      });
+
+      const sleep = (ms: number) =>
+        new Promise((resolve) => setTimeout(resolve, ms));
+
+      const animateBoxes = async () => {
+        oddBoxes1.forEach((box) => box.classList.add(rounded));
+        await sleep(500);
+        oddBoxes1.forEach((box) => box.classList.remove(rounded));
+        evenBoxes1.forEach((box) => box.classList.add(rounded));
+        await sleep(500);
+        evenBoxes1.forEach((box) => box.classList.remove(rounded));
+        await sleep(250);
+
+        oddBoxes2.forEach((box) => box.classList.add(rounded));
+        await sleep(500);
+        oddBoxes2.forEach((box) => box.classList.remove(rounded));
+        evenBoxes2.forEach((box) => box.classList.add(rounded));
+        await sleep(500);
+        evenBoxes2.forEach((box) => box.classList.remove(rounded));
+        await sleep(250);
+
+        oddBoxes3.forEach((box) => box.classList.add(rounded));
+        await sleep(500);
+        oddBoxes3.forEach((box) => box.classList.remove(rounded));
+        evenBoxes3.forEach((box) => box.classList.add(rounded));
+        await sleep(500);
+        evenBoxes3.forEach((box) => box.classList.remove(rounded));
+        await sleep(250);
+
+        allBoxes.forEach((box) => box.classList.add(rounded));
+        await sleep(500);
+        allBoxes.forEach((box) => box.classList.remove(rounded));
+      };
+
+      animateBoxes();
+    };
+
+    const timeoutId = setTimeout(runFlashAnimation, FLASH_ANIM_DELAY);
+
+    return () => clearTimeout(timeoutId);
+  }, [bgGridInView]);
+
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[BGGrid] Rendering");
   }
@@ -67,7 +182,7 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
     <div ref={bgGridRef} className="w-full flex">
       {/* Left half */}
       <div
-        className={`plate-grid ml-px justify-end ${
+        className={`plate-grid plate-grid--left ml-px justify-end ${
           debugGrid ? "bg-red-500" : "bg-fore"
         }`}
       >
@@ -79,7 +194,7 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
       </div>
       {/* Right half */}
       <div
-        className={`plate-grid -ml-ggpn justify-start ${
+        className={`plate-grid plate-grid--right -ml-ggpn justify-start ${
           debugGrid ? "bg-red-500" : "bg-fore"
         }`}
       >
