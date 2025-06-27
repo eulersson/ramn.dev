@@ -12,13 +12,3 @@
   grid-template-columns: repeat(4, var(--bg-grid-box-size));
   grid-auto-rows: var(--bg-grid-box-size);
 }
-
-.plate-grid .plate-grid--item {
-  transition: border-radius 0.5s ease;
-  border-radius: 0px;
-}
-
-.plate-grid .plate-grid--item:hover {
-  border-radius: 40px;
-}
-
