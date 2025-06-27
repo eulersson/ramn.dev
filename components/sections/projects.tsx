@@ -1,55 +1,114 @@
+"use client";
+
 // React
-import { forwardRef, useRef, useState, type ForwardedRef } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+  type ForwardedRef,
+} from "react";
 
 // Third-Party
-import { useInView } from "motion/react";
+import debug from "debug";
+import { motion, useInView } from "motion/react";
 
 // Project
-import { CursorSize } from "@/components/cursor";
+import {
+  Spinner,
+  SPINNER_CYCLE_DURATION_SECONDS,
+} from "@/components/layout/spinner";
+import { ProjectCarousel } from "@/components/project-carousel";
+import { ProjectGrid } from "@/components/project-grid";
 import { Title } from "@/components/title";
 import { cn, toBool } from "@/lib";
+import { getAllProjects } from "@/lib/actions/projects";
+import { ProjectInfo } from "@/types";
 
-const Projects = forwardRef<HTMLHeadingElement>(function Projects(
+const log = debug("projects");
+
+const Projects = forwardRef<HTMLHeadingElement, {}>(function Projects(
   {},
   ref: ForwardedRef<HTMLHeadingElement>,
 ) {
-  const [page, setPage] = useState(0);
+  const disableSpinner = toBool(process.env.NEXT_PUBLIC_DISABLE_SPINNERS);
+
   const titleRef = useRef(null);
-  const isInView = useInView(titleRef, { once: false });
+
+  const [loading, setLoading] = useState(true);
+  const [featuredProjects, setFeaturedProjects] = useState<ProjectInfo[]>([]);
+  const [projects, setProjects] = useState<ProjectInfo[]>([]);
+
+  const titleInView = useInView(titleRef);
+
+  useEffect(() => {
+    if (disableSpinner) {
+      return;
+    }
+
+    if (titleInView) {
+      setTimeout(() => setLoading(false), SPINNER_CYCLE_DURATION_SECONDS * 500);
+    }
+  }, [titleInView]);
+
+  useEffect(() => {
+    async function loadFeaturedProjects() {
+      try {
+        const projects = await getAllProjects();
+        log("[section.Projects]", projects);
+        setProjects(projects);
+        setFeaturedProjects(
+          projects.filter((project) => project.metadata.featured),
+        );
+        disableSpinner && setLoading(false);
+      } catch (error) {
+        console.error("Failed to load projects:", error);
+      } finally {
+      }
+    }
+
+    loadFeaturedProjects();
+  }, []);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Projects] Rendering");
   }
 
   return (
-    <section ref={ref} className="flex flex-col justify-center -mt-ggpn">
+    <section ref={ref} className="flex flex-col justify-center">
       <Title
         ref={titleRef}
         className={cn(
-          // Upper spacing.
-          "mt-[calc(var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+          // Upper spacing
+          "mt-[calc(var(--bg-grid-box-size)+1*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+          "sm:mt-[calc(var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
           "md:mt-[calc(var(--bg-grid-box-size)/2+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
 
-          // Lower spacing.
+          // Lower spacing
           "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
         )}
       >
         Projects
       </Title>
-      <div className="h-g20y mb-[22px] p-[20px] bg-back border-2-fore">
-        <div className="relative h-full w-full border-2-fore flex">
-          <CursorSize sizeOnHover={0.2}>
-            <div className="absolute w-full h-[20px] -top-[21px] flex gap-1 items-center justify-center">
-              <div
-                className={`w-[45px] h-[45px] hover:w-[45px] hover:h-[45px] border-2-fore `}
-              ></div>
-            </div>
-          </CursorSize>
-          <div className="grow">
-            {/* TODO: Put the project summary contents here and create full routes for them. */}
-          </div>
-        </div>
-      </div>
+
+      {loading && !disableSpinner ? (
+        <>
+          <Spinner className="h-g30y xs:h-g20y mb-g10n" />
+          <Spinner className="h-g20y xs:h-g10y" />
+        </>
+      ) : (
+        featuredProjects.length > 0 &&
+        projects.length > 0 && (
+          <>
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+              <ProjectCarousel projects={featuredProjects} />
+            </motion.div>
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+              <ProjectGrid projects={projects} />
+            </motion.div>
+          </>
+        )
+      )}
     </section>
   );
 });

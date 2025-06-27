@@ -3,6 +3,9 @@
 // React
 import { createContext, RefObject, useContext, useEffect, useRef } from "react";
 
+// Next.js
+import Link from "next/link";
+
 // Third-Party
 import { Brain } from "lucide-react";
 import {
@@ -23,12 +26,12 @@ import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
 import { useTouchDevice } from "@/hooks/browser";
-import { toBool } from "@/lib";
+import { cn, toBool } from "@/lib";
 import { forwardRef } from "react";
 
 const SCROLL_THRESHOLD = 800;
 
-const Header = forwardRef<HTMLHeadElement>(function Header(props, headerRef) {
+const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
   const headerContext = useHeader();
   const fallbackMotionValue = useMotionValue(0);
   const headerTranslateYSpring = headerContext
@@ -43,25 +46,41 @@ const Header = forwardRef<HTMLHeadElement>(function Header(props, headerRef) {
     <motion.div className="sticky top-0 h-(--header-height) w-full flex justify-center z-50">
       <motion.header
         ref={headerRef}
-        className="w-g40y grid grid-cols-4 grid-rows-2 gap-ggpn border-2-fore bg-fore bg-back"
+        className="w-g40y grid grid-cols-4 grid-rows-2 gap-ggpn border-2-fore bg-fore"
         style={{ y: headerTranslateYSpring }}
       >
         {/* Logo */}
-        <div className="row-start-1 row-span-2 bg-back max-md:flex max-md:items-center max-md:justify-center md:pt-[6px] md:pl-[14px]">
-          <h1 className="font-title inline text-[42px] lg:text-[44px] leading-[34px] lg:leading-[30px] select-none center">
-            <span className="hidden md:inline">Ram⬢n Blanquer</span>
-            <span className="hidden sm:max-md:inline">
-              Ra▲
-              <br />
-              mon
-            </span>
-            <span className="hidden xs:max-sm:inline">ramn</span>
-            <span className="hidden max-xs:inline">Rb</span>
-          </h1>
+        <div
+          className={cn(
+            "row-start-1 row-span-2",
+            "md:pt-[6px] md:pl-[14px]",
+            "max-md:flex max-md:items-center max-md:justify-center",
+            "bg-back hover:bg-fore text-fore hover:text-back",
+            "active:scale-75 transition-[scale]",
+          )}
+        >
+          <CursorSize sizeOnHover={0.4}>
+            <Link href="/">
+              <h1
+                className={cn(
+                  "font-title inline select-none center",
+                  "text-[42px] lg:text-[44px] leading-[34px] lg:leading-[30px]",
+                )}
+              >
+                <span className="hidden md:inline">Ram⬢n Blanquer</span>
+                <span className="hidden sm:max-md:inline">
+                  Ra▲
+                  <br />
+                  mon
+                </span>
+                <span className="hidden xs:max-sm:inline">ramn</span>
+                <span className="hidden max-xs:inline">Rb</span>
+              </h1>
+            </Link>
+          </CursorSize>
         </div>
         {/* Social */}
-        <div className="col-span-2 sm:col-span-1 flex gap-2 items-center justify-center bg-back">
-          {/* https://github.com/pacocoursey/next-themes#images */}
+        <div className="bg-back flex gap-2 items-center justify-center col-span-2 sm:col-span-1">
           <CursorSize sizeOnHover={0.4}>
             <a href="https://github.com/eulersson" target="_blank">
               <ThemedImage

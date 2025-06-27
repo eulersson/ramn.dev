@@ -459,7 +459,7 @@
 }
 
 @utility border-2-back {
-  @apply border-2 border-fore;
+  @apply border-2 border-back;
 }
 
 @utility border-2-fore-inside {
@@ -467,11 +467,6 @@
 }
 
 @layer utilities {
-  /* Does not play well with the framer motion scrolling animation. */
-  /* html {
-  scroll-behavior: smooth;
-} */
-
   /* Hide scrollbar for Chrome, Safari and Opera */
   .invisible-scrollbar::-webkit-scrollbar {
     display: none;
@@ -503,7 +498,6 @@
     --title-tag-padding: 10px;
 
     --header-height: calc(var(--spacing-g06n) + var(--bg-grid-gap));
-    /* --header-height: calc(var(--bg-grid-box-size) / 2); */
   }
 
   @media (width >=theme(--breakpoint-xs)) {
@@ -560,17 +554,4 @@
     left: 0;
     z-index: 100;
   }
-
-  /* TODO: Maybe use this for mobile? Where hovering doesn't make any sense on the bg-grid? */
-  /* https://stackoverflow.com/questions/4191260/drawing-a-grid-using-css */
-  /* .css-bg-grid {
-  box-sizing: border-box;
-  margin:0;
-  background-position: center center;
-  background-size: calc(var(--bg-grid-box-size)/2) calc(var(--bg-grid-box-size)/2);
-
-  background-image:
-  repeating-linear-gradient(#000000 0 2px, transparent 2px 100%),
-  repeating-linear-gradient(90deg, #000000 0 2px, transparent 2px 100%);
-} */
 }

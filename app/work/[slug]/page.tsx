@@ -2,11 +2,10 @@
 import fs from "fs";
 import path from "path";
 
-// Next.js
-import dynamic from "next/dynamic";
-
 // Project
+import { SingleProject } from "@/components/single-project";
 import { toBool } from "@/lib";
+import { getOneProjectData } from "@/lib/projects";
 
 const projectsPath = path.join(process.cwd(), "content", "projects");
 
@@ -23,14 +22,14 @@ export default async function ProjectPage(props: {
   const params = await props.params;
   const { slug } = params;
 
+  const { metadata, Component } = await getOneProjectData(slug);
+
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[ProjectPage] Rendering app/work/[slug]/page.ts", slug);
   }
-  const Project = dynamic(() => import(`@/content/projects/${slug}.mdx`));
   return (
-    <section>
-      <h1>Slug: {slug}</h1>
-      <Project />
-    </section>
+    <SingleProject project={metadata}>
+      <Component />
+    </SingleProject>
   );
 }

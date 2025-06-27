@@ -1,7 +1,7 @@
 // React
 import {
   Dispatch,
-  MutableRefObject,
+  RefObject,
   SetStateAction,
   createContext,
   useContext,
@@ -9,15 +9,12 @@ import {
   useState,
 } from "react";
 
-// Project
-import { ContextNotProvidedError } from "@/errors/context-not-provided";
-
 const SectionContext = createContext<{
   section: string;
   setSection: Dispatch<SetStateAction<string>>;
   sections: string[];
   activeSectionIdx: number;
-  navigationRunning: MutableRefObject<boolean>;
+  navigationRunning: RefObject<boolean>;
 } | null>(null);
 
 export function SectionProvider({ children }: { children: React.ReactNode }) {
@@ -44,7 +41,14 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
 export function useSection() {
   const context = useContext(SectionContext);
   if (context === null) {
-    throw new ContextNotProvidedError("SectionContext");
+    // Return a zero-value
+    return {
+      section: "",
+      setSection: () => {},
+      sections: [],
+      activeSectionIdx: 0,
+      navigationRunning: useRef(false),
+    };
   }
   return context;
 }

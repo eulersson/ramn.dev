@@ -201,9 +201,8 @@ function Home() {
         <About ref={aboutRef} />
         <Experience ref={experienceRef} />
         <Projects ref={projectsRef} />
-
         {/* Progress bar. */}
-        <div className="sticky bottom-0 ">
+        <div className="sticky bottom-0 z-100">
           <div className="w-full border-2-fore bg-back">
             <motion.div
               initial={{ scaleX: 0 }}

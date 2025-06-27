@@ -1,10 +1,10 @@
 "use client";
 
-// Third-Party
-import { CursorSize } from "@/components/cursor";
+// React
 import { MouseEventHandler } from "react";
 
 // Project
+import { CursorSize } from "@/components/cursor";
 
 export function Button({
   children,

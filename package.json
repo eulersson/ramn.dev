@@ -25,6 +25,7 @@
     "clsx": "^2.1.1",
     "eslint": "9.27.0",
     "eslint-config-next": "15.3.2",
+    "glob": "^11.0.3",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.522.0",

@@ -56,11 +56,9 @@ export default function RootLayout({
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[RootLayout] Rendering");
   }
+
   return (
-    // suppressHydrationWarning reason:
-    // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#with-app
-    // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
-    <html className="invisible-scrollbar" lang="en" suppressHydrationWarning>
+    <html className="invisible-scrollbar" lang="en">
       <body
         className={
           `${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} ` +

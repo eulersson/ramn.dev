@@ -31,3 +31,39 @@ export type Breakpoints = {
   [key in BreakpointKey]: string;
 };
 
+/**
+ * Represents the metadata for a project.
+ */
+export interface ProjectMetadata {
+  title: string;
+  name: string;
+  description: string;
+  featured?: boolean;
+  repo?: string;
+  heroImage: string;
+}
+
+/**
+ * Represents a project with its slug, component, and metadata.
+ */
+export interface Project {
+  slug: string;
+  Component: React.ComponentType;
+  metadata: ProjectMetadata;
+}
+
+/**
+ * Represents a project with its slug and metadata, no react component.
+ *
+ * Passing from server side to a client-side component a React.ComponentType is
+ * not allowed, therefore sometimes we are interested only in project metadata.
+ */
+export type ProjectInfo = Omit<Project, "Component">;
+
+/**
+ * Represents the result of getting projects data.
+ */
+export interface ProjectsData {
+  projects: Project[];
+  count: number;
+}

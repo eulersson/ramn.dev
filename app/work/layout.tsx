@@ -1,11 +1,20 @@
-import { BackgroundGrid } from "@/components/layout/background-grid";
+import { LayoutContainer } from "@/app/page-wrapper";
+import { cn } from "@/lib";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-sky-200 py-4">
-      <main>{children}</main>
-      <BackgroundGrid />
-    </div>
+    <LayoutContainer correctHeaderNavbarUpperSpace={false}>
+      <div
+        className={cn(
+          "mt-[calc(2/8*var(--bg-grid-box-size)+var(--bg-grid-gap))]",
+          "xs:mt-[calc(4/8*var(--bg-grid-box-size)+var(--bg-grid-gap))]",
+          "sm:mt-[calc(4/8*var(--bg-grid-box-size))]",
+          "md:-mt-ggpy",
+          "lg:mt-[calc(1/8*var(--bg-grid-box-size)-var(--bg-grid-gap))]",
+        )}
+      >
+        {children}
+      </div>
+    </LayoutContainer>
   );
 }
-

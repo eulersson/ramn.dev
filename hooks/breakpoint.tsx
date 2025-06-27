@@ -1,6 +1,11 @@
-import { useMediaQuery } from "react-responsive";
-import { Breakpoints, BreakpointKey } from "@/types";
+// React
 import { useEffect, useRef, useCallback } from "react";
+
+// Third-Party
+import { useMediaQuery } from "react-responsive";
+
+// Project
+import { Breakpoints, BreakpointKey } from "@/types";
 
 // Default Tailwind CSS v4 breakpoints (must be aligned with `global.css`)
 const breakpoints: Breakpoints = {
@@ -14,22 +19,22 @@ const breakpoints: Breakpoints = {
 
 /**
  * A React hook that returns viewport information relative to a Tailwind breakpoint.
- * 
- * This hook mimics Tailwind's breakpoint behavior where classes like `md:class` 
+ *
+ * This hook mimics Tailwind's breakpoint behavior where classes like `md:class`
  * apply when the viewport width is greater than or equal to the specified breakpoint.
- * 
+ *
  * @param breakpointKey - The breakpoint key to check against (xs, sm, md, lg, xl, 2xl)
- * 
+ *
  * @returns An object containing:
  *   - `is{BreakpointKey}`: Boolean indicating if viewport meets or exceeds the breakpoint
  *   - `breakpoint`: The pixel value of the breakpoint (e.g., "768px")
  *   - `isSmaller`: Boolean indicating if viewport is smaller than the breakpoint
  *   - `isLarger`: Boolean indicating if viewport is larger than or equal to the breakpoint
- * 
+ *
  * @example
  * ```tsx
  * const { isMd, breakpoint, isSmaller, isLarger } = useBreakpoint('md');
- * 
+ *
  * return (
  *   <div>
  *     {isMd && <p>Desktop view</p>}
@@ -74,18 +79,21 @@ export function useBreakpoint<K extends BreakpointKey>(breakpointKey: K) {
  */
 export function useBreakpointChange(
   callback: (breakpoint: BreakpointKey) => void,
-  debounceMs: number = 100
+  debounceMs: number = 100,
 ) {
   const previousBreakpoint = useRef<BreakpointKey | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Function to determine current breakpoint based on window width
   const getCurrentBreakpoint = useCallback((): BreakpointKey => {
-    if (typeof window === 'undefined') return 'xs';
-    
+    if (typeof window === "undefined") return "xs";
+
     const width = window.innerWidth;
-    const breakpointEntries = Object.entries(breakpoints) as [BreakpointKey, string][];
-    
+    const breakpointEntries = Object.entries(breakpoints) as [
+      BreakpointKey,
+      string,
+    ][];
+
     // Sort breakpoints by pixel value (descending) to check from largest to smallest
     const sortedBreakpoints = breakpointEntries.sort((a, b) => {
       const aValue = parseInt(a[1]);
@@ -99,9 +107,9 @@ export function useBreakpointChange(
         return key;
       }
     }
-    
+
     // If no breakpoint matches, return the smallest one
-    return 'xs';
+    return "xs";
   }, []);
 
   // Debounced resize handler
@@ -112,7 +120,7 @@ export function useBreakpointChange(
 
     timeoutRef.current = setTimeout(() => {
       const currentBreakpoint = getCurrentBreakpoint();
-      
+
       if (previousBreakpoint.current !== currentBreakpoint) {
         previousBreakpoint.current = currentBreakpoint;
         callback(currentBreakpoint);
@@ -127,11 +135,11 @@ export function useBreakpointChange(
     callback(initialBreakpoint);
 
     // Add resize listener
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }

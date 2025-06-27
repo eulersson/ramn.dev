@@ -1,3 +1,5 @@
+import { Projects } from "@/components/sections/projects";
+
 export default function WorkPage() {
-  return <h1>WorkPage</h1>;
+  return <Projects></Projects>;
 }

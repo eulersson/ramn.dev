@@ -18,11 +18,11 @@ const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
       <section className="flex flex-col justify-center md:mb-g04n">
         <Title
           className={cn(
-            // Upper spacing.
+            // Upper spacing
             "mt-[calc(var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
             "md:mt-[calc(var(--bg-grid-box-size)/2+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
 
-            // Lower spacing.
+            // Lower spacing
             "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
           )}
         >

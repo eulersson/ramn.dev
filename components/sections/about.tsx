@@ -102,11 +102,11 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     >
       <Title
         className={cn(
-          // Upper spacing.
+          // Upper spacing
           "mt-[calc(2*var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding)-var(--header-height))]",
           "sm:mt-[calc(var(--bg-grid-box-size)+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding)-var(--header-height))]",
 
-          // Lower spacing.
+          // Lower spacing
           "mb-[calc(0.5*var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
         )}
       >

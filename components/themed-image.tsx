@@ -9,6 +9,12 @@ import { useEffect, useState } from "react";
 // Third-Party
 import { useTheme } from "next-themes";
 
+/**
+ * Displays an image that switches based on the user's light or dark theme
+ * preference.
+ *
+ * @see {@link https://github.com/pacocoursey/next-themes#images}
+ */
 export function ThemedImage({
   width,
   height,

@@ -1,30 +1,54 @@
 "use client";
 
 // Third-Party
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
 // Project
 import { toBool } from "@/lib";
 
 // Styles
-import { useBreakpoint } from "@/hooks/breakpoint";
+import { useBreakpoint, useBreakpointChange } from "@/hooks/breakpoint";
 import "./background-grid.css";
 
 export const BackgroundGrid = memo(function BackgroundGrid() {
   const debugGrid = toBool(process.env.NEXT_PUBLIC_DEBUG_GRID);
 
-  const { isSmaller } = useBreakpoint("xs");
-
-  // TODO: This makes us have the component as client-side. Investigate the cons we have.
   const [numBoxes, setNumBoxes] = useState(128);
 
-  useEffect(() => {
-    if (isSmaller) {
-      setNumBoxes(260);
-    } else {
-      setNumBoxes(140);
+  const bpXs = useBreakpoint("xs");
+
+  useBreakpointChange((bp) => {
+    switch (bp) {
+      case "2xl": {
+        setNumBoxes(112);
+        break;
+      }
+      case "xl": {
+        setNumBoxes(112);
+        break;
+      }
+      case "lg": {
+        setNumBoxes(120);
+        break;
+      }
+      case "md": {
+        setNumBoxes(132);
+        break;
+      }
+      case "sm": {
+        setNumBoxes(140);
+        break;
+      }
+      case "xs": {
+        setNumBoxes(192);
+        break;
+      }
     }
-  }, [isSmaller]);
+
+    if (bpXs.isSmaller) {
+      setNumBoxes(332);
+    }
+  });
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[BGGrid] Rendering");
@@ -32,13 +56,13 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
 
   return (
     <div className="w-full flex">
-      {/* Left half. */}
+      {/* Left half */}
       <div
         className={`plate-grid ml-px justify-end ${
           debugGrid ? "bg-red-500" : "bg-fore"
         }`}
       >
-        {[...Array(numBoxes)].map((e, i) => (
+        {[...Array(numBoxes)].map((_, i) => (
           <div className="plate-grid--item bg-back" key={i}>
             {debugGrid && (
               <div className="w-[4px] h-[2px] mt-[calc((var(--bg-grid-box-size)/2)+1px)] -translate-[2px] bg-red-500"></div>
@@ -46,13 +70,13 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
           </div>
         ))}
       </div>
-      {/* Right half. */}
+      {/* Right half */}
       <div
         className={`plate-grid -ml-ggpn justify-start ${
           debugGrid ? "bg-red-500" : "bg-fore"
         }`}
       >
-        {[...Array(numBoxes)].map((e, i) => (
+        {[...Array(numBoxes)].map((_, i) => (
           <div className="plate-grid--item bg-back" key={i}>
             {debugGrid && (
               <div className="w-[4px] h-[2px] mt-[calc((var(--bg-grid-box-size)/2)+1px)] -translate-[2px] bg-red-500"></div>

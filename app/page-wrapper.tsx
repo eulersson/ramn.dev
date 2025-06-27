@@ -11,7 +11,7 @@ import { Header, HeaderProvider } from "@/components/header";
 import { BackgroundGrid } from "@/components/layout/background-grid";
 import { Navbar } from "@/components/layout/navbar";
 import { Hero } from "@/components/sections/hero";
-import { toBool } from "@/lib";
+import { cn, toBool } from "@/lib";
 
 export function PageWrapper({
   children,
@@ -20,8 +20,10 @@ export function PageWrapper({
   children: React.ReactNode;
   heroRef: ForwardedRef<HTMLHeadingElement>;
 }) {
-  const headerRef = useRef<HTMLHeadElement>(null);
   const [showNavBar, setShowNavBar] = useState(false);
+
+  const [correctHeaderNavbarUpperSpace, setCorrectHeaderNavbarUpperSpace] =
+    useState(false);
 
   const navBarTimeoutMillis = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER)
     ? 1000
@@ -44,9 +46,6 @@ export function PageWrapper({
     };
   }, []);
 
-  const [correctHeaderNavbarUpperSpace, setCorrectHeaderNavbarUpperSpace] =
-    useState(false);
-
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[PageWrapper] Rendering");
   }
@@ -63,9 +62,31 @@ export function PageWrapper({
           }}
         />
       )}
+      <LayoutContainer
+        correctHeaderNavbarUpperSpace={correctHeaderNavbarUpperSpace}
+      >
+        {children}
+      </LayoutContainer>
+    </AnimatePresence>
+  );
+}
+
+export function LayoutContainer({
+  className,
+  children,
+  correctHeaderNavbarUpperSpace,
+}: {
+  className?: string;
+  children: React.ReactNode;
+  correctHeaderNavbarUpperSpace: boolean;
+}) {
+  const headerRef = useRef<HTMLHeadElement>(null);
+
+  return (
+    <>
       <div
         key="layout-container"
-        className="absolute w-full flex justify-center"
+        className={cn("absolute w-full flex justify-center", className)}
       >
         <div className="w-g40y lg:w-g40y xl:w-g40y">
           <HeaderProvider
@@ -80,6 +101,6 @@ export function PageWrapper({
         </div>
       </div>
       <BackgroundGrid key="grid" />
-    </AnimatePresence>
+    </>
   );
 }
