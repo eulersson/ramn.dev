@@ -105,62 +105,27 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
 
       const allBoxes = [...leftBoxes, ...rightBoxes];
 
-      const oddBoxes1 = Array.from(allBoxes).filter((_, i) => {
+      const oddBoxes = Array.from(allBoxes).filter((_, i) => {
         const row = Math.floor(i / boxesPerRow);
         return (i + row) % 2 === 1;
       });
 
-      const evenBoxes1 = Array.from(allBoxes).filter((_, i) => {
+      const evenBoxes = Array.from(allBoxes).filter((_, i) => {
         const row = Math.floor(i / boxesPerRow);
         return (i + row) % 2 === 0;
-      });
-
-      const oddBoxes2 = Array.from(allBoxes).filter((_, i) => {
-        return i % 2 === 1;
-      });
-
-      const evenBoxes2 = Array.from(allBoxes).filter((_, i) => {
-        const row = Math.floor(i / boxesPerRow);
-        return row % 2 === 0;
-      });
-
-      const oddBoxes3 = Array.from(allBoxes).filter((_, i) => {
-        const row = Math.floor(i / boxesPerRow);
-        return row % 2 === 1;
-      });
-
-      const evenBoxes3 = Array.from(allBoxes).filter((_, i) => {
-        return i % 2 === 0;
       });
 
       const sleep = (ms: number) =>
         new Promise((resolve) => setTimeout(resolve, ms));
 
       const animateBoxes = async () => {
-        oddBoxes1.forEach((box) => box.classList.add(rounded));
+        oddBoxes.forEach((box) => box.classList.add(rounded));
         await sleep(500);
-        oddBoxes1.forEach((box) => box.classList.remove(rounded));
-        evenBoxes1.forEach((box) => box.classList.add(rounded));
+        oddBoxes.forEach((box) => box.classList.remove(rounded));
+        evenBoxes.forEach((box) => box.classList.add(rounded));
         await sleep(500);
-        evenBoxes1.forEach((box) => box.classList.remove(rounded));
+        evenBoxes.forEach((box) => box.classList.remove(rounded));
         await sleep(250);
-
-        oddBoxes2.forEach((box) => box.classList.add(rounded));
-        await sleep(500);
-        oddBoxes2.forEach((box) => box.classList.remove(rounded));
-        evenBoxes2.forEach((box) => box.classList.add(rounded));
-        await sleep(500);
-        evenBoxes2.forEach((box) => box.classList.remove(rounded));
-        await sleep(250);
-
-        oddBoxes3.forEach((box) => box.classList.add(rounded));
-        await sleep(500);
-        oddBoxes3.forEach((box) => box.classList.remove(rounded));
-        evenBoxes3.forEach((box) => box.classList.add(rounded));
-        await sleep(500);
-        evenBoxes3.forEach((box) => box.classList.remove(rounded));
-        await sleep(250);
-
         allBoxes.forEach((box) => box.classList.add(rounded));
         await sleep(500);
         allBoxes.forEach((box) => box.classList.remove(rounded));
