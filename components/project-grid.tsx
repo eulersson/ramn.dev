@@ -7,6 +7,7 @@ import Image from "next/image";
 import { CubeFlip } from "@/components/cube-flip";
 import { cn } from "@/lib";
 import { ProjectInfo } from "@/types";
+import Link from "next/link";
 
 export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
   return (
@@ -31,22 +32,24 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
             />
           }
           backContent={
-            <div
-              className={cn(
-                "w-full h-full flex flex-col justify-center bg-fore",
-              )}
-            >
-              <p>
-                <span className="font-mono bg-fore text-back">
-                  {project.metadata["title"]}
-                </span>
-              </p>
-              <p>
-                <span className="bg-back text-fore text-[12px]">
-                  {project.metadata["description"]}
-                </span>
-              </p>
-            </div>
+            <Link href={`/work/${project.slug}`}>
+              <div
+                className={cn(
+                  "w-full h-full flex flex-col justify-center bg-fore",
+                )}
+              >
+                <p>
+                  <span className="font-mono bg-fore text-back">
+                    {project.metadata["title"]}
+                  </span>
+                </p>
+                <p>
+                  <span className="bg-back text-fore text-[12px]">
+                    {project.metadata["description"]}
+                  </span>
+                </p>
+              </div>
+            </Link>
           }
         />
       ))}

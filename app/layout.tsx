@@ -42,16 +42,20 @@ const urbanist = Urbanist({
 
 // Styles
 import "./globals.css";
+import { AnimatePresence } from "motion/react";
 
 export const metadata = {
-  title: "Ramon Blanquer",
-  description: "Full Stack Software Engineer & Computer Graphics",
+  title: "Ramon Blanquer | Full Stack Software & Graphics Engineer",
+  description:
+    "Solid Python, C++, TypeScript, and Go. AI hobbyist. Passionate about best developer experiences; streamlined dev environments are key for productivity and delivery. Advocating clean and maintainable code by implementing code formatting and quality analysis pipelines, and encouraging TDD through CI/CD workflows.",
 };
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[RootLayout] Rendering");
@@ -67,6 +71,8 @@ export default function RootLayout({
         }
       >
         <Providers>{children}</Providers>
+        {modal}
+        <div id="modal-root" />
       </body>
     </html>
   );

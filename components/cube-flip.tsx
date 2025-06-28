@@ -18,7 +18,13 @@ export const CubeFlip = ({
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      onClick={onClick}
+      onClick={(e) => {
+        if (hovered) {
+          onClick && onClick(e);
+        } else {
+          setHovered(true);
+        }
+      }}
       className={cn(
         hovered ? "z-20" : "z-10",
         "transition-[z-index] delay-[0ms,300ms]",

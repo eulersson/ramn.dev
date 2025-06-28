@@ -8,4 +8,26 @@ export const metadata = {
 
 # dreamdrugs
 
+> An extensible AI Psychedelic Art Generation that takes a picture from your
+> webcam and hallucinates on it using various deep dreaming algorithms.
+
+![Dreamdrugs App](/work/dreamdrugs/app.png)
+
+This project (in progress) was an excuse for me to learn microservice
+architecture. It’s designed to be scalable (developed using Kubernetes and
+Helm). The frontend is composed by a React application served (alongside a
+frontend API) by an Express server. The backend is a Python TensorFlow Flask
+app running on Gunicorn. Both communicate realtime updates via a Redis cluster
+installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
+having an array of NGINX servers on each node (DaemonSet) receiving the
+requests based on repeated DNS entry names pointing at each node. I wrote so I
+(or others) can plug more trained ML models and have different kinds of
+hallucinations.
+
+Architecture and design choices is discussed in:
+
+[https://github.com/docwhite/dreamdrugs/wiki](https://github.com/docwhite/dreamdrugs/wiki>)
+
 An AI psychedelic art generation playground.
+
+![Dreamdrugs Samples](/work/dreamdrugs/samples.jpg)
