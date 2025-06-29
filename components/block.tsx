@@ -67,15 +67,14 @@ export function Block({
           <div
             ref={tagsRef}
             className={cn(
-              "flex items-center justify-center gap-ggpy",
+              "flex items-center justify-start gap-ggpy",
               "overflow-x-auto hide-scrollbar",
-              "hover:flex-wrap",
+              "hover:flex-wrap hover:justify-center",
               classNames.tags,
             )}
           >
             {...tags.map((props, i) => (
-              <div key={i}>
-                {" "}
+              <div key={i} className="shrink-0">
                 <Tag {...props} key={i} />
               </div>
             ))}
