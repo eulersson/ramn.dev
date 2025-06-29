@@ -15,7 +15,7 @@ import { cn, toBool } from "@/lib";
 // Content
 import Intention from "@/content/sections/intention.mdx";
 
-const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
+const About = forwardRef<HTMLElement>(function About({}, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
 
   const [terminalState, setTerminalState] = useState<

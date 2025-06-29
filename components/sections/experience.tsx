@@ -8,7 +8,7 @@ import { Recommendations } from "@/components/sections/recommendations";
 import { Title } from "@/components/title";
 import { cn, toBool } from "@/lib";
 
-const Experience = forwardRef<HTMLHeadingElement>(function Experience({}, ref) {
+const Experience = forwardRef<HTMLDivElement>(function Experience({}, ref) {
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[Experience] Rendering");
   }

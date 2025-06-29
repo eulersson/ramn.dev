@@ -4,6 +4,7 @@
 import {
   forwardRef,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
   type ForwardedRef,
@@ -27,29 +28,32 @@ import { ProjectInfo } from "@/types";
 
 const log = debug("projects");
 
-const Projects = forwardRef<HTMLHeadingElement, {}>(function Projects(
+const Projects = forwardRef<HTMLElement, {}>(function Projects(
   {},
-  ref: ForwardedRef<HTMLHeadingElement>,
+  ref: ForwardedRef<HTMLElement>,
 ) {
   const disableSpinner = toBool(process.env.NEXT_PUBLIC_DISABLE_SPINNERS);
-
-  const titleRef = useRef(null);
 
   const [loading, setLoading] = useState(true);
   const [featuredProjects, setFeaturedProjects] = useState<ProjectInfo[]>([]);
   const [projects, setProjects] = useState<ProjectInfo[]>([]);
 
-  const titleInView = useInView(titleRef);
+  const localRef = useRef<HTMLElement>(null);
+
+  // Allow both local usage and parent access
+  useImperativeHandle(ref, () => localRef.current as HTMLElement);
+
+  const sectionInView = useInView(localRef);
 
   useEffect(() => {
     if (disableSpinner) {
       return;
     }
 
-    if (titleInView) {
+    if (sectionInView) {
       setTimeout(() => setLoading(false), SPINNER_CYCLE_DURATION_SECONDS * 500);
     }
-  }, [titleInView]);
+  }, [sectionInView]);
 
   useEffect(() => {
     async function loadFeaturedProjects() {
@@ -75,9 +79,8 @@ const Projects = forwardRef<HTMLHeadingElement, {}>(function Projects(
   }
 
   return (
-    <section ref={ref} className="flex flex-col justify-center">
+    <section ref={localRef} className="flex flex-col justify-center">
       <Title
-        ref={titleRef}
         className={cn(
           // Upper spacing
           "mt-[calc(var(--bg-grid-box-size)+1*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
