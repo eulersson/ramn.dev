@@ -1,15 +1,26 @@
 "use client";
 
+// React
+import { useEffect, useState } from "react";
+
 // Next.js
 import Image from "next/image";
+import Link from "next/link";
 
 // Project
 import { CubeFlip } from "@/components/cube-flip";
+import { useBreakpoint } from "@/hooks/breakpoint";
 import { cn } from "@/lib";
 import { ProjectInfo } from "@/types";
-import Link from "next/link";
 
 export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
+  const [cols, setCols] = useState(4);
+  const bpSm = useBreakpoint("sm");
+  const isSmallerThanSm = bpSm.isSmaller;
+  useEffect(() => {
+    setCols(isSmallerThanSm ? 2 : 4);
+  }, [isSmallerThanSm]);
+
   return (
     <div
       className={cn(
@@ -20,6 +31,8 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
       {projects.map((project, i) => (
         <CubeFlip
           key={i}
+          column={i % cols}
+          numColumns={cols}
           className="h-[calc(2*var(--bg-grid-box-size)+2px)] sm:h-g10n"
           frontContent={
             <Image
