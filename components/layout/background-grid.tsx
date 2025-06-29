@@ -20,7 +20,7 @@ const GRID_CONFIG = {
     lg: 124,
     md: 132,
     sm: 140,
-    xs: 192,
+    xs: 248,
     xxs: 332,
   },
   "/work": {
@@ -29,7 +29,7 @@ const GRID_CONFIG = {
     lg: 44,
     md: 44,
     sm: 48,
-    xs: 48,
+    xs: 100,
     xxs: 104,
   },
 } as const;

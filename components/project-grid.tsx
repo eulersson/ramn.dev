@@ -14,13 +14,13 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
     <div
       className={cn(
         "pointer-events-auto",
-        "grid grid-cols-2 xs:grid-cols-4 gap-ggpn border-2-fore bg-fore",
+        "grid grid-cols-2 sm:grid-cols-4 gap-ggpn border-2-fore bg-fore",
       )}
     >
       {projects.map((project, i) => (
         <CubeFlip
           key={i}
-          className="h-g20n xs:h-g10n"
+          className="h-[calc(2*var(--bg-grid-box-size)+2px)] sm:h-g10n"
           frontContent={
             <Image
               className="w-full h-full"
