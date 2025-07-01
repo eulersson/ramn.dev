@@ -61,7 +61,7 @@ export const Spinner = ({ className }: { className?: string }) => {
       <svg width="400" height="80" viewBox="0 0 400 80">
         <motion.path
           d={zigzagPath}
-          stroke="black"
+          stroke="var(--col-fore)"
           strokeWidth="2"
           fill="none"
           strokeLinecap="round"

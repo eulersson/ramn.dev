@@ -11,15 +11,15 @@ export type Sentence = {
 
 export function Typewriter({
   sentences,
+  invertColors = false,
   disableHighlight = false,
   staggerChildren = 0.025,
-  textSize = "xl",
   className = "",
 }: {
   sentences: Sentence[];
+  invertColors?: boolean;
   disableHighlight?: boolean;
   staggerChildren?: number;
-  textSize?: "xs" | "sm" | "md" | "lg" | "xl";
   className?: string;
 }) {
   const container = {
@@ -51,7 +51,7 @@ export function Typewriter({
 
   return (
     <motion.div
-      className={`${className} flex flex-wrap text-${textSize}`}
+      className={`${className} flex flex-wrap text-lg text-${invertColors ? "back" : "fore"}`}
       variants={container}
       initial="hidden"
       animate="show"
@@ -68,7 +68,7 @@ export function Typewriter({
               key={`i${i}j${j}div`}
               className={`relative ${
                 i === sentences.length - 1 && j === stringCharacters.length - 1
-                  ? "text-back z-10"
+                  ? `text-${invertColors ? "fore" : "back"} z-10`
                   : ""
               }`}
             >
@@ -95,45 +95,11 @@ export function Typewriter({
           ));
         }),
       ]}
-      {/* {...[ */}
-      {/*   sentences.map((s, i) => { */}
-      {/*     const stringCharacters = []; */}
-      {/*     for (let i = 0; i < s.text.length; i++) { */}
-      {/*       stringCharacters.push(s.text[i]); */}
-      {/*     } */}
-      {/*     return stringCharacters.map((c, j) => ( */}
-      {/*       <span */}
-      {/*         key={`i${i}j${j}div`} */}
-      {/*         className={`relative ${ */}
-      {/*           i === sentences.length - 1 && j === stringCharacters.length - 1 */}
-      {/*             ? "text-back z-10" */}
-      {/*             : "" */}
-      {/*         }`} */}
-      {/*       > */}
-      {/*         <motion.span */}
-      {/*           className={`i${i}j${j} ${s.className || ""}`} */}
-      {/*           key={`i${i}j${j}`} */}
-      {/*           variants={item} */}
-      {/*         > */}
-      {/*           {c === " " ? "\u00A0" : c} */}
-      {/*         </motion.span> */}
-      {/*         {j === s.text.length - 1 && i !== sentences.length - 1 ? ( */}
-      {/*           <motion.span */}
-      {/*             className={`i${i}j${j}space relative`} */}
-      {/*             key={`i${i}j${j}space`} */}
-      {/*             variants={item} */}
-      {/*           > */}
-      {/*             &nbsp; */}
-      {/*           </motion.span> */}
-      {/*         ) : ( */}
-      {/*           "" */}
-      {/*         )} */}
-      {/*       </span> */}
-      {/*     )); */}
-      {/*   }), */}
-      {/* ]} */}
       {(!disableHighlight && (
-        <span key={`dh`} className="bg-fore -left-[12px] relative">
+        <span
+          key={`dh`}
+          className={`bg-${invertColors ? "back" : "fore"} relative -left-[12px]`}
+        >
           &nbsp;
         </span>
       )) ||

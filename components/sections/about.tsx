@@ -15,7 +15,7 @@ import { cn, toBool } from "@/lib";
 // Content
 import Intention from "@/content/sections/intention.mdx";
 
-const About = forwardRef<HTMLElement>(function About({}, ref) {
+const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const terminalRef = useRef<HTMLDivElement>(null);
 
   const [terminalState, setTerminalState] = useState<
@@ -114,9 +114,7 @@ const About = forwardRef<HTMLElement>(function About({}, ref) {
       </Title>
       <div
         className={cn(
-          "h-g70t xs:h-g30t sm:h-g20t lg:h-g10t",
-          "mb-g04n",
-          "p-g02n",
+          "h-g70t xs:h-g30t sm:h-g20t lg:h-g10t mb-g04n p-g02n",
           "flex flex-col justify-center",
         )}
       >
@@ -141,19 +139,18 @@ const About = forwardRef<HTMLElement>(function About({}, ref) {
       </div>
 
       {/* A more technical overview of my work. */}
-      <div className="relative grid grid-cols-4 gap-ggpn p-ggpn pb-0">
+      <div className="gap-ggpn p-ggpn relative grid grid-cols-4 pb-0">
         <div
           className={cn(
-            "col-span-4 sm:col-span-1 ",
+            "h-g40t xs:h-g30t col-span-4 sm:col-span-1 sm:h-auto",
             "flex flex-col justify-center",
-            "h-g40t xs:h-g30t sm:h-auto",
           )}
         >
           <CursorSize sizeOnHover={8}>
             <ThemedImage
               className={cn(
-                "scale-115 xs:scale-80 sm:scale-170 md:scale-150 lg:scale-150",
-                "-translate-y-20 xs:-translate-y-16 sm:translate-y-0",
+                "xs:scale-80 scale-115 sm:scale-170 md:scale-150 lg:scale-150",
+                "xs:-translate-y-16 -translate-y-20 sm:translate-y-0",
               )}
               src="/displaced-me.png"
               width={707}
@@ -168,9 +165,7 @@ const About = forwardRef<HTMLElement>(function About({}, ref) {
             classNames={{
               wrapper: cn("h-g50t xs:h-g30t md:h-g20t", "flex flex-col"),
               main: cn(
-                "grow",
-                "py-5 px-9",
-                "text-md xs:text-lg xl:text-xl",
+                "grow py-5 px-9 xs:text-lg xl:text-xl",
                 "flex items-center justify-center",
               ),
             }}

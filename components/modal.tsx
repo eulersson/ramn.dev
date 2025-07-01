@@ -42,20 +42,23 @@ export function Modal({ children }: { children: React.ReactNode }) {
     <div
       className={cn(
         "pointer-events-auto",
-        "w-full h-full",
-        "fixed bg-black/80 inset-0 z-70",
+        "h-full w-full",
+        "fixed inset-0 z-70 bg-black/80",
       )}
       onClick={() => onDismiss()}
     >
       <motion.dialog
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.6 }}
         open
         className={cn(
-          "pointer-events-auto rounded bg-white border-2-fore rounded-xl",
+          "border-2-fore bg-back pointer-events-auto overflow-scroll rounded rounded-xl",
           "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-          "w-[calc(100%-60px)] h-[calc(100%-60px)]",
           "max-w-[1200px]",
-          "sm:w-[calc(100%-150px)] sm:h-[calc(100%-150px)]",
-          "overflow-scroll",
+          "h-[80%] w-[calc(100%-20px)]",
+          "sm:h-[calc(100%-60px)] sm:w-[calc(100%-60px)]",
+          "sm:h-[calc(100%-150px)] sm:w-[calc(100%-150px)]",
         )}
         onClick={(e) => e.stopPropagation()}
       >

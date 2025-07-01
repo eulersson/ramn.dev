@@ -38,7 +38,6 @@ export interface ProjectMetadata {
   title: string;
   name: string;
   description: string;
-  featured?: boolean;
   repo?: string;
   heroImage: string;
 }
@@ -48,6 +47,7 @@ export interface ProjectMetadata {
  */
 export interface Project {
   slug: string;
+  featured: boolean;
   Component: React.ComponentType;
   metadata: ProjectMetadata;
 }

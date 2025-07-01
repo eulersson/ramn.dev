@@ -1,20 +1,43 @@
 export const metadata = {
   title: "dreamdrugs",
   description: "An AI psychedelic art generation playground.",
-  featured: true,
   repo: "eulersson/dreamdrugs",
   heroImage: "/work/dreamdrugs.png",
 };
 
-# dreamdrugs
+Some `backticks` for inline.
+
+```javascript
+backtick.fences("for blocks");
+```
+
+Two **asterisks** for strong.
+
+Some _asterisks_ for emphasis.
+
+Three asterisks for a thematic break:
+
+---
+
+This is an **unordered** list:
+
+- asterisks for unordered items
+- second item
+
+This is an **ordered** list:
+
+1. decimals and a dot for ordered items
+2. second element
+
+This project (in progress) was an encouragement for me to learn microservice
+architecture.
 
 > An extensible AI Psychedelic Art Generation that takes a picture from your
 > webcam and hallucinates on it using various deep dreaming algorithms.
 
 ![Dreamdrugs App](/work/dreamdrugs/app.png)
 
-This project (in progress) was an excuse for me to learn microservice
-architecture. It’s designed to be scalable (developed using Kubernetes and
+It’s designed to be scalable (developed using Kubernetes and
 Helm). The frontend is composed by a React application served (alongside a
 frontend API) by an Express server. The backend is a Python TensorFlow Flask
 app running on Gunicorn. Both communicate realtime updates via a Redis cluster
@@ -22,11 +45,11 @@ installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
 having an array of NGINX servers on each node (DaemonSet) receiving the
 requests based on repeated DNS entry names pointing at each node. I wrote so I
 (or others) can plug more trained ML models and have different kinds of
-hallucinations.
+hallucinations. Another link [GitHub](https://github.com/). Let's see how it looks.
 
 Architecture and design choices is discussed in:
 
-[https://github.com/docwhite/dreamdrugs/wiki](https://github.com/docwhite/dreamdrugs/wiki>)
+some text [https://github.com/docwhite/dreamdrugs/wiki](https://github.com/docwhite/dreamdrugs/wiki) before
 
 An AI psychedelic art generation playground.
 

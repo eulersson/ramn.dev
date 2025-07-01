@@ -8,6 +8,7 @@ export async function getAllProjects(): Promise<ProjectInfo[]> {
     const { projects } = await getAllProjectsData();
     return projects.map((project) => ({
       slug: project.slug,
+      featured: project.featured,
       metadata: project.metadata,
     }));
   } catch (error) {

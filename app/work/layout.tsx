@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <LayoutContainer correctHeaderNavbarUpperSpace={false}>
       <div
         className={cn(
-          "mt-[calc(2/8*var(--bg-grid-box-size)+var(--bg-grid-gap))]",
+          "mt-[calc(2/8*var(--bg-grid-box-size)+1*var(--bg-grid-gap))]",
           "xs:mt-[calc(4/8*var(--bg-grid-box-size)+var(--bg-grid-gap))]",
           "sm:mt-[calc(4/8*var(--bg-grid-box-size))]",
           "md:-mt-ggpy",

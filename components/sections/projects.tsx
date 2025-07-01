@@ -56,14 +56,12 @@ const Projects = forwardRef<HTMLElement, {}>(function Projects(
   }, [sectionInView]);
 
   useEffect(() => {
-    async function loadFeaturedProjects() {
+    async function loadProjects() {
       try {
         const projects = await getAllProjects();
         log("[section.Projects]", projects);
         setProjects(projects);
-        setFeaturedProjects(
-          projects.filter((project) => project.metadata.featured),
-        );
+        setFeaturedProjects(projects.filter((project) => project.featured));
         disableSpinner && setLoading(false);
       } catch (error) {
         console.error("Failed to load projects:", error);
@@ -71,7 +69,7 @@ const Projects = forwardRef<HTMLElement, {}>(function Projects(
       }
     }
 
-    loadFeaturedProjects();
+    loadProjects();
   }, []);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {

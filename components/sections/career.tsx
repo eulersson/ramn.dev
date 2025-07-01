@@ -37,7 +37,7 @@ export function Career() {
     headerContext?.headerTranslateYOffsetSpring ?? fallbackMotionValue;
 
   return (
-    <div className={cn("px-ggpn grid grid-cols-4 gap-ggpn")}>
+    <div className={cn("px-ggpn gap-ggpn grid grid-cols-4")}>
       {/* Menu selector with logo */}
       <motion.div
         className={cn(
@@ -53,13 +53,13 @@ export function Career() {
           <div
             className={cn(
               "h-g10t flex flex-col",
-              "flex-wrap xs:flex-nowrap",
+              "xs:flex-nowrap flex-wrap",
               "min-w-g40t xs:min-w-g30t sm:min-w-g30t md:min-w-auto",
             )}
           >
             {jobs.map((job, i) => (
               <div
-                className={`grow font-mono text-sm sm:text-base border-b-2 border-r-2 border-fore underline flex items-center justify-end ${
+                className={`border-fore flex grow items-center justify-end border-r-2 border-b-2 font-mono text-sm underline sm:text-base ${
                   i === activeEmployer
                     ? "bg-fore text-back hover:font-extrabold"
                     : "bg-back text-fore hover:bg-fore hover:text-back"
@@ -100,27 +100,27 @@ export function Career() {
       <div
         className={cn(
           "pointer-events-auto",
-          "col-span-4 md:col-span-3 bg-back flex flex-col",
+          "bg-back col-span-4 flex flex-col md:col-span-3",
           job["lengthy"]
-            ? "h-[calc(18*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] xs:h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t"
-            : "h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t",
+            ? "xs:h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t h-[calc(18*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
+            : "sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]",
         )}
       >
-        <div className="font-mono text-center text-sm mt-3">
+        <div className="mt-3 text-center font-mono text-sm">
           {job["duration"]}
         </div>
-        <div className="font-serif italic text-center text-4xl mb-3">
+        <div className="mb-3 text-center font-serif text-4xl italic">
           {job["title"]}{" "}
           <span className="font-bold">
             @ {job["company"].replace("Moving Picture Company", "MPC")}
           </span>
         </div>
-        <div className="font-mono text-center text-md xs:text-lg text-back bg-fore py-2 my-2">
+        <div className="xs:text-lg text-back bg-fore my-2 py-2 text-center font-mono">
           {job["summary"]}
         </div>
         <motion.ul
           key={job["title"]}
-          className={`font-sans py-3 px/6) space-y-3 px-6 grow`}
+          className={`px/6) grow space-y-3 px-6 py-3 font-sans`}
           initial="hidden"
           animate="show"
           variants={{
@@ -146,7 +146,7 @@ export function Career() {
           ))}
         </motion.ul>
         <div
-          className={`bg-fore px-4 py-4 flex flex-wrap gap-ggpy items-center justify-center`}
+          className={`bg-fore gap-ggpy flex flex-wrap items-center justify-center px-4 py-4`}
         >
           {...job["skills"].map((text, i) => <Tag key={i} text={text} />)}
         </div>

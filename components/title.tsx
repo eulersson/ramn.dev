@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
-import { toBool } from "@/lib";
+import { cn, toBool } from "@/lib";
 
 const Title = forwardRef<
   HTMLHeadingElement,
@@ -30,13 +30,11 @@ const Title = forwardRef<
             type: "spring",
           }}
           ref={ref}
-          className={
-            `italic font-serif font-normal leading-none bg-back border-2-fore-inside shadow-blocky ` +
-            `text-[calc(var(--title-tag-size))] ` +
-            `p-[calc(var(--title-tag-padding))] ` +
-            `pointer-events-auto ` +
-            className
-          }
+          className={cn(
+            "bg-back border-2-fore-inside shadow-blocky pointer-events-auto p-[calc(var(--title-tag-padding))]",
+            "font-serif text-[calc(var(--title-tag-size))] leading-none font-normal italic",
+            className,
+          )}
         >
           {children}
         </motion.h1>

@@ -19,7 +19,7 @@ import { AnimatePresence, motion } from "motion/react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
-import { cn, toRoman } from "@/lib";
+import { cn, toBool, toRoman } from "@/lib";
 import type { ProjectInfo, ProjectMetadata } from "@/types";
 
 export const ProjectCarousel = ({ projects }: { projects: ProjectInfo[] }) => {
@@ -34,25 +34,29 @@ export const ProjectCarousel = ({ projects }: { projects: ProjectInfo[] }) => {
     return;
   }
 
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
+    console.log("[ProjectCarousel] Rendering");
+  }
+
   return (
     <div
       className={cn(
         "pointer-events-auto",
         "bg-back border-2-fore mb-g10n",
         "h-g30y xs:h-g20y",
-        "md:p-[10px] ",
+        "md:p-[10px]",
       )}
     >
-      <div className="relative h-full w-full border-2-fore flex">
+      <div className="border-2-fore relative flex h-full w-full">
         <ProjectSelector
           projects={projects}
           selectedProject={selectedProject}
           setSelectedProject={setSelectedProject}
         />
-        <div className="grow relative overflow-hidden">
+        <div className="relative grow overflow-hidden">
           <AnimatePresence>
             <motion.div
-              className="h-full absolute inset-0 flex flex-col"
+              className="absolute inset-0 flex h-full flex-col"
               key={project.slug}
               initial={{ x: "100%" }}
               animate={{ x: "0%" }}
@@ -60,10 +64,10 @@ export const ProjectCarousel = ({ projects }: { projects: ProjectInfo[] }) => {
               transition={{ type: "tween", ease: "linear", duration: 0.4 }} // Remove spring/bounce, use linear tween
             >
               <div
-                className="w-full h-[20px] bg-fore flex-shrink-0"
+                className="bg-fore h-[20px] w-full flex-shrink-0"
                 style={filmStripeStyle}
               ></div>
-              <div className="flex-1 min-h-0 relative bg-fore px-[60px]">
+              <div className="bg-fore relative min-h-0 flex-1 px-[60px]">
                 <ProjectSummary
                   className="h-full"
                   slug={project.slug}
@@ -71,7 +75,7 @@ export const ProjectCarousel = ({ projects }: { projects: ProjectInfo[] }) => {
                 />
               </div>
               <div
-                className="w-full h-[20px] bg-fore flex-shrink-0"
+                className="bg-fore h-[20px] w-full flex-shrink-0"
                 style={filmStripeStyle}
               ></div>
             </motion.div>
@@ -94,8 +98,8 @@ const ProjectSelector = ({
   <CursorSize sizeOnHover={0.2}>
     <div
       className={cn(
-        "absolute w-full h-[20px] -top-[21px] z-10",
-        "flex gap-1 items-center justify-center",
+        "absolute -top-[21px] z-10 h-[20px] w-full",
+        "flex items-center justify-center gap-1",
       )}
     >
       {projects.map((_, i) => (
@@ -103,8 +107,8 @@ const ProjectSelector = ({
           key={i}
           className={cn(
             "pointer-events-auto",
-            "w-[45px] h-[45px]",
-            "font-serif text-[30px] flex items-center justify-center border-2-fore",
+            "h-[45px] w-[45px]",
+            "border-2-fore flex items-center justify-center font-serif text-[30px]",
             "hover:w-[70px]",
             "transition-[width] duration-150 ease-in-out",
             i == selectedProject ? "text-back bg-fore" : "text-fore bg-back",
@@ -135,13 +139,13 @@ const ProjectSummary = forwardRef<
 
   return (
     <div ref={ref} className={cn("relative flex", className)}>
-      <div className="absolute w-full h-full flex flex-col justify-between">
+      <div className="absolute flex h-full w-full flex-col justify-between">
         <motion.span
           initial={{ x: -150 }}
           animate={{ x: 5 }}
           transition={{ delay: 0.5 }}
           className={cn(
-            "font-mono text-back",
+            "text-back font-mono",
             "origin-top-left rotate-90",
             "text-[24px]",
           )}
@@ -151,9 +155,9 @@ const ProjectSummary = forwardRef<
         {description && (
           <motion.p
             className={cn(
-              "text-center text-[#ff0] text-ellipsis",
+              "z-10 text-center text-ellipsis text-[#ff0]",
 
-              "text-[14px] leading-[18px] max-h-[36px]",
+              "max-h-[36px] text-[14px] leading-[18px]",
               "xs:text-[14px] xs:leading-[18px] xs:max-h-[36px]",
               "md:text-[20px] md:leading-[26px] md:max-xl:max-h-[52px]",
 
@@ -173,14 +177,25 @@ const ProjectSummary = forwardRef<
       </div>
       <CursorSize sizeOnHover={0.4} className="w-full">
         <Link href={`/work/${slug}`} className="w-full">
-          <Image
-            className="w-full h-full rounded-xl xs:rounded-2xl sm:rounded-4xl"
-            src={heroImage}
-            width={900}
-            height={900}
-            style={{ objectFit: "cover" }}
-            alt={slug}
-          />
+          <div
+            className={cn(
+              "bg-back h-full w-full",
+              "xs:rounded-2xl sm:rounded-4xl",
+            )}
+          >
+            <Image
+              onLoad={(event) =>
+                event.currentTarget.classList.remove("opacity-0")
+              }
+              className={cn(
+                "h-full w-full object-cover opacity-0 transition-opacity duration-1000",
+                "xs:rounded-2xl sm:rounded-4xl",
+              )}
+              fill
+              src={heroImage}
+              alt={slug}
+            />
+          </div>
         </Link>
       </CursorSize>
     </div>
@@ -189,9 +204,9 @@ const ProjectSummary = forwardRef<
 
 const filmStripeStyle: CSSProperties = {
   height: "20px",
-  backgroundColor: "black",
+  backgroundColor: "var(--col-fore)",
   backgroundImage:
-    "repeating-linear-gradient(to right, black 0px, black 6px, white 6px, white 13px, black 13px, black 19px)",
+    "repeating-linear-gradient(to right, var(--col-fore) 0px, var(--col-fore) 6px, var(--col-back) 6px, var(--col-back) 13px, var(--col-fore) 13px, var(--col-fore) 19px)",
   backgroundPosition: "0 4px",
   backgroundSize: "19px 12px",
   backgroundRepeat: "repeat-x",

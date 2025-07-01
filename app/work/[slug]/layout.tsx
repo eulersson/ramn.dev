@@ -9,6 +9,8 @@ export default function ProjectLayout({
     console.log("[ProjectLayout] Rendering");
   }
   return (
-    <div className="pointer-events-auto bg-back border-2-fore">{children}</div>
+    <div className="bg-back border-2-fore -mt-ggpy pointer-events-auto">
+      {children}
+    </div>
   );
 }

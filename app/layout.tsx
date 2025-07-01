@@ -8,7 +8,7 @@ import {
 
 // Project
 import { Providers } from "@/app/providers";
-import { toBool } from "@/lib";
+import { cn, toBool } from "@/lib";
 
 const firaMono = Fira_Mono({
   subsets: ["latin"],
@@ -42,7 +42,6 @@ const urbanist = Urbanist({
 
 // Styles
 import "./globals.css";
-import { AnimatePresence } from "motion/react";
 
 export const metadata = {
   title: "Ramon Blanquer | Full Stack Software & Graphics Engineer",
@@ -62,16 +61,25 @@ export default function RootLayout({
   }
 
   return (
-    <html className="invisible-scrollbar" lang="en">
+    <html
+      className="invisible-scrollbar light"
+      lang="en"
+      style={{ colorScheme: "light" }}
+    >
       <body
-        className={
-          `${firaMono.variable} ${nunito.variable} ${playfairDisplay.variable} ${urbanist.variable} ` +
-          "selection:bg-fore selection:text-back " +
-          "bg-back text-fore "
-        }
+        className={cn(
+          firaMono.variable,
+          nunito.variable,
+          playfairDisplay.variable,
+          urbanist.variable,
+          "selection:bg-fore selection:text-back bg-back text-fore",
+        )}
       >
-        <Providers>{children}</Providers>
-        {modal}
+        <Providers>
+          {children}
+          {modal}
+        </Providers>
+
         <div id="modal-root" />
       </body>
     </html>

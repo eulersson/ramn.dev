@@ -15,7 +15,6 @@ export const Terminal = forwardRef<
     children: React.ReactNode;
     disableHighlight?: boolean;
     showCommand?: boolean;
-    textSize?: "xs" | "sm" | "md" | "lg" | "xl";
     className?: string;
   }
 >(function Terminal(
@@ -35,17 +34,17 @@ export const Terminal = forwardRef<
   return (
     <div
       ref={ref}
-      className={`flex flex-col border-2-fore shadow-blocky pointer-events-auto ${className}`}
+      className={`border-2-fore shadow-blocky pointer-events-auto flex flex-col ${className}`}
     >
-      <div className="bg-fore p-[10px] flex space-x-[10px]">
+      <div className="bg-fore flex space-x-[10px] p-[10px]">
         {[...Array(3)].map((_, i) => (
           <div
-            className="w-[17px] h-[17px] bg-back hover:bg-[#eee] transition-colors rounded-full"
+            className="bg-back h-[17px] w-[17px] rounded-full transition-colors hover:bg-[#eee]"
             key={i}
           ></div>
         ))}
       </div>
-      <div className={`grow bg-back p-5`}>
+      <div className={`bg-back grow p-5`}>
         <pre>
           ${" "}
           {showCommand && (
