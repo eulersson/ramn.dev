@@ -40,6 +40,7 @@ export interface ProjectMetadata {
   description: string;
   repo?: string;
   heroImage: string;
+  headerImage?: string;
 }
 
 /**

@@ -20,7 +20,7 @@ export const SingleProject = async ({ project }: { project: Project }) => {
       <SingleProjectHeader
         title={metadata.title}
         subtitle={metadata.description}
-        imageSrc={metadata.heroImage}
+        imageSrc={metadata.headerImage || metadata.heroImage}
       />
       <SingleProjectBody readmeMarkdown={readmeMarkdown}>
         <Component />
