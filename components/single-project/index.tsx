@@ -16,7 +16,7 @@ export const SingleProject = async ({ project }: { project: Project }) => {
   }
 
   return (
-    <article>
+    <article id="project">
       <SingleProjectHeader
         title={metadata.title}
         subtitle={metadata.description}
