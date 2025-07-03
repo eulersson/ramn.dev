@@ -17,6 +17,7 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
   const [cols, setCols] = useState(4);
   const bpSm = useBreakpoint("sm");
   const isSmallerThanSm = bpSm.isSmaller;
+
   useEffect(() => {
     setCols(isSmallerThanSm ? 2 : 4);
   }, [isSmallerThanSm]);
@@ -25,7 +26,7 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
     <div
       className={cn(
         "pointer-events-auto",
-        "grid grid-cols-2 sm:grid-cols-4 gap-ggpn border-2-fore bg-fore",
+        "gap-ggpn border-2-fore bg-fore grid grid-cols-2 sm:grid-cols-4",
       )}
     >
       {projects.map((project, i) => (
@@ -33,11 +34,15 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
           key={i}
           column={i % cols}
           numColumns={cols}
-          className="h-[calc(2*var(--bg-grid-box-size)+2px)] sm:h-g10n"
+          className="sm:h-g10n h-[calc(2*var(--bg-grid-box-size)+2px)]"
           frontContent={
             <Image
-              className="w-full h-full"
+              className="transition-scale h-full w-full scale-0 object-cover duration-[2s]"
               src={project.metadata["heroImage"]}
+              onLoad={(event) => {
+                event.currentTarget.classList.remove("scale-0");
+                event.currentTarget.classList.add("scale-100");
+              }}
               width={250}
               height={250}
               style={{ objectFit: "cover" }}
@@ -48,11 +53,11 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
             <Link href={`/work/${project.slug}`}>
               <div
                 className={cn(
-                  "w-full h-full flex flex-col justify-center bg-fore",
+                  "bg-fore flex h-full w-full flex-col justify-center",
                 )}
               >
                 <p>
-                  <span className="font-mono bg-fore text-back">
+                  <span className="bg-fore text-back font-mono">
                     {project.metadata["title"]}
                   </span>
                 </p>

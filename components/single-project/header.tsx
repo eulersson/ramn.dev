@@ -6,17 +6,24 @@ import Image from "next/image";
 // Project
 import { Subtitle } from "@/components/subtitle";
 import { Title } from "@/components/title";
-import { cn } from "@/lib";
-import { ProjectMetadata } from "@/types";
+import { cn, toBool } from "@/lib";
 
-export const SingleProject = ({
-  project,
-  children,
+export const SingleProjectHeader = ({
+  title,
+  subtitle,
+  imageSrc,
 }: {
-  project: ProjectMetadata;
-  children: React.ReactNode;
-}) => (
-  <article>
+  title: string;
+  subtitle: string;
+  imageSrc: string;
+}) => {
+  if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
+    console.log(
+      "[SingleProjectHeader] Rendering /components/single-project/header.tsx",
+    );
+  }
+
+  return (
     <div className="relative w-full">
       <Image
         onLoad={(event) => {
@@ -24,8 +31,8 @@ export const SingleProject = ({
           event.currentTarget.classList.add("scale-100");
         }}
         className="transition-scale scale-0 object-cover duration-[2s]"
-        src={project.heroImage}
-        alt={project.title}
+        src={imageSrc}
+        alt={title}
         fill
         priority
       />
@@ -35,10 +42,9 @@ export const SingleProject = ({
           "border-fore flex flex-col items-center gap-5 border-b-2 py-10",
         )}
       >
-        <Title>{project.title}</Title>
-        <Subtitle>{project.description}</Subtitle>
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
       </div>
     </div>
-    <div className="px-6 py-3 font-extralight dark:font-light">{children}</div>
-  </article>
-);
+  );
+};

@@ -20,12 +20,14 @@ export function ThemedImage({
   height,
   src,
   alt,
+  invert,
   className = "",
 }: {
   width: number;
   height: number;
   src: string;
   alt: string;
+  invert?: boolean;
   className?: string;
 }) {
   const { resolvedTheme } = useTheme();
@@ -45,10 +47,10 @@ export function ThemedImage({
   let srcThemed: string;
   switch (resolvedTheme) {
     case "light":
-      srcThemed = `${fileName}.${extension}`;
+      srcThemed = `${fileName}${invert ? "-inverted" : ""}.${extension}`;
       break;
     case "dark":
-      srcThemed = `${fileName}-dark.${extension}`;
+      srcThemed = `${fileName}-dark${invert ? "-inverted" : ""}.${extension}`;
       break;
     default:
       srcThemed =

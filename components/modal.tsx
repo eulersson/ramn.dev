@@ -48,10 +48,10 @@ export function Modal({ children }: { children: React.ReactNode }) {
       onClick={() => onDismiss()}
     >
       <motion.dialog
+        open
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.6 }}
-        open
         className={cn(
           "border-2-fore bg-back pointer-events-auto overflow-scroll rounded rounded-xl",
           "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",

@@ -50,6 +50,7 @@ export interface Project {
   featured: boolean;
   Component: React.ComponentType;
   metadata: ProjectMetadata;
+  readmeMarkdown?: string;
 }
 
 /**

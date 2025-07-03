@@ -1,28 +1,34 @@
+// Next.js
+
 import { Modal } from "@/components/modal";
 import { SingleProject } from "@/components/single-project";
 import { toBool } from "@/lib";
-import { getOneProjectData } from "@/lib/projects";
+import { getAllProjectSlugs, getOneProjectData } from "@/lib/projects";
+
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return getAllProjectSlugs().map((slug) => ({slug}));
+}
+
 
 export default async function ProjectModal({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const projectSlug = (await params).slug;
-
-  const { metadata, Component } = await getOneProjectData(projectSlug);
+  const { slug } = await params;
+  const project = await getOneProjectData(slug);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log(
-      "[Modal] [ProjectPage] Rendering app/@modal/.(work)/[slug]/page.ts",
-      projectSlug,
+      "[ProjectModal] Rendering app/@modal/(.)work/[slug]/page.tsx",
+      slug,
     );
   }
+
   return (
     <Modal>
-      <SingleProject project={metadata}>
-        <Component />
-      </SingleProject>
+      <SingleProject project={project} />
     </Modal>
   );
 }

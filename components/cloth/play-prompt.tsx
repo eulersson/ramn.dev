@@ -17,19 +17,19 @@ import cursorIcon from "@/public/cursor.svg";
 export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
   const { theme } = useTheme();
   return (
-    <div className="bg-fore text-back w-full h-full flex items-center justify-center">
+    <div className="bg-fore text-back flex h-full w-full items-center justify-center">
       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
         <CursorSize sizeOnHover={8}>
           <motion.div
             onClick={onClick}
             className={cn(
-              "relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90 ",
-              "scale-60 md:scale-100 hover:scale-50",
+              "relative p-[5px] transition-transform duration-1000 ease-in-out hover:rotate-90",
+              "scale-60 hover:scale-50 md:scale-100",
             )}
           >
             {/* Grid. */}
             <div
-              className=" w-[300px] h-[300px]"
+              className="h-[300px] w-[300px]"
               style={{
                 backgroundImage:
                   "repeating-linear-gradient(var(--col-back) 0 2px, transparent 1px 100%), " +
@@ -57,7 +57,7 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
         </CursorSize>
 
         {/* Cursor. */}
-        <div className="absolute top-[calc(50%-50px)] right-[calc(50%-40px)] pointer-events-none rotate-180 translate-x-3 translate-y-14">
+        <div className="pointer-events-none absolute top-[calc(50%-50px)] right-[calc(50%-40px)] translate-x-3 translate-y-14 rotate-180">
           <div className="animate-bounce">
             <div className="rotate-180">
               {theme === "dark" ? (
@@ -70,10 +70,10 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
         </div>
 
         {/* Pinging sphere. */}
-        <div className="absolute top-[50%] right-[50%] pointer-events-none">
-          <div className="absolute -ml-[8px] -mt-[8px]">
-            <div className="absolute rounded-full w-[16px] h-[16px] bg-back"></div>
-            <div className="absolute animate-ping rounded-full w-[16px] h-[16px] bg-back"></div>
+        <div className="pointer-events-none absolute top-[50%] right-[50%]">
+          <div className="absolute -mt-[8px] -ml-[8px]">
+            <div className="bg-back absolute h-[16px] w-[16px] rounded-full"></div>
+            <div className="bg-back absolute h-[16px] w-[16px] animate-ping rounded-full"></div>
           </div>
         </div>
       </motion.div>
