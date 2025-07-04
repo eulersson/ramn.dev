@@ -180,7 +180,7 @@ const ProjectSummary = forwardRef<
           <div
             className={cn(
               "bg-back h-full w-full",
-              "xs:rounded-2xl sm:rounded-4xl",
+              "xs:rounded-2xl rounded-xl sm:rounded-4xl",
             )}
           >
             <Image
@@ -189,7 +189,7 @@ const ProjectSummary = forwardRef<
               }
               className={cn(
                 "h-full w-full object-cover opacity-0 transition-opacity duration-1000",
-                "xs:rounded-2xl sm:rounded-4xl",
+                "xs:rounded-2xl rounded-xl sm:rounded-4xl",
               )}
               fill
               src={heroImage}
