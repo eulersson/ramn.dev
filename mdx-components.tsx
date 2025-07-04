@@ -66,7 +66,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <pre
         className={cn(
           className,
-          "bg-fore/80 my-2 rounded p-5 selection:text-white",
+          "bg-fore/80 pointer-events-auto my-2 overflow-x-scroll rounded p-5 selection:text-white",
         )}
       >
         {children}
