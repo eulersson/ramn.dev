@@ -64,7 +64,10 @@ export function Ribbon({ repo }: { repo?: string }) {
                 />
                 GitHub
               </a>
-              <Link href="/work" className={anchorClasses}>
+              <Link
+                href="/work"
+                className={cn(anchorClasses, "group-[.is-open]/modal:hidden")}
+              >
                 <Grid3x3 width={15} height={15} />
                 All Projects
               </Link>
