@@ -97,7 +97,7 @@ export function ThemeSwitch() {
 
   const moon = (
     <motion.svg
-      className="absolute left-[14px] top-[8px]"
+      className="absolute top-[8px] left-[14px]"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -117,7 +117,7 @@ export function ThemeSwitch() {
 
   const sun = (
     <motion.svg
-      className="absolute right-[14px] top-[7px]"
+      className="absolute top-[7px] right-[14px]"
       width="18"
       height="18"
       viewBox="0 0 24 24"
@@ -172,7 +172,7 @@ export function ThemeSwitch() {
       >
         <CursorSize sizeOnHover={0.4}>
           <motion.label
-            className="relative inline-block w-[70px] h-[34px]"
+            className="relative inline-block h-[34px] w-[70px]"
             onMouseEnter={() => {
               scale.set(1.15);
             }}
@@ -183,7 +183,7 @@ export function ThemeSwitch() {
           >
             <input
               type="checkbox"
-              className="opacity-0 w-0 h-0"
+              className="h-0 w-0 opacity-0"
               checked={isDark}
               onChange={() => setTheme(isDark ? "light" : "dark")}
             />
