@@ -32,8 +32,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <blockquote
         className={cn(
           "text-fore/60 border-fore/80 bg-fore/10",
-          "mx-10 my-5 border-l-1 p-10 py-4",
-          "text-left text-lg italic",
+          "my-5 border-l-1 p-5 py-4 sm:mx-10 sm:p-10",
+          "text-left italic sm:text-lg",
         )}
       >
         {children}
