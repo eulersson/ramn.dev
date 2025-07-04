@@ -7,8 +7,8 @@ import remarkGfm from "remark-gfm";
 import { ThemedImage } from "@/components/themed-image";
 
 // Project - Local
+import { cn, toBool } from "@/lib";
 import { useMDXComponents } from "@/mdx-components";
-import { toBool } from "@/lib";
 
 export const SingleProjectBody = ({
   readmeMarkdown,
@@ -34,7 +34,10 @@ export const SingleProjectBody = ({
           <a
             href={`https://github.com/${repo}`}
             target="_blank"
-            className="group bg-fore hover:border-2-fore hover:shadow-blocky border-2-back hover:bg-back hover:text-fore text-back my-5 flex justify-center gap-2 p-5"
+            className={cn(
+              "group bg-fore hover:border-2-fore hover:shadow-blocky border-2-back hover:bg-back hover:text-fore text-back",
+              "my-5 flex justify-center gap-2 p-5",
+            )}
           >
             <ArrowDown />
             <ThemedImage

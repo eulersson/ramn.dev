@@ -186,7 +186,6 @@ export function HeaderProvider({
   correctNavbarUpperSpace: boolean;
   children: React.ReactNode;
 }) {
-  const isTouchDevice = useTouchDevice();
   const initialScrollChangeHappened = useRef<boolean>(false);
 
   const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
