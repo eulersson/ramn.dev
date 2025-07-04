@@ -12,9 +12,11 @@ import { toBool } from "@/lib";
 
 export const SingleProjectBody = ({
   readmeMarkdown,
+  repo,
   children,
 }: {
   readmeMarkdown?: string;
+  repo?: string;
   children: React.ReactNode;
 }) => {
   const mdxComponents = useMDXComponents({});
@@ -29,18 +31,30 @@ export const SingleProjectBody = ({
       {children}
       {readmeMarkdown && (
         <>
-          <div className="bg-fore text-back my-5 flex justify-center gap-2 p-5">
+          <a
+            href={`https://github.com/${repo}`}
+            target="_blank"
+            className="group bg-fore hover:border-2-fore hover:shadow-blocky border-2-back hover:bg-back hover:text-fore text-back my-5 flex justify-center gap-2 p-5"
+          >
             <ArrowDown />
             <ThemedImage
+              className="block group-hover:hidden"
               src="/github.svg"
               alt="GitHub Logo"
               width={24}
               height={24}
               invert
             />
+            <ThemedImage
+              className="hidden group-hover:block"
+              src="/github.svg"
+              alt="GitHub Logo"
+              width={24}
+              height={24}
+            />
             <strong className="font-black">GitHub</strong> README.md
             <ArrowDown />
-          </div>
+          </a>
           <MDXRemote
             source={readmeMarkdown}
             options={{

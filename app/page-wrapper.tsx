@@ -87,12 +87,12 @@ export function LayoutContainer({
       <div
         key="layout-container"
         className={cn(
-          "absolute w-full flex justify-center",
+          "absolute flex w-full justify-center",
           "pointer-events-none", // allows background tile hover
           className,
         )}
       >
-        <div className="w-g40y lg:w-g40y xl:w-g40y">
+        <div className="w-g40y">
           <HeaderProvider
             headerRef={headerRef}
             correctNavbarUpperSpace={correctHeaderNavbarUpperSpace}

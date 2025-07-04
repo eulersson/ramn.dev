@@ -44,6 +44,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
         "pointer-events-auto",
         "h-full w-full",
         "fixed inset-0 z-70 bg-black/80",
+        "group/modal is-open",
       )}
       onClick={() => onDismiss()}
     >
