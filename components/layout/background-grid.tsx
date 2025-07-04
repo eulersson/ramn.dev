@@ -11,7 +11,7 @@ import { useInView } from "motion/react";
 
 // Project
 import { useBreakpoint, useBreakpointChange } from "@/hooks/breakpoint";
-import { toBool } from "@/lib";
+import { sleep, toBool } from "@/lib";
 
 // Styles
 import "./background-grid.css";
@@ -128,9 +128,6 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
         const row = Math.floor(i / boxesPerRow);
         return (i + row) % 2 === 0;
       });
-
-      const sleep = (ms: number) =>
-        new Promise((resolve) => setTimeout(resolve, ms));
 
       const animateBoxes = async () => {
         oddBoxes.forEach((box) => box.classList.add(rounded));

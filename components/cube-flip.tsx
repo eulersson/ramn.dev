@@ -1,43 +1,66 @@
+"use client";
+
 // React
 import React, { useEffect, useRef, useState } from "react";
 
+// Next.js
+import Image from "next/image";
+
 // Third-Party
-import { useInView, useScroll } from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 
 // Project
-import { cn } from "@/lib";
+import { cn, sleep } from "@/lib";
+import cursorIconDark from "@/public/cursor-dark.svg";
+import cursorIcon from "@/public/cursor.svg";
+import { useTheme } from "next-themes";
 
 export const CubeFlip = ({
   frontContent,
   backContent,
   column,
   className,
+  showClickAnimation,
   onClick,
 }: {
   frontContent: React.ReactNode;
   backContent: React.ReactNode;
   column: number;
   className: string;
+  showClickAnimation?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
-  const [autoHoverDone, setaAutoHoverDone] = useState(false);
+  const [animationRunning, setAnimationRunning] = useState(false);
+  const cursorIconRef = useRef<HTMLDivElement>(null);
+  const [autoHoverDone, setAutoHoverDone] = useState(false);
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: "-50% 0px -50% 0px" });
 
-  useEffect(() => {
-    if (inView && !autoHoverDone) {
-      setTimeout(() => {
-        setHovered(true);
-      }, 300 * column);
+  const { theme } = useTheme();
 
-      setTimeout(
-        () => {
-          setHovered(false);
-          setaAutoHoverDone(true);
-        },
-        300 * column + 300,
-      );
+  useEffect(() => {
+    if (inView && showClickAnimation) {
+      (async function () {
+        await sleep(300 * column);
+        await sleep(1000);
+        setHovered(true);
+        await sleep(100);
+        setAnimationRunning(true);
+        await sleep(1250);
+        setAnimationRunning(false);
+        await sleep(100);
+        setHovered(false);
+        setAutoHoverDone(true);
+      })();
+    } else if (inView && !autoHoverDone) {
+      (async function () {
+        await sleep(300 * column);
+        setHovered(true);
+        await sleep(300);
+        setHovered(false);
+        setAutoHoverDone(true);
+      })();
     }
   }, [inView]);
 
@@ -75,8 +98,34 @@ export const CubeFlip = ({
           onMouseLeave={() => setHovered(false)}
         >
           <div className={cn("front-face h-full w-full")}>{frontContent}</div>
-          <div className="back-face absolute top-full left-0 h-full w-full origin-top -rotate-x-90 transform">
-            {backContent}
+          <div className="back-face absolute top-full left-0 h-full w-full origin-top -rotate-x-90">
+            <div className="relative h-full w-full">
+              <AnimatePresence>
+                {showClickAnimation && animationRunning && (
+                  <motion.div
+                    ref={cursorIconRef}
+                    animate={{
+                      scale: [0, 1, 1, 1, 1, 0.5, 1, 1],
+                      transition: { duration: 1 },
+                    }}
+                    exit={{
+                      scale: 0,
+                      transition: {
+                        duration: 0.2,
+                      },
+                    }}
+                    className="pointer-events-none absolute top-[calc(50%-60px)] left-[calc(50%-45px)] z-100 scale-75"
+                  >
+                    {theme === "dark" ? (
+                      <Image width={100} src={cursorIconDark} alt="Cursor" />
+                    ) : (
+                      <Image width={100} src={cursorIcon} alt="Cursor" />
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {backContent}
+            </div>
           </div>
         </div>
       </div>

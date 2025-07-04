@@ -33,7 +33,8 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
         <CubeFlip
           key={i}
           column={i % cols}
-          className="sm:h-g10n h-[calc(2*var(--bg-grid-box-size)+2px)]"
+          className="cube sm:h-g10n h-[calc(2*var(--bg-grid-box-size)+2px)]"
+          showClickAnimation={i == 0}
           frontContent={
             <Image
               className="transition-scale h-full w-full scale-0 object-cover duration-[2s]"
