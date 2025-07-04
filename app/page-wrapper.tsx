@@ -12,6 +12,8 @@ import { BackgroundGrid } from "@/components/layout/background-grid";
 import { Navbar } from "@/components/layout/navbar";
 import { Hero } from "@/components/sections/hero";
 import { cn, toBool } from "@/lib";
+import { useBreakpoint } from "@/hooks/breakpoint";
+import settings from "@/config/settings";
 
 export function PageWrapper({
   children,
@@ -46,6 +48,15 @@ export function PageWrapper({
     };
   }, []);
 
+  const [heroEnter, setHeroEnter] = useState(false);
+
+  const { isSmaller } = useBreakpoint(settings.navBarHorizontalAtBreakpoint);
+  const navbarVertical = isSmaller;
+
+  useEffect(() => {
+    setCorrectHeaderNavbarUpperSpace(!heroEnter && navbarVertical);
+  }, [navbarVertical, heroEnter]);
+
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log("[PageWrapper] Rendering");
   }
@@ -58,7 +69,7 @@ export function PageWrapper({
           key="hero"
           ref={heroRef}
           onEnterLeave={(enter) => {
-            setCorrectHeaderNavbarUpperSpace(!enter);
+            setHeroEnter(enter);
           }}
         />
       )}

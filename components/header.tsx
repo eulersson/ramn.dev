@@ -28,6 +28,8 @@ import { useBreakpoint } from "@/hooks/breakpoint";
 import { useTouchDevice } from "@/hooks/browser";
 import { cn, toBool } from "@/lib";
 import { forwardRef } from "react";
+import { usePathname } from "next/navigation";
+import { isTouchDevice } from "@/lib/browser";
 
 const SCROLL_THRESHOLD = 800;
 
@@ -46,30 +48,30 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
     <motion.div
       className={cn(
         "pointer-events-auto",
-        "sticky top-0 h-(--header-height) w-full flex justify-center z-50",
+        "sticky top-0 z-50 flex h-(--header-height) w-full justify-center",
       )}
     >
       <motion.header
         ref={headerRef}
-        className="w-g40y grid grid-cols-4 grid-rows-2 gap-ggpn border-2-fore bg-fore"
+        className="w-g40y gap-ggpn border-2-fore bg-fore grid grid-cols-4 grid-rows-2"
         style={{ y: headerTranslateYSpring }}
       >
         {/* Logo */}
         <div
           className={cn(
-            "row-start-1 row-span-2",
+            "row-span-2 row-start-1",
             "md:pt-[6px] md:pl-[14px]",
             "max-md:flex max-md:items-center max-md:justify-center",
             "bg-back hover:bg-fore text-fore hover:text-back",
-            "active:scale-75 transition-[scale]",
+            "transition-[scale] active:scale-75",
           )}
         >
           <CursorSize sizeOnHover={0.4}>
             <Link href="/">
               <h1
                 className={cn(
-                  "font-title inline select-none center",
-                  "text-[42px] lg:text-[44px] leading-[34px] lg:leading-[30px]",
+                  "font-title center inline select-none",
+                  "text-[42px] leading-[34px] lg:text-[44px] lg:leading-[30px]",
                 )}
               >
                 <span className="hidden md:inline">Ram⬢n Blanquer</span>
@@ -78,14 +80,14 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
                   <br />
                   mon
                 </span>
-                <span className="hidden xs:max-sm:inline">ramn</span>
-                <span className="hidden max-xs:inline">Rb</span>
+                <span className="xs:max-sm:inline hidden">ramn</span>
+                <span className="max-xs:inline hidden">Rb</span>
               </h1>
             </Link>
           </CursorSize>
         </div>
         {/* Social */}
-        <div className="bg-back flex gap-2 items-center justify-center col-span-2 sm:col-span-1">
+        <div className="bg-back col-span-2 flex items-center justify-center gap-2 sm:col-span-1">
           <CursorSize sizeOnHover={0.4}>
             <a href="https://github.com/eulersson" target="_blank">
               <ThemedImage
@@ -93,7 +95,7 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
                 alt="GitHub Logo"
                 width={24}
                 height={24}
-                className="transition-transform active:scale-75 hover:p-[2px] hover:border-2-fore"
+                className="hover:border-2-fore transition-transform hover:p-[2px] active:scale-75"
               />
             </a>
           </CursorSize>
@@ -104,7 +106,7 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
                 alt="LinkedIn Logo"
                 width={24}
                 height={24}
-                className="transition-transform active:scale-75 hover:p-[2px] hover:border-2-fore"
+                className="hover:border-2-fore transition-transform hover:p-[2px] active:scale-75"
               />
             </a>
           </CursorSize>
@@ -115,34 +117,34 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
                 alt="X Logo"
                 width={24}
                 height={24}
-                className="transition-transform active:scale-75 hover:p-[2px] hover:border-2-fore"
+                className="hover:border-2-fore transition-transform hover:p-[2px] active:scale-75"
               />
             </a>
           </CursorSize>
           <CursorSize sizeOnHover={0.4}>
             <a href="https://notes.ramn.dev/" target="_blank">
-              <Brain className="transition-transform active:scale-75 hover:border-2-fore" />
+              <Brain className="hover:border-2-fore transition-transform active:scale-75" />
             </a>
           </CursorSize>
         </div>
         {/* Resume */}
-        <div className="flex items-center justify-center bg-back">
-          <Button link="/CV.pdf" className="max-sm:hidden px-4">
+        <div className="bg-back flex items-center justify-center">
+          <Button link="/CV.pdf" className="px-4 max-sm:hidden">
             CV Resume
           </Button>
           <a
-            className="sm:hidden font-mono text-[15px] sm:text-[18px] underline hover:font-bold"
+            className="font-mono text-[15px] underline hover:font-bold sm:hidden sm:text-[18px]"
             href="/CV.pdf"
             target="_blank"
           >
-            Resume<span className="hidden xs:inline"> (CV)</span>
+            Resume<span className="xs:inline hidden"> (CV)</span>
           </a>
         </div>
         {/* Email */}
-        <div className="row-start-2 col-start-2 col-end-5 sm:col-end-4 flex items-center justify-center bg-back ">
+        <div className="bg-back col-start-2 col-end-5 row-start-2 flex items-center justify-center sm:col-end-4">
           <CursorSize sizeOnHover={0.4}>
             <a
-              className="font-mono text-[15px] sm:text-[18px] underline hover:font-bold"
+              className="font-mono text-[15px] underline hover:font-bold sm:text-[18px]"
               href="mailto:blanquer.ramon@gmail.com"
             >
               blanquer.ramon@gmail.com
@@ -150,17 +152,17 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
           </CursorSize>
         </div>
         {/* Motto */}
-        <div className="max-sm:hidden row-start-1 col-start-4 row-span-2 col-span-1 flex items-center bg-back ">
-          <div className="leading-[20px] text-[15px] flex flex-col gap-ggpn">
+        <div className="bg-back col-span-1 col-start-4 row-span-2 row-start-1 flex items-center max-sm:hidden">
+          <div className="gap-ggpn flex flex-col text-[15px] leading-[20px]">
             <div className="flex">
-              <pre className="font-mono inline-block bg-fore text-back">
+              <pre className="bg-fore text-back inline-block font-mono">
                 from code to deployment;
               </pre>
             </div>
             <div className="flex">
-              <pre className="font-mono inline-block bg-fore text-back">
+              <pre className="bg-fore text-back inline-block font-mono">
                 from back to front
-                <span className="inline-block animate-blinky bg-fore text-back">
+                <span className="animate-blinky bg-fore text-back inline-block">
                   ;
                 </span>
               </pre>
@@ -202,6 +204,8 @@ export function HeaderProvider({
 
   const { activeSectionIdx } = useSection();
 
+  const pathname = usePathname();
+
   useEffect(() => {
     if (correctNavbarUpperSpace && navbarVertical) {
       const offset = (activeSectionIdx + 1) * 28;
@@ -219,20 +223,18 @@ export function HeaderProvider({
     if (!correctNavbarUpperSpace) {
       return;
     }
+
     if (toBool(process.env.NEXT_PUBLIC_DISABLE_HEADER_HIDE_ON_SCROLL)) {
       return;
     }
 
-    if (!isTouchDevice) {
-      return;
-    }
     // Protect against the initial scroll in case you refresh after having scrolled.
     if (initialScrollChangeHappened.current === false) {
       initialScrollChangeHappened.current = true;
       return;
     }
 
-    const offset = (activeSectionIdx + 1) * 28;
+    const offset = pathname === "/" ? (activeSectionIdx + 1) * 28 : 0;
     if (scrollVelocity.get() < 0) {
       headerTranslateY.set(offset);
       headerTranslateYOffset.set(
