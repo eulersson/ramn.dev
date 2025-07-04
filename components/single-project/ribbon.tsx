@@ -1,13 +1,23 @@
 "use client";
 
+// Next.js
+import Link from "next/link";
+
 // Third-Party
 import { motion, useMotionValue } from "motion/react";
+import { Grid3x3 } from "lucide-react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
 import { useHeader } from "@/components/header";
 import { ThemedImage } from "@/components/themed-image";
 import { cn } from "@/lib";
+
+const anchorClasses = cn(
+  "bg-fore text-back hover:text-fore hover:bg-back  px-2 border-fore first:border-l-0 border-l-2  border-r-2 border-b-2",
+  "flex items-center justify-center gap-1",
+  "group",
+);
 
 export function Ribbon({ repo }: { repo?: string }) {
   const headerContext = useHeader();
@@ -26,35 +36,39 @@ export function Ribbon({ repo }: { repo?: string }) {
       >
         <CursorSize sizeOnHover={0.4}>
           {repo && (
-            <a
-              href={`https://github.com/${repo}`}
-              target="_blank"
+            <div
               className={cn(
-                "bg-fore text-back hover:text-fore hover:bg-back hover:border-fore hover:border-r-2 hover:border-b-2",
-                "h-[calc(6*var(--spacing))] w-[70px] text-[12px]",
-                "right-[calc(50%-2*var(--bg-grid-box-size)-1.5*var(--bg-grid-gap))]",
-                "origin-top-right translate-y-[70px] rotate-90",
-                "flex items-center justify-center gap-1",
-                "group",
+                "gap-ggpn flex text-[12px]",
+                "right-[calc(50%-2*var(--bg-grid-box-size)-1.5*var(--bg-grid-gap))] h-[calc(6*var(--spacing))] w-[200px] origin-top-right translate-y-[200px] rotate-90",
               )}
             >
-              <ThemedImage
-                className="block group-hover:hidden"
-                src="/github.svg"
-                alt="GitHub Logo"
-                width={15}
-                height={15}
-                invert
-              />
-              <ThemedImage
-                className="hidden group-hover:block"
-                src="/github.svg"
-                alt="GitHub Logo"
-                width={15}
-                height={15}
-              />
-              GitHub
-            </a>
+              <a
+                href={`https://github.com/${repo}`}
+                target="_blank"
+                className={anchorClasses}
+              >
+                <ThemedImage
+                  className="block group-hover:hidden"
+                  src="/github.svg"
+                  alt="GitHub Logo"
+                  width={15}
+                  height={15}
+                  invert
+                />
+                <ThemedImage
+                  className="hidden group-hover:block"
+                  src="/github.svg"
+                  alt="GitHub Logo"
+                  width={15}
+                  height={15}
+                />
+                GitHub
+              </a>
+              <Link href="/work" className={anchorClasses}>
+                <Grid3x3 width={15} height={15} />
+                All Projects
+              </Link>
+            </div>
           )}
         </CursorSize>
       </motion.div>
