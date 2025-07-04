@@ -1,4 +1,4 @@
-import { toBool } from "@/lib";
+import { cn, toBool } from "@/lib";
 
 export default function ProjectLayout({
   children,
@@ -9,7 +9,12 @@ export default function ProjectLayout({
     console.log("[ProjectLayout] Rendering");
   }
   return (
-    <div className="bg-back border-2-fore -mt-ggpy pointer-events-auto">
+    <div
+      className={cn(
+        "bg-back border-2-fore -mt-ggpy pointer-events-auto",
+        "max-xs:mt-g02n xs:max-sm:mt-g04n",
+      )}
+    >
       {children}
     </div>
   );
