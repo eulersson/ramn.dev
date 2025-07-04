@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 
 // Next.js
-import { useTheme } from "next-themes";
 import Image from "next/image";
 
 // Third-Party
@@ -16,6 +15,7 @@ import {
   useTransform,
   useVelocity,
 } from "motion/react";
+import { useTheme } from "next-themes";
 
 // Third-Party - 3D
 import {
@@ -43,17 +43,17 @@ export function Cloth({
 }: {
   scrollYProgress: MotionValue<number>;
 }) {
-  // Particle system references.
+  // Particle system references
   const particleSystemRef = useRef(new ParticleSystem());
   const particleSystem = particleSystemRef.current;
 
-  // Cursor.
+  // Cursor
   const cursorContext = useCursor();
 
-  // Theme.
+  // Theme
   const { theme } = useTheme();
 
-  // Gravity based on scroll.
+  // Gravity based on scroll
   const time = useTime();
   const baseGravity = particleSystem.gravity;
 
@@ -66,20 +66,20 @@ export function Cloth({
     }
 
     if (t > 8000) {
-      // Destroy and clean up subscribers.
+      // Destroy and clean up subscribers
       time.destroy();
     }
     const amplitude = (5 * Math.max(7000 - t, 0)) / 7000;
     const frequency = 1 / 500;
 
-    // Some lateral wind.
+    // Some lateral wind
     particleSystem.setExtraGravity({
       x: amplitude * Math.sin(frequency * t),
       y: 0,
     });
   });
 
-  // Vertical gravity.
+  // Vertical gravity
   scrollYProgress.on("change", (v) => {
     particleSystem.setExtraGravity({ x: 0, y: 4 * (1 - v - 0.5) });
   });
@@ -287,7 +287,7 @@ export function Cloth({
     particleSystem.onMouseUp();
   };
 
-  // -- Logic to kill WebGL to save up resources when not in view.
+  // -- Logic to kill WebGL to save up resources when not in view
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const inView = useInView(canvasWrapperRef);
   const previousInView = useRef<boolean | null>(null);
@@ -319,12 +319,12 @@ export function Cloth({
   }
 
   return (
-    <div className="relative w-full h-full bg-back" ref={canvasWrapperRef}>
+    <div className="bg-back relative h-full w-full" ref={canvasWrapperRef}>
       {/* https://blog.noelcserepy.com/creating-keyframe-animations-with-framer-motion */}
       {showCursorIcon && (
         <motion.div
           ref={cursorIconRef}
-          className="absolute z-100 top-[calc(100%-15px)] left-[calc(50%-35px)] pointer-events-none"
+          className="pointer-events-none absolute top-[calc(100%-15px)] left-[calc(50%-35px)] z-100"
           initial={{ y: -1000 }}
         >
           {theme === "dark" ? (
@@ -357,7 +357,7 @@ export function Cloth({
 
       {!showPlayPrompt && (
         <Canvas
-          className="select-none touch-none"
+          className="touch-none select-none"
           onPointerDown={(e) =>
             clothInstructionPlaying.current === false &&
             onMouseDown(
@@ -405,7 +405,7 @@ function Curtains({
   return (
     <>
       <motion.div
-        className="absolute left-0 w-1/2 h-full bg-fore z-10"
+        className="bg-fore absolute left-0 z-10 h-full w-1/2"
         initial="visible"
         animate={curtainsClosed ? "visible" : "hidden"}
         variants={{
@@ -421,7 +421,7 @@ function Curtains({
         }}
       ></motion.div>
       <motion.div
-        className="absolute right-0 w-1/2 h-full bg-fore z-10"
+        className="bg-fore absolute right-0 z-10 h-full w-1/2"
         initial="visible"
         animate={curtainsClosed ? "visible" : "hidden"}
         variants={{

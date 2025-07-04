@@ -27,7 +27,7 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
               "scale-60 hover:scale-50 md:scale-100",
             )}
           >
-            {/* Grid. */}
+            {/* Grid */}
             <div
               className="h-[300px] w-[300px]"
               style={{
@@ -38,7 +38,7 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
               }}
             ></div>
 
-            {/* Dots. */}
+            {/* Dots */}
             <div
               className="absolute inset-0"
               style={{
@@ -56,7 +56,7 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
           </motion.div>
         </CursorSize>
 
-        {/* Cursor. */}
+        {/* Cursor */}
         <div className="pointer-events-none absolute top-[calc(50%-50px)] right-[calc(50%-40px)] translate-x-3 translate-y-14 rotate-180">
           <div className="animate-bounce">
             <div className="rotate-180">
@@ -69,7 +69,7 @@ export function PlayPrompt({ onClick }: { onClick: MouseEventHandler }) {
           </div>
         </div>
 
-        {/* Pinging sphere. */}
+        {/* Pinging sphere */}
         <div className="pointer-events-none absolute top-[50%] right-[50%]">
           <div className="absolute -mt-[8px] -ml-[8px]">
             <div className="bg-back absolute h-[16px] w-[16px] rounded-full"></div>
