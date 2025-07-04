@@ -208,7 +208,7 @@ export function HeaderProvider({
 
   useEffect(() => {
     if (correctNavbarUpperSpace && navbarVertical) {
-      const offset = (activeSectionIdx + 1) * 28;
+      const offset = pathname === "/" ? (activeSectionIdx + 1) * 28 : 0;
       headerTranslateY.set(offset);
       headerTranslateYOffset.set(
         offset + (headerRef.current?.offsetHeight || 0),
