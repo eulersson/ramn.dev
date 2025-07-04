@@ -11,14 +11,12 @@ export const CubeFlip = ({
   frontContent,
   backContent,
   column,
-  numColumns,
   className,
   onClick,
 }: {
   frontContent: React.ReactNode;
   backContent: React.ReactNode;
   column: number;
-  numColumns: number;
   className: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
@@ -70,14 +68,14 @@ export const CubeFlip = ({
       >
         <div
           className={cn(
-            "relative inline-block w-full h-full transition-transform duration-300 origin-[50%_0] [transform-style:preserve-3d]",
+            "relative inline-block h-full w-full origin-[50%_0] transition-transform duration-300 [transform-style:preserve-3d]",
             hovered ? "rotate-x-90" : "",
           )}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          <div className={cn("front-face w-full h-full")}>{frontContent}</div>
-          <div className="back-face w-full h-full absolute top-full left-0 origin-top transform -rotate-x-90">
+          <div className={cn("front-face h-full w-full")}>{frontContent}</div>
+          <div className="back-face absolute top-full left-0 h-full w-full origin-top -rotate-x-90 transform">
             {backContent}
           </div>
         </div>
