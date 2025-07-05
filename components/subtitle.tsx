@@ -1,8 +1,15 @@
 "use client";
 
+import { cn } from "@/lib";
 import { motion } from "motion/react";
 
-export function Subtitle({ children }: { children: React.ReactNode }) {
+export function Subtitle({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <motion.h2
       initial={{ scale: 0 }}
@@ -11,7 +18,10 @@ export function Subtitle({ children }: { children: React.ReactNode }) {
         delay: 0.6,
         type: "spring",
       }}
-      className="text-back text-center font-mono text-sm sm:text-lg"
+      className={cn(
+        "text-back text-center font-mono text-sm sm:text-lg",
+        className,
+      )}
     >
       <span className="bg-fore">{children}</span>
     </motion.h2>

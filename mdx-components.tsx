@@ -6,6 +6,8 @@ import type { MDXComponents } from "mdx/types";
 import { CursorSize } from "@/components/cursor";
 import { ImageFlexRow } from "@/components/prose/image-flex-row";
 import { cn } from "@/lib";
+import React from "react";
+import { H1, H2, H3, H4, H5, H6 } from "@/components/prose/headings";
 
 // This file allows you to provide custom React components
 // to be used in MDX files. You can import and use any
@@ -19,7 +21,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <CursorSize className="inline" sizeOnHover={0.4}>
           <a
-            className="text-fore/60 hover:text-fore/80 text-sm underline"
+            className="text-fore/60 hover:text-fore/80 flex items-center text-sm underline"
             href={href}
           >
             {children}
@@ -45,6 +47,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </code>
     ),
     hr: () => <hr className="border-fore mx-[15%] my-2 border-t-1" />,
+    h1: ({ children }) => <H1>{children}</H1>,
+    h2: ({ children }) => <H2>{children}</H2>,
+    h3: ({ children }) => <H3>{children}</H3>,
+    h4: ({ children }) => <H4>{children}</H4>,
+    h5: ({ children }) => <H5>{children}</H5>,
+    h6: ({ children }) => <H6>{children}</H6>,
     img: (props) => (
       <CursorSize sizeOnHover={8}>
         <img {...props} />

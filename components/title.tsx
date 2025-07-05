@@ -21,7 +21,7 @@ const Title = forwardRef<
 
   return (
     <div className="m-auto">
-      <CursorSize sizeOnHover={8}>
+      <CursorSize className="inline-block" sizeOnHover={8}>
         <motion.h1
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
