@@ -16,7 +16,7 @@ export default function WorkPage() {
           "xl:top-[calc(var(--header-height)+36px)]",
         )}
       >
-        <ThemeSwitch />
+        <ThemeSwitch yInitial={-100} />
       </div>
       <div
         className={cn(

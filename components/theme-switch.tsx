@@ -12,7 +12,7 @@ import { CursorSize } from "@/components/cursor";
 import { toBool } from "@/lib";
 
 // - https://github.com/pacocoursey/next-themes/tree/cd67bfa20ef6ea78a814d65625c530baae4075ef#avoid-hydration-mismatch
-export function ThemeSwitch() {
+export function ThemeSwitch({ yInitial }: { yInitial: number }) {
   const scale = useMotionValue(1);
   const scaleSpring = useSpring(scale, { stiffness: 200, damping: 12 });
 
@@ -166,7 +166,7 @@ export function ThemeSwitch() {
   return (
     showSwitcher && (
       <motion.div
-        initial={{ y: 100 }}
+        initial={{ y: yInitial }}
         animate={{ y: 0 }}
         transition={{ type: "spring" }}
       >

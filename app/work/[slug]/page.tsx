@@ -31,7 +31,7 @@ export default async function ProjectPage({
           "sm:top-[calc(var(--header-height)+0.1*var(--bg-grid-box-size))] sm:left-[calc(50%-1.9*var(--bg-grid-box-size))]",
         )}
       >
-        <ThemeSwitch />
+        <ThemeSwitch yInitial={-100} />
       </div>
       <SingleProject project={project} />
     </>
