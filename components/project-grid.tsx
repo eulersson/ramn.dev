@@ -36,18 +36,20 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
           className="cube sm:h-g10n h-[calc(2*var(--bg-grid-box-size)+2px)]"
           showClickAnimation={i == 0}
           frontContent={
-            <Image
-              className="transition-scale h-full w-full scale-0 object-cover duration-[2s]"
-              src={project.metadata["heroImage"]}
-              onLoad={(event) => {
-                event.currentTarget.classList.remove("scale-0");
-                event.currentTarget.classList.add("scale-100");
-              }}
-              width={250}
-              height={250}
-              style={{ objectFit: "cover" }}
-              alt={"dreamdrugs"}
-            />
+            <div className="bg-fore h-full w-full">
+              <Image
+                className="transition-scale h-full w-full scale-0 object-cover duration-[2s]"
+                src={project.metadata["heroImage"]}
+                onLoad={(event) => {
+                  event.currentTarget.classList.remove("scale-0");
+                  event.currentTarget.classList.add("scale-100");
+                }}
+                width={250}
+                height={250}
+                style={{ objectFit: "cover" }}
+                alt={"dreamdrugs"}
+              />
+            </div>
           }
           backContent={
             <Link href={`/work/${project.slug}`}>
