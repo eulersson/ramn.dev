@@ -77,6 +77,19 @@ export async function getOneProjectData(slug: string): Promise<Project> {
       new RegExp(`^# ${slug}$`, "mi"),
       "",
     );
+
+    // Replace callout blockquotes with emoji equivalents
+    const calloutMap: Record<string, string> = {
+      NOTE: "**Note** -",
+      TIP: "**Tip** -",
+      IMPORTANT: "**Important** -",
+      WARNING: "**Warning** -",
+      CAUTION: "**Caution** -",
+    };
+    readmeMarkdown = readmeMarkdown.replace(
+      /^> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\](.*)$/gim,
+      (match, type, rest) => `> ${calloutMap[type]}${rest}`
+    );
   }
   return { slug, featured, Component, metadata, readmeMarkdown };
 }
