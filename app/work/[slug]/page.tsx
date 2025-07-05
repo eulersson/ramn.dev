@@ -1,5 +1,6 @@
 import { SingleProject } from "@/components/single-project";
-import { toBool } from "@/lib";
+import { ThemeSwitch } from "@/components/theme-switch";
+import { cn, toBool } from "@/lib";
 import { getAllProjectSlugs, getOneProjectData } from "@/lib/projects";
 
 export const dynamicParams = false;
@@ -20,5 +21,19 @@ export default async function ProjectPage({
     console.log("[Project] Rendering /app/work/[slug]/page.tsx", slug);
   }
 
-  return <SingleProject project={project} />;
+  return (
+    <>
+      <div
+        className={cn(
+          "absolute z-40",
+          "top-[calc(var(--header-height)+4px)] left-[calc(50%-35px)]",
+          "xs:top-[calc(var(--header-height)+12px)]",
+          "sm:top-[calc(var(--header-height)+0.1*var(--bg-grid-box-size))] sm:left-[calc(50%-1.9*var(--bg-grid-box-size))]",
+        )}
+      >
+        <ThemeSwitch />
+      </div>
+      <SingleProject project={project} />
+    </>
+  );
 }
