@@ -25,7 +25,7 @@ export function Ribbon({ repo }: { repo?: string }) {
   const headerTranslateYSpring =
     headerContext?.headerTranslateYSpring ?? fallbackMotionValue;
   return (
-    <div className="absolute top-0 right-0 z-60 h-full">
+    <div className="pointer-events-none absolute top-0 right-0 z-60 h-full">
       <motion.div
         className={cn(
           "sticky z-60",

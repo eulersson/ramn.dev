@@ -65,6 +65,12 @@ export async function getOneProjectData(slug: string): Promise<Project> {
       (_, alt, path) =>
         `![${alt}](https://raw.githubusercontent.com/${owner}/${repo}/${usedBranch}/${path})`,
     );
+    // Also handle <img src="..."> tags with relative paths
+    readmeMarkdown = readmeMarkdown.replace(
+      /<img([^>]*?)src=["'](?!http)([^"'>]+)["']([^>]*?)>/g,
+      (match, before, path, after) =>
+        `<img${before}src=\"https://raw.githubusercontent.com/${owner}/${repo}/${usedBranch}/${path}\"${after}>`,
+    );
 
     // Remove the main project title heading that matches the slug
     readmeMarkdown = readmeMarkdown.replace(

@@ -25,11 +25,9 @@ import { ThemedImage } from "@/components/themed-image";
 import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
-import { useTouchDevice } from "@/hooks/browser";
 import { cn, toBool } from "@/lib";
-import { forwardRef } from "react";
 import { usePathname } from "next/navigation";
-import { isTouchDevice } from "@/lib/browser";
+import { forwardRef } from "react";
 
 const SCROLL_THRESHOLD = 800;
 

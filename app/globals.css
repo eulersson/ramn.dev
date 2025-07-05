@@ -455,15 +455,15 @@
 }
 
 @utility border-2-fore {
-  @apply border-2 border-fore;
+  @apply border-fore border-2;
 }
 
 @utility border-2-back {
-  @apply border-2 border-back;
+  @apply border-back border-2;
 }
 
 @utility border-2-fore-inside {
-  @apply outline-solid outline-fore outline-2 -outline-offset-2;
+  @apply outline-fore outline-2 -outline-offset-2 outline-solid;
 }
 
 @layer utilities {
