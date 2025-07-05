@@ -21,7 +21,6 @@ export function Modal({ children }: { children: React.ReactNode }) {
   // TODO: This does it the right recommended way: using HTML dialog,
   // but for some reason then the custom cursor we have it shows below
   // and z-index get ignored.
-  //
   // const dialogRef = useRef<HTMLDialogElement>(null);
   // useEffect(() => {
   //   if (!dialogRef.current?.open) {
@@ -50,6 +49,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
     >
       <motion.dialog
         open
+        id="modal-dialog"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.6 }}

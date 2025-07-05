@@ -1,7 +1,14 @@
 "use client";
 
 // React
-import { memo, RefObject, useEffect, useRef, useState } from "react";
+import {
+  memo,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 // Next.js
 import { usePathname } from "next/navigation";
@@ -15,6 +22,7 @@ import { sleep, toBool } from "@/lib";
 
 // Styles
 import "./background-grid.css";
+import { BreakpointKey } from "@/types";
 
 // Configuration for different routes
 const GRID_CONFIG = {
@@ -58,7 +66,7 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
 
   const FLASH_ANIM_DELAY = 1000; // Adjust this value as needed
 
-  useBreakpointChange((bp) => {
+  const breakpointChangeHandler = (bp: BreakpointKey) => {
     if (pathname.startsWith("/work/")) {
       // If inside a project, since the markdown might be longer or shorter do
       // it dynamically based on the box size.
@@ -79,7 +87,9 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
         setNumBoxes(numBoxesForBreakpoint);
       }
     }
-  });
+  };
+
+  useBreakpointChange(breakpointChangeHandler);
 
   useEffect(() => {
     if (!bgGridInView) {
