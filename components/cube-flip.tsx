@@ -45,11 +45,11 @@ export const CubeFlip = ({
         await sleep(300 * column);
         await sleep(1000);
         setHovered(true);
-        await sleep(100);
+        await sleep(500);
         setAnimationRunning(true);
         await sleep(1250);
         setAnimationRunning(false);
-        await sleep(100);
+        await sleep(300);
         setHovered(false);
         setAutoHoverDone(true);
       })();
