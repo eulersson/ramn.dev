@@ -30,13 +30,13 @@ const log = debug("page");
 const sectionsLog = debug("sections");
 
 export default function Page() {
-  const disableCover = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER);
-  const node = (
-    <SectionProvider>
-      <Home></Home>
-    </SectionProvider>
+  return (
+    <CoverWrapper>
+      <SectionProvider>
+        <Home></Home>
+      </SectionProvider>
+    </CoverWrapper>
   );
-  return disableCover ? node : <CoverWrapper>{node}</CoverWrapper>;
 }
 
 function Home() {
@@ -204,11 +204,11 @@ function Home() {
 
         {/* Progress bar */}
         <div className="sticky bottom-0 z-60">
-          <div className="w-full border-2-fore bg-back">
+          <div className="border-2-fore bg-back w-full">
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              className="h-[20px] bg-fore"
+              className="bg-fore h-[20px]"
               style={{ scaleX: scrollYProgress }}
             />
           </div>

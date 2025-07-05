@@ -89,6 +89,30 @@ export const CubeFlip = ({
           perspective: "1000px",
         }}
       >
+        <AnimatePresence>
+          {showClickAnimation && animationRunning && (
+            <motion.div
+              ref={cursorIconRef}
+              animate={{
+                scale: [0, 1, 1, 1, 1, 0.5, 1, 1],
+                transition: { duration: 1 },
+              }}
+              exit={{
+                scale: 0,
+                transition: {
+                  duration: 0.2,
+                },
+              }}
+              className="pointer-events-none absolute top-[calc(50%-60px)] left-[calc(50%-45px)] z-100 scale-75"
+            >
+              {theme === "dark" ? (
+                <Image width={100} src={cursorIconDark} alt="Cursor" />
+              ) : (
+                <Image width={100} src={cursorIcon} alt="Cursor" />
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div
           className={cn(
             "relative inline-block h-full w-full origin-[50%_0] transition-transform duration-300 [transform-style:preserve-3d]",
@@ -99,33 +123,7 @@ export const CubeFlip = ({
         >
           <div className={cn("front-face h-full w-full")}>{frontContent}</div>
           <div className="back-face absolute top-full left-0 h-full w-full origin-top -rotate-x-90">
-            <div className="relative h-full w-full">
-              <AnimatePresence>
-                {showClickAnimation && animationRunning && (
-                  <motion.div
-                    ref={cursorIconRef}
-                    animate={{
-                      scale: [0, 1, 1, 1, 1, 0.5, 1, 1],
-                      transition: { duration: 1 },
-                    }}
-                    exit={{
-                      scale: 0,
-                      transition: {
-                        duration: 0.2,
-                      },
-                    }}
-                    className="pointer-events-none absolute top-[calc(50%-60px)] left-[calc(50%-45px)] z-100 scale-75"
-                  >
-                    {theme === "dark" ? (
-                      <Image width={100} src={cursorIconDark} alt="Cursor" />
-                    ) : (
-                      <Image width={100} src={cursorIcon} alt="Cursor" />
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              {backContent}
-            </div>
+            <div className="relative h-full w-full">{backContent}</div>
           </div>
         </div>
       </div>

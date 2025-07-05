@@ -54,16 +54,16 @@ export function Cover() {
       {cross && (
         <div
           key="cross"
-          className="fixed w-full h-full bg-back border-2-fore z-40"
+          className="bg-back border-2-fore fixed z-200 h-full w-full"
         >
           <motion.div
-            className="absolute w-ggpn bg-fore top-0 left-[calc(50%-1px)]"
+            className="w-ggpn bg-fore absolute top-0 left-[calc(50%-1px)]"
             initial={{ height: "0%" }}
             animate={{ height: "100%" }}
             transition={{ duration: 0.4, delay: 0.2 }}
           ></motion.div>
           <motion.div
-            className="absolute h-ggpn bg-fore top-[calc(50%-1px)] left-0"
+            className="h-ggpn bg-fore absolute top-[calc(50%-1px)] left-0"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -74,7 +74,7 @@ export function Cover() {
       {!cross && (
         <motion.div
           key="cover-center"
-          className="fixed w-[200px] h-[200px] -m-[98px] inset-1/2 bg-back z-30 border-2-fore"
+          className="bg-back border-2-fore fixed inset-1/2 z-30 -m-[98px] h-[200px] w-[200px]"
           initial={{ scale: 0 }}
           animate={{
             scale: 1,
@@ -223,7 +223,7 @@ export function Cover() {
         ].map(([name, classes, x, y, ease], i) => (
           <motion.div
             key={`cover-${name}`}
-            className={`fixed ${classes} w-[calc(50%+1px)] h-[calc(50%+1px)] bg-back z-20 border-2-fore`}
+            className={`fixed ${classes} bg-back border-2-fore z-20 h-[calc(50%+1px)] w-[calc(50%+1px)]`}
             initial={{ x: 0, y: 0 }}
             exit={{ x, y }}
             transition={{
