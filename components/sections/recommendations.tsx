@@ -15,7 +15,7 @@ import RecommendationPau from "@/content/recommendations/pau.mdx";
 
 const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   return (
-    <section className="flex flex-col justify-center md:mt-g04n" ref={ref}>
+    <section className="md:mt-g04n flex flex-col justify-center" ref={ref}>
       <Title
         className={cn(
           // Upper spacing
@@ -23,13 +23,13 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
           "md:mt-[calc(var(--bg-grid-box-size)/2+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
 
           // Lower spacing
-          "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
+          "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding)+var(--bg-grid-gap))]",
         )}
       >
         Recommendations
       </Title>
       {/* First Review */}
-      <div className="relative -mt-ggpn">
+      <div className="-mt-ggpn relative">
         <Block
           classNames={{
             wrapper: "h-g40y xs:h-g30y sm:h-g20y md:h-g20y xl:h-g10y",
@@ -48,19 +48,19 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
           <div className="xs:flex xs:items-center h-full">
             <div
               className={cn(
-                "absolute h-full w-full pointer-events-none",
+                "pointer-events-none absolute h-full w-full",
 
-                "origin-top-left left-6 top-[4px]",
+                "top-[4px] left-6 origin-top-left",
               )}
             >
               <motion.span
                 className={cn(
                   "absolute top-0",
-                  "text-[14px] xs:text-[23px]",
+                  "xs:text-[23px] text-[14px]",
                   "font-title uppercase",
                   "text-fore bg-back",
 
-                  "origin-top-left left-0 xs:left-[16px]",
+                  "xs:left-[16px] left-0 origin-top-left",
                   "dark:text-back dark:bg-fore",
                 )}
                 initial={{ rotate: 90, y: 100 }}
@@ -71,9 +71,9 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               </motion.span>
               <motion.span
                 className={cn(
-                  "absolute top-0 font-sans text-[14px] text-back bg-fore",
+                  "text-back bg-fore absolute top-0 font-sans text-[14px]",
 
-                  "origin-top-left -left-6",
+                  "-left-6 origin-top-left",
                 )}
                 initial={{ rotate: 90, y: -200 }}
                 whileInView={{ y: -2 }}
@@ -86,12 +86,12 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               className={cn(
                 "xs:h-full",
                 "xs:max-lg:flex-2",
-                "overflow-hidden xs:max-md:h-full xs:max-md:flex xs:max-md:items-end",
-                "w-[120px] h-[120px] xs:w-[160px] xs:h-[160px] sm:w-auto sm:h-auto",
-                "mt-[0px] xs:max-md:m-auto",
+                "xs:max-md:h-full xs:max-md:flex xs:max-md:items-end overflow-hidden",
+                "xs:w-[160px] xs:h-[160px] h-[120px] w-[120px] sm:h-auto sm:w-auto",
+                "xs:max-md:m-auto mt-[0px]",
 
                 "bg-back",
-                "md:self-stretch md:flex md:items-end",
+                "md:flex md:items-end md:self-stretch",
                 "float-left",
 
                 "dark:bg-fore",
@@ -109,19 +109,19 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             <div
               className={cn(
                 "xs:flex-3",
-                "px-5 md:px-10 py-4 xs:py-5",
+                "xs:py-5 px-5 py-4 md:px-10",
                 "text-[14px] sm:text-[16px] md:text-[17px] lg:text-[17px]",
               )}
             >
               <span
                 className={cn(
-                  "font-serif absolute",
-                  "text-[60px] -top-[14px] left-[125px]",
+                  "absolute font-serif",
+                  "-top-[14px] left-[125px] text-[60px]",
                   "xs:text-[80px] xs:top-[15px] xs:left-[195px]",
-                  "sm:text-[60px] sm:top-[15px] sm:left-[265px]",
-                  "md:text-[70px] md:top-[30px] md:left-[310px]",
-                  "lg:text-[70px] lg:top-[95px] lg:left-[290px]",
-                  "xl:text-[90px] xl:-top-[2px] xl:left-[285px]",
+                  "sm:top-[15px] sm:left-[265px] sm:text-[60px]",
+                  "md:top-[30px] md:left-[310px] md:text-[70px]",
+                  "lg:top-[95px] lg:left-[290px] lg:text-[70px]",
+                  "xl:-top-[2px] xl:left-[285px] xl:text-[90px]",
                 )}
               >
                 “
@@ -132,7 +132,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
         </Block>
       </div>
       {/* Second Review */}
-      <div className="relative -mt-ggpn">
+      <div className="-mt-ggpn relative">
         <Block
           classNames={{
             wrapper: "h-g40y xs:h-g30y sm:h-g20y md:h-g20y xl:h-g10y",
@@ -149,19 +149,19 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
           <div className="xs:flex xs:items-center h-full">
             <div
               className={cn(
-                "absolute h-full w-full pointer-events-none",
+                "pointer-events-none absolute h-full w-full",
 
-                "origin-top-right right-6 top-[2px]",
+                "top-[2px] right-6 origin-top-right",
               )}
             >
               <motion.span
                 className={cn(
-                  "absolute top-0 ",
-                  "text-[14px] xs:text-[23px]",
+                  "absolute top-0",
+                  "xs:text-[23px] text-[14px]",
                   "font-title uppercase",
                   "text-fore bg-back",
 
-                  "origin-top-right -right-[1px] xs:right-[16px]",
+                  "xs:right-[16px] -right-[1px] origin-top-right",
                 )}
                 initial={{ rotate: -90, y: 100 }}
                 whileInView={{ y: 0 }}
@@ -172,9 +172,9 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
 
               <motion.span
                 className={cn(
-                  "absolute top-0 font-sans text-[14px] text-back bg-fore",
+                  "text-back bg-fore absolute top-0 font-sans text-[14px]",
 
-                  "origin-top-right -right-6",
+                  "-right-6 origin-top-right",
                 )}
                 initial={{ rotate: -90, y: -100 }}
                 whileInView={{ y: 0 }}
@@ -187,12 +187,12 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
               className={cn(
                 "xs:h-full",
                 "xs:max-lg:flex-2",
-                "overflow-hidden xs:max-md:h-full xs:max-md:flex xs:max-md:items-end",
-                "w-[120px] h-[120px] xs:w-[160px] xs:h-[160px] sm:w-auto sm:h-auto",
-                "mt-[0px] xs:max-md:m-auto",
+                "xs:max-md:h-full xs:max-md:flex xs:max-md:items-end overflow-hidden",
+                "xs:w-[160px] xs:h-[160px] h-[120px] w-[120px] sm:h-auto sm:w-auto",
+                "xs:max-md:m-auto mt-[0px]",
 
                 "bg-fore",
-                "md:self-stretch md:flex md:items-end",
+                "md:flex md:items-end md:self-stretch",
                 "float-right",
 
                 "mr-[20px] ml-[5px] md:mr-0",
@@ -212,7 +212,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             <div
               className={cn(
                 "xs:flex-3",
-                "px-5 md:px-10 py-4 xs:py-5",
+                "xs:py-5 px-5 py-4 md:px-10",
                 "text-[14px] sm:text-[16px] md:text-[17px] lg:text-[17px]",
 
                 "xs:order-1",
@@ -220,13 +220,13 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             >
               <span
                 className={cn(
-                  "font-serif absolute",
-                  "text-[60px] -top-[14px] left-[26px]",
+                  "absolute font-serif",
+                  "-top-[14px] left-[26px] text-[60px]",
                   "xs:text-[80px] xs:top-[5px] xs:left-[15px]",
-                  "sm:text-[60px] sm:top-[5px] sm:left-[20px]",
-                  "md:text-[70px] md:top-[30px] md:left-[35px]",
-                  "lg:text-[70px] lg:top-[80px] lg:left-[35px]",
-                  "xl:text-[90px] xl:-top-[0px] xl:left-[30px]",
+                  "sm:top-[5px] sm:left-[20px] sm:text-[60px]",
+                  "md:top-[30px] md:left-[35px] md:text-[70px]",
+                  "lg:top-[80px] lg:left-[35px] lg:text-[70px]",
+                  "xl:-top-[0px] xl:left-[30px] xl:text-[90px]",
                 )}
               >
                 “
