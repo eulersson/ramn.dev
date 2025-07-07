@@ -40,7 +40,7 @@ export const CubeFlip = ({
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (inView && showClickAnimation) {
+    if (inView && showClickAnimation && !autoHoverDone) {
       (async function () {
         await sleep(300 * column);
         await sleep(1000);
