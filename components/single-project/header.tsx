@@ -1,7 +1,6 @@
 "use client";
 
 // React
-import { useEffect, useState } from "react";
 
 // Next.js
 import Image from "next/image";

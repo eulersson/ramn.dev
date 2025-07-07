@@ -35,13 +35,14 @@ export function Ribbon({ repo }: { repo?: string }) {
         style={{ y: headerTranslateYSpring }}
       >
         <CursorSize sizeOnHover={0.4}>
-          {repo && (
-            <div
-              className={cn(
-                "gap-ggpn flex text-[12px]",
-                "right-[calc(50%-2*var(--bg-grid-box-size)-1.5*var(--bg-grid-gap))] h-[calc(6*var(--spacing))] w-[200px] origin-top-right translate-y-[200px] rotate-90",
-              )}
-            >
+          <div
+            className={cn(
+              "pointer-events-auto",
+              "gap-ggpn flex text-[12px]",
+              "right-[calc(50%-2*var(--bg-grid-box-size)-1.5*var(--bg-grid-gap))] h-[calc(6*var(--spacing))] w-[200px] origin-top-right translate-y-[200px] rotate-90",
+            )}
+          >
+            {repo && (
               <a
                 href={`https://github.com/${repo}`}
                 target="_blank"
@@ -64,15 +65,15 @@ export function Ribbon({ repo }: { repo?: string }) {
                 />
                 GitHub
               </a>
-              <Link
-                href="/work"
-                className={cn(anchorClasses, "group-[.is-open]/modal:hidden")}
-              >
-                <Grid3x3 width={15} height={15} />
-                All Projects
-              </Link>
-            </div>
-          )}
+            )}
+            <Link
+              href="/work"
+              className={cn(anchorClasses, "group-[.is-open]/modal:hidden")}
+            >
+              <Grid3x3 width={15} height={15} />
+              All Projects
+            </Link>
+          </div>
         </CursorSize>
       </motion.div>
     </div>
