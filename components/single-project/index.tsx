@@ -7,7 +7,13 @@ import { SingleProjectBody } from "./body";
 import { SingleProjectHeader } from "./header";
 import { Ribbon } from "./ribbon";
 
-export const SingleProject = async ({ project }: { project: Project }) => {
+export const SingleProject = async ({
+  project,
+  delayAnimation,
+}: {
+  project: Project;
+  delayAnimation?: boolean;
+}) => {
   const { metadata, Component, readmeMarkdown } = project;
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
@@ -21,6 +27,7 @@ export const SingleProject = async ({ project }: { project: Project }) => {
       <article id="project" className="relative">
         <Ribbon repo={project.metadata["repo"]} />
         <SingleProjectHeader
+          delayAnimation={delayAnimation ? 3500 : 0}
           title={metadata.title}
           subtitle={metadata.description}
           imageSrc={metadata.headerImage || metadata.heroImage}

@@ -1,3 +1,4 @@
+// Project
 import { SingleProject } from "@/components/single-project";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { cn, toBool } from "@/lib";
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const project = await getOneProjectData(slug);
   return {
-    title: "Ramon Blanquer | Project: " + project.metadata.title,
+    title: "Ramon Blanquer | Project > " + project.metadata.title,
     description: project.metadata.description,
   };
 }
@@ -42,7 +43,7 @@ export default async function ProjectPage({ params }: Props) {
       >
         <ThemeSwitch yInitial={-100} />
       </div>
-      <SingleProject project={project} />
+      <SingleProject project={project} delayAnimation />
     </>
   );
 }

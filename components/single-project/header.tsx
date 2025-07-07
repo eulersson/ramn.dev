@@ -1,5 +1,8 @@
 "use client";
 
+// React
+import { useEffect, useState } from "react";
+
 // Next.js
 import Image from "next/image";
 
@@ -12,10 +15,12 @@ export const SingleProjectHeader = ({
   title,
   subtitle,
   imageSrc,
+  delayAnimation = 0,
 }: {
   title: string;
   subtitle: string;
   imageSrc: string;
+  delayAnimation: number;
 }) => {
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log(
@@ -27,8 +32,10 @@ export const SingleProjectHeader = ({
     <div className="relative w-full">
       <Image
         onLoad={(event) => {
-          event.currentTarget.classList.remove("scale-0");
-          event.currentTarget.classList.add("scale-100");
+          setTimeout(() => {
+            event.currentTarget.classList.remove("scale-0");
+            event.currentTarget.classList.add("scale-100");
+          }, delayAnimation);
         }}
         className="transition-scale scale-0 object-cover duration-[2s]"
         src={imageSrc}

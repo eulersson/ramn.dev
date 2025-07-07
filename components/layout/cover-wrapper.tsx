@@ -11,10 +11,20 @@ import { Cover } from "@/components/layout/cover";
 import { Spinner } from "@/components/layout/spinner";
 import { toBool } from "@/lib";
 
-export function CoverWrapper({ children }: { children: React.ReactNode }) {
+export function CoverWrapper({
+  renderPageAfter = 0,
+  clearClothAfter = 3500,
+  children,
+}: {
+  renderPageAfter: number;
+  clearClothAfter: number;
+  children: React.ReactNode;
+}) {
   const [showCover, setShowCover] = useState(true);
   const disableCover = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER);
-  const [showPage, setShowPage] = useState(false);
+  const [showPage, setShowPage] = useState(
+    renderPageAfter === 0 ? true : false,
+  );
 
   useEffect(() => {
     if (disableCover) {
@@ -24,11 +34,13 @@ export function CoverWrapper({ children }: { children: React.ReactNode }) {
     const timeouts: Array<NodeJS.Timeout> = [
       setTimeout(() => {
         setShowPage(true);
-      }, 3500),
+      }, renderPageAfter),
+
       setTimeout(() => {
         setShowCover(false);
-      }, 4000),
+      }, clearClothAfter),
     ];
+
     return () => {
       timeouts.forEach((t) => clearTimeout(t));
     };
@@ -36,7 +48,6 @@ export function CoverWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <AnimatePresence>
-      {!disableCover && !showCover && !showPage && <Spinner key="spinner" />}
       {!disableCover && showCover && <Cover key="cover" />}
       {showPage && <div key="page">{children}</div>}
     </AnimatePresence>

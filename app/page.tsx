@@ -31,7 +31,7 @@ const sectionsLog = debug("sections");
 
 export default function Page() {
   return (
-    <CoverWrapper>
+    <CoverWrapper renderPageAfter={3500} clearClothAfter={3500}>
       <SectionProvider>
         <Home></Home>
       </SectionProvider>
