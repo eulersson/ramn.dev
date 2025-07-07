@@ -86,10 +86,12 @@ export function LayoutContainer({
   className,
   children,
   correctHeaderNavbarUpperSpace,
+  delayBackgroundAnimation = 0,
 }: {
   className?: string;
   children: React.ReactNode;
   correctHeaderNavbarUpperSpace: boolean;
+  delayBackgroundAnimation?: number;
 }) {
   const headerRef = useRef<HTMLHeadElement>(null);
 
@@ -115,7 +117,10 @@ export function LayoutContainer({
           </HeaderProvider>
         </div>
       </div>
-      <BackgroundGrid key="grid" />
+      <BackgroundGrid
+        key="grid"
+        delayBackgroundAnimation={delayBackgroundAnimation}
+      />
     </>
   );
 }

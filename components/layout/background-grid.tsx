@@ -52,7 +52,11 @@ const PLATE_GRID_ITEM_CLASSES =
 const DEBUG_CLASSES =
   "w-[4px] h-[2px] mt-[calc((var(--bg-grid-box-size)/2)+1px)] -translate-[2px] bg-red-500";
 
-export const BackgroundGrid = memo(function BackgroundGrid() {
+export const BackgroundGrid = memo(function BackgroundGrid({
+  delayBackgroundAnimation = 0,
+}: {
+  delayBackgroundAnimation?: number;
+}) {
   const debugGrid = toBool(process.env.NEXT_PUBLIC_DEBUG_GRID);
   const bgGridRef = useRef<HTMLDivElement>(null);
   const bgGridInView = useInView(bgGridRef, {
@@ -155,7 +159,10 @@ export const BackgroundGrid = memo(function BackgroundGrid() {
       animateBoxes();
     };
 
-    const timeoutId = setTimeout(runFlashAnimation, FLASH_ANIM_DELAY);
+    const timeoutId = setTimeout(
+      runFlashAnimation,
+      FLASH_ANIM_DELAY + delayBackgroundAnimation,
+    );
 
     return () => clearTimeout(timeoutId);
   }, [bgGridInView]);
