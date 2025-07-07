@@ -3,22 +3,31 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { cn, toBool } from "@/lib";
 import { getAllProjectSlugs, getOneProjectData } from "@/lib/projects";
 
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const project = await getOneProjectData(slug);
+  return {
+    title: "Ramon Blanquer | Project: " + project.metadata.title,
+    description: project.metadata.description,
+  };
+}
 
 export function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }));
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = await getOneProjectData(slug);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
-    console.log("[Project] Rendering /app/work/[slug]/page.tsx", slug);
+    console.log("[ProjectPage] Rendering /app/work/[slug]/page.tsx", slug);
   }
 
   return (

@@ -1,4 +1,5 @@
 // Next.js
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import {
   Fira_Mono,
   Nunito,
@@ -80,6 +81,7 @@ export default function RootLayout({
           {modal}
         </Providers>
         <div id="modal-root" />
+        <SpeedInsights />
       </body>
     </html>
   );
