@@ -1,3 +1,5 @@
+"use client";
+
 // Third-Party
 import { motion, useInView, useMotionValue, useSpring } from "motion/react";
 import {

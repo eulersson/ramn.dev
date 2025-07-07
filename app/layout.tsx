@@ -63,7 +63,7 @@ export default function RootLayout({
 
   return (
     <html
-      className="invisible-scrollbar light"
+      className="invisible-scrollbar light h-full"
       lang="en"
       style={{ colorScheme: "light" }}
     >
@@ -74,6 +74,7 @@ export default function RootLayout({
           playfairDisplay.variable,
           urbanist.variable,
           "selection:bg-fore selection:text-back bg-back text-fore",
+          "h-full",
         )}
       >
         <Providers>
