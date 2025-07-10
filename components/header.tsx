@@ -7,7 +7,7 @@ import { createContext, RefObject, useContext, useEffect, useRef } from "react";
 import Link from "next/link";
 
 // Third-Party
-import { Brain } from "lucide-react";
+import { ArrowDownToLine, Brain } from "lucide-react";
 import {
   motion,
   MotionValue,
@@ -128,7 +128,7 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
         {/* Resume */}
         <div className="bg-back flex items-center justify-center">
           <Button link="/CV.pdf" className="px-4 max-sm:hidden">
-            CV Resume
+            Resume <ArrowDownToLine className="inline" width={12} height={12} />
           </Button>
           <a
             className="font-mono text-[15px] underline hover:font-bold sm:hidden sm:text-[18px]"

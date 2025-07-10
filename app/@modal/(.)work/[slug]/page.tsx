@@ -7,9 +7,8 @@ import { getAllProjectSlugs, getOneProjectData } from "@/lib/projects";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return getAllProjectSlugs().map((slug) => ({slug}));
+  return getAllProjectSlugs().map((slug) => ({ slug }));
 }
-
 
 export default async function ProjectModal({
   params,
@@ -27,7 +26,7 @@ export default async function ProjectModal({
   }
 
   return (
-    <Modal>
+    <Modal key="modal">
       <SingleProject project={project} />
     </Modal>
   );

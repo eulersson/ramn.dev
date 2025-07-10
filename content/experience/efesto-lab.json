@@ -12,6 +12,11 @@
     "◎ Wrote publish pipeline tools for Maya using ftrack.",
     "◎ Contributed to ftrack official tools."
   ],
+  "images": [
+    "/career/efesto-slate.png",
+    "/career/efesto-anim-manager.png",
+    "/career/efesto-publisher-ui.png"
+  ],
   "skills": [
     "Python",
     "Maya",

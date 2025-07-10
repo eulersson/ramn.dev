@@ -203,7 +203,7 @@ function Home() {
         <Projects ref={projectsRef} />
 
         {/* Progress bar */}
-        <div className="sticky bottom-0 z-60">
+        <div className="sticky bottom-0 z-50">
           <div className="border-2-fore bg-back w-full">
             <motion.div
               initial={{ scaleX: 0 }}

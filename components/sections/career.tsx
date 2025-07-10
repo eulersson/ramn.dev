@@ -1,13 +1,20 @@
+"use client";
+
+// Next.js
+import Link from "next/link";
+
 // Third-Party
 import { motion, useMotionValue } from "motion/react";
 import { useRef, useState } from "react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
+import { Gallery } from "@/components/prose/gallery";
 import { useHeader } from "@/components/header";
 import { Logo, LogoRef } from "@/components/logo";
 import { Tag } from "@/components/tag";
 import { cn } from "@/lib";
+import { Job } from "@/types";
 
 // Content
 import jobEfestoLab from "@/content/experience/efesto-lab.json";
@@ -15,6 +22,7 @@ import jobMPC from "@/content/experience/mpc.json";
 import jobNpaw from "@/content/experience/npaw.json";
 import jobSecretStartup from "@/content/experience/secret-startup.json";
 import jobWatchity from "@/content/experience/watchity.json";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 export function Career() {
   const logoRef = useRef<LogoRef>(null);
@@ -28,13 +36,40 @@ export function Career() {
     }
   };
 
-  const jobs = [jobWatchity, jobMPC, jobEfestoLab, jobNpaw, jobSecretStartup];
+  const jobs: Job[] = [
+    jobWatchity,
+    jobMPC,
+    jobEfestoLab,
+    jobNpaw,
+    jobSecretStartup,
+  ];
   const job = jobs[activeEmployer];
 
   const headerContext = useHeader();
   const fallbackMotionValue = useMotionValue(0);
   const headerTranslateYOffsetSpring =
     headerContext?.headerTranslateYOffsetSpring ?? fallbackMotionValue;
+
+  let titleCompanySpan = (
+    <span className={cn("font-bold")}>
+      {job["company"].replace("Moving Picture Company", "MPC")}
+    </span>
+  );
+
+  if (job["website"]) {
+    titleCompanySpan = (
+      <CursorSize className="inline" sizeOnHover={0.4}>
+        <Link className="hover:text-back hover:bg-fore" href={job["website"]}>
+          {titleCompanySpan}
+          <SquareArrowOutUpRight
+            className="mb-[5px] ml-2 inline-block"
+            width={15}
+            height={15}
+          />
+        </Link>
+      </CursorSize>
+    );
+  }
 
   return (
     <div className={cn("px-ggpn gap-ggpn grid grid-cols-4")}>
@@ -102,7 +137,7 @@ export function Career() {
           "pointer-events-auto",
           "bg-back col-span-4 flex flex-col md:col-span-3",
           job["lengthy"]
-            ? "xs:h-[calc(10*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g50t md:h-g50t lg:h-g40t xl:h-g30t h-[calc(18*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
+            ? "xs:h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g60t md:h-g60t lg:h-g50t xl:h-g40t h-[calc(20*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
             : "sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]",
         )}
       >
@@ -110,17 +145,18 @@ export function Career() {
           {job["duration"]}
         </div>
         <div className="mb-3 text-center font-serif text-4xl italic">
-          {job["title"]}{" "}
-          <span className="font-bold">
-            @ {job["company"].replace("Moving Picture Company", "MPC")}
-          </span>
+          {job["title"]} <span className="font-bold">@ </span>
+          {titleCompanySpan}
         </div>
         <div className="xs:text-lg text-back bg-fore my-2 py-2 text-center font-mono">
-          {job["summary"]}
+          {job["summary"]}{" "}
         </div>
         <motion.ul
           key={job["title"]}
-          className={`px/6) grow space-y-3 px-6 py-3 font-sans`}
+          className={cn(
+            `px/6) space-y-3 px-6 py-3 font-sans`,
+            job["images"] && job["images"].length ? "" : "grow",
+          )}
           initial="hidden"
           animate="show"
           variants={{
@@ -145,6 +181,12 @@ export function Career() {
             </motion.li>
           ))}
         </motion.ul>
+
+        {job["images"] && job["images"].length && (
+          <div className="grow">
+            <Gallery opacity="75" images={job["images"]} />
+          </div>
+        )}
         <div
           className={`bg-fore gap-ggpy flex flex-wrap items-center justify-center px-4 py-4`}
         >

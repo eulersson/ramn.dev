@@ -1,6 +1,7 @@
 {
   "company": "Watchity",
   "logo": "/watchity-logo.png",
+  "website": "https://www.watchity.com/",
   "duration": "Aug 2019 - Jan 2020",
   "place": "Barcelona",
   "title": "Full Stack Engineer",
@@ -18,15 +19,21 @@
     "◎ Designed the SAML workflow for our clients’ Single Sign On (SSO).",
     "◎ Integrated Twitter, Facebook, YouTube & LinkedIn’s live streaming APIs."
   ],
+  "images": [
+    "/career/watchity-studio.png",
+    "/career/watchity-branding.png",
+    "/career/watchity-clipper.png"
+  ],
   "skills": [
     "Python",
     "TypeScript",
-    "Nx",
+    "Django",
     "WebRTC",
     "Janus",
     "WebGL",
-    "Django",
+    "Unity",
     "REST",
+    "Swagger",
     "Celery",
     "Kubernetes",
     "Helm",
@@ -36,7 +43,7 @@
     "Socket.IO",
     "PostgreSQL",
     "AWS",
-    "C#"
+    "Nx"
   ],
   "lengthy": true
 }

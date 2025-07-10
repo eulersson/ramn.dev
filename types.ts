@@ -41,6 +41,8 @@ export interface ProjectMetadata {
   repo?: string;
   heroImage: string;
   headerImage?: string;
+  website?: string;
+  skills?: string[];
 }
 
 /**
@@ -69,3 +71,19 @@ export interface ProjectsData {
   projects: Project[];
   count: number;
 }
+/**
+ * Represents a job experience entry.
+ */
+export type Job = {
+  company: string;
+  logo: string;
+  website?: string;
+  duration: string;
+  place: string;
+  title: string;
+  summary: string;
+  points: string[];
+  images?: string[];
+  skills: string[];
+  lengthy: boolean;
+};

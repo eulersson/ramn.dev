@@ -56,19 +56,19 @@ export function Block({
     >
       <div
         className={cn(
-          "bg-back min-h-0 font-sans rounded-[40px] hyphens-auto text-ellipsis",
+          "bg-back min-h-0 rounded-[40px] font-sans text-ellipsis hyphens-auto",
           classNames.main,
         )}
       >
         {children}
       </div>
       {tags && tags.length >= 1 && (
-        <div className="bg-fore p-ggpy overflow-hidden">
+        <div className="bg-fore p-ggpy">
           <div
             ref={tagsRef}
             className={cn(
-              "flex items-center justify-start gap-ggpy",
-              "overflow-x-auto hide-scrollbar",
+              "gap-ggpy flex items-center justify-start",
+              "hide-scrollbar overflow-x-auto",
               "hover:flex-wrap hover:justify-center",
               classNames.tags,
             )}

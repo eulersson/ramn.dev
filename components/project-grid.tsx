@@ -59,7 +59,7 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
                 )}
               >
                 <p>
-                  <span className="bg-fore text-back font-mono">
+                  <span className="bg-fore text-back ml-[2px] font-mono">
                     {project.metadata["title"]}
                   </span>
                 </p>
@@ -68,6 +68,19 @@ export const ProjectGrid = ({ projects }: { projects: ProjectInfo[] }) => {
                     {project.metadata["description"]}
                   </span>
                 </p>
+                {project.metadata["skills"] &&
+                  project.metadata["skills"].length && (
+                    <div className="mt-[2px] flex max-h-[44px] flex-wrap gap-[2px] overflow-hidden p-[4px]">
+                      {project.metadata["skills"].map((skill) => (
+                        <span
+                          key={skill}
+                          className="border-back text-back rounded-full border-1 px-[2px] text-[8px] leading-[10px]"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
               </div>
             </Link>
           }

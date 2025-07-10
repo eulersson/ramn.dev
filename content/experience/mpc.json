@@ -1,6 +1,7 @@
 {
   "company": "Moving Picture Company",
   "logo": "/lion-king-logo.png",
+  "website": "https://www.mpcvfx.com/",
   "duration": "Aug 2017 - Aug 2019",
   "place": "London",
   "title": "Houdini (3D) Developer",
@@ -11,6 +12,11 @@
     "◎ Main developer for the HDA (OTL) Management framework.",
     "◎ Overrode hou module to use the HDAs' Python Module so TDs could write a class and call its methods from NodeType instances leveraging object-oriented programming practices.",
     "◎ Wrote Katana C++ Nodes for Houdini geometry ingestion within Katana."
+  ],
+  "images": [
+    "/career/mpc-simba.jpg",
+    "/career/mpc-fire.jpg",
+    "/career/mpc-footkicks.jpg"
   ],
   "skills": [
     "Houdini",

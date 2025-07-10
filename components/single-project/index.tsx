@@ -31,6 +31,7 @@ export const SingleProject = async ({
           title={metadata.title}
           subtitle={metadata.description}
           imageSrc={metadata.headerImage || metadata.heroImage}
+          skills={metadata.skills}
         />
         <SingleProjectBody repo={metadata.repo} readmeMarkdown={readmeMarkdown}>
           <Component />

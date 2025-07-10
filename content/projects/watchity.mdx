@@ -1,9 +1,104 @@
 export const metadata = {
   title: "Watchity",
-  description: "Suite of tools for live video.",
+  description: "Suite of tools for live video",
   heroImage: "/work/watchity.png",
+  website: "<https://www.watchity.com/>",
+  skills: [
+    "Python",
+    "TypeScript",
+    "Django",
+    "WebRTC",
+    "Janus",
+    "WebGL",
+    "Unity",
+    "REST",
+    "Swagger",
+    "Celery",
+    "Kubernetes",
+    "Helm",
+    "Angular",
+    "Redis",
+    "RxJS",
+    "HLS",
+    "RTMP",
+    "Socket.IO",
+    "PostgreSQL",
+    "AWS",
+    "Nx",
+  ],
 };
 
-# Watchity
+# SaaS for Video Communication
 
-Suite of tools for live video.
+> With [Watchity](https://www.watchity.com/), you can align your communication
+> with the demands of formats, channels, and immediacy in today’s video-driven
+> society.
+
+**Watchity** is a cloud-based **SaaS platform** designed to simplify video
+communication for companies and brands. As a <Hi>Full Stack Engineer</Hi>, I worked
+across various parts of the platform and contributed to architectural decisions
+and implementation as well as leading a team of 4 engineers.
+
+- **Studio** app for producing branded video signals.
+- Interactive **landing** pages and players for live events.
+- Live editing tool for **clipping** and **sharing** video feeds.
+
+![Watchity Parts](/career/watchity-parts.png)
+
+## Event Management
+
+We focused on client customization for landing pages, email reminders, branded
+forms, and access restrictions, resulting in **dynamic page generation**
+tailored to each event.
+
+## Ingestion & Mixing
+
+We handled _RTMP_ streams from professional devices and _WebRTC_ inputs from
+speakers' webcams and screen shares. I gained extensive experience in
+**real-time communications** using _WebRTC_ and
+[Janus](https://janus.conf.meetecho.com/) as well as **media browser APIs**.
+
+> For the video mixer, we used _Unity_. That gaves so much power to enrich the
+> user's content. I was responsible for bootstrapping _Janus WebRTC_ in _C#_
+> within _Unity_.
+
+## Consumption & Distribution
+
+**Distribution** was a key challenge—some events had hundreds of thousands of
+viewers, requiring a scalable video player and efficient **live interaction**
+features (chat, calls to action, etc.). I learned how to strategically cache and
+memoize to ensure performance.
+
+We supported both live and recorded video **sharing to social networks** like
+_YouTube_, _LinkedIn_, _X_ (_Twitter_), and others. I led the authentication and
+API integrations for those.
+
+The player included an **interactive engagement layer** to engage the audience
+with chat, reactions, quizzes, questions and answers, and calls to action. I led
+a team of three for this area and improved my _DevOps_ skills by setting up
+development environments and _CI/CD_ pipelines.
+
+<Gallery
+  minH="200px"
+  images={[
+    "/career/watchity-studio.png",
+    "/career/watchity-branding.png",
+    "/career/watchity-clipper.png",
+  ]}
+/>
+
+# Cloud-Based Solution
+
+Our stack ran entirely on _AWS_, exposing me to infrastructure tools like
+_CloudFormation_. I worked with on-demand deployments and resource optimization.
+
+One of my proudest contributions was designing an **observability system** for
+an _EC2 Auto Scaling Group_ that scaled down to zero when the job queue was
+empty and scaled up when jobs were pending. This **optimization** had a tangible
+impact on the company’s _AWS_ costs.
+
+# Consultancy & Tailor-Made Solutions
+
+Some clients required custom workflows or _APIs_. I handled both the
+implementation and the creation of clear, elegant _Postman_ documentation to
+reduce back-and-forth emails.

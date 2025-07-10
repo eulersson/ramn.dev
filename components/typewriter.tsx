@@ -98,7 +98,7 @@ export function Typewriter({
       {(!disableHighlight && (
         <span
           key={`dh`}
-          className={`bg-${invertColors ? "back" : "fore"} relative -left-[12px]`}
+          className={`bg-${invertColors ? "back" : "fore"} relative -left-[11px]`}
         >
           &nbsp;
         </span>

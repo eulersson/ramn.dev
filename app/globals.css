@@ -22,8 +22,11 @@
   --color-back: var(--col-back);
 
   --shadow-blocky: 10px 10px 0 var(--col-fore);
+  --shadow-blockyinvert: 10px 10px 0 var(--col-back);
   --shadow-button: 5px 5px 0 var(--col-fore);
   --shadow-buttonhover: 3px 3px 0 var(--col-fore);
+  --shadow-buttoninvert: 5px 5px 0 var(--col-back);
+  --shadow-buttonhoverinvert: 3px 3px 0 var(--col-back);
 
   --spacing-ggpn: calc(var(--bg-grid-gap));
   --spacing-ggpy: calc(var(--bg-grid-gap) * 2);
@@ -90,6 +93,9 @@
   --spacing-g70n: calc(var(--bg-grid-box-size) * 7);
   --spacing-g70t: calc(var(--bg-grid-box-size) * 7 + 7 * var(--bg-grid-gap));
   --spacing-g70y: calc(var(--bg-grid-box-size) * 7 + 8 * var(--bg-grid-gap));
+  --spacing-g80n: calc(var(--bg-grid-box-size) * 8);
+  --spacing-g80t: calc(var(--bg-grid-box-size) * 8 + 8 * var(--bg-grid-gap));
+  --spacing-g80y: calc(var(--bg-grid-box-size) * 8 + 9 * var(--bg-grid-gap));
 
   --min-width-ggpn: var(--bg-grid-gap);
   --min-width-ggpy: calc(var(--bg-grid-gap) * 2);
@@ -464,6 +470,10 @@
 
 @utility border-2-fore-inside {
   @apply outline-fore outline-2 -outline-offset-2 outline-solid;
+}
+
+@utility border-2-back-inside {
+  @apply outline-back outline-2 -outline-offset-2 outline-solid;
 }
 
 @layer utilities {

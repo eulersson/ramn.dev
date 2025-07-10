@@ -65,12 +65,19 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
   const tags: TagProps[] = [
     { text: "Python" },
     { text: "C++" },
-    { text: "TypeScript" },
     { text: "Go" },
+    { text: "TypeScript" },
+    { text: "Microservices" },
+    { text: "DevOps" },
+    { text: "API Design" },
+    { text: "REST" },
+    { text: "RPC" },
+    { text: "GraphQL" },
     { text: "Django" },
     { text: "React" },
     { text: "Next.js" },
     { text: "Angular" },
+    { text: "WebRTC" },
     { text: "AWS" },
     { text: "Kubernetes" },
     { text: "OpenGL" },
@@ -85,7 +92,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "with" },
     { text: "computer graphics", className: "font-medium underline" },
     {
-      text: "background and VFX industry experience. I design, build and deploy scalable interactive",
+      text: "background and VFX industry experience in the film industry. I design, build and deploy scalable interactive",
     },
     { text: "web apps,", className: "font-medium underline" },
     { text: "leveraging cloud computing when possible." },
@@ -163,10 +170,13 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
         <div className="col-span-4 sm:col-span-3">
           <Block
             classNames={{
-              wrapper: cn("h-g50t xs:h-g30t md:h-g20t", "flex flex-col"),
+              wrapper: cn(
+                "h-g80t xs:h-g50t sm:h-g40t md:h-g30t lg:h-g20t",
+                "flex flex-col",
+              ),
               main: cn(
                 "grow py-5 px-9 xs:text-lg xl:text-xl",
-                "flex items-center justify-center",
+                "flex flex-col items-start justify-center",
               ),
             }}
             tags={tags}

@@ -1,6 +1,7 @@
 {
   "company": "NPAW",
   "logo": "/npaw.png",
+  "website": "https://npaw.com/",
   "duration": "Apr 2023 - May 2023",
   "place": "Barcelona",
   "title": "React Developer",
@@ -13,6 +14,11 @@
     "◎ Injected custom components across the various slots on the grid.",
     "◎ Fixed bugs along the way.",
     "◎ Restructured layouts."
+  ],
+  "images": [
+    "/career/npaw-video.jpg",
+    "/career/npaw-probes.jpg",
+    "/career/npaw-video.jpg"
   ],
   "skills": ["React", "Material UI", "MUI X"],
   "lengthy": false

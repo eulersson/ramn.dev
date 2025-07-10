@@ -13,10 +13,12 @@ import { useMDXComponents } from "@/mdx-components";
 export const SingleProjectBody = ({
   readmeMarkdown,
   repo,
+  skills,
   children,
 }: {
   readmeMarkdown?: string;
   repo?: string;
+  skills?: string[];
   children: React.ReactNode;
 }) => {
   const mdxComponents = useMDXComponents({});
@@ -28,6 +30,18 @@ export const SingleProjectBody = ({
   }
   return (
     <div className="px-6 py-3 font-extralight dark:font-light">
+      {skills && skills.length && (
+        <div className="align-center flex flex-wrap justify-center gap-[6px]">
+          {skills.map((skill) => (
+            <span
+              key={skill}
+              className="bg-fore text-back rounded-full px-[3px] text-[11px]"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      )}
       {children}
       {readmeMarkdown && (
         <>

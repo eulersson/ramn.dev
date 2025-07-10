@@ -4,10 +4,10 @@ import type { MDXComponents } from "mdx/types";
 
 // Project
 import { CursorSize } from "@/components/cursor";
+import { Gallery } from "@/components/prose/gallery";
+import { H1, H2, H3, H4, H5, H6 } from "@/components/prose/headings";
 import { ImageFlexRow } from "@/components/prose/image-flex-row";
 import { cn } from "@/lib";
-import React from "react";
-import { H1, H2, H3, H4, H5, H6 } from "@/components/prose/headings";
 
 // This file allows you to provide custom React components
 // to be used in MDX files. You can import and use any
@@ -53,6 +53,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h4: ({ children }) => <H4>{children}</H4>,
     h5: ({ children }) => <H5>{children}</H5>,
     h6: ({ children }) => <H6>{children}</H6>,
+    Hi: ({ children }) => (
+      <span className={`text-back bg-fore/75`}>{children}</span>
+    ),
     img: (props) => (
       <CursorSize sizeOnHover={8}>
         <img {...props} />
@@ -64,9 +67,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {...props}
       />
     ),
-    ol: ({ children }) => {
-      return <ol className="group ml-9 list-decimal">{children}</ol>;
-    },
+    ol: ({ children }) => (
+      <ol className="group my-2 ml-9 list-decimal">{children}</ol>
+    ),
     p: ({ children }) => (
       <p className={cn("py-1 text-justify hyphens-auto")}>{children}</p>
     ),
@@ -96,7 +99,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     td: ({ children }) => (
       <td className="border-fore border px-4 py-2">{children}</td>
     ),
-    ul: ({ children }) => <ul className="group ml-5 list-none">{children}</ul>,
+    ul: ({ children }) => (
+      <ul className="group my-2 ml-5 list-none">{children}</ul>
+    ),
+    Gallery,
     ImageFlexRow,
     ...components,
   };

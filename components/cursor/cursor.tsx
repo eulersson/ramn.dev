@@ -105,8 +105,8 @@ export function Cursor() {
   return avoidMixBlendDifference ? (
     <motion.div
       className={cn(
-        "w-[40px] h-[40px]",
-        "cursor z-50 ",
+        "h-[40px] w-[40px]",
+        "cursor z-70",
         "bg-[radial-gradient(circle,transparent_14px,var(--col-fore)_14px,var(--col-fore)_16px,var(--col-back)_16px,var(--col-back)_18px,var(--col-fore)_18px,var(--col-fore)_20px)]",
       )}
       style={{
@@ -118,8 +118,8 @@ export function Cursor() {
   ) : (
     <motion.div
       className={cn(
-        isSafari ? "w-[128px] h-[128px]" : "w-[32px] h-[32px]",
-        "cursor z-50 bg-white mix-blend-difference",
+        isSafari ? "h-[128px] w-[128px]" : "h-[32px] w-[32px]",
+        "cursor z-70 bg-white mix-blend-difference",
       )}
       style={{
         x: cursorX,

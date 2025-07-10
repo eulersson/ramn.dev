@@ -23,7 +23,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
           "md:mt-[calc(var(--bg-grid-box-size)/2+2*var(--bg-grid-gap)-var(--title-tag-size)/2-var(--title-tag-padding))]",
 
           // Lower spacing
-          "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding)+var(--bg-grid-gap))]",
+          "mb-[calc(var(--bg-grid-box-size)-var(--title-tag-size)/2-var(--title-tag-padding))]",
         )}
       >
         Recommendations
