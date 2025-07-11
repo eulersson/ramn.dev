@@ -22,7 +22,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <CursorSize className="inline-block" sizeOnHover={0.4}>
           <a
-            className="text-fore/60 hover:text-fore/80 flex items-center text-sm underline"
+            className="text-fore/60 hover:text-fore/80 flex inline items-center text-sm underline"
             href={href}
           >
             {children}
