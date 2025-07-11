@@ -27,9 +27,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           >
             {children}
             <ExternalLink
-              width={3}
-              height={3}
-              className="ml-1 inline text-gray-500"
+              width={9}
+              height={9}
+              className="ml-1 inline min-w-[9px] text-gray-500"
             />
           </a>
         </CursorSize>

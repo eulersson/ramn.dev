@@ -15,7 +15,6 @@ export const SingleProject = async ({
   delayAnimation?: boolean;
 }) => {
   const { metadata, Component, readmeMarkdown } = project;
-  console.log("qrqrqr", metadata);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log(

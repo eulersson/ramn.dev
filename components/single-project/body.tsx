@@ -53,7 +53,7 @@ export const SingleProjectBody = ({
               "my-5 flex items-center justify-center gap-2 p-5",
             )}
           >
-            <ArrowDown strokeWidth={1} />
+            <ArrowDown className="min-w-[24px]" strokeWidth={1} />
             <ThemedImage
               className="block group-hover:hidden"
               src="/github.svg"
@@ -71,8 +71,8 @@ export const SingleProjectBody = ({
             />
             <strong className="font-black">GitHub</strong>
             README.md
-            <ExternalLink width={9} height={9} className="inline" />
-            <ArrowDown strokeWidth={1} />
+            <ExternalLink width={9} height={9} className="inline min-w-[9px]" />
+            <ArrowDown className="min-w-[24px]" strokeWidth={1} />
           </a>
           <MDXRemote
             source={readmeMarkdown}
