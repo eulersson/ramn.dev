@@ -11,8 +11,9 @@ const appConfig: AppConfig = {
   projects: [
     "watchity",
     "taconez",
-    "anthem",
     "dreamdrugs",
+    "ritmely",
+    "anthem",
     "ramn-dev",
     "fargate-microservices",
     "appleseed",
@@ -27,6 +28,7 @@ const appConfig: AppConfig = {
     "animation-reel",
     "self-seeker",
     "samfaelni",
+    "obsidian-github-exporter",
   ],
   featuredProjects: [
     "watchity",

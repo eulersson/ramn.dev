@@ -5,6 +5,7 @@ import type { MDXComponents } from "mdx/types";
 // Project
 import { CursorSize } from "@/components/cursor";
 import { Gallery } from "@/components/prose/gallery";
+import { ThemedImage } from "@/components/prose/themed-image";
 import { H1, H2, H3, H4, H5, H6 } from "@/components/prose/headings";
 import { ImageFlexRow } from "@/components/prose/image-flex-row";
 import { cn } from "@/lib";
@@ -25,7 +26,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             href={href}
           >
             {children}
-            <ExternalLink className="ml-1 inline h-3 w-3 text-gray-500" />
+            <ExternalLink
+              width={3}
+              height={3}
+              className="ml-1 inline text-gray-500"
+            />
           </a>
         </CursorSize>
       );
@@ -92,7 +97,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </thead>
     ),
     tbody: ({ children }) => <tbody>{children}</tbody>,
-    tr: ({ children }) => <tr className="border-fore border-b">{children}</tr>,
+    tr: ({ children }) => (
+      <tr className="border-fore even:bg-fore/10 odd:bg-back border-b">
+        {children}
+      </tr>
+    ),
     th: ({ children }) => (
       <th className="border-fore border px-4 py-2 font-semibold">{children}</th>
     ),
@@ -104,6 +113,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     Gallery,
     ImageFlexRow,
+    ThemedImage,
     ...components,
   };
 }

@@ -1,5 +1,5 @@
 // Third-Party
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ExternalLink } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 
@@ -50,10 +50,10 @@ export const SingleProjectBody = ({
             target="_blank"
             className={cn(
               "group bg-fore hover:border-2-fore hover:shadow-blocky border-2-back hover:bg-back hover:text-fore text-back",
-              "my-5 flex justify-center gap-2 p-5",
+              "my-5 flex items-center justify-center gap-2 p-5",
             )}
           >
-            <ArrowDown />
+            <ArrowDown strokeWidth={1} />
             <ThemedImage
               className="block group-hover:hidden"
               src="/github.svg"
@@ -69,8 +69,10 @@ export const SingleProjectBody = ({
               width={24}
               height={24}
             />
-            <strong className="font-black">GitHub</strong> README.md
-            <ArrowDown />
+            <strong className="font-black">GitHub</strong>
+            README.md
+            <ExternalLink width={9} height={9} className="inline" />
+            <ArrowDown strokeWidth={1} />
           </a>
           <MDXRemote
             source={readmeMarkdown}

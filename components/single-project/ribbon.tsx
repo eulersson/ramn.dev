@@ -4,8 +4,8 @@
 import Link from "next/link";
 
 // Third-Party
+import { Earth, ExternalLink, Grid3x3 } from "lucide-react";
 import { motion, useMotionValue } from "motion/react";
-import { Grid3x3 } from "lucide-react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
@@ -19,7 +19,7 @@ const anchorClasses = cn(
   "group",
 );
 
-export function Ribbon({ repo }: { repo?: string }) {
+export function Ribbon({ repo, website }: { repo?: string; website?: string }) {
   const headerContext = useHeader();
   const fallbackMotionValue = useMotionValue(0);
   const headerTranslateYSpring =
@@ -73,6 +73,13 @@ export function Ribbon({ repo }: { repo?: string }) {
               <Grid3x3 width={15} height={15} />
               All Projects
             </Link>
+            {website && (
+              <Link href={website} target="_blank" className={anchorClasses}>
+                <Earth width={15} height={15} />
+                Website
+                <ExternalLink width={9} height={9} className="inline" />
+              </Link>
+            )}
           </div>
         </CursorSize>
       </motion.div>

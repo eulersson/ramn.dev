@@ -1,20 +1,16 @@
 // Node.js
 import path from "path";
-import fs from "fs";
 
 // Third-Party
 import { glob } from "glob";
 
 // Project
 import settings from "@/config/settings";
+import { parseMarkdown } from "@/lib/markdown";
 import type { Project, ProjectsData } from "@/types";
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");
 
-//  export function getAllProjectSlugs() {
-//    const projects = fs.readdirSync(projectsDirectory);
-//    return projects.map((name) => (name.replace(".mdx", "")));
-//  }
 export function getAllProjectSlugs() {
   return glob
     .sync("*.mdx", { cwd: projectsDirectory })
@@ -58,24 +54,12 @@ export async function getOneProjectData(slug: string): Promise<Project> {
     }
 
     readmeMarkdown = await res.text();
-
-    // Convert relative image paths to absolute GitHub URLs
-    readmeMarkdown = readmeMarkdown.replace(
-      /!\[([^\]]*)\]\((?!http)(.*?)\)/g,
-      (_, alt, path) =>
-        `![${alt}](https://raw.githubusercontent.com/${owner}/${repo}/${usedBranch}/${path})`,
-    );
-    // Also handle <img src="..."> tags with relative paths
-    readmeMarkdown = readmeMarkdown.replace(
-      /<img([^>]*?)src=["'](?!http)([^"'>]+)["']([^>]*?)>/g,
-      (match, before, path, after) =>
-        `<img${before}src=\"https://raw.githubusercontent.com/${owner}/${repo}/${usedBranch}/${path}\"${after}>`,
-    );
-
-    // Remove the main project title heading that matches the slug
-    readmeMarkdown = readmeMarkdown.replace(
-      new RegExp(`^# ${slug}$`, "mi"),
-      "",
+    readmeMarkdown = parseMarkdown(
+      readmeMarkdown,
+      slug,
+      owner,
+      repo,
+      usedBranch,
     );
 
     // Replace callout blockquotes with emoji equivalents
@@ -88,7 +72,7 @@ export async function getOneProjectData(slug: string): Promise<Project> {
     };
     readmeMarkdown = readmeMarkdown.replace(
       /^> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\](.*)$/gim,
-      (match, type, rest) => `> ${calloutMap[type]}${rest}`
+      (match, type, rest) => `> ${calloutMap[type]}${rest}`,
     );
   }
   return { slug, featured, Component, metadata, readmeMarkdown };

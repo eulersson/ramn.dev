@@ -2,7 +2,7 @@
 
 import { Modal } from "@/components/modal";
 import { SingleProject } from "@/components/single-project";
-import { toBool } from "@/lib";
+import { sleep, toBool } from "@/lib";
 import { getAllProjectSlugs, getOneProjectData } from "@/lib/projects";
 
 export const dynamicParams = false;
@@ -17,6 +17,9 @@ export default async function ProjectModal({
 }) {
   const { slug } = await params;
   const project = await getOneProjectData(slug);
+
+  // Modal gets a nicer flow.
+  await sleep(1200);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log(
