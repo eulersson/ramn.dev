@@ -1,13 +1,13 @@
 "use client";
 
 // React
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 // Next.js
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib";
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 
 /**
  * Modal component that renders its children inside a modal dialog using a portal.
@@ -28,25 +28,10 @@ export function Modal({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // TODO: This does it the right recommended way: using HTML dialog,
-  // but for some reason then the custom cursor we have it shows below
-  // and z-index get ignored.
-  // const dialogRef = useRef<HTMLDialogElement>(null);
-  // useEffect(() => {
-  //   if (!dialogRef.current?.open) {
-  //     dialogRef.current?.showModal();
-  //   }
-  // }, []);
-
   function onDismiss() {
     router.back();
   }
 
-  // TODO: These would go on the dialog element, but as said in the comment
-  // above it produces undesired effects.
-  //
-  // ref={dialogRef}
-  // onClose={onDismiss}
   return createPortal(
     <div
       className={cn(
@@ -54,19 +39,18 @@ export function Modal({ children }: { children: React.ReactNode }) {
         "overflow-hidden",
         "h-full w-full",
         "fixed inset-0 z-70 bg-black/80",
+        "flex items-center justify-center",
         "group/modal is-open",
       )}
       onClick={() => onDismiss()}
     >
-      <motion.dialog
-        open
+      <motion.div
         id="modal-dialog"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.6 }}
         className={cn(
           "border-2-fore bg-back pointer-events-auto overflow-scroll rounded rounded-xl",
-          "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
           "max-w-[1200px]",
           "h-[80%] w-[calc(100%-20px)]",
           "sm:h-[calc(100%-60px)] sm:w-[calc(100%-60px)]",
@@ -75,7 +59,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
         onClick={(e) => e.stopPropagation()}
       >
         {children}
-      </motion.dialog>
+      </motion.div>
     </div>,
     document.getElementById("modal-root")!,
   );
