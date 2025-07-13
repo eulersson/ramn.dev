@@ -4,10 +4,11 @@ import type { MDXComponents } from "mdx/types";
 
 // Project
 import { CursorSize } from "@/components/cursor";
+import MacBookShowcase from "@/components/mackbook-showcase";
 import { Gallery } from "@/components/prose/gallery";
-import { ThemedImage } from "@/components/prose/themed-image";
 import { H1, H2, H3, H4, H5, H6 } from "@/components/prose/headings";
 import { ImageFlexRow } from "@/components/prose/image-flex-row";
+import { ThemedImage } from "@/components/prose/themed-image";
 import { cn } from "@/lib";
 
 // This file allows you to provide custom React components
@@ -113,6 +114,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     Gallery,
     ImageFlexRow,
+    MacBookShowcase,
     ThemedImage,
     ...components,
   };

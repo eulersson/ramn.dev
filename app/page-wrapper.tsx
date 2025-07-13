@@ -74,6 +74,7 @@ export function PageWrapper({
         />
       )}
       <LayoutContainer
+        delayBackgroundAnimation={6000}
         correctHeaderNavbarUpperSpace={correctHeaderNavbarUpperSpace}
       >
         {children}

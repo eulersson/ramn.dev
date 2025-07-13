@@ -18,6 +18,16 @@ import { motion } from "motion/react";
 export function Modal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
+  // While the modal is open prevent scrolling the content underneath.
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   // TODO: This does it the right recommended way: using HTML dialog,
   // but for some reason then the custom cursor we have it shows below
   // and z-index get ignored.
@@ -41,6 +51,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
     <div
       className={cn(
         "pointer-events-auto",
+        "overflow-hidden",
         "h-full w-full",
         "fixed inset-0 z-70 bg-black/80",
         "group/modal is-open",

@@ -39,7 +39,7 @@ export function Ribbon({ repo, website }: { repo?: string; website?: string }) {
             className={cn(
               "pointer-events-auto",
               "gap-ggpn flex text-[12px]",
-              "right-[calc(50%-2*var(--bg-grid-box-size)-1.5*var(--bg-grid-gap))] h-[calc(6*var(--spacing))] w-[200px] origin-top-right translate-y-[200px] rotate-90",
+              "right-[calc(50%-2*var(--bg-grid-box-size)-1.5*var(--bg-grid-gap))] h-[calc(6*var(--spacing))] w-[300px] origin-top-right translate-y-[300px] rotate-90",
             )}
           >
             {repo && (
