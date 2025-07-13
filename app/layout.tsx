@@ -6,6 +6,7 @@ import {
   Playfair_Display,
   Urbanist,
 } from "next/font/google";
+import Head from "next/head";
 
 // Project
 import { Providers } from "@/app/providers";
@@ -63,10 +64,14 @@ export default function RootLayout({
 
   return (
     <html
-      className="invisible-scrollbar light h-full"
+      className="invisible-scrollbar light notranslate h-full"
+      translate="no"
       lang="en"
       style={{ colorScheme: "light" }}
     >
+      <Head>
+        <meta name="google" content="notranslate" />
+      </Head>
       <body
         className={cn(
           firaMono.variable,
