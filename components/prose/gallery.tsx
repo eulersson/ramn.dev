@@ -13,11 +13,11 @@ import { cn } from "@/lib";
 export const Gallery = ({
   images,
   opacity = "100",
-  minH = "0px",
+  minH = 0,
 }: {
   images: string[];
   opacity?: string;
-  minH?: string;
+  minH?: number;
 }) => {
   const [zoom, setZoom] = useState(false);
 
@@ -27,9 +27,10 @@ export const Gallery = ({
     <div
       onClick={() => setZoom(!zoom)}
       className={cn(
-        `gap-ggpn grid min-h-[${minH}] h-full opacity-${opacity} transition-all hover:opacity-100`,
+        `gap-ggpn grid h-full opacity-${opacity} transition-all hover:opacity-100`,
         zoom ? zoomClasses : "grid-cols-3 hover:scale-110",
       )}
+      style={{ minHeight: minH }}
     >
       {images.map((src) => (
         <div key={src} className="relative">
