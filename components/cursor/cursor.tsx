@@ -4,7 +4,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 // Third-Party
-import { MotionValue, motion, useMotionValue, useSpring } from "motion/react";
+import {
+  MotionValue,
+  SpringOptions,
+  motion,
+  useMotionValue,
+  useSpring,
+} from "motion/react";
 
 // Project
 import { ContextNotProvidedError } from "@/errors/context-not-provided";
@@ -18,7 +24,8 @@ const BASE_SIZE = 4;
 // -- Cursor Context & Provider --------------------------------------------------------
 const CursorContext = createContext<{
   cursorSize: MotionValue;
-  setCursorSize: Function;
+  setCursorSize: (size: number) => void;
+  setCursorTap: (size: number) => void;
   cursorSizeRaw: number;
 } | null>(null);
 
@@ -26,7 +33,11 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
   const [cursorSizeRaw, setCursorSizeRaw] = useState(0);
   const cursorSize = useMotionValue(0);
   const isSafari = useSafari();
-  const cursorSizeAnim = useSpring(cursorSize, { damping: 10 });
+  const isTouch = useTouchDevice();
+  const springOptions: SpringOptions = isTouch
+    ? { damping: 20, mass: 1.0, stiffness: 130 }
+    : { damping: 10, mass: 1.0, stiffness: 100 };
+  const cursorSizeAnim = useSpring(cursorSize, springOptions);
   const setCursorSize = (value: number) => {
     setCursorSizeRaw(value);
     if (isSafari) {
@@ -34,6 +45,13 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     } else {
       cursorSize.set(value);
     }
+  };
+
+  const setCursorTap = (value: number) => {
+    cursorSize.set(value);
+    setTimeout(() => {
+      cursorSize.set(0);
+    }, 100);
   };
 
   useEffect(() => {
@@ -47,7 +65,12 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CursorContext.Provider
-      value={{ cursorSize: cursorSizeAnim, setCursorSize, cursorSizeRaw }}
+      value={{
+        cursorSize: cursorSizeAnim,
+        setCursorSize,
+        setCursorTap,
+        cursorSizeRaw,
+      }}
     >
       {children}
     </CursorContext.Provider>
@@ -56,11 +79,9 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
 
 // -- Cursor Hook ----------------------------------------------------------------------
 export function useCursor() {
-  const isTouchDevice = useTouchDevice();
-
   const context = useContext(CursorContext);
 
-  if (isTouchDevice === false && context === null) {
+  if (context === null) {
     throw new ContextNotProvidedError("CursorContext");
   }
 
@@ -77,6 +98,7 @@ export function Cursor() {
   const cursorContext = useCursor();
   const [isMounted, setIsMounted] = useState(false);
 
+  const isTouch = useTouchDevice();
   const isSafari = useSafari();
 
   const avoidMixBlendDifference = useBrowserTooLaggy();
@@ -85,14 +107,29 @@ export function Cursor() {
     // Only show the cursor after client-side hydration is complete
     setIsMounted(true);
 
-    const mouseMove = (e: MouseEvent) => {
-      cursorX.set(e.clientX - (isSafari ? 64 : 16));
-      cursorY.set(e.clientY - (isSafari ? 64 : 16));
-    };
-    window.addEventListener("mousemove", mouseMove);
-    return () => {
-      window.removeEventListener("mousemove", mouseMove);
-    };
+    if (isTouch) {
+      const onClick = (e: MouseEvent) => {
+        const touch = e;
+        if (touch) {
+          cursorX.set(touch.clientX - (isSafari ? 64 : 16));
+          cursorY.set(touch.clientY - (isSafari ? 64 : 16));
+          cursorContext.setCursorTap(2);
+        }
+      };
+      window.addEventListener("click", onClick);
+      return () => {
+        window.removeEventListener("click", onClick);
+      };
+    } else {
+      const mouseMove = (e: MouseEvent) => {
+        cursorX.set(e.clientX - (isSafari ? 64 : 16));
+        cursorY.set(e.clientY - (isSafari ? 64 : 16));
+      };
+      window.addEventListener("mousemove", mouseMove);
+      return () => {
+        window.removeEventListener("mousemove", mouseMove);
+      };
+    }
   }, []);
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
@@ -144,14 +181,14 @@ export function CursorSize({
   children: React.ReactNode;
   sizeOnHover: number;
 }) {
-  const isTouchDevice = useTouchDevice();
+  const isTouch = useTouchDevice();
   const context = useCursor();
-  if (isTouchDevice || context === null) {
+  if (context === null || !isTouch) {
     return children;
   } else {
     return (
       <div
-        className={"pointer-events-auto " + className}
+        className={cn("pointer-events-auto", className)}
         onMouseEnter={() => context.setCursorSize(sizeOnHover)}
         onMouseLeave={() => context.setCursorSize(1)}
       >
