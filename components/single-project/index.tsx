@@ -27,7 +27,6 @@ export const SingleProject = async ({
       <article id="project" className="relative">
         <Ribbon repo={metadata.repo} website={metadata.website} />
         <SingleProjectHeader
-          slug={slug}
           delayAnimation={delayAnimation ? 3500 : 0}
           title={metadata.title}
           subtitle={metadata.description}

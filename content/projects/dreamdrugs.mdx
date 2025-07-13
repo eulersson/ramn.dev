@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "dreamdrugs",
+  title: "Dream Drugs",
   description: "An AI psychedelic art generation playground.",
   repo: "eulersson/dreamdrugs",
   heroImage: "/work/dreamdrugs.png",
@@ -9,127 +9,41 @@ export const metadata = {
     "TensorFlow",
     "NGINX",
     "Kubernetes",
+    "Helm",
     "Skaffold",
     "Express.js",
     "React",
   ],
 };
 
-Some `backticks` for inline.
+# Motivation
 
-```javascript
-backtick.fences("for blocks");
-```
+When **deep dreaming** images started flooding the internet I felt the need to
+build my own interface to explore the various deep layers within, since some of
+them would produce very interesting patterns that would be very well integrated
+with the features in my photo.
 
-Two **asterisks** for strong.
+Simultaneously, I wanted to get my hands on designing a microservice-driven
+architecture using Kubernetes and exploring <Hi>development experience</Hi>
+where I could write backend and frontend simultaneously with hot-reloading while
+staying in containers.
 
-Some _asterisks_ for emphasis.
+Here's where I found a perfect match:
 
-Three asterisks for a thematic break:
+> An extensible **AI Psychedelic Art Generation** that takes a picture from your
+> webcam and hallucinates on it using various deep dreaming algorithms which
+> could be extended by plugins.
 
----
+![Dreamdrugs App](/work/dreamdrugs-app-screens.png)
 
-Let's play with some titles.
+# Architecture
 
-# Heading 1
-
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-ofiajs oifja foiasj fosaij f oaisfj aoifj aoifj aofij afsoij faoi
-
-## Heading 2
-
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-ofiajs oifja foiasj fosaij f oaisfj aoifj aoifj aofij afsoij faoi
-
-### Heading 3
-
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-ofiajs oifja foiasj fosaij f oaisfj aoifj aoifj aofij afsoij faoi
-
-#### Heading 4
-
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-ofiajs oifja foiasj fosaij f oaisfj aoifj aoifj aofij afsoij faoi
-
-##### Heading 5
-
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-ofiajs oifja foiasj fosaij f oaisfj aoifj aoifj aofij afsoij faoi
-
-###### Heading 6
-
-This is an **unordered** list:
-
-- asterisks for unordered items
-- second item
-
-This is an **ordered** list:
-
-1. decimals and a dot for ordered items
-2. second element
-
-This project (in progress) was an encouragement for me to learn microservice
-architecture.
-
-> An extensible AI Psychedelic Art Generation that takes a picture from your
-> webcam and hallucinates on it using various deep dreaming algorithms.
-
-![Dreamdrugs App](/work/dreamdrugs/app.png)
-
-It’s designed to be scalable (developed using Kubernetes and
-Helm). The frontend is composed by a React application served (alongside a
-frontend API) by an Express server. The backend is a Python TensorFlow Flask
-app running on Gunicorn. Both communicate realtime updates via a Redis cluster
-installed as a Helm chart dependency. I wanted to cut down costs on Ingress by
-having an array of NGINX servers on each node (DaemonSet) receiving the
-requests based on repeated DNS entry names pointing at each node. I wrote so I
-(or others) can plug more trained ML models and have different kinds of
-hallucinations. Another link [GitHub](https://github.com/). Let's see how it looks.
-
-Architecture and design choices is discussed in:
-
-some text [https://github.com/docwhite/dreamdrugs/wiki](https://github.com/docwhite/dreamdrugs/wiki) before
-
-An AI psychedelic art generation playground.
-
-![Dreamdrugs Samples](/work/dreamdrugs/samples.jpg)
+It’s designed to be **scalable** (developed using `Kubernetes` and `Helm`). The
+**frontend** is composed by a `React` application served (alongside a **frontend
+API**) by an `Express` server. The backend is a `Python` `TensorFlow` `Flask`
+app running on `Gunicorn`. Both communicate realtime updates via a `Redis`
+cluster installed as a `Helm` chart dependency. I wanted to **cut down costs
+Ingress costs** by having an array of `NGINX` servers on each node (`DaemonSet`)
+receiving the requests based on repeated `DNS` entry names pointing at each
+node. I wrote so I (or others) can plug more trained models and have different
+kinds of hallucinations.

@@ -11,38 +11,43 @@ export function parseMarkdown(
     (_, alt, path) =>
       `![${alt}](https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path})`,
   );
-  // Also handle <img src="..."> tags with relative paths and convert style="..." to React style={{...}}
+  // First, convert <img> tags with relative src to absolute GitHub URLs
   md = md.replace(
     /<img([^>]*?)src=["'](?!http)([^"'>]+)["']([^>]*?)>/g,
     (match, before, path, after) => {
-      // Extract style="..." if present
-      const styleMatch = /style=["']([^"']*)["']/i.exec(before + after);
-      let styleProp = "";
-      if (styleMatch) {
+      // Remove leading './', '/', or multiple slashes from the path
+      const cleanPath = path.replace(/^\.?\/*/, "");
+      return `<img${before}src=\"https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${cleanPath}\"${after}>`;
+    },
+  );
+
+  // Then, convert style="..." attributes in <img> and <a> tags to React style={{...}}
+  for (const tag of ["img", "a"]) {
+    md = md.replace(
+      new RegExp(`<${tag}([^>]*?)style=["']([^"']*)["']([^>]*?)>`, "g"),
+      (match: string, before: string, styleString: string, after: string) => {
         // Convert CSS string to JS object string
-        const styleString = styleMatch[1];
         const styleObj = styleString
           .split(";")
           .filter(Boolean)
-          .reduce((acc: string[], rule) => {
-            const [key, value] = rule.split(":").map((s) => s && s.trim());
+          .reduce((acc: string[], rule: string) => {
+            const [key, value] = rule
+              .split(":")
+              .map((s: string) => s && s.trim());
             if (key && value) {
               // Convert kebab-case to camelCase
-              const camelKey = key.replace(/-([a-z])/g, (_, c) =>
-                c.toUpperCase(),
+              const camelKey = key.replace(
+                /-([a-z])/g,
+                (_: string, c: string) => c.toUpperCase(),
               );
               acc.push(`${camelKey}: \"${value}\"`);
             }
             return acc;
           }, [] as string[]);
-        styleProp = ` style={{${styleObj.join(", ")}}}`;
-      }
-      // Remove any style="..." from before/after
-      const beforeClean = before.replace(/style=["'][^"']*["']/i, "");
-      const afterClean = after.replace(/style=["'][^"']*["']/i, "");
-      return `<img${beforeClean}src=\"https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}\"${styleProp}${afterClean}>`;
-    },
-  );
+        return `<${tag}${before}style={{${styleObj.join(", ")}}}${after}>`;
+      },
+    );
+  }
 
   // Remove the main project title heading that matches the slug
   md = md.replace(new RegExp(`^# ${title}$`, "mi"), "");
@@ -50,16 +55,17 @@ export function parseMarkdown(
   // Reduce one level for all headings starting from ## and deeper
   md = md.replace(/^(#{1,6})\s/gm, (match, hashes) => `${hashes.slice(1)} `);
 
-  // Replace <picture> tags with GitHubThemedImage component
+  // Replace <picture> tags with ThemedImage component
   const resolvePath = (path: string) =>
     path.startsWith("http")
       ? path
       : `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path.replace(/^\.?\/*/, "")}`;
 
+  // Replace <picture> blocks with ThemedImage only if they have a dark mode <source>
   md = md.replace(
-    /<p[^>]*?>[\s\S]*?<picture>[\s\S]*?<source[^>]*?media=["']\(prefers-color-scheme:\s*dark\)["'][^>]*?srcset=["']([^"']+)["'][^>]*?>[\s\S]*?<img[^>]*?alt=["']([^"']+)["'][^>]*?src=["']([^"']+)["'][^>]*?>[\s\S]*?<\/picture>[\s\S]*?<\/p>/gim,
+    /<picture>\s*<source[^>]*media=["']\(prefers-color-scheme:\s*dark\)["'][^>]*srcset=["']([^"']+)["'][^>]*>\s*<img[^>]*alt=["']([^"']+)["'][^>]*src=["']([^"']+)["'][^>]*>\s*<\/picture>/gim,
     (_, darkSrc, alt, lightSrc) => {
-      return `<ThemedImage alt="${alt}" lightSrc="${resolvePath(lightSrc)}" darkSrc="${resolvePath(darkSrc)}" />`;
+      return `<ThemedImage className="mb-[4px]" alt="${alt}" lightSrc="${resolvePath(lightSrc)}" darkSrc="${resolvePath(darkSrc)}" />`;
     },
   );
 
@@ -77,4 +83,3 @@ export function parseMarkdown(
 
   return md;
 }
-
