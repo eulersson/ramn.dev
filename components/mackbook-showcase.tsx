@@ -108,7 +108,7 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
       <div className="flex items-center justify-center md:p-8">
         <div
           ref={macbookRef}
-          className="relative transform cursor-pointer transition-transform duration-300 hover:scale-130"
+          className="relative transform cursor-pointer transition-transform duration-300 hover:scale-115"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMove}

@@ -14,7 +14,7 @@ export const SingleProject = async ({
   project: Project;
   delayAnimation?: boolean;
 }) => {
-  const { metadata, Component, readmeMarkdown } = project;
+  const { slug, metadata, Component, readmeMarkdown } = project;
 
   if (toBool(process.env.NEXT_PUBLIC_PRINT_COMPONENT_RENDERING)) {
     console.log(
@@ -25,11 +25,9 @@ export const SingleProject = async ({
   return (
     <>
       <article id="project" className="relative">
-        <Ribbon
-          repo={project.metadata["repo"]}
-          website={project.metadata["website"]}
-        />
+        <Ribbon repo={metadata.repo} website={metadata.website} />
         <SingleProjectHeader
+          slug={slug}
           delayAnimation={delayAnimation ? 3500 : 0}
           title={metadata.title}
           subtitle={metadata.description}
