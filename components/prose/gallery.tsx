@@ -39,6 +39,10 @@ export const Gallery = ({
         <div key={src} className="relative">
           <CursorSize className="h-full" sizeOnHover={zoom ? 4 : 0.4}>
             <Image
+              onLoad={(event) =>
+                event.currentTarget.classList.remove("opacity-0")
+              }
+              className="opacity-0 transition-opacity duration-1000"
               fill
               objectFit={zoom ? "contain" : "cover"}
               alt=""

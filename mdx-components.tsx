@@ -7,7 +7,6 @@ import { CursorSize } from "@/components/cursor";
 import MacBookShowcase from "@/components/mackbook-showcase";
 import { Gallery } from "@/components/prose/gallery";
 import { H1, H2, H3, H4, H5, H6 } from "@/components/prose/headings";
-import { ImageFlexRow } from "@/components/prose/image-flex-row";
 import { ThemedImage } from "@/components/prose/themed-image";
 import { cn } from "@/lib";
 
@@ -113,7 +112,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <ul className="group my-2 ml-5 list-none">{children}</ul>
     ),
     Gallery,
-    ImageFlexRow,
     MacBookShowcase,
     ThemedImage,
     ...components,
