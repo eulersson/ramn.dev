@@ -1,13 +1,17 @@
 "use client";
 
 // React
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 // Next.js
 import { cn } from "@/lib";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
+
+// Third-Party
+import { X, Maximize2, Minimize2 } from "lucide-react";
+import { CursorSize } from "./cursor";
 
 /**
  * Modal component that renders its children inside a modal dialog using a portal.
@@ -32,17 +36,21 @@ export function Modal({ children }: { children: React.ReactNode }) {
     router.back();
   }
 
+  // Maximize/minimize state
+  const [maximized, setMaximized] = useState(false);
+
+  // Modal size classes
+  const modalSize = maximized
+    ? "w-[98vw] h-[98vh]"
+    : "w-[90vw] max-w-[700px] h-[80vh] max-h-[700px]";
+
   return createPortal(
     <div
       className={cn(
-        "pointer-events-auto",
-        "overflow-hidden",
-        "h-full w-full",
-        "fixed inset-0 z-70 bg-black/80",
-        "flex items-center justify-center",
-        "group/modal is-open",
+        "group/modal is-open fixed inset-0 z-70 flex items-center justify-center bg-black/80",
+        "pointer-events-auto h-full w-full overflow-hidden",
       )}
-      onClick={() => onDismiss()}
+      onClick={onDismiss}
     >
       <motion.div
         id="modal-dialog"
@@ -50,15 +58,36 @@ export function Modal({ children }: { children: React.ReactNode }) {
         animate={{ scale: 1 }}
         transition={{ duration: 0.6 }}
         className={cn(
-          "border-2-fore bg-back pointer-events-auto overflow-scroll rounded rounded-xl",
-          "max-w-[1200px]",
-          "h-[80%] w-[calc(100%-20px)]",
-          "sm:h-[calc(100%-60px)] sm:w-[calc(100%-60px)]",
-          "sm:h-[calc(100%-150px)] sm:w-[calc(100%-150px)]",
+          "border-2-fore bg-back pointer-events-auto relative flex flex-col overflow-auto rounded-xl shadow-lg",
+          modalSize,
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        {children}
+        {/* Modal Controls */}
+        <div className="absolute top-1 z-10 z-70 flex w-full justify-center gap-2">
+          <CursorSize sizeOnHover={0.4}>
+            <button
+              aria-label="Maximize or Minimize"
+              onClick={() => setMaximized((m) => !m)}
+              className="border-2-back hover:bg-back hover:text-fore text-back bg-fore hover:border-2-fore flex h-8 w-8 items-center justify-center rounded-full shadow transition"
+              type="button"
+            >
+              {maximized ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+            </button>
+          </CursorSize>
+          <CursorSize sizeOnHover={0.4}>
+            <button
+              aria-label="Close"
+              onClick={onDismiss}
+              className="bg-fore border-2-back text-back hover:border-2-fore hover:bg-back hover:text-fore flex h-8 w-8 items-center justify-center rounded-full shadow transition"
+              type="button"
+            >
+              <X size={18} />
+            </button>
+          </CursorSize>
+        </div>
+        {/* Modal Content */}
+        <div className="h-full w-full flex-1 overflow-auto">{children}</div>
       </motion.div>
     </div>,
     document.getElementById("modal-root")!,
