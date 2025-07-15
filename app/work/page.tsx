@@ -7,7 +7,7 @@ export default function WorkPage() {
     <>
       <div
         className={cn(
-          "absolute left-[calc(50%-35px)] z-40",
+          "pointer-events-auto absolute left-[calc(50%-35px)] z-40",
           "top-[calc(var(--header-height)+4px)]",
           "xs:top-[calc(var(--header-height)+12px)]",
           "sm:top-[calc(var(--header-height)+22px)]",
