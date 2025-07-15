@@ -92,7 +92,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
     { text: "with" },
     { text: "computer graphics", className: "font-medium underline" },
     {
-      text: "background and VFX industry experience in the film industry. I design, build and deploy scalable interactive",
+      text: "background and VFX industry experience in the film industry. 10+ years professional experience working in small and large teams. I design, build and deploy scalable interactive",
     },
     { text: "web apps,", className: "font-medium underline" },
     { text: "leveraging cloud computing when possible." },

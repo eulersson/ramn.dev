@@ -129,7 +129,7 @@ const ProjectSummary = forwardRef<
   { project, slug, className },
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const { title, name, description, heroImage } = project;
+  const { title, name, description, heroImage, featuredImage } = project;
   const displayTitle = title || name || slug;
 
   const blackTextOutline: CSSProperties = {
@@ -192,7 +192,7 @@ const ProjectSummary = forwardRef<
                 "xs:rounded-2xl rounded-xl sm:rounded-4xl",
               )}
               fill
-              src={heroImage}
+              src={featuredImage || heroImage}
               alt={slug}
             />
           </div>

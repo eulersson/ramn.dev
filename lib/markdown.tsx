@@ -69,6 +69,12 @@ export function parseMarkdown(
     },
   );
 
+  // Remove any HTML element with class="github-only" and its content
+  md = md.replace(
+    /<([a-zA-Z0-9]+)([^>]*\sclass=["']github-only["'][^>]*)>([\s\S]*?)<\/\1>/gim,
+    ''
+  );
+
   // Rewrite any Markdown links that contain 'wiki' in the URL to full GitHub wiki URLs
   md = md.replace(/\[([^\]]+)\]\(([^)]+wiki[^)]*)\)/g, (_, text, url) => {
     // Extract the path part after 'wiki', ignoring relative parts like ../../

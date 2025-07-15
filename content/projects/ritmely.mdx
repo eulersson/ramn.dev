@@ -1,7 +1,185 @@
 export const metadata = {
   title: "ritmely",
   description:
-    "A unified SaaS toolkit for hybrid teams combining time‑tracking, meeting scheduling, real‑time chat/video, and AI‑powered invoicing in one platform, with eco‑friendly infrastructure and scalable options from freemium to enterprise.",
-  repo: "eulersson/obsidian-github-exporter",
-  heroImage: "/work/ritmely.png",
+    "Platform to boost productivity. Time-track, schedule real-time meetings and generate invoices from a single place.",
+  heroImage: "/work/ritmely/hero.png",
+  featuredImage: "/work/ritmely/featured.png",
+  headerImage: "/work/ritmely/header.png",
+  skills: [
+    "AWS",
+    "Next.js",
+    "React",
+    "Flutter",
+    "PostgreSQL",
+    "Tailwind CSS",
+    "Amplify",
+    "CloudFormation",
+    "TypeScript",
+    "Janus",
+    "WebRTC",
+  ],
 };
+
+**Ritmely** is an all-in-one SaaS platform designed to <Hi>simplify the
+management of hybrid workforces</Hi> — combining **real-time collaboration**,
+**time tracking**, **invoicing**, and **communication** into a seamless
+experience for both employees and freelancers. This repository outlines the
+technical architecture and components of the platform, which has been developed
+solo as part of a <Hi>full-stack</Hi> portfolio project.
+
+<MacBookShowcase
+  className="max-sm:mt-4"
+  images={[
+    "/work/ritmely/screens/001.png",
+    "/work/ritmely/screens/002.png",
+    "/work/ritmely/screens/003.png",
+    "/work/ritmely/screens/004.png",
+    "/work/ritmely/screens/005.png",
+    "/work/ritmely/screens/006.png",
+    "/work/ritmely/screens/007.png",
+    "/work/ritmely/screens/008.png",
+    "/work/ritmely/screens/009.png",
+    "/work/ritmely/screens/010.png",
+    "/work/ritmely/screens/011.png",
+    "/work/ritmely/screens/012.png",
+    "/work/ritmely/screens/013.png",
+    "/work/ritmely/screens/014.png",
+    "/work/ritmely/screens/015.png",
+    "/work/ritmely/screens/016.png",
+    "/work/ritmely/screens/017.png",
+    "/work/ritmely/screens/018.png",
+    "/work/ritmely/screens/019.png",
+    "/work/ritmely/screens/020.png",
+    "/work/ritmely/screens/021.png",
+  ]}
+/>
+
+<Gallery
+  className="mb-4 min-h-[100px] max-sm:mt-4"
+  gridClassName="grid-cols-4"
+  images={[
+    "/work/ritmely/screens/001.png",
+    "/work/ritmely/screens/002.png",
+    "/work/ritmely/screens/005.png",
+    "/work/ritmely/screens/007.png",
+  ]}
+/>
+
+# 🧩 Overview of Modules
+
+The platform provides tightly integrated modules to manage the modern hybrid
+workplace:
+
+- **Time Tracking**: Automatic logging of work hours for employees and
+  freelancers.
+- **Meeting Scheduler**: Calendar integration to schedule and sync meetings.
+- **Real-Time Chat**: Instant messaging for internal team communication.
+- **Invoicing System**: Automated invoice generation based on tracked hours.
+- **Video Calls**: WebRTC-based video conferencing via Janus server.
+- **Cross-Platform App**: Unified codebase for web and mobile (Flutter).
+- **AI Assistant**: Interact via text or voice to perform in-app actions.
+
+All features are accessible through a web dashboard and mobile app with
+consistent UX across devices.
+
+# ⚙️ Tech Stack
+
+| Layer            | Technology                                         | Purpose                                                                 |
+| ---------------- | -------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Frontend**     | Next.js (React)                                    | Web dashboard                                                           |
+| **Mobile**       | Flutter                                            | iOS/Android apps                                                        |
+| **Backend**      | Go                                                 | Core logic, REST APIs, business rules                                   |
+| **Database**     | PostgreSQL (RDS)                                   | Structured data storage                                                 |
+| **Real-time**    | Redis (ElastiCache)                                | Messaging + WebSocket support                                           |
+| **Video Calls**  | Janus WebRTC Gateway                               | Secure, scalable video communication                                    |
+| **Cloud**        | AWS (Amplify, CloufFormation, EC2, S3, CloudWatch) | Hosting, on-demand resource stacks, monitoring, storage, observability. |
+| **CI/CD**        | GitHub Actions                                     | Build, test, deploy pipelines                                           |
+| **Monitoring**   | AWS CloudWatch, GuardDuty                          | Logs, security, and health checks                                       |
+| **Design**       | Figma                                              | UI/UX prototyping                                                       |
+| **Project Mgmt** | GitHub Projects                                    | Task tracking, documentation                                            |
+
+# 🧪 Architecture Diagram (Coming Soon)
+
+> <Hi>**TBD**</Hi> To visualize the cloud infrastructure, service interactions,
+> and data flows.
+
+# 🔌 Integration & Communication
+
+- **Slack, Google Calendar**: Integration via OAuth2 for meetings and
+  notifications.
+- **REST APIs**: All services expose well-documented REST endpoints.
+- **WebSockets**: For real-time chat and presence.
+- **AI Assistant**: Built-in NLP interface (text/voice), capable of interacting
+  with APIs to automate common workflows.
+
+# 🧱 Infrastructure Blueprint
+
+All infrastructure is deployed on AWS with high availability and autoscaling
+considerations:
+
+- **Frontend & Backend**: Deployed on EC2 with NGINX reverse proxy.
+- **Database**: PostgreSQL on AWS RDS, with daily snapshots.
+- **Chat & Notifications**: Redis (ElastiCache) for pub/sub messaging.
+- **Video**: Janus WebRTC servers optimized for low latency.
+- **Assets & Documents**: AWS S3 buckets.
+- **Security**: 2FA, encrypted DB connections, GDPR-compliant storage.
+
+# 🚀 Deployment Strategy
+
+- GitHub Actions for CI/CD.
+- Infrastructure-as-Code planned using Terraform (WIP).
+- Canary deployment setup for mobile builds (Flutter → Android/iOS).
+- Pre-production staging environment with feature toggling.
+
+# 📈 Business Logic & Monetization
+
+- **Freemium Tier**: Limited features, no billing.
+- **Standard Tier**: a monthly amount per user per month yet to be decided.
+- **Premium Tier**: Custom pricing for enterprise features.
+- **Billing**: Stripe integration (planned), with 3% commission on processed
+  invoices.
+
+# 📊 KPIs & Observability
+
+- **Conversion tracking** (freemium → paid)
+- **User retention and churn**
+- **Session heatmaps** via Hotjar
+- **MRR, CAC, LTV, ROI dashboards** (future Grafana setup)
+
+# 💡 Why This Project?
+
+> "I built Ritmely to demonstrate my ability to conceptualize, design, develop,
+> and launch a scalable SaaS product from scratch — handling every aspect from
+> backend and frontend to DevOps and business viability."
+
+This project showcases:
+
+- Backend performance under high concurrency (Go + Redis)
+- Advanced WebRTC integrations (Janus server)
+- Mobile/web unification via Flutter
+- Practical DevOps and cloud orchestration
+- Strategic planning for SaaS monetization and market fit
+
+# 📚 Roadmap
+
+- [x] Authentication flow
+- [x] Organization and user settings
+- [x] Calendar and invitations
+- [x] Analytics
+- [x] Time tracking
+- [x] Invoice generation
+- [ ] WebRTC stack
+- [ ] Observability
+- [ ] AI Chat
+- [ ] Mobile apps
+
+# 🧑‍💻 Author
+
+**Ramon Blanquer** Full Stack Engineer & SaaS Architect
+[LinkedIn](https://linkedin.com/in/your-profile) •
+[GitHub](https://github.com/your-username) •
+[Portfolio](https://yourwebsite.com)
+
+# 📝 License
+
+This repository is part of a private MVP. Licensing to be determined upon public

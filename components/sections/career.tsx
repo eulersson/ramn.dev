@@ -23,6 +23,7 @@ import jobNpaw from "@/content/experience/npaw.json";
 import jobSecretStartup from "@/content/experience/secret-startup.json";
 import jobWatchity from "@/content/experience/watchity.json";
 import { SquareArrowOutUpRight } from "lucide-react";
+import MacBookShowcase from "../mackbook-showcase";
 
 export function Career() {
   const logoRef = useRef<LogoRef>(null);
@@ -137,7 +138,7 @@ export function Career() {
           "pointer-events-auto",
           "bg-back col-span-4 flex flex-col md:col-span-3",
           job["lengthy"]
-            ? "xs:h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g60t md:h-g60t lg:h-g50t xl:h-g40t h-[calc(20*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
+            ? "xs:h-[calc(12*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g70t md:h-g70t lg:h-g60t xl:h-g50t h-[calc(20*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
             : "sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]",
         )}
       >
@@ -183,9 +184,19 @@ export function Career() {
         </motion.ul>
 
         {job["images"] && job["images"].length && (
-          <div className="grow">
-            <Gallery opacity="75" images={job["images"]} />
-          </div>
+          <>
+            <MacBookShowcase
+              className="xs:px-8 mt-2 sm:px-25 md:px-20 xl:px-30"
+              images={job["images"]}
+            />
+            <div className="mt-[15px] grow">
+              <Gallery
+                className="opacity-75 hover:opacity-100"
+                gridClassName="grid-cols-4"
+                images={job["images"]}
+              />
+            </div>
+          </>
         )}
         <div
           className={`bg-fore gap-ggpy flex flex-wrap items-center justify-center px-4 py-4`}

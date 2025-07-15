@@ -87,7 +87,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     strong: ({ children }) => <strong className="font-bold">{children}</strong>,
     table: ({ children }) => (
       <div className="w-full overflow-auto">
-        <table className="border-fore my-3 border-collapse border text-left text-sm">
+        <table className="border-fore m-auto my-3 border-collapse border text-left text-sm">
           {children}
         </table>
       </div>

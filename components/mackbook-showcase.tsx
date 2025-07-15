@@ -8,8 +8,15 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 // Project
 import { CursorSize } from "@/components/cursor";
+import { cn } from "@/lib";
 
-const MacBookShowcase = ({ screens }: { screens: string[] }) => {
+const MacBookShowcase = ({
+  images,
+  className,
+}: {
+  images: string[];
+  className?: string;
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -17,11 +24,11 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const macbookRef = useRef<HTMLDivElement>(null);
 
-  // Auto-cycle through screens (only when not hovering and not in fullscreen)
+  // Auto-cycle through images (only when not hovering and not in fullscreen)
   useEffect(() => {
     if (!isHovering && !isFullscreen) {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % screens.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
       }, 3000);
     } else {
       if (intervalRef.current) {
@@ -34,15 +41,15 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isHovering, isFullscreen, screens.length]);
+  }, [isHovering, isFullscreen, images.length]);
 
   const nextScreen = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % screens.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   const prevScreen = () => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + screens.length) % screens.length,
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length,
     );
   };
 
@@ -63,10 +70,10 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
       const relativeX = x / width;
 
       // Calculate which screen to show based on mouse position
-      const screenIndex = Math.floor(relativeX * screens.length);
+      const screenIndex = Math.floor(relativeX * images.length);
       const clampedIndex = Math.max(
         0,
-        Math.min(screenIndex, screens.length - 1),
+        Math.min(screenIndex, images.length - 1),
       );
 
       setHoverIndex(clampedIndex);
@@ -105,7 +112,7 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
   return (
     <>
       {/* Main MacBook Mockup */}
-      <div className="flex items-center justify-center md:p-8">
+      <div className={cn("flex items-center justify-center md:p-8", className)}>
         <div
           ref={macbookRef}
           className="relative transform cursor-pointer transition-transform duration-300 hover:scale-110"
@@ -133,7 +140,7 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
               }}
             >
               <img
-                src={screens[displayIndex]}
+                src={images[displayIndex]}
                 alt={`Screen ${displayIndex + 1}`}
                 className="object-fit h-full w-full"
               />
@@ -141,7 +148,7 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
 
             {/* Screen indicators */}
             <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform space-x-2">
-              {screens.map((_, index) => (
+              {images.map((_, index) => (
                 <div
                   key={index}
                   className={`h-2 w-2 rounded-full transition-all duration-300 ${
@@ -197,7 +204,7 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
           {/* Fullscreen image */}
           <div className="flex h-full w-full items-center justify-center p-8">
             <img
-              src={screens[currentIndex]}
+              src={images[currentIndex]}
               alt={`Screen ${currentIndex + 1}`}
               className="max-h-full max-w-full object-contain"
             />
@@ -205,7 +212,7 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
 
           {/* Fullscreen indicators */}
           <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 transform space-x-3">
-            {screens.map((_, i) => (
+            {images.map((_, i) => (
               <CursorSize key={i} sizeOnHover={0.4}>
                 <button
                   onClick={() => setCurrentIndex(i)}
@@ -219,7 +226,7 @@ const MacBookShowcase = ({ screens }: { screens: string[] }) => {
 
           {/* Screen counter */}
           <div className="absolute top-4 left-4 text-sm text-white">
-            {currentIndex + 1} / {screens.length}
+            {currentIndex + 1} / {images.length}
           </div>
         </div>
       )}

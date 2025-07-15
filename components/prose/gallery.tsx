@@ -10,27 +10,30 @@ import Image from "next/image";
 import { CursorSize } from "@/components/cursor";
 import { cn } from "@/lib";
 
+const zoomClasses = "fixed z-60 inset-0 w-full h-full bg-black/80";
+
 export const Gallery = ({
   images,
-  opacity = "100",
-  minH = 0,
+  className,
+  gridClassName = "grid-cols-1 sm:grid-cols-2 xl:grid-cols-4",
+  zoomClassName = "grid-cols-1 sm:grid-cols-2",
 }: {
   images: string[];
-  opacity?: string;
-  minH?: number;
+  className?: string;
+  gridClassName?: string;
+  zoomClassName?: string;
 }) => {
   const [zoom, setZoom] = useState(false);
-
-  const zoomClasses = "fixed z-60 inset-0 w-full h-full bg-black/80";
-
   return (
     <div
       onClick={() => setZoom(!zoom)}
       className={cn(
-        `gap-ggpn grid h-full opacity-${opacity} transition-all hover:opacity-100`,
-        zoom ? zoomClasses : "grid-cols-3 hover:scale-110",
+        `gap-ggpn grid h-full transition-all hover:opacity-100`,
+        className,
+        zoom
+          ? cn(zoomClasses, zoomClassName)
+          : `${gridClassName} hover:scale-110`,
       )}
-      style={{ minHeight: minH }}
     >
       {images.map((src) => (
         <div key={src} className="relative">

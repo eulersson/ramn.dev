@@ -1,8 +1,11 @@
 export const metadata = {
   title: "Dream Drugs",
-  description: "An AI psychedelic art generation playground.",
+  description:
+    "AI psychedelic art generation playground. Capture a picture and deep dream on it using algorithms extendable by design.",
   repo: "eulersson/dreamdrugs",
-  heroImage: "/work/dreamdrugs.png",
+  heroImage: "/work/dreamdrugs/hero.png",
+  headerImage: "/work/dreamdrugs/header.png",
+  featuredImage: "/work/dreamdrugs/flow-anim-cropped.gif",
   skills: [
     "Gen AI",
     "Microservices",
@@ -18,32 +21,51 @@ export const metadata = {
 
 # Motivation
 
-When **deep dreaming** images started flooding the internet I felt the need to
-build my own interface to explore the various deep layers within, since some of
-them would produce very interesting patterns that would be very well integrated
-with the features in my photo.
+When **deep dreaming** images began flooding the internet, I felt inspired to
+create my own interface for exploring the various internal layers of these
+models. Some of them produced fascinating patterns that blended remarkably well
+with features in my photographs.
 
-Simultaneously, I wanted to get my hands on designing a microservice-driven
-architecture using Kubernetes and exploring <Hi>development experience</Hi>
-where I could write backend and frontend simultaneously with hot-reloading while
-staying in containers.
+At the same time, I wanted hands-on experience designing a **microservice-driven
+architecture** using Kubernetes, and to explore a **development
+experience** where I could write backend and frontend code simultaneously,
+with **hot reloading**—all while staying fully within containers.
 
-Here's where I found a perfect match:
+I also wanted to set up a **code analysis and CI/CD pipeline**, experimenting
+with tools like `Codecov` (tests and coverage) and `GitHub Actions` (for `Google
+Kubernetes Engine` deployment), to be well-prepared in case future clients rely
+on them.
 
-> An extensible **AI Psychedelic Art Generation** that takes a picture from your
-> webcam and hallucinates on it using various deep dreaming algorithms which
-> could be extended by plugins.
+That’s how this project came to life:
 
-![Dreamdrugs App](/work/dreamdrugs-app-screens.png)
+> An extensible **AI Psychedelic Art Generator** that captures a picture from
+> your webcam and hallucinates on it using various deep dreaming
+> algorithms—pluggable and extendable by design.
 
-# Architecture
+![Dreamdrugs App](/work/dreamdrugs/screens.png)
 
-It’s designed to be **scalable** (developed using `Kubernetes` and `Helm`). The
-**frontend** is composed by a `React` application served (alongside a **frontend
-API**) by an `Express` server. The backend is a `Python` `TensorFlow` `Flask`
-app running on `Gunicorn`. Both communicate realtime updates via a `Redis`
-cluster installed as a `Helm` chart dependency. I wanted to **cut down costs
-Ingress costs** by having an array of `NGINX` servers on each node (`DaemonSet`)
-receiving the requests based on repeated `DNS` entry names pointing at each
-node. I wrote so I (or others) can plug more trained models and have different
-kinds of hallucinations.
+# Collaboration
+
+An online magazine about art history, [Mirador de les
+Arts](https://www.miradorarts.com/), discovered my generated images and invited
+me to create visuals for some of their articles.
+
+<MacBookShowcase
+  images={[
+    "/work/dreamdrugs/sample-dante.jpg",
+    "/work/dreamdrugs/sample-michelangelo.jpg",
+    "/work/dreamdrugs/sample-ronda.jpg",
+    "/work/dreamdrugs/sample-shepperd.jpg",
+  ]}
+/>
+
+<Gallery
+  className="mt-4 min-h-[200px] md:mt-0"
+  gridClassName="grid-cols-2"
+  images={[
+    "/work/dreamdrugs/sample-dante.jpg",
+    "/work/dreamdrugs/sample-michelangelo.jpg",
+    "/work/dreamdrugs/sample-ronda.jpg",
+    "/work/dreamdrugs/sample-shepperd.jpg",
+  ]}
+/>

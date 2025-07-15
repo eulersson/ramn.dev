@@ -53,7 +53,7 @@ export const SingleProjectHeader = ({
         )}
       >
         <Title>{title}</Title>
-        <Subtitle>{subtitle}</Subtitle>
+        <Subtitle className="px-5">{subtitle}</Subtitle>
         {skills && skills.length && (
           <motion.div
             className="align-center mb-5 flex flex-wrap justify-center gap-[6px]"
