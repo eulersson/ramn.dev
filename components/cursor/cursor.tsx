@@ -35,7 +35,7 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
   const isSafari = useSafari();
   const isTouch = useTouchDevice();
   const springOptions: SpringOptions = isTouch
-    ? { damping: 20, mass: 1.0, stiffness: 130 }
+    ? { damping: 20, mass: 0.5, stiffness: 130 }
     : { damping: 10, mass: 1.0, stiffness: 100 };
   const cursorSizeAnim = useSpring(cursorSize, springOptions);
   const setCursorSize = (value: number) => {
@@ -113,7 +113,7 @@ export function Cursor() {
         if (touch) {
           cursorX.set(touch.clientX - (isSafari ? 64 : 16));
           cursorY.set(touch.clientY - (isSafari ? 64 : 16));
-          cursorContext.setCursorTap(2);
+          cursorContext.setCursorTap(1);
         }
       };
       window.addEventListener("click", onClick);
