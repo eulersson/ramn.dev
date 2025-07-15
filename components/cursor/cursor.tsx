@@ -181,9 +181,8 @@ export function CursorSize({
   children: React.ReactNode;
   sizeOnHover: number;
 }) {
-  const isTouch = useTouchDevice();
   const context = useCursor();
-  if (context === null || !isTouch) {
+  if (context === null) {
     return children;
   } else {
     return (
