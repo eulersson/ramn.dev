@@ -138,7 +138,7 @@ export function Career() {
           "pointer-events-auto",
           "bg-back col-span-4 flex flex-col md:col-span-3",
           job["lengthy"]
-            ? "xs:h-[calc(12*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g70t md:h-g70t lg:h-g60t xl:h-g50t h-[calc(20*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
+            ? "xs:h-[calc(12*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g70t md:h-g70t lg:h-g60t xl:h-g50t h-[calc(21*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
             : "sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]",
         )}
       >
@@ -189,9 +189,9 @@ export function Career() {
               className="xs:px-8 mt-2 sm:px-25 md:px-20 xl:px-30"
               images={job["images"]}
             />
-            <div className="mt-[15px] grow">
+            <div className="mt-[15px] mb-[10px] grow">
               <Gallery
-                className="opacity-75 hover:opacity-100"
+                className="mb-2 opacity-75 hover:opacity-100"
                 gridClassName="grid-cols-4"
                 images={job["images"]}
               />
