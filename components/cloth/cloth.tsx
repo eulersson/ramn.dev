@@ -57,6 +57,15 @@ export function Cloth({
   const time = useTime();
   const baseGravity = particleSystem.gravity;
 
+  const [showCloth, setShowCloth] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCloth(true);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   time.on("change", (t) => {
     const offset = toBool(process.env.NEXT_PUBLIC_DISABLE_COVER) ? 0 : 2000;
     t -= offset;
@@ -355,7 +364,7 @@ export function Cloth({
         }}
       />
 
-      {!showPlayPrompt && (
+      {!showPlayPrompt && showCloth && (
         <Canvas
           className="touch-none select-none"
           onPointerDown={(e) =>
