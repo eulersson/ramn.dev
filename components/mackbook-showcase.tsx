@@ -2,6 +2,7 @@
 
 // React
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 // Third-Party
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -112,7 +113,16 @@ const MacBookShowcase = ({
   return (
     <>
       {/* Main MacBook Mockup */}
-      <div className={cn("flex items-center justify-center md:p-8", className)}>
+      <motion.div
+        className={cn("flex items-center justify-center md:p-8", className)}
+        initial={{ scale: 0 }}
+        animate={{ scale: [0, 1.2, 1] }}
+        transition={{
+          duration: 1,
+          times: [0, 0.5, 1],
+          ease: "easeInOut",
+        }}
+      >
         <div
           ref={macbookRef}
           className="relative transform cursor-pointer transition-transform duration-300 hover:scale-110"
@@ -159,7 +169,7 @@ const MacBookShowcase = ({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Fullscreen modal */}
       {isFullscreen && (
