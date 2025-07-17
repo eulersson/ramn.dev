@@ -129,7 +129,7 @@ const MacBookShowcase = ({
       >
         <div
           ref={macbookRef}
-          className="relative transform cursor-pointer transition-transform duration-300 hover:scale-110"
+          className="relative z-1 transform cursor-pointer transition-transform duration-300 hover:scale-110"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMove}
