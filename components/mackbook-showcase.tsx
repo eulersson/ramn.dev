@@ -221,7 +221,7 @@ const MacBookShowcase = ({
           </div>
 
           {/* Fullscreen indicators */}
-          <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 transform space-x-3">
+          <div className="absolute bottom-8 flex flex-wrap justify-center space-x-3">
             {images.map((_, i) => (
               <CursorSize key={i} sizeOnHover={0.4}>
                 <button
