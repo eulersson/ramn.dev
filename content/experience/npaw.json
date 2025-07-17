@@ -16,9 +16,9 @@
     "◎ Restructured layouts."
   ],
   "images": [
-    "/career/npaw-video.jpg",
-    "/career/npaw-probes.jpg",
-    "/career/npaw-video.jpg"
+    "/career/npaw/video.jpg",
+    "/career/npaw/probes.jpg",
+    "/career/npaw/video.jpg"
   ],
   "skills": ["React", "Material UI", "MUI X"],
   "lengthy": false

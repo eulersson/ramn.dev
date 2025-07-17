@@ -25,6 +25,10 @@ const MacBookShowcase = ({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const macbookRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [images]);
+
   // Auto-cycle through images (only when not hovering and not in fullscreen)
   useEffect(() => {
     if (!isHovering && !isFullscreen) {

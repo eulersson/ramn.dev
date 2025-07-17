@@ -25,6 +25,13 @@ import jobWatchity from "@/content/experience/watchity.json";
 import { SquareArrowOutUpRight } from "lucide-react";
 import MacBookShowcase from "../mackbook-showcase";
 
+const gridColsClasses: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+};
+
 export function Career() {
   const logoRef = useRef<LogoRef>(null);
 
@@ -45,6 +52,8 @@ export function Career() {
     jobSecretStartup,
   ];
   const job = jobs[activeEmployer];
+
+  const galleryGridClassName = gridColsClasses[job["images"]!.length];
 
   const headerContext = useHeader();
   const fallbackMotionValue = useMotionValue(0);
@@ -139,7 +148,7 @@ export function Career() {
           "bg-back col-span-4 flex flex-col md:col-span-3",
           job["lengthy"]
             ? "xs:h-[calc(12*(var(--bg-grid-box-size)+var(--bg-grid-gap)))] sm:h-g70t md:h-g70t lg:h-g60t xl:h-g50t h-[calc(21*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]"
-            : "sm:h-g40t md:h-g30t lg:h-g30t xl:h-g20t h-[calc(11*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]",
+            : "xs:h-g80t sm:h-g60t md:h-g50t lg:h-g50t xl:h-g40t h-[calc(14*(var(--bg-grid-box-size)+var(--bg-grid-gap)))]",
         )}
       >
         <div className="mt-3 text-center font-mono text-sm">
@@ -186,13 +195,14 @@ export function Career() {
         {job["images"] && job["images"].length && (
           <>
             <MacBookShowcase
-              className="xs:px-8 mt-2 sm:px-25 md:px-20 xl:px-30"
+              className="xs:px-8 mt-2 px-1 sm:px-25 md:px-20 xl:px-30"
               images={job["images"]}
             />
-            <div className="mt-[15px] mb-[10px] grow">
+            <div className="mx-[10px] mt-[15px] mb-[10px] grow">
               <Gallery
+                key={job["company"]}
                 className="mb-2 opacity-75 hover:opacity-100"
-                gridClassName="grid-cols-4"
+                gridClassName={galleryGridClassName}
                 images={job["images"]}
               />
             </div>
