@@ -1,3 +1,5 @@
+const logBeforeAfter = false;
+
 export function parseMarkdown(
   md: string,
   title: string,
@@ -5,12 +7,17 @@ export function parseMarkdown(
   repo: string,
   branch: string,
 ): string {
+  if (logBeforeAfter) {
+    console.log("Before:", md);
+  }
+
   // Convert relative image paths to absolute GitHub URLs
   md = md.replace(
     /!\[([^\]]*)\]\((?!http)(.*?)\)/g,
     (_, alt, path) =>
       `![${alt}](https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path})`,
   );
+
   // First, convert <img> tags with relative src to absolute GitHub URLs
   md = md.replace(
     /<img([^>]*?)src=["'](?!http)([^"'>]+)["']([^>]*?)>/g,
@@ -72,7 +79,7 @@ export function parseMarkdown(
   // Remove any HTML element with class="github-only" and its content
   md = md.replace(
     /<([a-zA-Z0-9]+)([^>]*\sclass=["']github-only["'][^>]*)>([\s\S]*?)<\/\1>/gim,
-    ''
+    "",
   );
 
   // Rewrite any Markdown links that contain 'wiki' in the URL to full GitHub wiki URLs
@@ -86,6 +93,10 @@ export function parseMarkdown(
 
     return `[${text}](https://github.com/${owner}/${repo}/${cleanPath})`;
   });
+
+  if (logBeforeAfter) {
+    console.log("After:", md);
+  }
 
   return md;
 }

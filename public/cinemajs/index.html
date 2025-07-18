@@ -1,0 +1,330 @@
+    
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Participative Real-Time Graphics for Live Performance</title>
+
+        <meta name="description" content="Participative Real-Time Graphics for Live Performance">
+        <meta name="author" content="Ramon Blanquer">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="reveal.js-3.4.0/css/reveal.css">
+        <link rel="stylesheet" href="reveal.js-3.4.0/css/theme/blood.css" id="theme">
+
+        <link rel="stylesheet" href="reveal.js-3.4.0/lib/css/zenburn.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+        <div class="reveal">
+            <div class="slides">
+
+                <section data-background-video="video/anthem_fractal_audio.mp4" data-background-video-loop  data-background-color="#000000">
+                    <h1>Anthem</h1>
+                    <p>Participative Real-Time Graphics for Live Performance <a style="background-color: rgba(0,0,0,0.7); border-radius:8px 8px;">@ramonblanquer</a></p>
+                    <aside class="notes">
+                        Hello, I am Ramon and with this presentation I intend to show an example on how to use real time graphics to improve
+                        and support live events such as performances or music shows.</aside>
+                </section>
+
+                <section>
+                    <h2>Who am I?</h2>
+                    <p>VFX student with strong interest on:</p>
+                    <ul>
+                        <li>Mathematics</li>
+                        <li>Interactive Technologies</li>
+                        <li>Computer Graphics</li>
+                        <li>Web Development</li>
+                        <li>Creative Coding</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>What is this about?</h2>
+                    <p>Engaging people at events with real time graphics:</p>
+                    <ul>
+                        <li>Participative</li>
+                        <li>Audio Reactive</li>
+                        <li>Projection Mapping</li>
+                        <li>Art Installations</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>OpenGL</h2>
+                        <img style="background-color: rgba(255,255,255,0.5);" src="image/pipeline.png">
+                    </section>
+
+                    <section>
+                        <h2>Quad World</h2>
+                        <ul>
+                            <li>Cover Screen with 2 facing triangles (quad)</li>
+                            <li>Access coordinates with <code>gl_FragCoord</code> attribute</li>
+                        </ul>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ```
+                            void main( void ) {
+                              vec2 uv = ( gl_FragCoord.xy / resolution.xy );
+                              gl_FragColor = vec4(uv.x, uv.y, 0.0, 1.0);
+                            }
+                            ```
+                        </script>
+                    </section>
+
+                    <section data-background-color="#ffffff">
+                        <img style="box-shadow:none; border:none; background-color: rgba(255,255,255,1);" src="image/raytracing.png">
+                    </section>
+
+                    <section>
+                        <h3>Sphere Tracing</h3>
+                        <ul>
+                            <li>Geometry defined implicitely</li>
+                            <li>No vertex data</li>
+                            <li>Allows blending/distorion operations at computationally cheap price</li>
+                        </ul>
+                        <img style="background-color: white"  src="image/raymarching.png">
+                    </section>
+
+                    <section data-background-iframe="http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm"></section>
+
+                    <section data-background-color="#aa3311">
+                        <h1>Space Remapping</h1>
+                        <p>Copy demo from <a target="_blank" href="./glsl_demos/space_remapping.glsl">here</a>, go to <a href="http://glslsandbox.com/e">GLSL Sandbox</a> and paste.</p>
+                        <p>If runs slow use 4 or 8 samples instead of 2.</p>
+                    </section>
+
+                    <section>
+                        <h3>Mercury.sexy's SDF GLSL library</h3>
+                        <p><a href="http://mercury.sexy/hg_sdf">hg_sdf</a></p>
+                    </section>
+
+                    <section data-background-color="#aa3311">
+                        <h1>Blending Operation</h1>
+                        <p>Copy demo from <a target="_blank" href="./glsl_demos/blending_operation.glsl">here</a>, go to <a href="http://glslsandbox.com/e">GLSL Sandbox</a> and paste.</p>
+                        <p>If runs slow use 4 or 8 samples instead of 2.</p>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Raymarching Algorithm
+                            ```
+                            float trace(vec3 ro, vec3 rd) {
+                            float t = 0.0;
+                            float d = 1.0;
+                            vec3 p;
+                            for (int i = 0; i < 128; ++i) {
+                                if (d > Detail && t < 50.0) {
+                                    p = ro + rd * t;
+                                    d = map(p);
+                                    t += d;
+                                }
+                            }
+                            ```
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Defining a Scene
+                            ```
+                            float map(vec3 p) {
+                                float sphere1 = sphere(position.xyz, offset.xyz, radius);
+                                float sphere2 = sphere(position.xyz, offset.xyz, radius);
+                                float spheresCombined = union(sphere1, sphere2);
+                                return spheresCombined;
+                            }
+                            ```
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Sphere SDF
+                            ```
+                            float sphere( vec3 position, vec3 offset, float radius )
+                            {
+                              return length(position + offset) - radius;
+                            }
+                            ```
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Combine SDF Operation
+                            ```
+                            float union(float distance1, float distance1)
+                            {
+                              return min(distance1, distance2);
+                            }
+                            ```
+                        </script>
+                    </section>
+
+                    <section data-background-color="#aa3311">
+                        <h1>Noise</h1>
+                        <p>Copy demo from <a target="_blank" href="./glsl_demos/noise_displacement.glsl">here</a>, go to <a href="http://glslsandbox.com/e">GLSL Sandbox</a> and paste.</p>
+                        <p>If runs slow use 4 or 8 samples instead of 2.</p>
+                    </section>
+
+                    <section>
+                        <h2>WebGL Live Coding</h2>
+                        <ul>
+                            <li>ShaderToy <a href="http://www.shadertoy.com">shadertoy.com</a></li>
+                            <li>GLSL Sandbox <a href="http://www.glslsandbox.com">glslsandbox.com</a></li>
+                            <li>The Force <a href="http://shawnlawson.github.io/The_Force">shawnlawson.github.io/The_Force</a></i></li>
+                        </ul>
+                    </section>
+
+                    <section data-background-video="video/vertigo.mp4">
+                    </section>
+
+
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Fractals</h2>
+                        <iframe width="426" height="244" frameborder="0" src="https://www.shadertoy.com/embed/4tt3Ws?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
+                    </section>
+                    <section>
+                        <h2>How to fold julia fractal</h2>
+                        <p><a href="https://acko.net/blog/how-to-fold-a-julia-fractal/">acko.net/blog/how-to-fold-a-julia-fractal</a></p>
+                    </section>
+                    <section>
+                        <h2>Z = Z² + c</h2>
+                        <ul>
+                            <li><span style="font-family:serif; color:black; background-color:white">Z(n+1) = Z(n)² + c</span></li>
+                            <li>Complex: Real + Imaginary (√-1)</li>
+                            <li>Using screen space coordinates as complex numbers (x real + y imaginary).</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Data Flow</h2>
+                        <p>Wrapping up all our elements</p>
+                    </section>
+                    <section data-background-color="#ffffff">
+                        <img style="border:none; box-shadow: none;background-color: rgba(255,255,255,1);" src="image/dataflow.png">
+                        <aside class="notes">
+                            <p>Data Flow</p>
+                         </aside>
+                    </section>
+
+                    <section data-background-color="#ffffff">
+                        <img style="border:none; box-shadow: none;background-color: rgba(255,255,255,1);" src="image/workflow_diagram.png">
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Twitter Fractals</h2>
+                        <p>Experiment #1</p>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Raspberry Pi Sense Hat</li>
+                            <li>TCP Web Socket</li>
+                            <li>Twitter Streaming API (twitter4j)</li>
+                            <li>Syphon support</li>
+                            <li>database.json</li>
+                            <li>MIDI</li>
+                        </ul>
+                    </section>
+
+                    <section data-background-color="#aa3311">
+                        <h1>Raspberry Pi</h1>
+                    </section>
+
+                    <section>
+                        <img src="image/lady_original.jpg">
+                    </section>
+
+                    <section>
+                        <img src="image/lady_fractalized_1.gif">
+                    </section>
+
+                    <section>
+                        <img src="image/lady_fractalized_2.gif">
+                    </section>
+
+                    <section>
+                        <img style="width:500px" src="image/ramon_original.jpg">
+                    </section>
+
+                    <section>
+                        <img src="image/ramon_fractalized.png">
+                    </section>
+
+                    <section data-background-color="#aa3311">
+                        <h1>Let's play!</h1>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>FFGL Plugin</h2>
+                    <p>Experiment #2</p>
+                </section>
+
+                <section>
+                    <h2>Thank you</h2>
+                    <ul>
+                        <li>Twitter: @ramonblanquer</li>
+                        <li>Github: @docwhite</li>
+                        <li>Facebook: /sonofeuler</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <script src="reveal.js-3.4.0/lib/js/head.min.js"></script>
+        <script src="reveal.js-3.4.0/js/reveal.js"></script>
+
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+
+                // Parallax background image
+                parallaxBackgroundImage: 'image/gold.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+                // Parallax background size
+                parallaxBackgroundSize: '2000px 1333px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+                transition: 'zoom', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'reveal.js-3.4.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js-3.4.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js-3.4.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js-3.4.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js-3.4.0/plugin/zoom-js/zoom.js', async: true },
+                    { src: 'reveal.js-3.4.0/plugin/notes/notes.js', async: true }
+                ]
+            });
+        </script>
+
+    </body>
+</html>

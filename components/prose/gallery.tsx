@@ -27,7 +27,7 @@ export const Gallery = ({
   return (
     <div
       className={cn(
-        "group/zoom-container",
+        "group/zoom-container my-2",
         zoom && "is-zoomed",
         zoom ? zoomClasses : "h-full",
       )}
