@@ -10,7 +10,7 @@ import Image from "next/image";
 import { CursorSize } from "@/components/cursor";
 import { cn } from "@/lib";
 
-const zoomClasses = "fixed z-60 inset-0 w-full h-full bg-black/80";
+const zoomClasses = "fixed z-70 inset-0 w-full h-full bg-black/80";
 
 export const Gallery = ({
   images,
