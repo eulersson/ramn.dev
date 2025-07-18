@@ -201,8 +201,8 @@ export function Career() {
             <div className="mx-[10px] mt-[15px] mb-[10px] grow">
               <Gallery
                 key={job["company"]}
-                className="mb-2 opacity-75 hover:opacity-100"
-                gridClassName={galleryGridClassName}
+                className="mb-2 opacity-75 group-[.is-zoomed]/zoom-container:opacity-100 hover:opacity-100"
+                gridClassName={cn("h-full", galleryGridClassName)}
                 images={job["images"]}
               />
             </div>
