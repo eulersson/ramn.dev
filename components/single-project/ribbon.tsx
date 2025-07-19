@@ -20,6 +20,9 @@ const anchorClasses = cn(
 );
 
 export function Ribbon({ repo, website }: { repo?: string; website?: string }) {
+  if (website) {
+    website = website.replace("<", "").replace(">", "");
+  }
   const headerContext = useHeader();
   const fallbackMotionValue = useMotionValue(0);
   const headerTranslateYSpring =
