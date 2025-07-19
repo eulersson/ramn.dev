@@ -32,9 +32,6 @@ const Projects = forwardRef<HTMLElement, {}>(function Projects(
   {},
   ref: ForwardedRef<HTMLElement>,
 ) {
-  const disableSpinner = toBool(process.env.NEXT_PUBLIC_DISABLE_SPINNERS);
-
-  const [loading, setLoading] = useState(true);
   const [featuredProjects, setFeaturedProjects] = useState<ProjectInfo[]>([]);
   const [projects, setProjects] = useState<ProjectInfo[]>([]);
 
@@ -43,18 +40,6 @@ const Projects = forwardRef<HTMLElement, {}>(function Projects(
   // Allow both local usage and parent access
   useImperativeHandle(ref, () => localRef.current as HTMLElement);
 
-  const sectionInView = useInView(localRef);
-
-  useEffect(() => {
-    if (disableSpinner) {
-      return;
-    }
-
-    if (sectionInView) {
-      setTimeout(() => setLoading(false), SPINNER_CYCLE_DURATION_SECONDS * 500);
-    }
-  }, [sectionInView]);
-
   useEffect(() => {
     async function loadProjects() {
       try {
@@ -62,7 +47,6 @@ const Projects = forwardRef<HTMLElement, {}>(function Projects(
         log("[section.Projects]", projects);
         setProjects(projects);
         setFeaturedProjects(projects.filter((project) => project.featured));
-        disableSpinner && setLoading(false);
       } catch (error) {
         console.error("Failed to load projects:", error);
       } finally {
@@ -92,23 +76,15 @@ const Projects = forwardRef<HTMLElement, {}>(function Projects(
         Projects
       </Title>
 
-      {loading && !disableSpinner ? (
+      {featuredProjects.length > 0 && projects.length > 0 && (
         <>
-          <Spinner className="h-g30y xs:h-g20y mb-g10n" />
-          <Spinner className="h-g20y xs:h-g10y" />
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+            <ProjectCarousel projects={featuredProjects} />
+          </motion.div>
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+            <ProjectGrid projects={projects} />
+          </motion.div>
         </>
-      ) : (
-        featuredProjects.length > 0 &&
-        projects.length > 0 && (
-          <>
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-              <ProjectCarousel projects={featuredProjects} />
-            </motion.div>
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-              <ProjectGrid projects={projects} />
-            </motion.div>
-          </>
-        )
       )}
     </section>
   );
