@@ -41,8 +41,8 @@ export function Modal({ children }: { children: React.ReactNode }) {
 
   // Modal size classes
   const modalSize = maximized
-    ? "w-[98vw] h-[98vh]"
-    : "w-[90vw] max-w-[1200px] h-[80vh] md:h-[90vh] lg:h-[95vh]";
+    ? "w-[98vw] max-w-[900px] h-[98vh]"
+    : "w-[90vw] max-w-[900px] h-[80vh] md:h-[90vh] lg:h-[95vh] xl:h-[90vh]";
 
   return createPortal(
     <div
