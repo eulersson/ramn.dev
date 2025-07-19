@@ -13,6 +13,7 @@ import {
 } from "motion/react";
 
 // Project
+import settings from "@/config/settings";
 import { ContextNotProvidedError } from "@/errors/context-not-provided";
 import { useBrowserTooLaggy, useSafari, useTouchDevice } from "@/hooks/browser";
 import { cn, toBool } from "@/lib";
@@ -80,8 +81,9 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
 // -- Cursor Hook ----------------------------------------------------------------------
 export function useCursor() {
   const context = useContext(CursorContext);
+  const isTouchDevice = useTouchDevice();
 
-  if (context === null) {
+  if (context === null && !settings.touchDeviceDisableCursor && isTouchDevice) {
     throw new ContextNotProvidedError("CursorContext");
   }
 
@@ -106,6 +108,10 @@ export function Cursor() {
   useEffect(() => {
     // Only show the cursor after client-side hydration is complete
     setIsMounted(true);
+
+    if (!cursorContext) {
+      return;
+    }
 
     if (isTouch) {
       const onClick = (e: MouseEvent) => {

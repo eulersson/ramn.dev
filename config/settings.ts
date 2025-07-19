@@ -4,6 +4,7 @@ type AppConfig = {
   navBarHorizontalAtBreakpoint: BreakpointKey;
   projects: string[];
   featuredProjects: string[];
+  touchDeviceDisableCursor: boolean;
 };
 
 const appConfig: AppConfig = {
@@ -39,6 +40,7 @@ const appConfig: AppConfig = {
     "fargate-microservices",
     "ramn-dev",
   ],
+  touchDeviceDisableCursor: true,
 };
 
 export default appConfig;
