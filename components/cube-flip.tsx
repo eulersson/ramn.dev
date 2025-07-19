@@ -10,6 +10,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useInView } from "motion/react";
 
 // Project
+import { CursorSize } from "@/components/cursor";
 import { cn, sleep } from "@/lib";
 import cursorIconDark from "@/public/cursor-dark.svg";
 import cursorIcon from "@/public/cursor.svg";
@@ -65,68 +66,70 @@ export const CubeFlip = ({
   }, [inView]);
 
   return (
-    <div
-      ref={ref}
-      onClick={(e) => {
-        if (hovered) {
-          onClick && onClick(e);
-        } else {
-          setHovered(true);
-        }
-      }}
-      className={cn(
-        hovered ? "z-20" : "z-10",
-        "transition-[z-index] delay-[0ms,300ms]",
-        className,
-      )}
-    >
+    <CursorSize sizeOnHover={0.4}>
       <div
-        className="inline-block cursor-default"
-        style={{
-          width: "100%",
-          height: "100%",
-          lineHeight: "100%",
-          perspective: "1000px",
+        ref={ref}
+        onClick={(e) => {
+          if (hovered) {
+            onClick && onClick(e);
+          } else {
+            setHovered(true);
+          }
         }}
+        className={cn(
+          hovered ? "z-20" : "z-10",
+          "transition-[z-index] delay-[0ms,300ms]",
+          className,
+        )}
       >
-        <AnimatePresence>
-          {showClickAnimation && animationRunning && (
-            <motion.div
-              ref={cursorIconRef}
-              animate={{
-                scale: [0, 1, 1, 1, 1, 0.5, 1, 1],
-                transition: { duration: 1 },
-              }}
-              exit={{
-                scale: 0,
-                transition: {
-                  duration: 0.2,
-                },
-              }}
-              className="pointer-events-none absolute top-[calc(50%-60px)] left-[calc(50%-45px)] z-100 scale-75"
-            >
-              {theme === "dark" ? (
-                <Image width={100} src={cursorIconDark} alt="Cursor" />
-              ) : (
-                <Image width={100} src={cursorIcon} alt="Cursor" />
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
         <div
-          className={cn(
-            "relative inline-block h-full w-full origin-[50%_0] transition-transform duration-300 [transform-style:preserve-3d]",
-            hovered ? "rotate-x-90" : "",
-          )}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+          className="inline-block cursor-default"
+          style={{
+            width: "100%",
+            height: "100%",
+            lineHeight: "100%",
+            perspective: "1000px",
+          }}
         >
-          <div className={cn("front-face h-full w-full")}>{frontContent}</div>
-          <div className="back-face absolute top-full left-0 h-full w-full origin-top -rotate-x-90">
-            <div className="relative h-full w-full">{backContent}</div>
+          <AnimatePresence>
+            {showClickAnimation && animationRunning && (
+              <motion.div
+                ref={cursorIconRef}
+                animate={{
+                  scale: [0, 1, 1, 1, 1, 0.5, 1, 1],
+                  transition: { duration: 1 },
+                }}
+                exit={{
+                  scale: 0,
+                  transition: {
+                    duration: 0.2,
+                  },
+                }}
+                className="pointer-events-none absolute top-[calc(50%-60px)] left-[calc(50%-45px)] z-100 scale-75"
+              >
+                {theme === "dark" ? (
+                  <Image width={100} src={cursorIconDark} alt="Cursor" />
+                ) : (
+                  <Image width={100} src={cursorIcon} alt="Cursor" />
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <div
+            className={cn(
+              "relative inline-block h-full w-full origin-[50%_0] transition-transform duration-300 [transform-style:preserve-3d]",
+              hovered ? "rotate-x-90" : "",
+            )}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            <div className={cn("front-face h-full w-full")}>{frontContent}</div>
+            <div className="back-face absolute top-full left-0 h-full w-full origin-top -rotate-x-90">
+              <div className="relative h-full w-full">{backContent}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </CursorSize>
   );
 };
