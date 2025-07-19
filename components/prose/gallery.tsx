@@ -27,7 +27,7 @@ export const Gallery = ({
   return (
     <div
       className={cn(
-        "group/zoom-container my-2",
+        "group/zoom-container",
         zoom && "is-zoomed",
         zoom ? zoomClasses : "h-full",
       )}
@@ -35,9 +35,9 @@ export const Gallery = ({
       <div
         onClick={() => setZoom(!zoom)}
         className={cn(
-          `gap-ggpn grid transition-all hover:opacity-100`,
+          `grid transition-all hover:opacity-100`,
           className,
-          zoom ? zoomClassName : `${gridClassName} hover:scale-110`,
+          zoom ? zoomClassName : `gap-ggpn ${gridClassName} hover:scale-110`,
         )}
       >
         {images.map((src) => (
