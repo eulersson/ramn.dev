@@ -7,19 +7,16 @@ export const metadata = {
   headerImage: "/work/cerda/header8.png",
 };
 
-Cerda is a utility designed to streamline the post-processing pipeline for
-render farms. It provides automated transfer of rendered files from the render
-farm to a specified destination—either a local disk or a linked Dropbox
-account.
+Cute Command Line Interface (CLI) tool. Renderfarm helper for collecting frames.
 
-Additionally, Cerda includes a customizable notification system that sends
-email alerts once a user-defined number of frames have been successfully
-rendered. This feature helps keep you informed of rendering progress without
-needing to manually monitor the process.
+I created cerda mainly because our University’s renderfarm had a very limited
+storage and we had to manually transfer the frames from the server to our home
+drives, cerda does it using (SFTP). I made her so she uploads them to Dropbox by
+using their API. Cerda has also a feature that notifies you by email (SMTP) and
+attaches some image previews (OCIO) so you can see if everything is alright. I
+shared the project so friends could install it by ‘pip install cerda’
 
-Features Automated file transfer from render farm to:
-
-- Local storage
-- Dropbox
-- Email notifications based on completed frame count
-- Lightweight and easy to integrate into existing workflows
+Repository: github.com/docwhite/cerda
+Video/Demo: vimeo.com/docwhite/cerda
+Documentation (w/ Sphinx): docwhite.github.io/cerda
+PyPi: pypi.python.org/pypi/cerda

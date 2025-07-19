@@ -18,6 +18,7 @@ const appConfig: AppConfig = {
     "ariviz",
     "fargate-microservices",
     "tagr",
+    "efesto-lab",
     "obsidian-github-exporter",
     "appleseed",
     "l-systems-maya",

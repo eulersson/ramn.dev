@@ -1,0 +1,161 @@
+export const metadata = {
+  title: "Efesto Lab",
+  description: "Full-Stack VFX Tool Development & Pipeline Engineering",
+  heroImage: "/career/efesto-lab/logo.png",
+  featuredImage: "/career/efesto-lab/logo.png",
+  headerImage: "/career/efesto-lab/header.png",
+  skills: [
+    "Maya",
+    "Ftrack",
+    "FFMpeg",
+    "PySide",
+    "Qt",
+    "Angular",
+    "TypeScript",
+    "Neo4j",
+  ],
+};
+
+During my time at **Efesto Lab**, I engineered full-stack tools tailored to the
+real-world needs of small and medium-sized VFX studios. Mentored by pipeline
+expert Lorenzo Angeli, I accelerated my growth in backend and frontend systems,
+balancing software engineering best practices with production constraints.
+Here’s a breakdown of the core systems I worked on:
+
+# Ronin
+
+![Ronin](/career/efesto-lab/ronin.png)
+
+**Ronin** is Efesto’s flagship project—a collaborative asset management platform
+for remote teams. It blends production tracking, artist portfolios, and pipeline
+publishing into one seamless tool.
+
+## Key Features
+
+- **REST APIs** for both Python and TypeScript clients
+- **Web Frontend** to manage project timelines, status, and artist discovery
+- **Desktop Client** to publish versions, manage tickets, and create assets
+
+## My Role
+
+- **Backend**: Refactored core logic, optimized Cypher queries for Neo4j, built
+  RESTful endpoints, and wrote maintainable, Sphinx-documented code.
+- **API Design**: Architected Python SDK methods for publishing, versioning, and
+  file I/O, with full unit test coverage and clear developer documentation.
+- **Frontend**: Solely responsible for the web app built in Angular. Implemented
+  login/auth, Gantt chart views, asset galleries, and Material UI design.
+- **Desktop Client**: Refined UX/UI, performed bug fixes and refactoring, and
+  developed a drag-and-drop ticket assignment feature that improved usability.
+
+# Proxy Location
+
+![Proxy Location](/career/efesto-lab/proxy-location.png)
+
+A system that intelligently routes publishing output to different
+drives/services based on flexible filters.
+
+## My Role
+
+- Engineered the filtering logic to dynamically assign publishing destinations.
+- Prioritized rules to handle edge cases (e.g., component vs. task-level
+  routing).
+- Authored both the internal documentation and the promotional video.
+
+# Animation Manager
+
+![Animation Manager](/career/efesto-lab/animation-manager.png)
+
+Allows animators to export/import animation curves (ATOM files) as lightweight
+assets—decoupling animation from rig or scene files.
+
+## My Role
+
+- Built the tool from the ground up, integrating it with the `FTrack`` panel UI.
+- Handled curve-object name mapping and publishing logic.
+- Authored user-facing documentation and created the video walkthrough.
+
+# Efesto Submit
+
+<MacBookShowcase
+  className="max-sm:mt-4"
+  screenClassName="bg-black"
+  images={[
+    "/career/efesto-lab/submit-maya.png",
+    "/career/efesto-lab/submit-slate.png",
+    "/career/efesto-lab/submit-timecode.png",
+  ]}
+/>
+
+A streamlined submission tool that replaces manual playblast processes with a
+fast, LUT-aware, audio-enabled video generator powered by `ffmpeg`.
+
+## My Role
+
+- Debugged core ffmpeg logic and implemented audio sync and trimming features.
+- Refactored the user interface for both the Maya and standalone versions.
+- Built the `CLI` entry point to enable automated integration into pipelines.
+- Delivered documentation and an explainer video.
+
+# Image Publisher
+
+![Image Publisher](/career/efesto-lab/image-publisher.png)
+
+Publishes and versions packages of images—textures, renders, concepts—with
+built-in deduplication and reuse features to save disk space.
+
+## Key Features
+
+- **Regex Filtering** to batch-select images.
+- **Context-Aware Publishing** using saved task selections.
+- **Versioning Optimizations** to re-use unchanged assets.
+- **Maya Integration** for easy import/export.
+
+## My Role
+
+- Enhanced the UI with visual feedback and user controls like comment boxes.
+- Extended backend logic to handle advanced versioning and asset linking.
+- Documented and recorded the user guide video: docs.efestolab.uk
+
+# Docs Builder
+
+<Gallery
+  className="mb-4 min-h-[100px] max-md:mt-4"
+  gridClassName="grid-cols-2"
+  zoomClassName="grid-cols-1 h-[250vh] gap-5"
+  images={[
+    "/career/efesto-lab/docs-builder-list.png",
+    "/career/efesto-lab/docs-builder-detail.png",
+  ]}
+/>
+
+A custom-built documentation generator that consolidated `Sphinx` (Python
+documentation framework) outputs into a central tool dashboard.
+
+## Stack
+
+- **Sphinx** for API docs and tutorials
+- **Jinja** templating for dynamic HTML
+- **Material Design Lite** for frontend styling
+- **JS** for dynamic video modals
+
+## My Role
+
+- Automated builds and deployments of documentation for all tools.
+- Created searchable, filterable documentation pages with embedded video demos.
+
+# 4 Review
+
+<MacBookShowcase
+  className="max-sm:mt-4"
+  screenClassName="bg-black"
+  images={["/career/efesto-lab/4-review.png"]}
+/>
+
+> A design-driven tool for packaging and reviewing output videos with burn-ins,
+> branding, and contextual metadata.
+
+## My Role
+
+- Built Angular UI components and integrated with a Flask backend.
+- Handled secure local video rendering via ffmpeg, with variable injection only (no media uploaded).
+- Ensured visual fidelity using FabricJS for canvas previews.

@@ -14,9 +14,11 @@ import { cn } from "@/lib";
 const MacBookShowcase = ({
   images,
   className,
+  screenClassName,
 }: {
   images: string[];
   className?: string;
+  screenClassName?: string;
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -145,7 +147,7 @@ const MacBookShowcase = ({
 
             {/* Screen overlay positioned within the MacBook */}
             <div
-              className="absolute overflow-hidden"
+              className={cn("absolute overflow-hidden", screenClassName)}
               style={{
                 left: "11.97%", // 453 / 3784 * 100
                 top: "6.13%", // 134 / 2187 * 100
@@ -161,16 +163,18 @@ const MacBookShowcase = ({
             </div>
 
             {/* Screen indicators */}
-            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform space-x-2">
-              {images.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                    index === displayIndex ? "bg-white" : "bg-white/50"
-                  }`}
-                />
-              ))}
-            </div>
+            {images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform space-x-2">
+                {images.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                      index === displayIndex ? "bg-white" : "bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </motion.div>
@@ -187,24 +191,27 @@ const MacBookShowcase = ({
           </button>
 
           {/* Navigation arrows */}
-          <CursorSize sizeOnHover={0.4}>
-            <button
-              onClick={prevScreen}
-              className="absolute top-1/2 left-4 z-10 -translate-y-1/2 transform text-white transition-colors hover:text-gray-300"
-            >
-              <ChevronLeft size={48} />
-            </button>
-          </CursorSize>
+          {images.length > 1 && (
+            <>
+              <CursorSize sizeOnHover={0.4}>
+                <button
+                  onClick={prevScreen}
+                  className="absolute top-1/2 left-4 z-10 -translate-y-1/2 transform text-white transition-colors hover:text-gray-300"
+                >
+                  <ChevronLeft size={48} />
+                </button>
+              </CursorSize>
 
-          <CursorSize sizeOnHover={0.4}>
-            <button
-              onClick={nextScreen}
-              className="absolute top-1/2 right-4 z-10 -translate-y-1/2 transform text-white transition-colors hover:text-gray-300"
-            >
-              <ChevronRight size={48} />
-            </button>
-          </CursorSize>
-
+              <CursorSize sizeOnHover={0.4}>
+                <button
+                  onClick={nextScreen}
+                  className="absolute top-1/2 right-4 z-10 -translate-y-1/2 transform text-white transition-colors hover:text-gray-300"
+                >
+                  <ChevronRight size={48} />
+                </button>
+              </CursorSize>
+            </>
+          )}
           <div
             className="pointer-events-auto fixed top-0 left-0 h-full w-[50vw]"
             onClick={prevScreen}
@@ -225,23 +232,27 @@ const MacBookShowcase = ({
           </div>
 
           {/* Fullscreen indicators */}
-          <div className="absolute bottom-8 flex flex-wrap justify-center space-x-3">
-            {images.map((_, i) => (
-              <CursorSize key={i} sizeOnHover={0.4}>
-                <button
-                  onClick={() => setCurrentIndex(i)}
-                  className={`h-3 w-3 rounded-full transition-all duration-300 ${
-                    i === currentIndex ? "bg-white" : "bg-white/50"
-                  }`}
-                />
-              </CursorSize>
-            ))}
-          </div>
+          {images.length > 1 && (
+            <div className="absolute bottom-8 flex flex-wrap justify-center space-x-3">
+              {images.map((_, i) => (
+                <CursorSize key={i} sizeOnHover={0.4}>
+                  <button
+                    onClick={() => setCurrentIndex(i)}
+                    className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                      i === currentIndex ? "bg-white" : "bg-white/50"
+                    }`}
+                  />
+                </CursorSize>
+              ))}
+            </div>
+          )}
 
           {/* Screen counter */}
-          <div className="absolute top-4 left-4 text-sm text-white">
-            {currentIndex + 1} / {images.length}
-          </div>
+          {images.length > 1 && (
+            <div className="absolute top-4 left-4 text-sm text-white">
+              {currentIndex + 1} / {images.length}
+            </div>
+          )}
         </div>
       )}
     </>

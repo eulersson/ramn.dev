@@ -4,7 +4,7 @@
   "duration": "Apr 2015 - Mar 2017",
   "place": "Barcelona & London",
   "title": "Junior Software Developer",
-  "summary": "Official FTrack (3D asset management) integrators",
+  "summary": "Official FTrack (3D asset management) pipeline integrators",
   "points": [
     "◎ Developed an FFMpeg-based playblast generation tool where you could add slates, timecodes, comments, and create a reviewable assets.",
     "◎ Built a social asset management system. Graph database (Neo4j), Python on the backend. DCC (Maya) integration, desktop, and Angular web app.",
@@ -14,7 +14,7 @@
   ],
   "images": [
     "/career/efesto-lab/slate.png",
-    "/career/efesto-lab/anim-manager.png",
+    "/career/efesto-lab/animation-manager.png",
     "/career/efesto-lab/publisher-ui.png"
   ],
   "skills": [
