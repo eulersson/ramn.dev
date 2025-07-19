@@ -25,6 +25,7 @@ import type { ProjectInfo, ProjectMetadata } from "@/types";
 import { useTouchDevice } from "@/hooks/browser";
 
 export const ProjectCarousel = ({ projects }: { projects: ProjectInfo[] }) => {
+  const router = useRouter();
   const [selectedProject, setSelectedProject] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0); // 0 to 1
@@ -93,43 +94,50 @@ export const ProjectCarousel = ({ projects }: { projects: ProjectInfo[] }) => {
             setSelectedProject(i);
           }}
         />
-        <div className="relative grow overflow-hidden">
-          <AnimatePresence>
-            <motion.div
-              className="absolute inset-0 flex h-full flex-col"
-              key={project.slug}
-              initial={{ x: "100%" }}
-              animate={{ x: "0%" }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "tween", ease: "linear", duration: 0.4 }}
-            >
-              <div
-                className="bg-fore h-[20px] w-full flex-shrink-0"
-                style={filmStripeStyle}
-              ></div>
-              <div className="bg-fore relative min-h-0 flex-1 px-[60px] select-none">
-                <ProjectSummary
-                  className="h-full"
-                  slug={project.slug}
-                  project={project.metadata}
-                />
-              </div>
-              <div
-                className="bg-fore h-[20px] w-full flex-shrink-0"
-                style={filmStripeStyle}
-              ></div>
-              {/* Progress bar below lower film stripe */}
-              <div className="bg-back mt-[4px] h-[8px] w-full overflow-hidden">
-                <motion.div
-                  className="bg-fore h-full"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: progress }}
-                  style={{ originX: 0, scaleX: progress }}
-                  transition={{ type: "linear", duration: 0.1 }}
-                />
-              </div>
-            </motion.div>
-          </AnimatePresence>
+        <div
+          className="relative grow overflow-hidden"
+          onClick={() => {
+            router.push(`/work/${project.slug}`);
+          }}
+        >
+          <CursorSize sizeOnHover={4}>
+            <AnimatePresence>
+              <motion.div
+                className="absolute inset-0 flex h-full flex-col"
+                key={project.slug}
+                initial={{ x: "100%" }}
+                animate={{ x: "0%" }}
+                exit={{ x: "-100%" }}
+                transition={{ type: "tween", ease: "linear", duration: 0.4 }}
+              >
+                <div
+                  className="bg-fore h-[20px] w-full flex-shrink-0"
+                  style={filmStripeStyle}
+                ></div>
+                <div className="bg-fore relative min-h-0 flex-1 px-[60px] select-none">
+                  <ProjectSummary
+                    className="h-full"
+                    slug={project.slug}
+                    project={project.metadata}
+                  />
+                </div>
+                <div
+                  className="bg-fore h-[20px] w-full flex-shrink-0"
+                  style={filmStripeStyle}
+                ></div>
+                {/* Progress bar below lower film stripe */}
+                <div className="bg-back mt-[4px] h-[8px] w-full overflow-hidden">
+                  <motion.div
+                    className="bg-fore h-full"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: progress }}
+                    style={{ originX: 0, scaleX: progress }}
+                    transition={{ type: "linear", duration: 0.1 }}
+                  />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </CursorSize>
         </div>
       </div>
     </motion.div>
@@ -179,7 +187,6 @@ const ProjectSummary = forwardRef<
   { project, slug, className },
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const router = useRouter();
   const { title, name, description, heroImage, featuredImage } = project;
   const displayTitle = title || name || slug;
 
@@ -226,36 +233,27 @@ const ProjectSummary = forwardRef<
           </motion.p>
         )}
       </div>
-      <CursorSize sizeOnHover={0.4} className="w-full">
-        {/* <Link href={`/work/${slug}`} className="w-full"> */}
-        <div
-          onClick={() => {
-            router.push(`/work/${slug}`);
-          }}
+      <div
+        className={cn(
+          "bg-back h-full w-full",
+          "xs:rounded-2xl rounded-xl sm:rounded-4xl",
+        )}
+      >
+        <Image
+          onLoad={(event) => event.currentTarget.classList.remove("opacity-0")}
           className={cn(
-            "bg-back h-full w-full",
+            "h-full w-full object-cover opacity-0 transition-opacity duration-1000",
             "xs:rounded-2xl rounded-xl sm:rounded-4xl",
+            "pointer-events-none touch-none select-none",
           )}
-        >
-          <Image
-            onLoad={(event) =>
-              event.currentTarget.classList.remove("opacity-0")
-            }
-            className={cn(
-              "h-full w-full object-cover opacity-0 transition-opacity duration-1000",
-              "xs:rounded-2xl rounded-xl sm:rounded-4xl",
-              "pointer-events-none touch-none select-none",
-            )}
-            fill
-            src={featuredImage || heroImage}
-            alt={slug}
-            draggable={false}
-            unselectable="on"
-            onContextMenu={(e) => e.preventDefault()}
-          />
-        </div>
-        {/* </Link> */}
-      </CursorSize>
+          fill
+          src={featuredImage || heroImage}
+          alt={slug}
+          draggable={false}
+          unselectable="on"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      </div>
     </div>
   );
 });
