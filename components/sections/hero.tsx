@@ -99,9 +99,9 @@ const Hero = forwardRef<
               />
             </div>
 
-            {/* Upper small box stripe. */}
+            {/* Upper small box stripe */}
             <motion.div
-              className="h-g03n xs:h-g02n flex justify-center overflow-visible"
+              className="h-g03n xs:h-g02n flex justify-center overflow-visible select-none"
               initial="hidden"
               animate="visible"
               variants={{
@@ -135,9 +135,9 @@ const Hero = forwardRef<
               ))}
             </motion.div>
 
-            {/* Upper big box stripe (the one with the hero title). */}
+            {/* Upper big box stripe (the one with the hero title) */}
             <motion.div
-              className="h-g14n xs:h-g12n sm:h-g05n -mt-ggpn flex justify-center overflow-visible"
+              className="h-g14n xs:h-g12n sm:h-g05n -mt-ggpn flex justify-center overflow-visible select-none"
               initial="hidden"
               animate="visible"
               variants={{
@@ -256,7 +256,7 @@ const Hero = forwardRef<
               ))}
             </motion.div>
 
-            {/* The WebGL cloth animation. */}
+            {/* The WebGL cloth animation */}
             <div className="bg-back grow overflow-hidden">
               {toBool(process.env.NEXT_PUBLIC_DISABLE_GRAPHICS) ? (
                 ""
@@ -265,9 +265,9 @@ const Hero = forwardRef<
               )}
             </div>
 
-            {/* Lower small box stripe. */}
+            {/* Lower small box stripe */}
             <motion.div
-              className={`h-g10n xs:h-g06n md:h-g03n flex justify-center overflow-visible`}
+              className={`h-g10n xs:h-g06n md:h-g03n flex justify-center overflow-visible select-none`}
               initial="hidden"
               animate="visible"
               variants={{

@@ -172,7 +172,7 @@ export const BackgroundGrid = memo(function BackgroundGrid({
   }
 
   return (
-    <div ref={bgGridRef} className="flex w-full">
+    <div ref={bgGridRef} className="flex w-full select-none">
       {/* Left half */}
       <div
         className={`plate-grid plate-grid--left ml-px justify-end ${
