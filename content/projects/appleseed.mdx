@@ -1,30 +1,38 @@
 export const metadata = {
   title: "appleseed",
   description:
-    "New built-in expression primitives (SeExpr) for physically-based rendering engine. Mesh object generation from parametric surfaces",
+    "New built-in expression primitives (SeExpr) for physically-based rendering engine. Mesh object generation from parametric surfaces.",
   repo: "appleseedhq/appleseed",
   website: "<https://appleseedhq.net>",
   heroImage: "/work/appleseed/hero.png",
   headerImage: "/work/appleseed/header.png",
 };
 
-![Parametric Surfaces](/work/appleseed/parametric-surfaces.png)
+> **Appleseed** is a modern, open-source, physically-based rendering engine designed to produce **photorealistic images**, **animations**, and **visual effects**. It provides individuals and small studios with a **reliable**, **efficient** suite of tools built on **robust foundations** and **open technologies**.
+>
+> <p align="right">— from appleseedhq.net</p>
 
-![Logo](/work/appleseed/logo.png)
+<Gallery
+  className="mt-4 min-h-[300px] sm:min-h-[500px] md:mt-0"
+  gridClassName="grid-cols-2"
+  zoomClassName="grid-cols-1 sm:grid-cols-2 h-[200vh] sm:h-full"
+  images={[
+    "/work/appleseed/shape-horn-bull.png",
+    "/work/appleseed/shape-horn-snail.png",
+    "/work/appleseed/shape-torus.png",
+    "/work/appleseed/shape-eggs.png",
+  ]}
+/>
 
-![Contribution](/work/appleseed/contribution.png)
+**Built-in Primitives**: Implemented a set of **primitive shape classes** so
+there's no need to load external `.obj` files when testing, playing, or
+rendering with `appleseed`. These shapes are generated using **parametric
+equations** of various geometric objects, allowing for quick setup and
+experimentation.
 
-Appleseed is a modern, open source, physically-vased rendering engine designed
-to produce photorealistic images, animations and visual effects. It provides
-individuals and small studios with an efficient, reliable suite of tools built
-on robus foundations and open technologies (from appleseedhq.net).
-
-Built-in Primitives: implemented some primitive shape classes so that there is
-no need to load any .obj for testing, playing or rendering with appleseed. Used
-parametric equation of various geometric objects in order to generate those
-shapes.
-
-Expression Primitives: extended the built-in primitives to support custom user
-definitions. I used Disney’s SeExpr for this. User can plug the coordinates u
-and v of the plane into their expressions and also use Disney’s built-in
-functions to generate any shape they want.
+**Expression Primitives**: Extended the built-in primitive system to support
+**custom, user-defined shapes** via expression-based modeling. This was done
+using `Disney SeExpr`, a powerful expression language. Users can define shapes
+by writing expressions that use the **surface coordinates** `u` and `v`, along
+with `SeExpr`’s **built-in functions**, to generate **procedural geometry**
+dynamically.
