@@ -56,7 +56,6 @@ export function Modal({ children }: { children: React.ReactNode }) {
         id="modal-dialog"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 0.6 }}
         className={cn(
           "border-2-fore bg-back pointer-events-auto relative flex flex-col overflow-auto rounded-xl shadow-lg",
           modalSize,
