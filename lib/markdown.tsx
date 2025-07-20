@@ -57,7 +57,8 @@ export function parseMarkdown(
   }
 
   // Remove the main project title heading that matches the slug
-  md = md.replace(new RegExp(`^# ${title}$`, "mi"), "");
+  const escapedTitle = title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  md = md.replace(new RegExp(`^# ${escapedTitle}\\s*\\n?`, "mi"), "");
 
   // Reduce one level for all headings starting from ## and deeper
   md = md.replace(/^(#{1,6})\s/gm, (match, hashes) => `${hashes.slice(1)} `);

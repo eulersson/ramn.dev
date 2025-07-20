@@ -31,6 +31,8 @@ const appConfig: AppConfig = {
     "self-seeker",
     "hamnet",
     "samfaelni",
+    "photography",
+    "drawings",
   ],
   featuredProjects: [
     "dreamdrugs",

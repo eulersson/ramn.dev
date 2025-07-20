@@ -9,6 +9,7 @@ import { Gallery } from "@/components/prose/gallery";
 import { H1, H2, H3, H4, H5, H6 } from "@/components/prose/headings";
 import { ThemedImage } from "@/components/prose/themed-image";
 import { Video } from "@/components/video";
+import { VideoEmbed } from "@/components/video-embed";
 import { cn } from "@/lib";
 
 // This file allows you to provide custom React components
@@ -112,10 +113,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ul: ({ children }) => (
       <ul className="group my-2 ml-5 list-none">{children}</ul>
     ),
+    CursorSize,
     Gallery,
     MacBookShowcase,
     ThemedImage,
     Video,
+    VideoEmbed,
     ...components,
   };
 }
