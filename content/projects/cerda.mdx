@@ -1,22 +1,19 @@
 export const metadata = {
   title: "cerda",
-  description:
-    "Render farm collector. Transfers rendered files from a render farm to local storage or Dropbox and sends email notifications based on completed frame count.",
+  description: "Render farm frame collector with email notifications",
   repo: "eulersson/cerda",
   heroImage: "/work/cerda/hero.png",
   headerImage: "/work/cerda/header.png",
 };
 
-Cute Command Line Interface (CLI) tool. Renderfarm helper for collecting frames.
+> Render farm frame collector. Transfers rendered files from a render farm to
+> local storage or Dropbox and sends email notifications based on completed
+> frame count. So you can leave the renders running on the lab and from home
+> check the results.
 
 I created cerda mainly because our University’s renderfarm had a very limited
 storage and we had to manually transfer the frames from the server to our home
-drives, cerda does it using (SFTP). I made her so she uploads them to Dropbox by
-using their API. Cerda has also a feature that notifies you by email (SMTP) and
-attaches some image previews (OCIO) so you can see if everything is alright. I
-shared the project so friends could install it by ‘pip install cerda’
-
-Repository: github.com/docwhite/cerda
-Video/Demo: vimeo.com/docwhite/cerda
-Documentation (w/ Sphinx): docwhite.github.io/cerda
-PyPi: pypi.python.org/pypi/cerda
+drives, cerda does it using (`SFTP`). I wrote it so she uploads them to Dropbox by
+using their `API`. Cerda has also a feature that notifies you by email (SMTP) and
+attaches some image previews (`OCIO`) so you can see if everything is alright. I
+shared the project so friends could install it by `pip install cerda`.
