@@ -1,12 +1,39 @@
 export const metadata = {
   title: "Hamnet",
   description: "Real time visual effects for theatre using TouchDesigner.",
-  heroImage: "/work/hamnet.png",
+  heroImage: "/work/hamnet/shout.png",
+  skills: ["TouchDesigner", "RSTP", "GLSL"],
 };
 
-# TouchDesigner
+A theatre director asked me to create **live visual effects** for his performance.
+These effects involved manipulating the real-time image of the actor, captured
+by a camera positioned to face both the actor and the audience, and projected
+live during the show.
 
-The play required real time video manipulation to: time-warp characters into
-the past interacting with their present self, make audience disappear, and
-more. The camera was fed in through RTSP. It was delivered with a MIDI
-interface so the technician could easily execute the effects.
+I designed and ran the visuals using `TouchDesigner`, mapping the controls to a
+`MIDI` device so the technician could easily operate them during the performance.
+
+<Gallery
+  className="my-4 min-h-[200px]"
+  gridClassName="grid-cols-3"
+  zoomClassName="grid-cols-1 h-[250vh] gap-5"
+  images={[
+    "/work/hamnet/screen.png",
+    "/work/hamnet/setup.png",
+    "/work/hamnet/technician.png",
+  ]}
+/>
+
+Most of the scenes would require **masking** in and out certain objects, such as
+making the audience disappear whilst the actor still showed.
+
+The biggest challenge was enabling the actor to **interact with a projection of
+his own past self**, and making this past self blend and join his present-time
+counterpart. That involved **time-warming**. Just as time slowed down for a while
+and then synched up.
+
+I felt very valuable because <Hi>I could accomodate the low budget for matching
+complex constraints</Hi> such as the camera movement needing to be controlled
+while streaming to the TouchDesigner setup. For that I found that a surveillance
+home camera would offer such features (since they have an `RTSP` endpoint) and
+that saved the company so much money.
