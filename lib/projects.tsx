@@ -56,7 +56,7 @@ export async function getOneProjectData(slug: string): Promise<Project> {
     readmeMarkdown = await res.text();
     readmeMarkdown = parseMarkdown(
       readmeMarkdown,
-      slug,
+      metadata.title,
       owner,
       repo,
       usedBranch,

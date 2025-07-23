@@ -56,7 +56,7 @@ export function parseMarkdown(
     );
   }
 
-  // Remove the main project title heading that matches the slug
+  // Remove the main project title heading that matches th title
   const escapedTitle = title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   md = md.replace(new RegExp(`^# ${escapedTitle}\\s*\\n?`, "mi"), "");
 
