@@ -1,14 +1,14 @@
 Personal project and portfolio site. I wanted it to reflect both my background
 in **computer graphics** and my experience with **full-stack architecture**.
 
-# Intention
+---
 
 > A overview of the efforts behind the project to offer insight, inspiration,
-> or to be used as reference for others—_How nice would that be!_.
+> or to be used as reference for others—_How nice would that be!_
 
 ## Interactive Physics
 
-The WebGL hero section was built from scratch, featuring a custom, no-library
+The `WebGL` hero section was built from scratch, featuring a custom, no-library
 **vanilla physics solver** based on [this white
 paper](http://www.cs.cmu.edu/afs/cs/academic/class/15462-s13/www/lec_slides/Jakobsen.pdf),
 commonly used in video games.
@@ -62,7 +62,7 @@ Graphics for the VFX Industry</Hi>, which can be seen in places such as:
 
 ## Orchestrated Animations
 
-I used [motion.dev](https://motion.dev/) (formerly Framer Motion) to build
+I used [motion.dev](https://motion.dev/) (formerly `Framer Motion`) to build
 **precise and orchestrated animations**, aiming to make the UI feel fluid,
 responsive, and intentional.
 
