@@ -45,12 +45,12 @@ const urbanist = Urbanist({
 // Styles
 import "./globals.css";
 
-const name = isUpwork ? "R. Blanquer" : "Ramon Blanquer";
+const name = isUpwork ? "Ramon B." : "Ramon Blanquer";
 
 export const metadata = {
   title: name + " | Full Stack Software & Graphics Engineer",
   description:
-    "Solid Python, C++, TypeScript, and Go. AI hobbyist. Passionate about best developer experiences; streamlined dev environments are key for productivity and delivery. Advocating clean and maintainable code by implementing code formatting and quality analysis pipelines, and encouraging TDD through CI/CD workflows.",
+    "Solid Python, C++, TypeScript, and Go. Passionate about best developer experiences; streamlined dev environments are key for productivity and delivery. Advocating clean and maintainable code by implementing code formatting and quality analysis pipelines, and encouraging TDD through CI/CD workflows.",
 };
 
 export default function RootLayout({

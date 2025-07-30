@@ -20,7 +20,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
-import { cn, toBool } from "@/lib";
+import { cn, isUpwork, toBool } from "@/lib";
 
 const Hero = forwardRef<
   HTMLHeadingElement,
@@ -199,29 +199,31 @@ const Hero = forwardRef<
                       hidden: { transition: { delay: 10 } },
                     }}
                   >
-                    {"> Ramon|Blanquer".split("").map((char, index) =>
-                      char === "|" && smallerThanSm ? (
-                        <br key={index} />
-                      ) : (
-                        <motion.span
-                          key={index}
-                          variants={{
-                            visible: {
-                              opacity: 1,
-                              transition: {
-                                duration: 0.01,
+                    {`> Ramon|${isUpwork ? "B--q--" : "Blanquer"}`
+                      .split("")
+                      .map((char, index) =>
+                        char === "|" && smallerThanSm ? (
+                          <br key={index} />
+                        ) : (
+                          <motion.span
+                            key={index}
+                            variants={{
+                              visible: {
+                                opacity: 1,
+                                transition: {
+                                  duration: 0.01,
+                                },
                               },
-                            },
-                            hidden: {
-                              opacity: 0,
-                            },
-                          }}
-                          style={{ display: "inline-block" }}
-                        >
-                          {char === " " || char === "|" ? "\u00A0" : char}
-                        </motion.span>
-                      ),
-                    )}
+                              hidden: {
+                                opacity: 0,
+                              },
+                            }}
+                            style={{ display: "inline-block" }}
+                          >
+                            {char === " " || char === "|" ? "\u00A0" : char}
+                          </motion.span>
+                        ),
+                      )}
                   </motion.h1>
                   <motion.h2
                     className={cn(
@@ -237,7 +239,12 @@ const Hero = forwardRef<
                     <span className="bg-fore text-back mb-[3px] block sm:mr-[10px] sm:mb-0 sm:inline">
                       from code to deployment;
                     </span>
-                    <span className="bg-fore text-back sm:mr-[24px]">
+                    <span
+                      className={cn(
+                        "bg-fore text-back",
+                        isUpwork ? "sm:mr-[46px]" : "sm:mr-[24px]",
+                      )}
+                    >
                       from back<span className="sm:hidden">&nbsp;</span>
                     </span>
                     <span className="bg-fore text-back">to front;</span>

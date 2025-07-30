@@ -72,7 +72,9 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
                   "text-[42px] leading-[34px] lg:text-[44px] lg:leading-[30px]",
                 )}
               >
-                <span className="hidden md:inline">Ram⬢n Blanquer</span>
+                <span className="hidden md:inline">
+                  Ram⬢n {isUpwork ? "B--q--" : "Blanquer"}
+                </span>
                 <span className="hidden sm:max-md:inline">
                   Ra▲
                   <br />
