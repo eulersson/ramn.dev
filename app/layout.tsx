@@ -51,6 +51,13 @@ export const metadata = {
   title: name + " | Full Stack Software & Graphics Engineer",
   description:
     "Solid Python, C++, TypeScript, and Go. Passionate about best developer experiences; streamlined dev environments are key for productivity and delivery. Advocating clean and maintainable code by implementing code formatting and quality analysis pipelines, and encouraging TDD through CI/CD workflows.",
+  openGraph: {
+    images: [
+      {
+        url: isUpwork ? "/opengraph-image-upwork.png" : "/opengraph-image.png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
