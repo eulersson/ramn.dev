@@ -1,7 +1,7 @@
 // Project
 import { SingleProject } from "@/components/single-project";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { cn, toBool } from "@/lib";
+import { cn, isUpwork, toBool } from "@/lib";
 import { getAllProjectSlugs, getOneProjectData } from "@/lib/projects";
 
 type Props = {
@@ -10,11 +10,13 @@ type Props = {
 
 export const dynamicParams = false;
 
+const name = isUpwork ? "R. Blanquer" : "Ramon Blanquer";
+
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const project = await getOneProjectData(slug);
   return {
-    title: "Ramon Blanquer | Project > " + project.metadata.title,
+    title: name + " | " + project.metadata.title,
     description: project.metadata.description,
   };
 }

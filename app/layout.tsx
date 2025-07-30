@@ -10,7 +10,7 @@ import Head from "next/head";
 
 // Project
 import { Providers } from "@/app/providers";
-import { cn, toBool } from "@/lib";
+import { cn, isUpwork, toBool } from "@/lib";
 
 const firaMono = Fira_Mono({
   subsets: ["latin"],
@@ -45,8 +45,10 @@ const urbanist = Urbanist({
 // Styles
 import "./globals.css";
 
+const name = isUpwork ? "R. Blanquer" : "Ramon Blanquer";
+
 export const metadata = {
-  title: "Ramon Blanquer | Full Stack Software & Graphics Engineer",
+  title: name + " | Full Stack Software & Graphics Engineer",
   description:
     "Solid Python, C++, TypeScript, and Go. AI hobbyist. Passionate about best developer experiences; streamlined dev environments are key for productivity and delivery. Advocating clean and maintainable code by implementing code formatting and quality analysis pipelines, and encouraging TDD through CI/CD workflows.",
 };
