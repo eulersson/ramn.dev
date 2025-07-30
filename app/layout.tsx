@@ -54,7 +54,7 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: isUpwork ? "/opengraph-image-upwork.png" : "/opengraph-image.png",
+        url: isUpwork ? "/opengraph-upwork.png" : "/opengraph.png",
       },
     ],
   },
