@@ -13,7 +13,7 @@
     "◎ As frontend architect migrated frontend stack to Nx monorepos and designed an NgRx store for it that could be reused across various apps.",
     "◎ Developed a queue observation solution that cut down AWS costs by 30%",
     "◎ Bootstrapped a Janus WebRTC client for Unity in C#.",
-    "◎ Troubleshot WebRTC on complicated corporate restrictive networks.",
+    "◎ Created stable mass-scale real time interactions with Socket.IO and WebRTC.",
     "◎ Containerized apps so new colleagues have an environment ready to work.",
     "◎ Proactively wrote Helm Charts for our apps with secrets management.",
     "◎ Designed the SAML workflow for our clients’ Single Sign On (SSO).",
