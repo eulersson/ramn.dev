@@ -25,7 +25,7 @@ import { ThemedImage } from "@/components/themed-image";
 import settings from "@/config/settings";
 import { useSection } from "@/contexts/section";
 import { useBreakpoint } from "@/hooks/breakpoint";
-import { cn, toBool } from "@/lib";
+import { cn, toBool, isUpwork } from "@/lib";
 import { usePathname } from "next/navigation";
 import { forwardRef } from "react";
 
@@ -97,22 +97,30 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
               />
             </a>
           </CursorSize>
+          {!isUpwork && (
+            <CursorSize sizeOnHover={0.4}>
+              <a
+                href="https://www.linkedin.com/in/ramonblanquer"
+                target="_blank"
+              >
+                <ThemedImage
+                  src="/linkedin.svg"
+                  alt="LinkedIn Logo"
+                  width={24}
+                  height={24}
+                  className="hover:border-2-fore transition-transform hover:p-[2px] active:scale-75"
+                />
+              </a>
+            </CursorSize>
+          )}
           <CursorSize sizeOnHover={0.4}>
-            <a href="https://www.linkedin.com/in/ramonblanquer" target="_blank">
+            <a
+              href="https://www.upwork.com/freelancers/~01d7c26a2831791c09?mp_source=share"
+              target="_blank"
+            >
               <ThemedImage
-                src="/linkedin.svg"
-                alt="LinkedIn Logo"
-                width={24}
-                height={24}
-                className="hover:border-2-fore transition-transform hover:p-[2px] active:scale-75"
-              />
-            </a>
-          </CursorSize>
-          <CursorSize sizeOnHover={0.4}>
-            <a href="https://www.linkedin.com/in/ramonblanquer" target="_blank">
-              <ThemedImage
-                src="/x.svg"
-                alt="X Logo"
+                src="/upwork-logo.png"
+                alt="Upwork Logo"
                 width={24}
                 height={24}
                 className="hover:border-2-fore transition-transform hover:p-[2px] active:scale-75"
@@ -127,26 +135,38 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
         </div>
         {/* Resume */}
         <div className="bg-back flex items-center justify-center">
-          <Button link="/CV.pdf" className="px-4 max-sm:hidden">
+          <Button
+            link={`/CV${isUpwork ? "-upwork" : ""}.pdf"`}
+            className="px-4 max-sm:hidden"
+          >
             Resume <ArrowDownToLine className="inline" width={12} height={12} />
           </Button>
           <a
             className="font-mono text-[15px] underline hover:font-bold sm:hidden sm:text-[18px]"
-            href="/CV.pdf"
+            href={`/CV${isUpwork ? "-upwork" : ""}.pdf"`}
             target="_blank"
           >
             Resume<span className="xs:inline hidden"> (CV)</span>
           </a>
         </div>
-        {/* Email */}
+        {/* Email or Call to Action */}
         <div className="bg-back col-start-2 col-end-5 row-start-2 flex items-center justify-center sm:col-end-4">
           <CursorSize sizeOnHover={0.4}>
-            <a
-              className="font-mono text-[15px] underline hover:font-bold sm:text-[18px]"
-              href="mailto:blanquer.ramon@gmail.com"
-            >
-              blanquer.ramon@gmail.com
-            </a>
+            {isUpwork ? (
+              <a
+                className="font-mono text-[15px] underline hover:font-bold sm:text-[18px]"
+                href="https://www.upwork.com/freelancers/~01d7c26a2831791c09?mp_source=share"
+              >
+                Hire me on Upwork
+              </a>
+            ) : (
+              <a
+                className="font-mono text-[15px] underline hover:font-bold sm:text-[18px]"
+                href="mailto:blanquer.ramon@gmail.com"
+              >
+                blanquer.ramon@gmail.com
+              </a>
+            )}
           </CursorSize>
         </div>
         {/* Motto */}
