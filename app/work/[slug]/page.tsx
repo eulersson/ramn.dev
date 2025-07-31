@@ -10,7 +10,7 @@ type Props = {
 
 export const dynamicParams = false;
 
-const name = isUpwork ? "R. Blanquer" : "Ramon Blanquer";
+const name = isUpwork ? "Ramon B." : "Ramon Blanquer";
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
