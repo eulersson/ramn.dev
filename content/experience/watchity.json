@@ -1,6 +1,6 @@
 {
   "company": "Watchity",
-  "logo": "/watchity-logo.png",
+  "logo": "/watchity-logo.webp",
   "website": "https://www.watchity.com/",
   "duration": "Aug 2019 - Jan 2020",
   "place": "Barcelona",
@@ -20,10 +20,10 @@
     "◎ Integrated Twitter, Facebook, YouTube & LinkedIn’s live streaming APIs."
   ],
   "images": [
-    "/career/watchity/studio.png",
-    "/career/watchity/branding.png",
-    "/career/watchity/clipper.png",
-    "/career/watchity/engagement.png"
+    "/career/watchity/studio.webp",
+    "/career/watchity/branding.webp",
+    "/career/watchity/clipper.webp",
+    "/career/watchity/engagement.webp"
   ],
   "skills": [
     "Python",

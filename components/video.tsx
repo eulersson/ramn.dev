@@ -3,7 +3,7 @@
 import { cn } from "@/lib";
 import { useState } from "react";
 
-const mockupSrc = "/iphone-14-mockup.png";
+const mockupSrc = "/iphone-14-mockup.webp";
 
 export function Video({
   src,

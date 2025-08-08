@@ -121,7 +121,7 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
               target="_blank"
             >
               <ThemedImage
-                src="/upwork-logo.png"
+                src="/upwork-logo.webp"
                 alt="Upwork Logo"
                 width={24}
                 height={24}

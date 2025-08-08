@@ -10,7 +10,7 @@ export default function RootNotFound() {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <Link href="/">
-        <Logo className="max-xs:w-[50px]" logoUrl={"/question-mark.png"} />
+        <Logo className="max-xs:w-[50px]" logoUrl={"/question-mark.webp"} />
       </Link>
     </div>
   );

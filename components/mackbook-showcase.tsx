@@ -140,7 +140,7 @@ const MacBookShowcase = ({
           {/* MacBook Mockup Image */}
           <div className="relative">
             <img
-              src="/macbook-mockup.png"
+              src="/macbook-mockup.webp"
               alt="MacBook Mockup"
               className="h-auto w-full max-w-4xl"
             />

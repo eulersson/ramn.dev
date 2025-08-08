@@ -1,6 +1,6 @@
 {
   "company": "Moving Picture Company",
-  "logo": "/lion-king-logo.png",
+  "logo": "/lion-king-logo.webp",
   "website": "https://www.mpcvfx.com/",
   "duration": "Aug 2017 - Aug 2019",
   "place": "London",
@@ -14,9 +14,9 @@
     "◎ Wrote Katana C++ Nodes for Houdini geometry ingestion within Katana."
   ],
   "images": [
-    "/career/mpc/simba.jpg",
-    "/career/mpc/fire.jpg",
-    "/career/mpc/footkicks.jpg"
+    "/career/mpc/simba.webp",
+    "/career/mpc/fire.webp",
+    "/career/mpc/footkicks.webp"
   ],
   "skills": [
     "Houdini",

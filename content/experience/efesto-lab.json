@@ -1,6 +1,6 @@
 {
   "company": "Efesto Lab",
-  "logo": "/efesto-lab-logo.png",
+  "logo": "/efesto-lab-logo.webp",
   "duration": "Apr 2015 - Mar 2017",
   "place": "Barcelona & London",
   "title": "Junior Software Developer",
@@ -13,9 +13,9 @@
     "◎ Contributed to ftrack official tools."
   ],
   "images": [
-    "/career/efesto-lab/submit-slate.png",
-    "/career/efesto-lab/animation-manager.png",
-    "/career/efesto-lab/publisher-ui.png"
+    "/career/efesto-lab/submit-slate.webp",
+    "/career/efesto-lab/animation-manager.webp",
+    "/career/efesto-lab/publisher-ui.webp"
   ],
   "skills": [
     "Python",

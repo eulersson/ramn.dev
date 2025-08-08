@@ -60,9 +60,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h4: ({ children }) => <H4>{children}</H4>,
     h5: ({ children }) => <H5>{children}</H5>,
     h6: ({ children }) => <H6>{children}</H6>,
-    Hi: ({ children }) => (
-      <span className={`text-back bg-fore/75`}>{children}</span>
-    ),
+    Hi: ({ children }) => <span className={`bg-[#ff0]`}>{children}</span>,
     img: (props) => (
       <CursorSize sizeOnHover={8}>
         <img {...props} />

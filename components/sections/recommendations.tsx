@@ -99,7 +99,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             >
               <CursorSize sizeOnHover={8}>
                 <ThemedImage
-                  src="/pnavarro.png"
+                  src="/pnavarro.webp"
                   alt="Pau Navarro"
                   width={252}
                   height={252}
@@ -202,7 +202,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
             >
               <CursorSize sizeOnHover={8}>
                 <ThemedImage
-                  src="/langeli.png"
+                  src="/langeli.webp"
                   alt="Lorenzo Angeli"
                   width={252}
                   height={252}

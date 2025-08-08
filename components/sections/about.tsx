@@ -159,7 +159,7 @@ const About = forwardRef<HTMLHeadingElement>(function About({}, ref) {
                 "xs:scale-80 scale-115 sm:scale-170 md:scale-150 lg:scale-150",
                 "xs:-translate-y-16 -translate-y-20 sm:translate-y-0",
               )}
-              src="/displaced-me.png"
+              src="/displaced-me.webp"
               width={707}
               height={685}
               alt="Displaced Me"

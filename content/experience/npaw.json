@@ -1,6 +1,6 @@
 {
   "company": "NPAW",
-  "logo": "/npaw.png",
+  "logo": "/npaw.webp",
   "website": "https://npaw.com/",
   "duration": "Apr 2023 - May 2023",
   "place": "Barcelona",
@@ -16,9 +16,9 @@
     "◎ Restructured layouts."
   ],
   "images": [
-    "/career/npaw/video.jpg",
-    "/career/npaw/probes.jpg",
-    "/career/npaw/video.jpg"
+    "/career/npaw/video.webp",
+    "/career/npaw/probes.webp",
+    "/career/npaw/video.webp"
   ],
   "skills": ["React", "Material UI", "MUI X"],
   "lengthy": false
