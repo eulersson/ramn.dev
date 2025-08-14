@@ -138,7 +138,7 @@ const Header = forwardRef<HTMLHeadElement>(function Header(_, headerRef) {
         {/* Resume */}
         <div className="bg-back flex items-center justify-center">
           <Button
-            link={`/CV${isUpwork ? "-upwork" : ""}.pdf`}
+            link={`${isUpwork ? "/CV-upwork.pdf" : "/CV.pdf"}`}
             className="px-4 max-sm:hidden"
           >
             Resume <ArrowDownToLine className="inline" width={12} height={12} />
