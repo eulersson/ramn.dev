@@ -161,7 +161,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
                   "font-title uppercase",
                   "text-fore bg-back",
 
-                  "xs:right-[16px] -right-[1px] origin-top-right",
+                  "xs:right-[16px] -right-[1px] origin-top-right sm:top-[0.25px] sm:right-[12px]",
                 )}
                 initial={{ rotate: -90, y: 100 }}
                 whileInView={{ y: 0 }}
@@ -174,7 +174,7 @@ const Recommendations = forwardRef<HTMLHeadingElement>(function About({}, ref) {
                 className={cn(
                   "text-back bg-fore absolute top-0 font-sans text-[14px]",
 
-                  "-right-6 origin-top-right",
+                  "-right-[22px] origin-top-right",
                 )}
                 initial={{ rotate: -90, y: -100 }}
                 whileInView={{ y: 0 }}
